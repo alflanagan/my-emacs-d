@@ -56,7 +56,7 @@
 (require 'highlight-parentheses)
 
 (require 'server) ;; load early so we can start (??)
-(unless (server-running-p)
+(unless (default-value 'server-mode)
   (server-start))
 
 (when (equal system-type 'darwin)
