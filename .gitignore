@@ -3,9 +3,29 @@
 
 # Packaging
 .cask
+elpa/
 
 # Backup files
 *~
 
 # Undo-tree save-files
 *.~undo-tree
+
+# tracking files only useful locally
+
+places
+tabsession.el
+ede-projects.el
+history
+recentf
+projects
+
+# miscellaneous
+
+.#*
+.persistent-scratch
+persistent-scratch/
+transient/
+eshell/
+network-security.data
+semanticdb/
