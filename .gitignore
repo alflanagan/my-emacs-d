@@ -29,3 +29,8 @@ transient/
 eshell/
 network-security.data
 semanticdb/
+
+# projectile
+projectile-bookmarks.eld
+# tree-sitter grammars/compiled libraries
+tree-sitter/
