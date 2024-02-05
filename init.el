@@ -15,12 +15,15 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
+   '("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279"
+     "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
+     default))
  '(display-fill-column-indicator t)
  '(ede-project-directories nil)
  '(fill-column 120)
  '(global-whitespace-mode nil)
  '(global-whitespace-newline-mode nil)
+ '(indent-tabs-mode nil)
  '(initial-buffer-choice t)
  '(major-mode-remap-alist
    '((css-mode . css-ts-mode)
@@ -30,21 +33,102 @@
      (c++-mode . c++-ts-mode)
      (rust . rust-ts-mode)
      (cmake-mode . cmake-ts-mode)
-     (markdown-mode . markdown-ts-mode)))
+     (markdown-mode . markdown-ts-mode)
+     (javascript-mode . js-ts-mode)))
  '(package-selected-packages
-   '(mwim go go-autocomplete go-eldoc go-projectile go-scratch ibuffer-projectile projectile projectile-codesearch projectile-speedbar promise pyenv-mode rainbow-delimiters reddigg blacken ipretty ace-jump-mode docker-compose-mode flycheck flycheck-aspell flycheck-bashate flycheck-cask flycheck-clang-tidy flycheck-eglot flycheck-golangci-lint flycheck-jest flycheck-kotlin flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust flylisp focus-autosave-mode cmake-mode elisp-def elisp-lint elisp-refs paradox lispy ## async auto-header dockerfile-mode editorconfig eldoc fold-dwim forth-mode git-modes gnu-elpa-keyring-update go-mode guru-mode highlight-parentheses js2-mode kotlin-ts-mode markdown-mode markdown-toc org parrot rust-mode slime smart-mode-line smart-mode-line-powerline-theme tree-sitter tree-sitter-indent tree-sitter-langs ws-butler yaml-mode))
+   '(elisp-autofmt
+     eslint-disable-rule
+     eslint-fix
+     mwim
+     go
+     go-autocomplete
+     go-eldoc
+     go-projectile
+     go-scratch
+     ibuffer-projectile
+     projectile
+     projectile-codesearch
+     projectile-speedbar
+     promise
+     pyenv-mode
+     rainbow-delimiters
+     reddigg
+     blacken
+     ipretty
+     ace-jump-mode
+     docker-compose-mode
+     flycheck
+     flycheck-aspell
+     flycheck-bashate
+     flycheck-cask
+     flycheck-clang-tidy
+     flycheck-eglot
+     flycheck-golangci-lint
+     flycheck-jest
+     flycheck-kotlin
+     flycheck-mypy
+     flycheck-package
+     flycheck-pycheckers
+     flycheck-relint
+     flycheck-rust
+     flylisp
+     focus-autosave-mode
+     cmake-mode
+     elisp-def
+     elisp-lint
+     elisp-refs
+     paradox
+     lispy
+     ##
+     async
+     auto-header
+     dockerfile-mode
+     editorconfig
+     eldoc
+     fold-dwim
+     forth-mode
+     git-modes
+     gnu-elpa-keyring-update
+     go-mode
+     guru-mode
+     highlight-parentheses
+     js2-mode
+     kotlin-ts-mode
+     markdown-mode
+     markdown-toc
+     org
+     parrot
+     rust-mode
+     slime
+     smart-mode-line
+     smart-mode-line-powerline-theme
+     tree-sitter
+     tree-sitter-indent
+     tree-sitter-langs
+     ws-butler
+     yaml-mode))
  '(paradox-execute-asynchronously nil)
  '(paradox-github-token t)
  '(projectile-project-search-path
-   '("~/.emacs.d"
-     ("~/Devel/personal" . 1)
-     ("~/Devel/mobelux" . 1)
-     "~/Devel/Hackrva" "~/Devel/thirdparty"))
+   '("~/.emacs.d" ("~/Devel/personal" . 1) ("~/Devel/mobelux" . 1) "~/Devel/Hackrva" "~/Devel/thirdparty"))
  '(whitespace-action '(auto-cleanup))
  '(whitespace-global-modes nil)
  '(whitespace-line-column nil)
  '(whitespace-style
-   '(face trailing tabs spaces lines newline missing-newline-at-eof empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark)))
+   '(face
+     trailing
+     tabs
+     spaces
+     lines
+     newline
+     missing-newline-at-eof
+     empty
+     indentation
+     space-after-tab
+     space-before-tab
+     space-mark
+     tab-mark
+     newline-mark)))
 
 ;; tree-sitter: to install a language use treesit-install-language-grammar. If the language is part of the tree-sitter
 ;; project it will fill in the URL for you, just accept the defaults.
@@ -54,7 +138,25 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "White" :foreground "Black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 120 :width normal :foundry "nil" :family "\12Fira Code Retina")))))
+ '(default
+   ((t
+     (:inherit
+      nil
+      :extend nil
+      :stipple nil
+      :background "White"
+      :foreground "Black"
+      :inverse-video nil
+      :box nil
+      :strike-through nil
+      :overline nil
+      :underline nil
+      :slant normal
+      :weight regular
+      :height 120
+      :width normal
+      :foundry "nil"
+      :family "\12Fira Code Retina")))))
 
 (let ((lispdir (expand-file-name "~/.emacs.d/lisp")))
   (unless (member lispdir load-path)
@@ -62,18 +164,19 @@
 
 (use-package cmake-mode)
 
-(use-package package
-  :init (progn
-          (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
-  :config (progn
-            (package-initialize)
-            (paradox-enable)))
+(use-package
+ package
+ :init
+ (progn
+   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+ :config
+ (progn
+   (package-initialize)
+   (paradox-enable)))
 
-(use-package ace-jump-mode
-  :config (ace-jump-mode-enable-mark-sync)
-  )
+(use-package ace-jump-mode :config (ace-jump-mode-enable-mark-sync))
 (keymap-global-set "C-c SPC" 'ace-jump-mode)
-(keymap-global-set  "C-x SPC" 'ace-jump-mode-pop-mark)
+(keymap-global-set "C-x SPC" 'ace-jump-mode-pop-mark)
 
 (use-package parrot)
 (sml/setup)
@@ -109,8 +212,10 @@
 ;; C-M-k brings up calender in MacOS topbar
 ;; C-M-q locks the screen
 (keymap-global-set "C-%" 'query-replace)
-(keymap-global-set "C-c C-s" 'kill-sexp)
-(keymap-global-set "C-c C-q" 'indent-pp-sexp)
+;; (keymap-global-set "C-c C-s" 'kill-sexp)
+;; (keymap-global-set "C-c C-q" 'indent-pp-sexp)
+
+(bind-keys ("C-c C-q" . indent-pp-sexp) ("C-c C-s" . kill-sexp) ("C-%" . query-replace))
 
 ;; steve yegge's replacements for using Meta
 (keymap-global-set "C-x C-m" 'execute-extended-command)
@@ -132,16 +237,13 @@
 (use-package flycheck-aspell)
 (use-package flycheck)
 
-(use-package projectile
-  :ensure t
-  :pin melpa
-  :init
-    (projectile-mode +1)
-  :bind (:map projectile-mode-map
-              ("s-p" . projectile-command-map)))
+(use-package
+ projectile
+ :ensure t
+ :pin melpa
+ :init (projectile-mode +1)
+ :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
 
-(use-package mwim
-  :init (progn
-          (keymap-global-set "C-a" 'mwim-beginning)
-          (keymap-global-set "C-e" 'mwim-end)))
-;; should we use :bind above? if so, what's the exact syntax?
+(use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
+(use-package elisp-autofmt :ensure t)
+(use-package fold-dwim :ensure t)
