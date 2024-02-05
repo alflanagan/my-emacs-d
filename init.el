@@ -1,3 +1,4 @@
+
 ;;; -*- lexical-binding: t; indent-tabs-mode: nil; coding:utf-8 -*-
 ;;; init.el -- Non-site-specific initialization
 ;; Copyright © 2024, A. Lloyd Flanagan
@@ -31,7 +32,7 @@
      (cmake-mode . cmake-ts-mode)
      (markdown-mode . markdown-ts-mode)))
  '(package-selected-packages
-   '(mwim djangonaut go go-autocomplete go-eldoc go-projectile go-scratch ibuffer-projectile projectile projectile-codesearch projectile-speedbar promise pyenv-mode rainbow-delimiters reddigg blacken ipretty ace-jump-mode docker-compose-mode flycheck flycheck-aspell flycheck-bashate flycheck-cask flycheck-clang-tidy flycheck-eglot flycheck-golangci-lint flycheck-jest flycheck-kotlin flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust flylisp focus-autosave-mode cmake-mode elisp-def elisp-lint elisp-refs paradox lispy ## async auto-header dockerfile-mode editorconfig eldoc fold-dwim forth-mode git-modes gnu-elpa-keyring-update go-mode guru-mode highlight-parentheses js2-mode kotlin-ts-mode markdown-mode markdown-toc org parrot rust-mode slime smart-mode-line smart-mode-line-powerline-theme tree-sitter tree-sitter-indent tree-sitter-langs ws-butler yaml-mode))
+   '(mwim go go-autocomplete go-eldoc go-projectile go-scratch ibuffer-projectile projectile projectile-codesearch projectile-speedbar promise pyenv-mode rainbow-delimiters reddigg blacken ipretty ace-jump-mode docker-compose-mode flycheck flycheck-aspell flycheck-bashate flycheck-cask flycheck-clang-tidy flycheck-eglot flycheck-golangci-lint flycheck-jest flycheck-kotlin flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust flylisp focus-autosave-mode cmake-mode elisp-def elisp-lint elisp-refs paradox lispy ## async auto-header dockerfile-mode editorconfig eldoc fold-dwim forth-mode git-modes gnu-elpa-keyring-update go-mode guru-mode highlight-parentheses js2-mode kotlin-ts-mode markdown-mode markdown-toc org parrot rust-mode slime smart-mode-line smart-mode-line-powerline-theme tree-sitter tree-sitter-indent tree-sitter-langs ws-butler yaml-mode))
  '(paradox-execute-asynchronously nil)
  '(paradox-github-token t)
  '(projectile-project-search-path
