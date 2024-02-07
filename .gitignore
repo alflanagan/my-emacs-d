@@ -34,3 +34,6 @@ semanticdb/
 projectile-bookmarks.eld
 # tree-sitter grammars/compiled libraries
 tree-sitter/
+devdocs/
+elisp-autofmt-cache/
+projectile.cache
