@@ -13,17 +13,15 @@
 ;; project it will fill in the URL for you, just accept the defaults.
 
 
-;; TODO: iterate over packages and add all subdirs
-(push (expand-file-name "~/.emacs.d/packages/emacs-w3m") load-path)
-(push (expand-file-name "~/.emacs.d/packages/better-defaults") load-path)
 
 (let ((lispdir (expand-file-name "~/.emacs.d/lisp")))
   (unless (member lispdir load-path)
     (push lispdir load-path)))
 
-;; we only want to use a local version, not a package
-;; maybe better to use package version and undo the defaults I don't like?
-(use-package better-defaults :ensure nil)
+
+;; the one "better" default I don't like
+(setq visible-bell nil)
+
 ;; better-defaults set custom-file to custom.el
 (load custom-file)
 
@@ -31,18 +29,18 @@
 ;; customization took care of the list of packages, so (use-package) is only needed
 ;; when you want to set :init, :config, :bind, etc.
 (use-package
-  package
+ package
  :config
  (progn
    (package-initialize)
    (paradox-enable)))
 
-(use-package
- ace-jump-mode
-  :bind (("C-c SPC" . ace-jump-mode) ("C-x SPC" . ace-jump-mode-pop-mark)))
+(use-package ace-jump-mode :bind (("C-c SPC" . ace-jump-mode) ("C-x SPC" . ace-jump-mode-pop-mark)))
 
-(use-package smart-mode-line
-  :config (progn
+(use-package
+ smart-mode-line
+ :config
+ (progn
    (sml/setup)
    (sml/apply-theme 'powerline)))
 
@@ -76,19 +74,13 @@
 ;; C-M-k brings up calender in MacOS topbar
 ;; C-M-q locks the screen
 (keymap-global-set "C-%" 'query-replace)
-;; (keymap-global-set "C-c C-s" 'kill-sexp)
-;; (keymap-global-set "C-c C-q" 'indent-pp-sexp)
 
 (bind-keys ("C-c C-q" . indent-pp-sexp) ("C-c C-s" . kill-sexp) ("C-%" . query-replace))
 
 ;; steve yegge's replacements for using Meta
-(keymap-global-set "C-x C-m" 'execute-extended-command)
-(keymap-global-set "C-c C-m" 'execute-extended-command)
+(bind-keys ("C-x C-m" . execute-extended-command) ("C-c C-m" . execute-extended-command))
 
-(use-package
- projectile
- :config (projectile-mode +1)
- :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+(use-package projectile :config (projectile-mode +1) :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
 
 (use-package
  gameoflife
@@ -122,7 +114,7 @@
  :config
  (progn
    (add-hook 'tree-sitter-after-first-parse-hook #'typescript-set-up-tree-sitter)))
-p
+
 (use-package form-feed-st :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
 
 (add-hook
