@@ -132,21 +132,23 @@
 ;; to work with emacsclient, commands that affect the frame need to be in server-after-make-frame-hook
 (defun setup-frame-for-mac ()
   "sets up graphical elements for new frames specific to macs"
-     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-     (add-to-list 'default-frame-alist '(ns-appearance . dark))
-     (when (member "Fira Code" (font-family-list))
-       (add-to-list 'initial-frame-alist '(font . "Fira Code-16"))
-       (add-to-list 'default-frame-alist '(font . "Fira Code-16"))))
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  (when (member "Fira Code" (font-family-list))
+    (add-to-list 'initial-frame-alist '(font . "Fira Code-16"))
+    (add-to-list 'default-frame-alist '(font . "Fira Code-16"))))
 
 (when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
-  (add-hook
-    'server-after-make-frame-hook #'setup-frame-for-mac)
+  (add-hook 'server-after-make-frame-hook #'setup-frame-for-mac)
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
-  (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
+  (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
+  ;; really this is specific to my macbook only
+  (setq elisp-autofmt-python-bin "/Users/adrianflanagan/.pyenv/versions/3.12.1/bin/python"))
 
-(defun set-def-frame-size () (set-frame-size nil 180 60))
+(defun set-def-frame-size ()
+  (set-frame-size nil 180 60))
 (add-hook 'server-after-make-frame-hook #'set-def-frame-size)
 ;; Mac keybindings that conflict with Emacs defaults
 ;; M-% launches screen capture
