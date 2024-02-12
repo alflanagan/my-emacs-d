@@ -8,6 +8,11 @@
      "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(display-fill-column-indicator t)
  '(ede-project-directories nil)
+ '(exec-path
+   '("/usr/bin" "/bin" "/usr/sbin" "/sbin" "~/.nvm/versions/node/v21.6.1/bin"
+     "/opt/homebrew/Cellar/pyenv-virtualenv/1.2.1/shims" "~/.pyenv/shims" "~/bin" "/opt/homebrew/bin"
+     "/opt/homebrew/sbin" "/usr/local/bin" "/usr/local/go/bin" "~/.cargo/bin" "~/.local/bin" "~/go/bin"
+     "/opt/homebrew/Cellar/emacs-plus@30/30.0.50/libexec/emacs/30.0.50/aarch64-apple-darwin23.2.0"))
  '(fill-column 120)
  '(global-prettify-symbols-mode t)
  '(global-tree-sitter-mode t)
