@@ -37,64 +37,70 @@
    ;; better-defaults set custom-file to custom.el
    (load custom-file)))
 
-;; (use-package async :ensure t)
-;; (use-package auto-header :ensure t)
-;; (use-package blacken :ensure t)
-;; (use-package cmake-mode :ensure t)
-;; (use-package counsel :ensure t)
-;; (use-package counsel-projectile :ensure t)
-;; (use-package devdocs :ensure t)
-;; (use-package docker-compose-mode :ensure t)
-;; (use-package dockerfile-mode :ensure t)
-;; (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
-;; (use-package editorconfig :ensure t :config (editorconfig-mode 1))
-;; (use-package editorconfig-generate :ensure t)
-;; (use-package eldoc :ensure t)
-;; (use-package elisp-autofmt :ensure t :bind (:map emacs-lisp-mode-map (("C-c f" . elisp-autofmt-buffer))))
-;; (use-package elisp-def :ensure t)
-;; (use-package elisp-lint :ensure t)
-;; (use-package elisp-refs :ensure t)
-;; (use-package eslint-disable-rule :ensure t)
-;; (use-package eslint-fix :ensure t)
-;; (use-package flycheck :ensure t)
-;; (use-package flycheck-aspell :ensure t)
-;; (use-package flycheck-bashate :ensure t)
-;; (use-package flycheck-cask :ensure t)
-;; (use-package flycheck-clang-tidy :ensure t)
-;; (use-package flycheck-eglot :ensure t)
-;; (use-package flycheck-golangci-lint :ensure t)
-;; (use-package flycheck-jest :ensure t)
-;; (use-package flycheck-kotlin :ensure t)
-;; (use-package flycheck-mypy :ensure t)
-;; (use-package flycheck-package :ensure t)
-;; (use-package flycheck-pycheckers :ensure t)
-;; (use-package flycheck-relint :ensure t)
-;; (use-package flycheck-rust :ensure t)
-;; (use-package flylisp :ensure t)
-;; (use-package focus-autosave-mode :ensure t)
-;; (use-package fold-dwim :ensure t)
-;; (use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
-;; (use-package forth-mode :ensure t)
-;; (use-package git-modes :ensure t)
-;; (use-package gnu-elpa-keyring-update :ensure t)
+(use-package angular-mode :ensure t)
+(use-package async :ensure t)
+(use-package auto-header :ensure t)
+(use-package blacken :ensure t)
+(use-package cmake-mode :ensure t)
+(use-package counsel :ensure t)
+(use-package counsel-projectile :ensure t)
+(use-package devdocs :ensure t)
+(use-package docker-compose-mode :ensure t)
+(use-package dockerfile-mode :ensure t)
+(use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+(use-package editorconfig :ensure t :config (editorconfig-mode 1))
+(use-package eldoc :ensure t)
+(use-package elisp-autofmt :ensure t :bind (:map emacs-lisp-mode-map (("C-c f" . elisp-autofmt-buffer))))
+(use-package elisp-def :ensure t)
+(use-package elisp-lint :ensure t)
+(use-package elisp-refs :ensure t)
+(use-package eslint-disable-rule :ensure t)
+(use-package eslint-fix :ensure t)
+(use-package flycheck :ensure t)
+(use-package flycheck-aspell :ensure t)
+(use-package flycheck-bashate :ensure t)
+(use-package flycheck-cask :ensure t)
+(use-package flycheck-clang-tidy :ensure t)
+(use-package flycheck-eglot :ensure t)
+(use-package flycheck-golangci-lint :ensure t)
+(use-package flycheck-jest :ensure t)
+(use-package flycheck-kotlin :ensure t)
+(use-package flycheck-mypy :ensure t)
+(use-package flycheck-package :ensure t)
+(use-package flycheck-pycheckers :ensure t)
+(use-package flycheck-relint :ensure t)
+(use-package flycheck-rust :ensure t)
+(use-package flylisp :ensure t)
+(use-package focus-autosave-mode :ensure t)
+(use-package fold-dwim :ensure t)
+(use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
+(use-package forth-mode :ensure t)
+(use-package git-modes :ensure t)
+(use-package gnu-elpa-keyring-update :ensure t)
+
+;; this is a) the wrong kind of go (the game, not the language)
+;; and b) crashes ivy in spectacular fashion. DO NOT WANT.
 ;; (use-package go :ensure t)
-;; (use-package go-autocomplete :ensure t)
-;; (use-package go-eldoc :ensure t)
-;; (use-package go-mode :ensure t)
-;; (use-package go-projectile :ensure t)
-;; (use-package go-scratch :ensure t)
-;; (use-package guru-mode :ensure t)
-;; (use-package highlight-parentheses :ensure t)
+
+(use-package go-autocomplete :ensure t)
+(use-package go-eldoc :ensure t)
+(use-package go-mode :ensure t)
+(use-package go-projectile :ensure t)
+(use-package go-scratch :ensure t)
+(use-package guru-mode :ensure t)
+(use-package highlight-parentheses :ensure t)
 
 (use-package ibuffer :ensure t :bind (("C-x C-b" . ibuffer-list-buffers)))
 (use-package ivy :ensure t :config (ivy-mode 1))
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
-
 (use-package
  projectile
  :ensure t
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+
+(use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
+(use-package django-snippets :ensure t)
 
 (use-package
  smart-mode-line
@@ -112,29 +118,36 @@
    (load-theme 'immaterial-dark t)
    (load-theme 'immaterial-light t)))
 
+(use-package yasnippet :ensure t :pin melpa)
 
 ;;; Everything Else
 
-(unless (default-value 'server-mode)
-  (server-start t))
+;; don't need (start-server) here because it's run by system service
 
 ;; because I often hit this key by accident and use "C-x C-c" instead anyway
 (keymap-global-unset "s-q" nil)
 (keymap-global-set "C-x C-p" #'(project-list-buffers t))
 
+
+;; to work with emacsclient, commands that affect the frame need to be in server-after-make-frame-hook
+(defun setup-frame-for-mac ()
+  "sets up graphical elements for new frames specific to macs"
+     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+     (add-to-list 'default-frame-alist '(ns-appearance . dark))
+     (when (member "Fira Code" (font-family-list))
+       (add-to-list 'initial-frame-alist '(font . "Fira Code-16"))
+       (add-to-list 'default-frame-alist '(font . "Fira Code-16"))))
+
 (when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
-  (when (member "Fira Code" (font-family-list))
-    (add-to-list 'initial-frame-alist '(font . "Fira Code-14"))
-    (add-to-list 'default-frame-alist '(font . "Fira Code-14")))
+  (add-hook
+    'server-after-make-frame-hook #'setup-frame-for-mac)
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
   (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
 
-(set-frame-size nil 130 45)
-
+(defun set-def-frame-size () (set-frame-size nil 180 60))
+(add-hook 'server-after-make-frame-hook #'set-def-frame-size)
 ;; Mac keybindings that conflict with Emacs defaults
 ;; M-% launches screen capture
 ;; C-M-k brings up calender in MacOS topbar
@@ -171,4 +184,25 @@
                 (if buffer-file-name
                     (shell-quote-argument buffer-file-name))))))
 
+
+;; TypeScript setup
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
+(add-hook 'tsx-ts-mode-hook #'setup-tide-mode)
+
 ;;; init.el ends here :-)
