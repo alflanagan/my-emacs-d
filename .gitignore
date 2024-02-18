@@ -21,6 +21,9 @@ recentf
 projects
 
 # miscellaneous
+# TODO: move all custom eLisp into subdirectory, make init.el just a loader for those files,
+# and base the repository in subdirectory? that would keep us from having to ignore all
+# the files and directories emacs puts in .emacs.d/
 
 .#*
 .persistent-scratch
@@ -39,3 +42,5 @@ elisp-autofmt-cache/
 projectile.cache
 eln-cache/
 nov-places
+xkcd/
+notes

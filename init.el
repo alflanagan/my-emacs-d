@@ -21,8 +21,14 @@
 ;;; Packages
 ;;; Eventual goal is to remove from customization entirely, and use use-package for all.
 
+;; this is set in custom.el -- but we haven't loaded it yet
+(setq package-archives
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+        ("melpa" . "https://melpa.org/packages/")))
+
+
 (package-initialize)
-(paradox-enable)
 
 ;; KEEP THIS SORTED!
 ; except for this, it kind of needs to be first
@@ -37,6 +43,10 @@
    ;; better-defaults set custom-file to custom.el
    (load custom-file)))
 
+(let ((site-lisp-file (expand-file-name "~/.emacs.d/lisp/site.el")))
+  (if (f-file-p site-lisp-file)
+      (load site-lisp-file)))
+
 (use-package angular-mode :ensure t)
 (use-package async :ensure t)
 (use-package auto-header :ensure t)
@@ -45,6 +55,8 @@
 (use-package counsel :ensure t)
 (use-package counsel-projectile :ensure t)
 (use-package devdocs :ensure t)
+(use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
+(use-package django-snippets :ensure t)
 (use-package docker-compose-mode :ensure t)
 (use-package dockerfile-mode :ensure t)
 (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
@@ -92,15 +104,14 @@
 
 (use-package ibuffer :ensure t :bind (("C-x C-b" . ibuffer-list-buffers)))
 (use-package ivy :ensure t :config (ivy-mode 1))
+;; bind can happen even if the package install fails??
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
+(use-package paradox :ensure t :config (paradox-enable))
 (use-package
  projectile
  :ensure t
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
-
-(use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
-(use-package django-snippets :ensure t)
 
 (use-package
  smart-mode-line
