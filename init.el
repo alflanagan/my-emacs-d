@@ -16,10 +16,12 @@
   (unless (member lispdir load-path)
     (push lispdir load-path)))
 
-;;; NOTE: customizations are in custom.el -- better-defaults changes the destination 
+;;; NOTE: customizations are in custom.el -- better-defaults changes the destination
 
 ;;; Packages
 ;;; Eventual goal is to remove from customization entirely, and use use-package for all.
+(setq my-paradox-github-token "") ;; so it has a value. should get real value from secrets.el.
+(load "./secrets")
 
 ;; this is set in custom.el -- but we haven't loaded it yet
 (setq package-archives
@@ -29,6 +31,21 @@
 
 
 (package-initialize)
+
+(use-package
+ paradox
+ :ensure t
+ :config
+ (progn
+   (paradox-enable)
+   (setq
+    paradox-column-width-package 28
+    paradox-column-width-version 14
+    paradox-execute-asynchronously t
+    paradox-github-token my-paradox-github-token
+    paradox-display-download-count t
+    paradox-lines-per-entry 2)))
+
 
 ;; KEEP THIS SORTED!
 ; except for this, it kind of needs to be first
@@ -43,11 +60,9 @@
    ;; better-defaults set custom-file to custom.el
    (load custom-file)))
 
-(let ((site-lisp-file (expand-file-name "~/.emacs.d/lisp/site.el")))
-  (if (f-file-p site-lisp-file)
-      (load site-lisp-file)))
-
-(use-package angular-mode :ensure t)
+;; so very out of date...
+;; (use-package angular-mode :ensure t)
+;; (use-package ng2-mode :ensure t)
 (use-package async :ensure t)
 (use-package auto-header :ensure t)
 (use-package blacken :ensure t)
@@ -112,6 +127,10 @@
  :ensure t
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+
+;; currently, djangonaut commands are failing
+;; (use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
+(use-package django-snippets :ensure t)
 
 (use-package
  smart-mode-line
@@ -201,6 +220,9 @@
 ;; TypeScript setup
 
 (defun setup-tide-mode ()
+  "Set up `tide-mode', an IDE for typescript.
+
+Should only be run in a directory or project with a tsconfig file."
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
@@ -209,13 +231,32 @@
   (tide-hl-identifier-mode +1)
   (company-mode +1))
 
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
+(use-package
+ tide
+ :ensure t
+ :config
+ (progn
+   ;; aligns annotation to the right hand side
+   (setq company-tooltip-align-annotations t)
 
-;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
+   ;; formats the buffer before saving, only if tide-mode is active
+   (add-hook 'before-save-hook 'tide-format-before-save)
 
-(add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
-(add-hook 'tsx-ts-mode-hook #'setup-tide-mode)
+   (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
+   (add-hook 'tsx-ts-mode-hook #'setup-tide-mode)
+   (add-hook 'angular-html-mode-hook #'setup-tide-mode)))
+
 
+;; Org-mode setup
+
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
+
+
+(let ((site-lisp-file (expand-file-name "~/.emacs.d/lisp/site.el")))
+  (if (f-file-p site-lisp-file)
+      (load site-lisp-file)))
+
+
 ;;; init.el ends here :-)
