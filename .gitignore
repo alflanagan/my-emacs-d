@@ -35,12 +35,21 @@ semanticdb/
 
 # projectile
 projectile-bookmarks.eld
+
 # tree-sitter grammars/compiled libraries
 tree-sitter/
+
+# downloaded doc files
 devdocs/
+
+# caches
 elisp-autofmt-cache/
 projectile.cache
 eln-cache/
+
 nov-places
 xkcd/
 notes
+
+# secrets should NEVER be checked in
+secrets.el
