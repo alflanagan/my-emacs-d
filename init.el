@@ -152,12 +152,13 @@
 
 ;;; Everything Else
 
-;; don't need (start-server) here because it's run by system service
+;; this file is read by the emacs system service, so we need to start the server
+(if (not (boundp 'server-process))
+(server-start))
 
 ;; because I often hit this key by accident and use "C-x C-c" instead anyway
 (keymap-global-unset "s-q" nil)
 (keymap-global-set "C-x C-p" #'(project-list-buffers t))
-
 
 ;; to work with emacsclient, commands that affect the frame need to be in server-after-make-frame-hook
 (defun setup-frame-for-mac ()
@@ -252,11 +253,5 @@ Should only be run in a directory or project with a tsconfig file."
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
-
-
-(let ((site-lisp-file (expand-file-name "~/.emacs.d/lisp/site.el")))
-  (if (f-file-p site-lisp-file)
-      (load site-lisp-file)))
-
 
 ;;; init.el ends here :-)
