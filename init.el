@@ -45,9 +45,23 @@
     paradox-display-download-count t
     paradox-lines-per-entry 2)))
 
+
+;; TODO: set up and maintain blacklist of packages that look useful, but don't work for me
+;; (use-package go :ensure t) ;; the game, not the language -- causes crash in ivy?
+;; so very out of date...
+;; (use-package angular-mode :ensure t)
+;; (use-package ng2-mode :ensure t)
+;; this is a) the wrong kind of go (the game, not the language)
+;; and b) crashes ivy in spectacular fashion. DO NOT WANT.
+;; (use-package go :ensure t)
+;; currently, djangonaut commands are failing
+;; (use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
+
+
+;;; Use Packages
 
 ;; KEEP THIS SORTED!
-; except for this, it kind of needs to be first
+;; except for this, it kind of needs to be first
 (use-package
  better-defaults
  :ensure t
@@ -59,14 +73,6 @@
    ;; better-defaults set custom-file to custom.el
    (load custom-file)))
 
-;; TODO: maintain blacklist of extensions I've tried but disliked
-;; so very out of date...
-;; (use-package angular-mode :ensure t)
-;; (use-package ng2-mode :ensure t)
-;; this is a) the wrong kind of go (the game, not the language)
-;; and b) crashes ivy in spectacular fashion. DO NOT WANT.
-;; (use-package go :ensure t)
-
 (use-package async :ensure t)
 (use-package auto-header :ensure t)
 (use-package blacken :ensure t)
@@ -74,19 +80,24 @@
 (use-package counsel :ensure t)
 (use-package counsel-projectile :ensure t)
 (use-package devdocs :ensure t)
-(use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
 (use-package django-snippets :ensure t)
 (use-package docker-compose-mode :ensure t)
 (use-package dockerfile-mode :ensure t)
 (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 (use-package editorconfig :ensure t :config (editorconfig-mode 1))
 (use-package eldoc :ensure t)
-(use-package elisp-autofmt :ensure t :bind (:map emacs-lisp-mode-map (("C-c f" . elisp-autofmt-buffer))))
+(use-package
+ elisp-autofmt
+ :ensure t
+ :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+ :hook (emacs-lisp-mode . elisp-autofmt-mode)
+ :bind (:map emacs-lisp-mode-map (("C-c f" . elisp-autofmt-buffer))))
 (use-package elisp-def :ensure t)
 (use-package elisp-lint :ensure t)
 (use-package elisp-refs :ensure t)
 (use-package eslint-disable-rule :ensure t)
 (use-package eslint-fix :ensure t)
+(use-package django-snippets :ensure t)
 (use-package flycheck :ensure t)
 (use-package flycheck-aspell :ensure t)
 (use-package flycheck-bashate :ensure t)
@@ -107,7 +118,6 @@
 (use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
 (use-package forth-mode :ensure t)
 (use-package git-modes :ensure t)
-(use-package gnu-elpa-keyring-update :ensure t)
 (use-package go-autocomplete :ensure t)
 (use-package go-eldoc :ensure t)
 (use-package go-mode :ensure t)
@@ -128,10 +138,6 @@
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
 
-;; currently, djangonaut commands are failing
-;; (use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
-(use-package django-snippets :ensure t)
-
 (use-package
  smart-mode-line
  :ensure t
@@ -140,6 +146,8 @@
    (sml/setup)
    (sml/apply-theme 'powerline)))
 
+(use-package django-snippets :ensure t)
+
 (use-package
  immaterial-theme
  :ensure t
@@ -147,7 +155,22 @@
  (progn
    (load-theme 'immaterial-dark t)
    (load-theme 'immaterial-light t)))
-
+(use-package ivy :ensure t :config (ivy-mode 1))
+(use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
+;; bind can happen even if the package install fails??
+(use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
+(use-package
+ projectile
+ :ensure t
+ :config (projectile-mode +1)
+ :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+(use-package
+ smart-mode-line
+ :ensure t
+ :config
+ (progn
+   (sml/setup)
+   (sml/apply-theme 'powerline)))
 (use-package yasnippet :ensure t :pin melpa)
 
 ;;; Everything Else
@@ -176,7 +199,12 @@
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
   (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
   ;; really this is specific to my macbook only
-  (setq elisp-autofmt-python-bin "/Users/adrianflanagan/.pyenv/versions/3.12.1/bin/python"))
+  (setq elisp-autofmt-python-bin "/Users/adrianflanagan/.pyenv/versions/3.12.1/bin/python")
+  (setq visible-bell nil)
+  (setq ring-bell-function
+        (lambda ()
+          "do nothing and do it well"
+          ())))
 
 (defun set-def-frame-size ()
   (set-frame-size nil 180 60))
