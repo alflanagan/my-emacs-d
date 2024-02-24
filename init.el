@@ -118,6 +118,7 @@
 (use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
 (use-package forth-mode :ensure t)
 (use-package git-modes :ensure t)
+(use-package gnu-elpa-keyring-update :ensure t)
 (use-package go-autocomplete :ensure t)
 (use-package go-eldoc :ensure t)
 (use-package go-mode :ensure t)
@@ -145,8 +146,6 @@
  (progn
    (sml/setup)
    (sml/apply-theme 'powerline)))
-
-(use-package django-snippets :ensure t)
 
 (use-package
  immaterial-theme
@@ -198,8 +197,6 @@
   (add-hook 'server-after-make-frame-hook #'setup-frame-for-mac)
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
   (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
-  ;; really this is specific to my macbook only
-  (setq elisp-autofmt-python-bin "/Users/adrianflanagan/.pyenv/versions/3.12.1/bin/python")
   (setq visible-bell nil)
   (setq ring-bell-function
         (lambda ()
