@@ -53,8 +53,8 @@
  :ensure t
  :config
  (progn
-   ;; the one "better" default I don't like
-   (setq visible-bell nil)
+   ;; visible-bell is very nice on Linux and very obnoxious on a Mac
+   (setq visible-bell (not (equal system-type 'darwin)))
 
    ;; better-defaults set custom-file to custom.el
    (load custom-file)))
