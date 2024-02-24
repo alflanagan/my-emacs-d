@@ -29,7 +29,6 @@
         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
         ("melpa" . "https://melpa.org/packages/")))
 
-
 (package-initialize)
 
 (use-package
@@ -60,9 +59,14 @@
    ;; better-defaults set custom-file to custom.el
    (load custom-file)))
 
+;; TODO: maintain blacklist of extensions I've tried but disliked
 ;; so very out of date...
 ;; (use-package angular-mode :ensure t)
 ;; (use-package ng2-mode :ensure t)
+;; this is a) the wrong kind of go (the game, not the language)
+;; and b) crashes ivy in spectacular fashion. DO NOT WANT.
+;; (use-package go :ensure t)
+
 (use-package async :ensure t)
 (use-package auto-header :ensure t)
 (use-package blacken :ensure t)
@@ -104,11 +108,6 @@
 (use-package forth-mode :ensure t)
 (use-package git-modes :ensure t)
 (use-package gnu-elpa-keyring-update :ensure t)
-
-;; this is a) the wrong kind of go (the game, not the language)
-;; and b) crashes ivy in spectacular fashion. DO NOT WANT.
-;; (use-package go :ensure t)
-
 (use-package go-autocomplete :ensure t)
 (use-package go-eldoc :ensure t)
 (use-package go-mode :ensure t)
@@ -119,6 +118,7 @@
 
 (use-package ibuffer :ensure t :bind (("C-x C-b" . ibuffer-list-buffers)))
 (use-package ivy :ensure t :config (ivy-mode 1))
+(use-package lispy :ensure t)
 ;; bind can happen even if the package install fails??
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
 (use-package paradox :ensure t :config (paradox-enable))
