@@ -8,19 +8,16 @@
      "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(display-fill-column-indicator t)
  '(ede-project-directories nil)
- '(exec-path
-   '("/usr/bin" "/bin" "/usr/sbin" "/sbin" "~/.nvm/versions/node/v21.6.1/bin"
-     "/opt/homebrew/Cellar/pyenv-virtualenv/1.2.1/shims" "~/.pyenv/shims" "~/bin" "/opt/homebrew/bin"
-     "/opt/homebrew/sbin" "/usr/local/bin" "/usr/local/go/bin" "~/.cargo/bin" "~/.local/bin" "~/go/bin"
-     "/opt/homebrew/Cellar/emacs-plus@30/30.0.50/libexec/emacs/30.0.50/aarch64-apple-darwin23.2.0"))
  '(fill-column 120)
  '(global-prettify-symbols-mode t)
  '(global-tree-sitter-mode t)
  '(indent-tabs-mode nil)
  '(initial-buffer-choice t)
+ '(js-chain-indent t)
+ '(js-indent-level 2)
  '(major-mode-remap-alist
    '((css-mode . css-ts-mode) (js-json-mode . json-ts-mode) (go-mode . go-ts-mode) (c-mode . c-ts-mode)
-     (c++-mode . c++-ts-mode) (rust . rust-ts-mode) (cmake-mode . cmake-ts-mode) (markdown-mode . markdown-ts-mode)))
+     (c++-mode . c++-ts-mode) (rust . rust-ts-mode) (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)))
  '(markdown-code-lang-modes
    '(("ocaml" . tuareg-mode) ("elisp" . emacs-lisp-mode) ("ditaa" . artist-mode) ("asymptote" . asy-mode)
      ("dot" . fundamental-mode) ("sqlite" . sql-mode) ("calc" . fundamental-mode) ("C" . c-mode) ("cpp" . c++-mode)
@@ -30,28 +27,24 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(angular-mode async auto-header better-defaults blacken cmake-mode company counsel-projectile devdocs django-snippets
-                  djangonaut docker-compose-mode dockerfile-mode dumb-jump editorconfig editorconfig-generate
-                  elisp-autofmt elisp-def elisp-lint elisp-refs eslint-disable-rule eslint-fix flycheck-aspell
-                  flycheck-bashate flycheck-cask flycheck-clang-tidy flycheck-eglot flycheck-golangci-lint flycheck-jest
-                  flycheck-kotlin flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust
-                  flylisp focus-autosave-mode fold-dwim form-feed-st forth-mode gameoflife git-modes
-                  gnu-elpa-keyring-update go go-autocomplete go-projectile go-scratch guru-mode highlight-parentheses
-                  ibuffer-projectile ietf-docs immaterial-theme js2-mode kotlin-ts-mode lispy magit markdown-toc
-                  material-theme mwim ng2-mode nov org-contrib org-modern paradox parrot projectile-codesearch
-                  projectile-speedbar pyenv-mode rainbow-delimiters reddigg rust-mode slime
-                  smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent treesit-auto w3m
-                  ws-butler))
- '(paradox-column-width-package 28)
- '(paradox-column-width-version 14)
- '(paradox-execute-asynchronously t)
- '(paradox-github-token t)
- '(paradox-lines-per-entry 2)
+   '(async auto-header better-defaults blacken cmake-mode company counsel-projectile css-eldoc devdocs django-snippets
+           docker-compose-mode dockerfile-mode dumb-jump editorconfig editorconfig-generate elisp-autofmt elisp-def
+           elisp-lint elisp-refs emmet-mode eslint-disable-rule eslint-fix flycheck-aspell flycheck-bashate
+           flycheck-cask flycheck-clang-tidy flycheck-eglot flycheck-golangci-lint flycheck-jest flycheck-kotlin
+           flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust flylisp focus-autosave-mode
+           fold-dwim form-feed-st forth-mode gameoflife git-modes gnu-elpa-keyring-update go go-autocomplete
+           go-projectile go-scratch guru-mode highlight-parentheses ibuffer-projectile ietf-docs immaterial-theme
+           js2-mode kotlin-ts-mode lispy magit markdown-toc material-theme morlock mwim nov org-contrib org-modern
+           paradox parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg rust-mode
+           slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent treesit-auto w3m
+           ws-butler))
+ '(paradox-automatically-star t)
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
- '(projectile-project-search-path
-   '("~/.emacs.d" "~/Devel/personal" ("~/Devel/mobelux" . 3) "~/Devel/Hackrva" "~/Devel/thirdparty"))
- '(require-final-newline 'visit-save)
+ '(safe-local-variable-values
+   '((python-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")
+     (python-shell-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")
+     (eval add-to-list 'auto-mode-alist '("\\.html\\'" . angular-html-mode))))
  '(show-trailing-whitespace t)
  '(tab-width 4)
  '(track-eol t)
@@ -73,8 +66,8 @@
      (llvm-mir-mode . llvm-mir) (lua-mode . lua) (magik-mode . magik) (makefile-mode . make)
      (makefile-automake-mode . make) (makefile-gmake-mode . make) (makefile-makepp-mode . make)
      (makefile-bsdmake-mode . make) (makefile-imake-mode . make) (matlab-mode . matlab) (mermaid-mode . mermaid)
-     (meson-mode . meson) (ninja-mode . ninja) (noir-mode . noir) (ocaml-mode . ocaml) (org-mode . org)
-     (pascal-mode . pascal) (perl-mode . perl) (php-mode . php) (qss-mode . css) (prisma-mode . prisma)
+     (meson-mode . meson) (ng2-mode . typescript) (ninja-mode . ninja) (noir-mode . noir) (ocaml-mode . ocaml)
+     (org-mode . org) (pascal-mode . pascal) (perl-mode . perl) (php-mode . php) (qss-mode . css) (prisma-mode . prisma)
      (python-mode . python) (pygn-mode . pgn) (racket-mode . racket) (rjsx-mode . javascript) (rst-mode . rst)
      (ruby-mode . ruby) (rust-mode . rust) (rustic-mode . rust) (scala-mode . scala) (scheme-mode . scheme)
      (solidity-mode . solidity) (smithy-mode . smithy) (sql-mode . sql) (swift-mode . swift) (tablegen-mode . tablegen)
