@@ -38,7 +38,7 @@
  (progn
    (paradox-enable)
    (setq
-    paradox-column-width-package 28
+    paradox-column-width-package 38
     paradox-column-width-version 14
     paradox-execute-asynchronously t
     paradox-github-token my-paradox-github-token
@@ -97,7 +97,6 @@
 (use-package elisp-refs :ensure t)
 (use-package eslint-disable-rule :ensure t)
 (use-package eslint-fix :ensure t)
-(use-package django-snippets :ensure t)
 (use-package flycheck :ensure t)
 (use-package flycheck-aspell :ensure t)
 (use-package flycheck-bashate :ensure t)
@@ -126,27 +125,7 @@
 (use-package go-scratch :ensure t)
 (use-package guru-mode :ensure t)
 (use-package highlight-parentheses :ensure t)
-
 (use-package ibuffer :ensure t :bind (("C-x C-b" . ibuffer-list-buffers)))
-(use-package ivy :ensure t :config (ivy-mode 1))
-(use-package lispy :ensure t)
-;; bind can happen even if the package install fails??
-(use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
-(use-package paradox :ensure t :config (paradox-enable))
-(use-package
- projectile
- :ensure t
- :config (projectile-mode +1)
- :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
-
-(use-package
- smart-mode-line
- :ensure t
- :config
- (progn
-   (sml/setup)
-   (sml/apply-theme 'powerline)))
-
 (use-package
  immaterial-theme
  :ensure t
@@ -155,6 +134,7 @@
    (load-theme 'immaterial-dark t)
    (load-theme 'immaterial-light t)))
 (use-package ivy :ensure t :config (ivy-mode 1))
+(use-package lispy :ensure t)
 (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
 ;; bind can happen even if the package install fails??
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
@@ -167,14 +147,27 @@
  smart-mode-line
  :ensure t
  :config
+   (sml/setup))
+(use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'powerline))
+(use-package
+ tide
+ :ensure t
+ :config
  (progn
-   (sml/setup)
-   (sml/apply-theme 'powerline)))
+   ;; aligns annotation to the right hand side
+   (setq company-tooltip-align-annotations t)
+
+   ;; formats the buffer before saving, only if tide-mode is active
+   ;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+   (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
+   (add-hook 'tsx-ts-mode-hook #'setup-tide-mode)
+   (add-hook 'angular-html-mode-hook #'setup-tide-mode)))
 (use-package yasnippet :ensure t :pin melpa)
 
 ;;; Everything Else
 
-;; this file is read by the emacs system service, so we need to start the server
+;; our system service should be starting the server process, but just in case
 (if (not (boundp 'server-process))
 (server-start))
 
@@ -206,6 +199,9 @@
 (defun set-def-frame-size ()
   (set-frame-size nil 180 60))
 (add-hook 'server-after-make-frame-hook #'set-def-frame-size)
+;; and set this frame
+(set-def-frame-size)
+
 ;; Mac keybindings that conflict with Emacs defaults
 ;; M-% launches screen capture
 ;; C-M-k brings up calender in MacOS topbar
@@ -257,20 +253,7 @@ Should only be run in a directory or project with a tsconfig file."
   (tide-hl-identifier-mode +1)
   (company-mode +1))
 
-(use-package
- tide
- :ensure t
- :config
- (progn
-   ;; aligns annotation to the right hand side
-   (setq company-tooltip-align-annotations t)
-
-   ;; formats the buffer before saving, only if tide-mode is active
-   (add-hook 'before-save-hook 'tide-format-before-save)
-
-   (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
-   (add-hook 'tsx-ts-mode-hook #'setup-tide-mode)
-   (add-hook 'angular-html-mode-hook #'setup-tide-mode)))
+(setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc && nvm which default")))
 
 
 ;; Org-mode setup
