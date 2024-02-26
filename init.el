@@ -69,7 +69,6 @@
  (progn
    ;; visible-bell is very nice on Linux and very obnoxious on a Mac
    (setq visible-bell (not (equal system-type 'darwin)))
-
    ;; better-defaults set custom-file to custom.el
    (load custom-file)))
 
@@ -97,6 +96,7 @@
 (use-package elisp-refs :ensure t)
 (use-package eslint-disable-rule :ensure t)
 (use-package eslint-fix :ensure t)
+(use-package django-snippets :ensure t)
 (use-package flycheck :ensure t)
 (use-package flycheck-aspell :ensure t)
 (use-package flycheck-bashate :ensure t)
