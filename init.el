@@ -16,6 +16,20 @@
   (unless (member lispdir load-path)
     (push lispdir load-path)))
 
+(defmacro add-hook-if-exists (a-hook a-function &rest args)
+   "Add to hook A-HOOK a call to (A-FUNCTION ARGS) with a check to ensure A-FUNCTION is defined."
+   `(add-hook ,a-hook (lambda () (if (functionp ,a-function)
+                                (funcall ,a-function ,@args)))))
+
+;; (macroexpand  '(add-hook-if-exists 'js2-mode-hook 'prettify-symbols-mode 1 2 3))
+;; ==>
+;; (add-hook
+;;  'js2-mode-hook
+;;  (lambda ()
+;;    (if (functionp 'prettify-symbols-mode)
+;;        (funcall 'prettify-symbols-mode 1 2 3))))
+
+
 ;;; NOTE: customizations are in custom.el -- better-defaults changes the destination
 
 ;;; Packages
