@@ -16,6 +16,10 @@
   (unless (member lispdir load-path)
     (push lispdir load-path)))
 
+
+
+(global-auto-revert-mode 1)
+
 (defmacro add-hook-if-exists (a-hook a-function &rest args)
   "Add to hook A-HOOK a call to (A-FUNCTION ARGS) with a check to ensure A-FUNCTION is defined."
   `(add-hook
@@ -132,7 +136,7 @@
 (use-package flycheck-rust :ensure t)
 (use-package flylisp :ensure t)
 (use-package focus-autosave-mode :ensure t)
-(use-package fold-dwim :ensure t)
+(use-package fold-dwim :ensure t :bind (("C-+" . fold-dwim-toggle)("C-=" . fold-dwim-toggle)))
 (use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
 (use-package forth-mode :ensure t)
 (use-package git-modes :ensure t)
@@ -257,6 +261,8 @@
 
 ;; TypeScript setup
 
+(add-to-list 'auto-mode-alist '("\\.cy\\.ts\\'" . typescript-ts-mode))
+
 (defun setup-tide-mode ()
   "Set up `tide-mode', an IDE for typescript.
 
@@ -266,6 +272,7 @@ Should only be run in a directory or project with a tsconfig file."
   (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
+  (hs-minor-mode +1)
   (tide-hl-identifier-mode +1)
   (company-mode +1))
 
