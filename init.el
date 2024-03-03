@@ -17,9 +17,12 @@
     (push lispdir load-path)))
 
 (defmacro add-hook-if-exists (a-hook a-function &rest args)
-   "Add to hook A-HOOK a call to (A-FUNCTION ARGS) with a check to ensure A-FUNCTION is defined."
-   `(add-hook ,a-hook (lambda () (if (functionp ,a-function)
-                                (funcall ,a-function ,@args)))))
+  "Add to hook A-HOOK a call to (A-FUNCTION ARGS) with a check to ensure A-FUNCTION is defined."
+  `(add-hook
+    ,a-hook
+    (lambda ()
+      (if (functionp ,a-function)
+          (funcall ,a-function ,@args)))))
 
 ;; (macroexpand  '(add-hook-if-exists 'js2-mode-hook 'prettify-symbols-mode 1 2 3))
 ;; ==>
@@ -70,6 +73,7 @@
 ;; (use-package go :ensure t)
 ;; currently, djangonaut commands are failing
 ;; (use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
+;; paradox is having problems like putting all its output into minibuffer and freezing emacs :-(
 
 
 ;;; Use Packages
@@ -89,6 +93,7 @@
 (use-package async :ensure t)
 (use-package auto-header :ensure t)
 (use-package blacken :ensure t)
+(use-package cargo-mode :ensure t :pin "melpa" :hook 'rust-mode-hook)
 (use-package cmake-mode :ensure t)
 (use-package counsel :ensure t)
 (use-package counsel-projectile :ensure t)
@@ -157,11 +162,8 @@
  :ensure t
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
-(use-package
- smart-mode-line
- :ensure t
- :config
-   (sml/setup))
+(use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook 'cargo-minor-mode))
+(use-package smart-mode-line :ensure t :config (sml/setup))
 (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'powerline))
 (use-package
  tide
@@ -183,7 +185,7 @@
 
 ;; our system service should be starting the server process, but just in case
 (if (not (boundp 'server-process))
-(server-start))
+    (server-start))
 
 ;; because I often hit this key by accident and use "C-x C-c" instead anyway
 (keymap-global-unset "s-q" nil)
