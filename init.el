@@ -41,7 +41,6 @@
 
 ;;; Packages
 ;;; Eventual goal is to remove from customization entirely, and use use-package for all.
-(setq my-paradox-github-token "") ;; so it has a value. should get real value from secrets.el.
 (load "./secrets")
 
 ;; this is set in custom.el -- but we haven't loaded it yet
@@ -51,20 +50,6 @@
         ("melpa" . "https://melpa.org/packages/")))
 
 (package-initialize)
-
-(use-package
- paradox
- :ensure t
- :config
- (progn
-   (paradox-enable)
-   (setq
-    paradox-column-width-package 38
-    paradox-column-width-version 14
-    paradox-execute-asynchronously t
-    paradox-github-token my-paradox-github-token
-    paradox-display-download-count t
-    paradox-lines-per-entry 2)))
 
 
 ;; TODO: set up and maintain blacklist of packages that look useful, but don't work for me
