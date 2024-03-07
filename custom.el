@@ -4,7 +4,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279"
+   '("b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d"
+     "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223"
+     "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa"
+     "f149d9986497e8877e0bd1981d1bef8c8a6d35be7d82cba193ad7e46f0989f6a"
+     "87de2a48139167bfe19e314996ee0a8d081a6d8803954bafda08857684109b4e"
+     "a04676d7b664d62cf8cd68eaddca902899f98985fff042d8d474a0d51e8c9236"
+     "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279"
      "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(display-fill-column-indicator t)
  '(ede-project-directories nil)
@@ -15,6 +21,7 @@
  '(initial-buffer-choice t)
  '(js-chain-indent t)
  '(js-indent-level 2)
+ '(kill-ring-max 5000)
  '(major-mode-remap-alist
    '((css-mode . css-ts-mode) (js-json-mode . json-ts-mode) (go-mode . go-ts-mode) (c-mode . c-ts-mode)
      (c++-mode . c++-ts-mode) (rust . rust-ts-mode) (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)))
@@ -27,7 +34,8 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(async auto-header better-defaults blacken cmake-mode company counsel-projectile css-eldoc devdocs django-snippets
+   '(async auto-header auto-rename-tag better-defaults blacken cargo-mode cmake-mode company company-jedi company-math
+           company-shell company-terraform company-web counsel-projectile css-eldoc devdocs django-snippets
            docker-compose-mode dockerfile-mode dumb-jump editorconfig editorconfig-generate elisp-autofmt elisp-def
            elisp-lint elisp-refs emmet-mode eslint-disable-rule eslint-fix flycheck-aspell flycheck-bashate
            flycheck-cask flycheck-clang-tidy flycheck-eglot flycheck-golangci-lint flycheck-jest flycheck-kotlin
@@ -37,8 +45,7 @@
            immaterial-theme js2-mode kotlin-ts-mode lispy magit markdown-toc material-theme morlock mwim nov org-contrib
            org-modern parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg rust-mode
            slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent treesit-auto w3m
-           ws-butler))
- '(paradox-automatically-star t)
+           web-beautify web-mode weyland-yutani-theme ws-butler))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
  '(safe-local-variable-values

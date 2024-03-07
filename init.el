@@ -79,13 +79,22 @@
    ;; better-defaults set custom-file to custom.el
    (load custom-file)))
 
+(setq column-number-mode t)
 (use-package async :ensure t)
 (use-package auto-header :ensure t)
+(use-package auto-rename-tag :ensure t)
 (use-package blacken :ensure t)
 (use-package cargo-mode :ensure t :pin "melpa" :hook 'rust-mode-hook)
 (use-package cmake-mode :ensure t)
+(use-package company :ensure t)
+(use-package company-jedi :ensure t)
+(use-package company-math :ensure t)
+(use-package company-shell :ensure t)
+(use-package company-terraform :ensure t)
+(use-package company-web :ensure t)
 (use-package counsel :ensure t)
 (use-package counsel-projectile :ensure t)
+(use-package css-eldoc :ensure t)
 (use-package devdocs :ensure t)
 (use-package django-snippets :ensure t)
 (use-package docker-compose-mode :ensure t)
@@ -153,7 +162,7 @@
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
 (use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook 'cargo-minor-mode))
 (use-package smart-mode-line :ensure t :config (sml/setup))
-(use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'powerline))
+(use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
 (use-package
  tide
  :ensure t
@@ -168,6 +177,10 @@
    (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
    (add-hook 'tsx-ts-mode-hook #'setup-tide-mode)
    (add-hook 'angular-html-mode-hook #'setup-tide-mode)))
+(use-package web-beautify :ensure t)
+(use-package web-mode :ensure t)
+(use-package weyland-yutani-theme :ensure t)
+(use-package ws-butler :ensure t)
 (use-package yasnippet :ensure t :pin melpa)
 
 ;;; Everything Else
