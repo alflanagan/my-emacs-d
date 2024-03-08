@@ -3,6 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(create-lockfiles nil)
  '(custom-safe-themes
    '("b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d"
      "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223"
@@ -42,17 +43,19 @@
            flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust flylisp focus-autosave-mode
            form-feed-st forth-mode gameoflife git-modes gnu-elpa-keyring-update go go-autocomplete go-projectile
            go-scratch guru-mode highlight-parentheses hl-todo ibuffer-projectile ietf-docs immaterial-theme js2-mode
-           kotlin-ts-mode lispy lsp-origami magit markdown-toc material-theme morlock mwim nov org-contrib org-modern
-           origami parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg rust-mode
-           slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent treesit-auto
-           typescript-mode w3m web-beautify web-mode weyland-yutani-theme ws-butler))
+           kotlin-ts-mode lispy lsp-origami magit markdown-toc material-theme morlock mwim ng2-mode nov org-contrib
+           org-modern origami parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg
+           rust-mode slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent
+           treesit-auto typescript-mode w3m web-beautify web-mode weyland-yutani-theme ws-butler))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
  '(safe-local-variable-values
-   '((python-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")
-     (python-shell-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")
-     (eval add-to-list 'auto-mode-alist '("\\.html\\'" . angular-html-mode))))
+   '((python-shell-exec-path . "/Users/adrianflanagan/.pyenv/shims")
+     (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
+     (python-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")
+     (python-shell-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")))
  '(show-trailing-whitespace t)
+ '(sql-product 'postgres)
  '(tab-width 4)
  '(track-eol t)
  '(tree-sitter-major-mode-language-alist

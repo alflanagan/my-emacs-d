@@ -56,7 +56,6 @@
 ;; (use-package go :ensure t) ;; the game, not the language -- causes crash in ivy?
 ;; so very out of date...
 ;; (use-package angular-mode :ensure t)
-;; (use-package ng2-mode :ensure t)
 ;; this is a) the wrong kind of go (the game, not the language)
 ;; and b) crashes ivy in spectacular fashion. DO NOT WANT.
 ;; (use-package go :ensure t)
@@ -162,6 +161,7 @@
 (use-package markdown-toc :ensure t)
 (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
+(use-package ng2-mode :ensure t :config (add-hook 'ng2-ts-mode-hook #'setup-tide))
 (use-package nov :ensure t) ;; epub reader
 (use-package org-contrib :ensure t)
 (use-package org-modern :ensure t)
@@ -199,8 +199,7 @@
    ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
    (add-hook 'typescript-mode-hook #'setup-tide)
-   (add-hook 'tsx-ts-mode-hook #'setup-tide)
-   (add-hook 'angular-html-mode-hook #'setup-tide)))
+   (add-hook 'tsx-ts-mode-hook #'setup-tide)))
 (use-package tree-sitter-indent :ensure t)
 (use-package treesit-auto :ensure t)
 (use-package typescript-mode :ensure t)
