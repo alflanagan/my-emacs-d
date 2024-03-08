@@ -63,7 +63,8 @@
 ;; currently, djangonaut commands are failing
 ;; (use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
 ;; paradox is having problems like putting all its output into minibuffer and freezing emacs :-(
-
+;; (use-package fold-dwim :ensure t :bind (("C-+" . fold-dwim-toggle)("C-=" . fold-dwim-toggle)))
+;; I have no idea what fold-dwim's problem is, but it almost never Does What I Mean.
 
 ;;; Use Packages
 
@@ -130,7 +131,6 @@
 (use-package flycheck-rust :ensure t)
 (use-package flylisp :ensure t)
 (use-package focus-autosave-mode :ensure t)
-(use-package fold-dwim :ensure t :bind (("C-+" . fold-dwim-toggle)("C-=" . fold-dwim-toggle)))
 (use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
 (use-package forth-mode :ensure t)
 (use-package git-modes :ensure t)
@@ -156,11 +156,16 @@
 ;; bind can happen even if the package install fails??
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
 (use-package
+ origami
+ :ensure t
+ :config (add-hook typescript-ts-mode-hook #'origami-mode)
+ :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
+(use-package
  projectile
  :ensure t
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
-(use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook 'cargo-minor-mode))
+(use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
 (use-package smart-mode-line :ensure t :config (sml/setup))
 (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
 (use-package
@@ -174,14 +179,20 @@
    ;; formats the buffer before saving, only if tide-mode is active
    ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
-   (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
-   (add-hook 'tsx-ts-mode-hook #'setup-tide-mode)
-   (add-hook 'angular-html-mode-hook #'setup-tide-mode)))
+   (add-hook 'typescript-ts-mode-hook #'setup-tide)
+   (add-hook 'tsx-ts-mode-hook #'setup-tide)
+   (add-hook 'angular-html-mode-hook #'setup-tide)))
 (use-package web-beautify :ensure t)
 (use-package web-mode :ensure t)
 (use-package weyland-yutani-theme :ensure t)
 (use-package ws-butler :ensure t)
 (use-package yasnippet :ensure t :pin melpa)
+
+
+;; should have a separate section for Elisp libraries
+(use-package dash :ensure t) ;; list functions
+(use-package s :ensure t) ;; string functions
+
 
 ;;; Everything Else
 
@@ -261,7 +272,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.cy\\.ts\\'" . typescript-ts-mode))
 
-(defun setup-tide-mode ()
+(defun setup-tide ()
   "Set up `tide-mode', an IDE for typescript.
 
 Should only be run in a directory or project with a tsconfig file."
@@ -272,7 +283,8 @@ Should only be run in a directory or project with a tsconfig file."
   (eldoc-mode +1)
   (hs-minor-mode +1)
   (tide-hl-identifier-mode +1)
-  (company-mode +1))
+  (company-mode +1)
+  (display-line-numbers-mode +1))
 
 (setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc && nvm which default")))
 

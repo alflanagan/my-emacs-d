@@ -40,12 +40,12 @@
            elisp-lint elisp-refs emmet-mode eslint-disable-rule eslint-fix flycheck-aspell flycheck-bashate
            flycheck-cask flycheck-clang-tidy flycheck-eglot flycheck-golangci-lint flycheck-jest flycheck-kotlin
            flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust flylisp focus-autosave-mode
-           fold-dwim form-feed-st forth-mode gameoflife git-modes gnu-elpa-keyring-update go go-autocomplete
-           go-projectile go-scratch guru-mode highlight-parentheses hl-todo ibuffer-projectile ietf-docs
-           immaterial-theme js2-mode kotlin-ts-mode lispy magit markdown-toc material-theme morlock mwim nov org-contrib
-           org-modern parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg rust-mode
-           slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent treesit-auto w3m
-           web-beautify web-mode weyland-yutani-theme ws-butler))
+           form-feed-st forth-mode gameoflife git-modes gnu-elpa-keyring-update go go-autocomplete go-projectile
+           go-scratch guru-mode highlight-parentheses hl-todo ibuffer-projectile ietf-docs immaterial-theme js2-mode
+           kotlin-ts-mode lispy lsp-origami magit markdown-toc material-theme morlock mwim nov org-contrib org-modern
+           origami parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg rust-mode
+           slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent treesit-auto
+           typescript-mode w3m web-beautify web-mode weyland-yutani-theme ws-butler))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
  '(safe-local-variable-values
