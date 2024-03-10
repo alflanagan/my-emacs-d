@@ -115,6 +115,7 @@
 (use-package eslint-disable-rule :ensure t)
 (use-package eslint-fix :ensure t)
 (use-package django-snippets :ensure t)
+(use-package emmet-mode :ensure t)
 (use-package flycheck :ensure t)
 (use-package flycheck-aspell :ensure t)
 (use-package flycheck-bashate :ensure t)
@@ -142,7 +143,10 @@
 (use-package go-scratch :ensure t)
 (use-package guru-mode :ensure t)
 (use-package highlight-parentheses :ensure t)
+(use-package hl-todo :ensure t)
 (use-package ibuffer :ensure t :bind (("C-x C-b" . ibuffer-list-buffers)))
+(use-package ibuffer-projectile :ensure t)
+(use-package ietf-docs :ensure t)
 (use-package
  immaterial-theme
  :ensure t
@@ -151,23 +155,38 @@
    (load-theme 'immaterial-dark t)
    (load-theme 'immaterial-light t)))
 (use-package ivy :ensure t :config (ivy-mode 1))
+(use-package kotlin-ts-mode :ensure t)
 (use-package lispy :ensure t)
+(use-package lsp-origami :ensure t)
+(use-package magit :ensure t)
+(use-package markdown-toc :ensure t)
 (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
-;; bind can happen even if the package install fails??
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
+(use-package nov :ensure t) ;; epub reader
+(use-package org-contrib :ensure t)
+(use-package org-modern :ensure t)
 (use-package
  origami
  :ensure t
- :config (add-hook typescript-ts-mode-hook #'origami-mode)
+ :config (add-hook typescript-mode-hook #'origami-mode)
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
+(use-package parrot :ensure t)
 (use-package
  projectile
  :ensure t
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+(use-package projectile-codesearch :ensure t)
+(use-package projectile-speedbar :ensure t)
+(use-package pyenv-mode :ensure t)
+(use-package rainbow-delimiters :ensure t)
+(use-package reddigg :ensure t)
 (use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
+(use-package slime :ensure t)
 (use-package smart-mode-line :ensure t :config (sml/setup))
 (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
+(use-package super-save :ensure t)
+(use-package term-projectile :ensure t)
 (use-package
  tide
  :ensure t
@@ -179,15 +198,18 @@
    ;; formats the buffer before saving, only if tide-mode is active
    ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
-   (add-hook 'typescript-ts-mode-hook #'setup-tide)
+   (add-hook 'typescript-mode-hook #'setup-tide)
    (add-hook 'tsx-ts-mode-hook #'setup-tide)
    (add-hook 'angular-html-mode-hook #'setup-tide)))
+(use-package tree-sitter-indent :ensure t)
+(use-package treesit-auto :ensure t)
+(use-package typescript-mode :ensure t)
+(use-package w3m :ensure t)
 (use-package web-beautify :ensure t)
 (use-package web-mode :ensure t)
 (use-package weyland-yutani-theme :ensure t)
 (use-package ws-butler :ensure t)
 (use-package yasnippet :ensure t :pin melpa)
-
 
 ;; should have a separate section for Elisp libraries
 (use-package dash :ensure t) ;; list functions
@@ -271,7 +293,6 @@
 ;; TypeScript setup
 
 (add-to-list 'auto-mode-alist '("\\.cy\\.ts\\'" . typescript-ts-mode))
-
 (defun setup-tide ()
   "Set up `tide-mode', an IDE for typescript.
 
