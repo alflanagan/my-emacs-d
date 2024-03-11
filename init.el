@@ -168,7 +168,7 @@
 (use-package
  origami
  :ensure t
- :config (add-hook typescript-mode-hook #'origami-mode)
+ :config (global-origami-mode)
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 (use-package parrot :ensure t)
 (use-package
