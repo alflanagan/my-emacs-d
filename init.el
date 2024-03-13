@@ -161,7 +161,7 @@
 (use-package markdown-toc :ensure t)
 (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
-(use-package ng2-mode :ensure t :config (add-hook 'ng2-ts-mode-hook #'setup-tide))
+(use-package ng2-mode :ensure t)
 (use-package nov :ensure t) ;; epub reader
 (use-package org-contrib :ensure t)
 (use-package org-modern :ensure t)
@@ -187,6 +187,19 @@
 (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
 (use-package super-save :ensure t)
 (use-package term-projectile :ensure t)
+(defun setup-tide ()
+  "Set up `tide-mode', an IDE for typescript.
+
+Should only be run in a directory or project with a tsconfig file."
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (hs-minor-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1)
+  (display-line-numbers-mode +1))
 (use-package
  tide
  :ensure t
@@ -198,11 +211,10 @@
    ;; formats the buffer before saving, only if tide-mode is active
    ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
-   (add-hook 'typescript-mode-hook #'setup-tide)
-   (add-hook 'tsx-ts-mode-hook #'setup-tide)))
+   (add-hook 'typescript-mode-hook 'setup-tide)))
 (use-package tree-sitter-indent :ensure t)
 (use-package treesit-auto :ensure t)
-(use-package typescript-mode :ensure t)
+(use-package typescript-mode :ensure t) ;; do we need this, if using typescript-ts-mode? or should we use it instead?
 (use-package w3m :ensure t)
 (use-package web-beautify :ensure t)
 (use-package web-mode :ensure t)
@@ -292,19 +304,7 @@
 ;; TypeScript setup
 
 (add-to-list 'auto-mode-alist '("\\.cy\\.ts\\'" . typescript-ts-mode))
-(defun setup-tide ()
-  "Set up `tide-mode', an IDE for typescript.
-
-Should only be run in a directory or project with a tsconfig file."
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (hs-minor-mode +1)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1)
-  (display-line-numbers-mode +1))
+(add-hook 'typescript-mode-hook 'display-line-numbers-mode)
 
 (setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc && nvm which default")))
 
