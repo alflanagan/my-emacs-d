@@ -303,10 +303,12 @@ Should only be run in a directory or project with a tsconfig file."
 
 ;; TypeScript setup
 
-(add-to-list 'auto-mode-alist '("\\.cy\\.ts\\'" . typescript-ts-mode))
+;; so far all cypress files are for angular project(s), _and_ this works better than typescript-mode
+(add-to-list 'auto-mode-alist '("\\.cy.ts\\'" . ng2-ts-mode))
 (add-hook 'typescript-mode-hook 'display-line-numbers-mode)
 
-(setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc && nvm which default")))
+;; this may be _too_ clever
+(setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc 2> /dev/null && nvm which default")))
 
 
 ;; Org-mode setup
@@ -314,5 +316,6 @@ Should only be run in a directory or project with a tsconfig file."
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
+(setq global-org-modern-mode t)
 
 ;;; init.el ends here :-)
