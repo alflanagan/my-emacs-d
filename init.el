@@ -79,13 +79,13 @@
    ;; better-defaults set custom-file to custom.el
    (load custom-file)))
 
-(setq column-number-mode t)
 (use-package async :ensure t)
 (use-package auto-header :ensure t)
 (use-package auto-rename-tag :ensure t)
 (use-package blacken :ensure t)
 (use-package cargo-mode :ensure t :pin "melpa" :hook 'rust-mode-hook)
 (use-package cmake-mode :ensure t)
+(use-package code-archive :ensure t)
 (use-package company :ensure t)
 (use-package company-jedi :ensure t)
 (use-package company-math :ensure t)
@@ -113,8 +113,9 @@
 (use-package elisp-refs :ensure t)
 (use-package eslint-disable-rule :ensure t)
 (use-package eslint-fix :ensure t)
-(use-package django-snippets :ensure t)
 (use-package emmet-mode :ensure t)
+
+;; Flycheck
 (use-package flycheck :ensure t)
 (use-package flycheck-aspell :ensure t)
 (use-package flycheck-bashate :ensure t)
@@ -130,6 +131,7 @@
 (use-package flycheck-relint :ensure t)
 (use-package flycheck-rust :ensure t)
 (use-package flylisp :ensure t)
+
 (use-package focus-autosave-mode :ensure t)
 (use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
 (use-package forth-mode :ensure t)
@@ -163,8 +165,22 @@
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
 (use-package ng2-mode :ensure t)
 (use-package nov :ensure t) ;; epub reader
+
+
+;; org-mode packages
 (use-package org-contrib :ensure t)
 (use-package org-modern :ensure t)
+(use-package org-ai :ensure t)
+(use-package org-gcal :ensure t)
+(use-package org-msg :ensure t)
+(use-package org-ql :ensure t)
+(use-package org-recur :ensure t)
+(use-package org-special-block-extras :ensure t)
+(use-package org-tidy :ensure t)
+(use-package org-timeblock :ensure t)
+(use-package org-vcard :ensure t)
+(use-package org-web-tools :ensure t)
+
 (use-package
  origami
  :ensure t
@@ -237,6 +253,8 @@ Should only be run in a directory or project with a tsconfig file."
 (keymap-global-unset "s-q" nil)
 (keymap-global-set "C-x C-p" #'(project-list-buffers t))
 
+
+;; MAC-specific setup
 ;; to work with emacsclient, commands that affect the frame need to be in server-after-make-frame-hook
 (defun setup-frame-for-mac ()
   "sets up graphical elements for new frames specific to macs"
@@ -257,7 +275,7 @@ Should only be run in a directory or project with a tsconfig file."
         (lambda ()
           "do nothing and do it well"
           ())))
-
+
 (defun set-def-frame-size ()
   (set-frame-size nil 180 60))
 (add-hook 'server-after-make-frame-hook #'set-def-frame-size)
@@ -299,6 +317,8 @@ Should only be run in a directory or project with a tsconfig file."
                 "emacs -batch -f batch-byte-compile "
                 (if buffer-file-name
                     (shell-quote-argument buffer-file-name))))))
+
+(setq column-number-mode t)
 
 
 ;; TypeScript setup
