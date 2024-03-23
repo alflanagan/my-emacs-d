@@ -176,7 +176,6 @@
 (use-package org-recur :ensure t)
 (use-package org-special-block-extras :ensure t)
 (use-package org-tidy :ensure t)
-(use-package org-vcard :ensure t)
 (use-package org-web-tools :ensure t)
 
 (use-package
@@ -290,6 +289,7 @@ Should only be run in a directory or project with a tsconfig file."
 (use-package web-mode :ensure t)
 (use-package weyland-yutani-theme :ensure t)
 (use-package ws-butler :ensure t)
+(use-package xkcd :ensure t)
 (use-package yasnippet :ensure t :pin melpa)
 
 ;; should have a separate section for Elisp libraries
