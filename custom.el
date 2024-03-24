@@ -14,6 +14,9 @@
      "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279"
      "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(display-fill-column-indicator t)
+ '(display-line-numbers nil)
+ '(display-line-numbers-major-tick 100)
+ '(display-line-numbers-minor-tick 10)
  '(ede-project-directories nil)
  '(fill-column 120)
  '(global-prettify-symbols-mode t)
@@ -35,26 +38,30 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(async auto-header auto-rename-tag better-defaults blacken cargo-mode cmake-mode company company-jedi company-math
-           company-shell company-terraform company-web counsel-projectile css-eldoc devdocs django-snippets
-           docker-compose-mode dockerfile-mode dumb-jump editorconfig editorconfig-generate elisp-autofmt elisp-def
-           elisp-lint elisp-refs emmet-mode eslint-disable-rule eslint-fix flycheck-aspell flycheck-bashate
-           flycheck-cask flycheck-clang-tidy flycheck-eglot flycheck-golangci-lint flycheck-jest flycheck-kotlin
-           flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust flylisp focus-autosave-mode
-           form-feed-st forth-mode gameoflife git-modes gnu-elpa-keyring-update go go-autocomplete go-projectile
-           go-scratch guru-mode highlight-parentheses hl-todo ibuffer-projectile ietf-docs immaterial-theme js2-mode
-           kotlin-ts-mode lispy lsp-origami magit markdown-toc material-theme morlock mwim ng2-mode nov org-contrib
-           org-modern origami parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg
-           rust-mode slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent
-           treesit-auto typescript-mode w3m web-beautify web-mode weyland-yutani-theme ws-butler))
+   '(auto-header auto-rename-tag better-defaults blacken cargo-mode chemtable cmake-mode code-archive company-jedi
+                 company-math company-shell company-terraform company-web counsel-projectile css-eldoc devdocs
+                 django-snippets docker-compose-mode dockerfile-mode dumb-jump editorconfig editorconfig-generate elisa
+                 elisp-autofmt elisp-def elisp-lint elisp-refs emmet-mode eslint-disable-rule eslint-fix flycheck-aspell
+                 flycheck-bashate flycheck-cask flycheck-clang-tidy flycheck-eglot flycheck-golangci-lint flycheck-jest
+                 flycheck-kotlin flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust
+                 flylisp focus-autosave-mode form-feed-st forth-mode gameoflife git-modes gnu-elpa-keyring-update go
+                 go-autocomplete go-projectile go-scratch guru-mode highlight-parentheses hl-todo ibuffer-projectile
+                 ietf-docs immaterial-theme js2-mode kotlin-ts-mode lispy lsp-origami magit markdown-toc material-theme
+                 morlock mwim ng2-mode nov org-ai org-contrib org-gcal org-link-beautify org-modern org-msg
+                 org-projectile org-ql org-recur org-ref org-special-block-extras org-tidy org-timeblock org-vcard
+                 org-web-tools parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg
+                 rust-mode slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent
+                 treesit-auto w3m web-beautify web-mode weyland-yutani-theme ws-butler))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
  '(safe-local-variable-values
-   '((python-shell-exec-path . "/Users/adrianflanagan/.pyenv/shims")
-     (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
+   '((eval add-to-list 'auto-mode-alist '("\\.html\\'" . angular-html-mode))
+     (python-shell-exec-path . "/Users/adrianflanagan/.pyenv/shims")
+     (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
      (python-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")
      (python-shell-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")))
- '(show-trailing-whitespace t)
+ '(show-trailing-whitespace nil)
+ '(sml/theme 'dark)
  '(sql-product 'postgres)
  '(tab-width 4)
  '(track-eol t)
@@ -94,4 +101,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "White" :foreground "Black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 170 :width normal :foundry "nil" :family "Fira Code")))))
+ '(line-number-major-tick ((t (:background "gray85" :weight bold :height 0.8))))
+ '(line-number-minor-tick ((t (:background "gray91" :slant italic :height 0.8)))))
