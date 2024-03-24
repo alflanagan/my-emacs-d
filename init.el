@@ -171,13 +171,11 @@
 (use-package org-contrib :ensure t)
 (use-package org-modern :ensure t)
 (use-package org-ai :ensure t)
-(use-package org-gcal :ensure t)
 (use-package org-msg :ensure t)
 (use-package org-ql :ensure t)
 (use-package org-recur :ensure t)
 (use-package org-special-block-extras :ensure t)
 (use-package org-tidy :ensure t)
-(use-package org-timeblock :ensure t)
 (use-package org-vcard :ensure t)
 (use-package org-web-tools :ensure t)
 
@@ -229,6 +227,62 @@ Should only be run in a directory or project with a tsconfig file."
 
    (add-hook 'typescript-mode-hook 'setup-tide)))
 (use-package tree-sitter-indent :ensure t)
+(use-package
+ treesit
+ :mode (("\\.tsx\\'" . tsx-ts-mode))
+ :preface
+   (defun mp-setup-install-grammars ()
+    "Install Tree-sitter grammars if they are absent."
+    (interactive)
+    (dolist (grammar
+              '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+                (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
+                (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+                (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+                (toml "https://github.com/tree-sitter/tree-sitter-toml")
+                (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
+                (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
+                (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
+      (add-to-list 'treesit-language-source-alist grammar)
+      ;; Only install `grammar' if we don't already have it
+      ;; installed. However, if you want to *update* a grammar then
+      ;; this obviously prevents that from happening.
+      (unless (treesit-language-available-p (car grammar))
+        (treesit-install-language-grammar (car grammar)))))
+     (dolist (mapping
+         '((python-mode . python-ts-mode)
+           (css-mode . css-ts-mode)
+           (typescript-mode . typescript-ts-mode)
+           (js2-mode . js-ts-mode)
+           (bash-mode . bash-ts-mode)
+           (css-mode . css-ts-mode)
+           (json-mode . json-ts-mode)
+           (js-json-mode . json-ts-mode)))
+    (add-to-list 'major-mode-remap-alist mapping))
+ :config
+ ;; Do not forget to customize Combobulate to your liking:
+ ;;
+ ;;  M-x customize-group RET combobulate RET
+ ;;
+ (use-package
+  combobulate
+  :preface
+  ;; You can customize Combobulate's key prefix here.
+  ;; Note that you may have to restart Emacs for this to take effect!
+  (setq combobulate-key-prefix "C-c o")
+  :hook
+  ((python-ts-mode . combobulate-mode)
+   (js-ts-mode . combobulate-mode)
+   (html-ts-mode . combobulate-mode)
+   (css-ts-mode . combobulate-mode)
+   (yaml-ts-mode . combobulate-mode)
+   (typescript-ts-mode . combobulate-mode)
+   (json-ts-mode . combobulate-mode)
+   (tsx-ts-mode . combobulate-mode))
+  ;; Amend this to the directory where you keep Combobulate's source
+  ;; code.
+  :load-path ("/Users/adrianflanagan/Devel/personal/emacs/combobulate/")))
 (use-package treesit-auto :ensure t)
 (use-package typescript-mode :ensure t) ;; do we need this, if using typescript-ts-mode? or should we use it instead?
 (use-package w3m :ensure t)
@@ -258,11 +312,8 @@ Should only be run in a directory or project with a tsconfig file."
 ;; to work with emacsclient, commands that affect the frame need to be in server-after-make-frame-hook
 (defun setup-frame-for-mac ()
   "sets up graphical elements for new frames specific to macs"
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
-  (when (member "Fira Code" (font-family-list))
-    (add-to-list 'initial-frame-alist '(font . "Fira Code-16"))
-    (add-to-list 'default-frame-alist '(font . "Fira Code-16"))))
+  (push '(ns-transparent-titlebar . t) default-frame-alist)
+  (push '(ns-appearance . dark) default-frame-alist))
 
 (when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
@@ -288,9 +339,6 @@ Should only be run in a directory or project with a tsconfig file."
 ;; C-M-q locks the screen
 ;; enable these for all environments so I don't have to remember on non-Macs
 (bind-keys ("C-c C-q" . indent-pp-sexp) ("C-c C-s" . kill-sexp) ("C-%" . query-replace))
-
-;; steve yegge's replacements for using Meta
-(bind-keys ("C-x C-m" . execute-extended-command) ("C-c C-m" . execute-extended-command))
 
 (setq treesit-language-source-alist
       '((bash "https://github.com/tree-sitter/tree-sitter-bash")
@@ -324,7 +372,8 @@ Should only be run in a directory or project with a tsconfig file."
 ;; TypeScript setup
 
 ;; so far all cypress files are for angular project(s), _and_ this works better than typescript-mode
-(add-to-list 'auto-mode-alist '("\\.cy.ts\\'" . ng2-ts-mode))
+;; temporarily disabled until I a) add ng2 to combobulate, or b) give up on combobulate
+;; (add-to-list 'auto-mode-alist '("\\.cy.ts\\'" . ng2-ts-mode))
 (add-hook 'typescript-mode-hook 'display-line-numbers-mode)
 
 ;; this may be _too_ clever
