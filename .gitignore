@@ -57,3 +57,5 @@ lisp/default.el
 .org-generic-id-locations
 request/
 url/
+\#*
+.\#*
