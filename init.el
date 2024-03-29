@@ -9,6 +9,9 @@
 
 ;; This file is not part of GNU Emacs.
 
+(load-file (expand-file-name "~/.emacs.d/lisp/alists.el"))
+(load-file (expand-file-name "~/.emacs.d/lisp/hideshowvis.el"))
+
 
 ;;; custom lisp directory
 
@@ -163,7 +166,7 @@
 (use-package markdown-toc :ensure t)
 (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
-(use-package ng2-mode :ensure t)
+;; (use-package ng2-mode :ensure t)
 (use-package nov :ensure t) ;; epub reader
 
 
@@ -200,65 +203,70 @@
 (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
 (use-package super-save :ensure t)
 (use-package term-projectile :ensure t)
-(defun setup-tide ()
-  "Set up `tide-mode', an IDE for typescript.
+;; (defun setup-tide ()
+;;   "Set up `tide-mode', an IDE for typescript.
 
-Should only be run in a directory or project with a tsconfig file."
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (hs-minor-mode +1)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1)
-  (display-line-numbers-mode +1))
-(use-package
- tide
- :ensure t
- :config
- (progn
-   ;; aligns annotation to the right hand side
-   (setq company-tooltip-align-annotations t)
+;; Should only be run in a directory or project with a tsconfig file."
+;;   (interactive)
+;;   (tide-setup)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (hs-minor-mode +1)
+;;   (tide-hl-identifier-mode +1)
+;;   (company-mode +1)
+;;   (hideshowvis-enable)
+;;   ;; disable lsp mode because tide has its own (better) server
+;;   (lsp-mode -1)
+;;   (display-line-numbers-mode +1))
 
-   ;; formats the buffer before saving, only if tide-mode is active
-   ;; (add-hook 'before-save-hook 'tide-format-before-save)
+;; ;; TODO: keep monitoring lsp-mode, once its support of ts is comparable use it
+;; (use-package
+;;  tide
+;;  :ensure t
+;;  :hook
+;;  ((typescript-ts-mode . setup-tide)
+;;   (tsx-ts-mode . setup-tide)
+;;   (typescript-ts-mode . tide-hl-identifier-mode)
+;;   (before-save . tide-format-before-save))
+;;  :config
+;;  ;; aligns annotation to the right hand side
+;;  (setq company-tooltip-align-annotations t))
 
-   (add-hook 'typescript-mode-hook 'setup-tide)))
 (use-package tree-sitter-indent :ensure t)
 (use-package
  treesit
  :mode (("\\.tsx\\'" . tsx-ts-mode))
  :preface
-   (defun mp-setup-install-grammars ()
-    "Install Tree-sitter grammars if they are absent."
-    (interactive)
-    (dolist (grammar
-              '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-                (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
-                (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
-                (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
-                (toml "https://github.com/tree-sitter/tree-sitter-toml")
-                (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
-                (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
-                (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
-      (add-to-list 'treesit-language-source-alist grammar)
-      ;; Only install `grammar' if we don't already have it
-      ;; installed. However, if you want to *update* a grammar then
-      ;; this obviously prevents that from happening.
-      (unless (treesit-language-available-p (car grammar))
-        (treesit-install-language-grammar (car grammar)))))
-     (dolist (mapping
-         '((python-mode . python-ts-mode)
-           (css-mode . css-ts-mode)
-           (typescript-mode . typescript-ts-mode)
-           (js2-mode . js-ts-mode)
-           (bash-mode . bash-ts-mode)
-           (css-mode . css-ts-mode)
-           (json-mode . json-ts-mode)
-           (js-json-mode . json-ts-mode)))
-    (add-to-list 'major-mode-remap-alist mapping))
+ (defun mp-setup-install-grammars ()
+   "Install Tree-sitter grammars if they are absent."
+   (interactive)
+   (dolist (grammar
+            '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+              (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+              (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
+              (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+              (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+              (toml "https://github.com/tree-sitter/tree-sitter-toml")
+              (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
+              (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
+              (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
+     (add-to-list 'treesit-language-source-alist grammar)
+     ;; Only install `grammar' if we don't already have it
+     ;; installed. However, if you want to *update* a grammar then
+     ;; this obviously prevents that from happening.
+     (unless (treesit-language-available-p (car grammar))
+       (treesit-install-language-grammar (car grammar)))))
+ (dolist (mapping
+          '((python-mode . python-ts-mode)
+            (css-mode . css-ts-mode)
+            (typescript-mode . typescript-ts-mode)
+            (js2-mode . js-ts-mode)
+            (bash-mode . bash-ts-mode)
+            (css-mode . css-ts-mode)
+            (json-mode . json-ts-mode)
+            (js-json-mode . json-ts-mode)))
+   (add-to-list 'major-mode-remap-alist mapping))
  :config
  ;; Do not forget to customize Combobulate to your liking:
  ;;
@@ -371,10 +379,14 @@ Should only be run in a directory or project with a tsconfig file."
 
 ;; TypeScript setup
 
-;; so far all cypress files are for angular project(s), _and_ this works better than typescript-mode
-;; temporarily disabled until I a) add ng2 to combobulate, or b) give up on combobulate
-;; (add-to-list 'auto-mode-alist '("\\.cy.ts\\'" . ng2-ts-mode))
-(add-hook 'typescript-mode-hook 'display-line-numbers-mode)
+;; ng2-mode is (currently) working better than typescript-mode.
+;; (with-eval-after-load 'ng2-mode
+;;   (add-to-list 'auto-mode-alist '("\\.ts\\'" . ng2-ts-mode)))
+
+(with-eval-after-load 'typescript-mode
+  (progn
+    (add-hook 'typescript-mode-hook #'lsp)
+    (add-hook 'typescript-mode-hook 'display-line-numbers-mode)))
 
 ;; this may be _too_ clever
 (setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc 2> /dev/null && nvm which default")))
@@ -382,9 +394,13 @@ Should only be run in a directory or project with a tsconfig file."
 
 ;; Org-mode setup
 
+;; (with-eval-after-load 'org-mode
+;;   (progn
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 (setq global-org-modern-mode t)
+;; ))
 
+(message "%s" "init.el completed")
 ;;; init.el ends here :-)
