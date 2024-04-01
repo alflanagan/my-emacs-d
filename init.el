@@ -1,12 +1,29 @@
 ;; -*- lexical-binding: t; indent-tabs-mode: nil; -*-
 
 ;;; init.el -- Non-site-specific initialization
-;; Copyright © 2024, A. Lloyd Flanagan
 
-;; Author: A. Lloyd Flanagan <a.lloyd.flanagan@gmail.com>
-;; Maintainer: A. Lloyd Flanagan <a.lloyd.flanagan@gmail.com>
+;; Copyright © 2024 A. Lloyd Flanagan
+;;
+;; Author: A. Lloyd Flanagan <lloyd.flanagan@proton.me>
+;; Maintainer: A. Lloyd Flanagan <lloyd.flanagan@proton.me>
 ;; Created: 2014
+;; Version: ??
 
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 2, or (at your option)
+;; any later version.
+;;
+;; This file is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
+;;
 ;; This file is not part of GNU Emacs.
 
 (load-file (expand-file-name "~/.emacs.d/lisp/alists.el"))
@@ -203,35 +220,35 @@
 (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
 (use-package super-save :ensure t)
 (use-package term-projectile :ensure t)
-;; (defun setup-tide ()
-;;   "Set up `tide-mode', an IDE for typescript.
+(defun setup-tide ()
+  "Set up `tide-mode', an IDE for typescript.
 
-;; Should only be run in a directory or project with a tsconfig file."
-;;   (interactive)
-;;   (tide-setup)
-;;   (flycheck-mode +1)
-;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-;;   (eldoc-mode +1)
-;;   (hs-minor-mode +1)
-;;   (tide-hl-identifier-mode +1)
-;;   (company-mode +1)
-;;   (hideshowvis-enable)
-;;   ;; disable lsp mode because tide has its own (better) server
-;;   (lsp-mode -1)
-;;   (display-line-numbers-mode +1))
+Should only be run in a directory or project with a tsconfig file."
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (hs-minor-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1)
+  (hideshowvis-enable)
+  ;; disable lsp mode because tide has its own (better) server
+  (lsp-mode -1)
+  (display-line-numbers-mode +1))
 
-;; ;; TODO: keep monitoring lsp-mode, once its support of ts is comparable use it
-;; (use-package
-;;  tide
-;;  :ensure t
-;;  :hook
-;;  ((typescript-ts-mode . setup-tide)
-;;   (tsx-ts-mode . setup-tide)
-;;   (typescript-ts-mode . tide-hl-identifier-mode)
-;;   (before-save . tide-format-before-save))
-;;  :config
-;;  ;; aligns annotation to the right hand side
-;;  (setq company-tooltip-align-annotations t))
+;; TODO: keep monitoring lsp-mode, once its support of ts is comparable use it
+(use-package
+ tide
+ :ensure t
+ :hook
+ ((typescript-ts-mode . setup-tide)
+  (tsx-ts-mode . setup-tide)
+  (typescript-ts-mode . tide-hl-identifier-mode)
+  (before-save . tide-format-before-save))
+ :config
+ ;; aligns annotation to the right hand side
+ (setq company-tooltip-align-annotations t))
 
 (use-package tree-sitter-indent :ensure t)
 (use-package
@@ -380,12 +397,14 @@
 ;; TypeScript setup
 
 ;; ng2-mode is (currently) working better than typescript-mode.
-;; (with-eval-after-load 'ng2-mode
-;;   (add-to-list 'auto-mode-alist '("\\.ts\\'" . ng2-ts-mode)))
+;; ng2-mode uses the "official" typescript language server. which is currently not LSP-compatible, and
+;; no one seems interested in making it compatible.
+(with-eval-after-load 'ng2-mode
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . ng2-ts-mode)))
 
 (with-eval-after-load 'typescript-mode
   (progn
-    (add-hook 'typescript-mode-hook #'lsp)
+    ;; (add-hook 'typescript-mode-hook #'lsp)
     (add-hook 'typescript-mode-hook 'display-line-numbers-mode)))
 
 ;; this may be _too_ clever
@@ -394,13 +413,10 @@
 
 ;; Org-mode setup
 
-;; (with-eval-after-load 'org-mode
-;;   (progn
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 (setq global-org-modern-mode t)
-;; ))
 
 (message "%s" "init.el completed")
 ;;; init.el ends here :-)
