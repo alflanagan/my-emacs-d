@@ -244,7 +244,6 @@ Should only be run in a directory or project with a tsconfig file."
  :hook
  ((typescript-ts-mode . setup-tide)
   (tsx-ts-mode . setup-tide)
-  (typescript-ts-mode . tide-hl-identifier-mode)
   (before-save . tide-format-before-save))
  :config
  ;; aligns annotation to the right hand side
@@ -265,8 +264,8 @@ Should only be run in a directory or project with a tsconfig file."
               (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
               (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
               (toml "https://github.com/tree-sitter/tree-sitter-toml")
-              (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
-              (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
+              ;; (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
+              ;; (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
               (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
      (add-to-list 'treesit-language-source-alist grammar)
      ;; Only install `grammar' if we don't already have it
@@ -284,29 +283,29 @@ Should only be run in a directory or project with a tsconfig file."
             (json-mode . json-ts-mode)
             (js-json-mode . json-ts-mode)))
    (add-to-list 'major-mode-remap-alist mapping))
- :config
+)
  ;; Do not forget to customize Combobulate to your liking:
  ;;
  ;;  M-x customize-group RET combobulate RET
  ;;
- (use-package
-  combobulate
-  :preface
-  ;; You can customize Combobulate's key prefix here.
-  ;; Note that you may have to restart Emacs for this to take effect!
-  (setq combobulate-key-prefix "C-c o")
-  :hook
-  ((python-ts-mode . combobulate-mode)
-   (js-ts-mode . combobulate-mode)
-   (html-ts-mode . combobulate-mode)
-   (css-ts-mode . combobulate-mode)
-   (yaml-ts-mode . combobulate-mode)
-   (typescript-ts-mode . combobulate-mode)
-   (json-ts-mode . combobulate-mode)
-   (tsx-ts-mode . combobulate-mode))
-  ;; Amend this to the directory where you keep Combobulate's source
-  ;; code.
-  :load-path ("/Users/adrianflanagan/Devel/personal/emacs/combobulate/")))
+ ;; (use-package
+ ;;  combobulate
+ ;;  :preface
+ ;;  ;; You can customize Combobulate's key prefix here.
+ ;;  ;; Note that you may have to restart Emacs for this to take effect!
+ ;;  (setq combobulate-key-prefix "C-c o")
+ ;;  :hook
+ ;;  ((python-ts-mode . combobulate-mode)
+ ;;   (js-ts-mode . combobulate-mode)
+ ;;   (html-ts-mode . combobulate-mode)
+ ;;   (css-ts-mode . combobulate-mode)
+ ;;   (yaml-ts-mode . combobulate-mode)
+ ;;   (typescript-ts-mode . combobulate-mode)
+ ;;   (json-ts-mode . combobulate-mode)
+ ;;   (tsx-ts-mode . combobulate-mode))
+ ;;  ;; Amend this to the directory where you keep Combobulate's source
+ ;;  ;; code.
+ ;;  :load-path ("/Users/adrianflanagan/Devel/personal/emacs/combobulate/"))
 (use-package treesit-auto :ensure t)
 (use-package typescript-mode :ensure t) ;; do we need this, if using typescript-ts-mode? or should we use it instead?
 (use-package w3m :ensure t)
@@ -324,8 +323,8 @@ Should only be run in a directory or project with a tsconfig file."
 
 ;;; Everything Else
 
-;; our system service should be starting the server process, but just in case
-(if (not (boundp 'server-process))
+;; not having a lot of luck setting up emacs as a brew service, so far
+(if (or (not (boundp server-process)) (null server-process))
     (server-start))
 
 ;; because I often hit this key by accident and use "C-x C-c" instead anyway
