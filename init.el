@@ -183,7 +183,7 @@
 (use-package markdown-toc :ensure t)
 (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
-;; (use-package ng2-mode :ensure t)
+(use-package ng2-mode :ensure t)
 (use-package nov :ensure t) ;; epub reader
 
 
@@ -243,6 +243,7 @@ Should only be run in a directory or project with a tsconfig file."
  :ensure t
  :hook
  ((typescript-ts-mode . setup-tide)
+  (ng2-mode . setup-tide)
   (tsx-ts-mode . setup-tide)
   (before-save . tide-format-before-save))
  :config
@@ -257,16 +258,23 @@ Should only be run in a directory or project with a tsconfig file."
  (defun mp-setup-install-grammars ()
    "Install Tree-sitter grammars if they are absent."
    (interactive)
+   ;; it's not clear there's much advantage to specifying the version here
    (dolist (grammar
             '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+              (bash "https://github.com/tree-sitter/tree-sitter-bash")
+              (cmake "https://github.com/uyha/tree-sitter-cmake")
+              (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+              (go "https://github.com/tree-sitter/tree-sitter-go")
               (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
               (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+              (make "https://github.com/alemuller/tree-sitter-make")
+              (markdown "https://github.com/ikatyang/tree-sitter-markdown")
               (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
               (toml "https://github.com/tree-sitter/tree-sitter-toml")
-              ;; (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
-              ;; (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
-              (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
+              (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+              (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+              (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
      (add-to-list 'treesit-language-source-alist grammar)
      ;; Only install `grammar' if we don't already have it
      ;; installed. However, if you want to *update* a grammar then
@@ -282,30 +290,29 @@ Should only be run in a directory or project with a tsconfig file."
             (css-mode . css-ts-mode)
             (json-mode . json-ts-mode)
             (js-json-mode . json-ts-mode)))
-   (add-to-list 'major-mode-remap-alist mapping))
-)
- ;; Do not forget to customize Combobulate to your liking:
- ;;
- ;;  M-x customize-group RET combobulate RET
- ;;
- ;; (use-package
- ;;  combobulate
- ;;  :preface
- ;;  ;; You can customize Combobulate's key prefix here.
- ;;  ;; Note that you may have to restart Emacs for this to take effect!
- ;;  (setq combobulate-key-prefix "C-c o")
- ;;  :hook
- ;;  ((python-ts-mode . combobulate-mode)
- ;;   (js-ts-mode . combobulate-mode)
- ;;   (html-ts-mode . combobulate-mode)
- ;;   (css-ts-mode . combobulate-mode)
- ;;   (yaml-ts-mode . combobulate-mode)
- ;;   (typescript-ts-mode . combobulate-mode)
- ;;   (json-ts-mode . combobulate-mode)
- ;;   (tsx-ts-mode . combobulate-mode))
- ;;  ;; Amend this to the directory where you keep Combobulate's source
- ;;  ;; code.
- ;;  :load-path ("/Users/adrianflanagan/Devel/personal/emacs/combobulate/"))
+   (add-to-list 'major-mode-remap-alist mapping)))
+;; Do not forget to customize Combobulate to your liking:
+;;
+;;  M-x customize-group RET combobulate RET
+;;
+;; (use-package
+;;  combobulate
+;;  :preface
+;;  ;; You can customize Combobulate's key prefix here.
+;;  ;; Note that you may have to restart Emacs for this to take effect!
+;;  (setq combobulate-key-prefix "C-c o")
+;;  :hook
+;;  ((python-ts-mode . combobulate-mode)
+;;   (js-ts-mode . combobulate-mode)
+;;   (html-ts-mode . combobulate-mode)
+;;   (css-ts-mode . combobulate-mode)
+;;   (yaml-ts-mode . combobulate-mode)
+;;   (typescript-ts-mode . combobulate-mode)
+;;   (json-ts-mode . combobulate-mode)
+;;   (tsx-ts-mode . combobulate-mode))
+;;  ;; Amend this to the directory where you keep Combobulate's source
+;;  ;; code.
+;;  :load-path ("/Users/adrianflanagan/Devel/personal/emacs/combobulate/"))
 (use-package treesit-auto :ensure t)
 (use-package typescript-mode :ensure t) ;; do we need this, if using typescript-ts-mode? or should we use it instead?
 (use-package w3m :ensure t)
@@ -399,12 +406,12 @@ Should only be run in a directory or project with a tsconfig file."
 ;; ng2-mode uses the "official" typescript language server. which is currently not LSP-compatible, and
 ;; no one seems interested in making it compatible.
 (with-eval-after-load 'ng2-mode
-  (add-to-list 'auto-mode-alist '("\\.ts\\'" . ng2-ts-mode)))
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . ng2-ts-mode) #'car)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . ng2-html-mode) #'car))
 
 (with-eval-after-load 'typescript-mode
-  (progn
-    ;; (add-hook 'typescript-mode-hook #'lsp)
-    (add-hook 'typescript-mode-hook 'display-line-numbers-mode)))
+  ;; (add-hook 'typescript-mode-hook #'lsp)
+  (add-hook 'typescript-mode-hook 'display-line-numbers-mode))
 
 ;; this may be _too_ clever
 (setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc 2> /dev/null && nvm which default")))

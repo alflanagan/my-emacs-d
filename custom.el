@@ -51,9 +51,10 @@
                  org-projectile org-ql org-recur org-ref org-special-block-extras org-tidy org-timeblock org-vcard
                  org-web-tools parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg
                  rust-mode slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent
-                 treesit-auto w3m web-beautify web-mode weyland-yutani-theme ws-butler))
+                 treesit-auto w3m web-beautify web-mode weyland-yutani-theme ws-butler xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
+ '(safe-local-variable-directories '("/Users/adrianflanagan/org/projects/Springbok/"))
  '(safe-local-variable-values
    '((eval add-to-list 'auto-mode-alist '("\\.html\\'" . angular-html-mode))
      (python-shell-exec-path . "/Users/adrianflanagan/.pyenv/shims")
@@ -83,14 +84,14 @@
      (llvm-mir-mode . llvm-mir) (lua-mode . lua) (magik-mode . magik) (makefile-mode . make)
      (makefile-automake-mode . make) (makefile-gmake-mode . make) (makefile-makepp-mode . make)
      (makefile-bsdmake-mode . make) (makefile-imake-mode . make) (matlab-mode . matlab) (mermaid-mode . mermaid)
-     (meson-mode . meson) (ng2-mode . typescript) (ninja-mode . ninja) (noir-mode . noir) (ocaml-mode . ocaml)
+     (meson-mode . meson) (ng2-ts-mode . typescript) (ninja-mode . ninja) (noir-mode . noir) (ocaml-mode . ocaml)
      (org-mode . org) (pascal-mode . pascal) (perl-mode . perl) (php-mode . php) (qss-mode . css) (prisma-mode . prisma)
      (python-mode . python) (pygn-mode . pgn) (racket-mode . racket) (rjsx-mode . javascript) (rst-mode . rst)
      (ruby-mode . ruby) (rust-mode . rust) (rustic-mode . rust) (scala-mode . scala) (scheme-mode . scheme)
      (solidity-mode . solidity) (smithy-mode . smithy) (sql-mode . sql) (swift-mode . swift) (tablegen-mode . tablegen)
      (toml-mode . toml) (conf-toml-mode . toml) (tcl-mode . tcl) (tuareg-mode . ocaml) (twig-mode . twig)
-     (typescript-ts-mode . typescript) (tsx-ts-mode . tsx) (typst-mode . typst) (verilog-mode . verilog)
-     (vhdl-mode . vhdl) (nxml-mode . xml) (yaml-mode . yaml) (k8s-mode . yaml) (zig-mode . zig)))
+     (ng2-html-mode . tsx) (typst-mode . typst) (verilog-mode . verilog) (vhdl-mode . vhdl) (nxml-mode . xml)
+     (yaml-mode . yaml) (k8s-mode . yaml) (zig-mode . zig)))
  '(typescript-enabled-frameworks '(typescript prototype dojo))
  '(warning-minimum-level :error)
  '(whitespace-style
