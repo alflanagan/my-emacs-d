@@ -357,6 +357,13 @@ Should only be run in a directory or project with a tsconfig file."
         (lambda ()
           "do nothing and do it well"
           ())))
+
+
+;; Linux-specific setup
+
+(when (equal system-type 'gnu/linux)
+  (setq visible-bell t))
+
 
 (defun set-def-frame-size ()
   (set-frame-size nil 180 60))
