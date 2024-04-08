@@ -92,7 +92,8 @@
      (toml-mode . toml) (conf-toml-mode . toml) (tcl-mode . tcl) (tuareg-mode . ocaml) (twig-mode . twig)
      (ng2-html-mode . tsx) (typst-mode . typst) (verilog-mode . verilog) (vhdl-mode . vhdl) (nxml-mode . xml)
      (yaml-mode . yaml) (k8s-mode . yaml) (zig-mode . zig)))
- '(typescript-enabled-frameworks '(typescript prototype dojo))
+ '(typescript-enabled-frameworks '(typescript))
+ '(typescript-indent-level 2)
  '(warning-minimum-level :error)
  '(whitespace-style
    '(face trailing tabs spaces lines newline missing-newline-at-eof empty indentation space-after-tab space-before-tab
