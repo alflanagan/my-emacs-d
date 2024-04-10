@@ -26,6 +26,9 @@
  '(js-chain-indent t)
  '(js-indent-level 2)
  '(kill-ring-max 5000)
+ '(lsp-javascript-format-enable nil)
+ '(lsp-typescript-format-enable nil)
+ '(lsp-typescript-tsserver-trace "messages")
  '(major-mode-remap-alist
    '((css-mode . css-ts-mode) (js-json-mode . json-ts-mode) (go-mode . go-ts-mode) (c-mode . c-ts-mode)
      (c++-mode . c++-ts-mode) (rust . rust-ts-mode) (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)))
@@ -46,17 +49,18 @@
                  flycheck-kotlin flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust
                  flylisp focus-autosave-mode form-feed-st forth-mode gameoflife git-modes gnu-elpa-keyring-update go
                  go-autocomplete go-projectile go-scratch guru-mode highlight-parentheses hl-todo ibuffer-projectile
-                 ietf-docs immaterial-theme js2-mode kotlin-ts-mode lispy lsp-origami magit markdown-toc material-theme
-                 morlock mwim ng2-mode nov org-ai org-contrib org-gcal org-link-beautify org-modern org-msg
-                 org-projectile org-ql org-recur org-ref org-special-block-extras org-tidy org-timeblock org-vcard
-                 org-web-tools parrot projectile-codesearch projectile-speedbar pyenv-mode rainbow-delimiters reddigg
-                 rust-mode slime smart-mode-line-powerline-theme super-save term-projectile tide tree-sitter-indent
-                 treesit-auto w3m web-beautify web-mode weyland-yutani-theme ws-butler xkcd))
+                 ietf-docs immaterial-theme js2-mode kotlin-ts-mode lispy lsp-ivy lsp-origami magit markdown-toc
+                 material-theme morlock mwim ng2-mode nov org-ai org-contrib org-gcal org-link-beautify org-modern
+                 org-msg org-projectile org-ql org-recur org-ref org-special-block-extras org-tidy org-timeblock
+                 org-vcard org-web-tools parrot projectile-codesearch pyenv-mode rainbow-delimiters reddigg rust-mode
+                 sideline sideline-flycheck sideline-lsp slime smart-mode-line-powerline-theme super-save
+                 term-projectile tide tree-sitter-indent treesit-auto w3m web-beautify web-mode weyland-yutani-theme
+                 ws-butler xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
  '(safe-local-variable-directories '("/Users/adrianflanagan/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((eval add-to-list 'auto-mode-alist '("\\.html\\'" . angular-html-mode))
+   '((eval progn (tide-mode) (lsp-mode)) (eval add-to-list 'auto-mode-alist '("\\.html\\'" . angular-html-mode))
      (python-shell-exec-path . "/Users/adrianflanagan/.pyenv/shims")
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
      (python-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")
