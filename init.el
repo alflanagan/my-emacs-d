@@ -126,8 +126,8 @@
  elisp-autofmt
  :ensure t
  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
- :hook (emacs-lisp-mode . elisp-autofmt-mode)
- :bind (:map emacs-lisp-mode-map (("C-c f" . elisp-autofmt-buffer))))
+ :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
+ :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
 (use-package elisp-def :ensure t)
 (use-package elisp-lint :ensure t)
 (use-package elisp-refs :ensure t)
@@ -210,7 +210,7 @@
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
 (use-package projectile-codesearch :ensure t)
-(use-package projectile-speedbar :ensure t)
+;; (use-package projectile-speedbar :ensure t)
 (use-package pyenv-mode :ensure t)
 (use-package rainbow-delimiters :ensure t)
 (use-package reddigg :ensure t)
@@ -237,18 +237,18 @@ Should only be run in a directory or project with a tsconfig file."
   (lsp-mode -1)
   (display-line-numbers-mode +1))
 
-;; TODO: keep monitoring lsp-mode, once its support of ts is comparable use it
-(use-package
- tide
- :ensure t
- :hook
- ((typescript-ts-mode . setup-tide)
-  (ng2-mode . setup-tide)
-  (tsx-ts-mode . setup-tide)
-  (before-save . tide-format-before-save))
- :config
- ;; aligns annotation to the right hand side
- (setq company-tooltip-align-annotations t))
+;; trying to use LSP mode, seems to be better, maybe?
+;; (use-package
+;;  tide
+;;  :ensure t
+;;  :hook
+;;  ((typescript-ts-mode . setup-tide)
+;;   (ng2-mode . setup-tide)
+;;   (tsx-ts-mode . setup-tide)
+;;   (before-save . tide-format-before-save))
+;;  :config
+;;  ;; aligns annotation to the right hand side
+;;  (setq company-tooltip-align-annotations t))
 
 (use-package tree-sitter-indent :ensure t)
 (use-package
@@ -281,16 +281,19 @@ Should only be run in a directory or project with a tsconfig file."
      ;; this obviously prevents that from happening.
      (unless (treesit-language-available-p (car grammar))
        (treesit-install-language-grammar (car grammar)))))
- (dolist (mapping
-          '((python-mode . python-ts-mode)
-            (css-mode . css-ts-mode)
-            (typescript-mode . typescript-ts-mode)
-            (js2-mode . js-ts-mode)
-            (bash-mode . bash-ts-mode)
-            (css-mode . css-ts-mode)
-            (json-mode . json-ts-mode)
-            (js-json-mode . json-ts-mode)))
-   (add-to-list 'major-mode-remap-alist mapping)))
+
+;; is this still necessary?
+;; (dolist (mapping
+;;          '((python-mode . python-ts-mode)
+;;            (css-mode . css-ts-mode)
+;;            (typescript-mode . typescript-ts-mode)
+;;            (js2-mode . js-ts-mode)
+;;            (bash-mode . bash-ts-mode)
+;;            (css-mode . css-ts-mode)
+;;            (json-mode . json-ts-mode)
+;;            (js-json-mode . json-ts-mode)))
+;;   (add-to-list 'major-mode-remap-alist mapping)))
+
 ;; Do not forget to customize Combobulate to your liking:
 ;;
 ;;  M-x customize-group RET combobulate RET
@@ -314,7 +317,12 @@ Should only be run in a directory or project with a tsconfig file."
 ;;  ;; code.
 ;;  :load-path ("/Users/adrianflanagan/Devel/personal/emacs/combobulate/"))
 (use-package treesit-auto :ensure t)
-(use-package typescript-mode :ensure t) ;; do we need this, if using typescript-ts-mode? or should we use it instead?
+(use-package
+ typescript-mode
+ :ensure t
+ :hook
+ ((typescript-mode . lsp)
+  (typescript-mode . display-line-numbers-mode))) ;; do we need this, if using typescript-ts-mode? or should we use it instead?
 (use-package w3m :ensure t)
 (use-package web-beautify :ensure t)
 (use-package web-mode :ensure t)
@@ -412,13 +420,13 @@ Should only be run in a directory or project with a tsconfig file."
 ;; ng2-mode is (currently) working better than typescript-mode.
 ;; ng2-mode uses the "official" typescript language server. which is currently not LSP-compatible, and
 ;; no one seems interested in making it compatible.
-(with-eval-after-load 'ng2-mode
-  (add-to-list 'auto-mode-alist '("\\.ts\\'" . ng2-ts-mode) #'car)
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . ng2-html-mode) #'car))
+;; (with-eval-after-load 'ng2-mode
+;;   (add-to-list 'auto-mode-alist '("\\.ts\\'" . ng2-ts-mode) #'car)
+;;   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . ng2-html-mode) #'car))
 
-(with-eval-after-load 'typescript-mode
-  ;; (add-hook 'typescript-mode-hook #'lsp)
-  (add-hook 'typescript-mode-hook 'display-line-numbers-mode))
+
+
+;; system locations
 
 ;; this may be _too_ clever
 (setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc 2> /dev/null && nvm which default")))
