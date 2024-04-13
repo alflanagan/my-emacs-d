@@ -49,19 +49,18 @@
                  flycheck-kotlin flycheck-mypy flycheck-package flycheck-pycheckers flycheck-relint flycheck-rust
                  flylisp focus-autosave-mode form-feed-st forth-mode gameoflife git-modes gnu-elpa-keyring-update go
                  go-autocomplete go-projectile go-scratch guru-mode highlight-parentheses hl-todo ibuffer-projectile
-                 ietf-docs immaterial-theme js2-mode kotlin-ts-mode lispy lsp-ivy lsp-origami magit markdown-toc
-                 material-theme morlock mwim ng2-mode nov org-ai org-contrib org-gcal org-link-beautify org-modern
+                 ietf-docs immaterial-theme js2-mode kotlin-ts-mode lispy lsp-ivy lsp-origami lsp-tsserver lsp-ui magit
+                 markdown-toc material-theme morlock mwim nov org-ai org-contrib org-gcal org-link-beautify org-modern
                  org-msg org-projectile org-ql org-recur org-ref org-special-block-extras org-tidy org-timeblock
                  org-vcard org-web-tools parrot projectile-codesearch pyenv-mode rainbow-delimiters reddigg rust-mode
-                 sideline sideline-flycheck sideline-lsp slime smart-mode-line-powerline-theme super-save
-                 term-projectile tide tree-sitter-indent treesit-auto w3m web-beautify web-mode weyland-yutani-theme
+                 sideline-flycheck sideline-lsp slime smart-mode-line-powerline-theme super-save term-projectile
+                 tree-sitter-indent treesit-auto typescript-mode w3m web-beautify web-mode weyland-yutani-theme
                  ws-butler xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
  '(safe-local-variable-directories '("/Users/adrianflanagan/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((eval progn (tide-mode) (lsp-mode)) (eval add-to-list 'auto-mode-alist '("\\.html\\'" . angular-html-mode))
-     (python-shell-exec-path . "/Users/adrianflanagan/.pyenv/shims")
+   '((python-shell-exec-path . "/Users/adrianflanagan/.pyenv/shims")
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
      (python-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")
      (python-shell-interpreter . "/Users/adrianflanagan/.pyenv/versions/silverpoint-web/bin/python")))
@@ -88,13 +87,13 @@
      (llvm-mir-mode . llvm-mir) (lua-mode . lua) (magik-mode . magik) (makefile-mode . make)
      (makefile-automake-mode . make) (makefile-gmake-mode . make) (makefile-makepp-mode . make)
      (makefile-bsdmake-mode . make) (makefile-imake-mode . make) (matlab-mode . matlab) (mermaid-mode . mermaid)
-     (meson-mode . meson) (ng2-ts-mode . typescript) (ninja-mode . ninja) (noir-mode . noir) (ocaml-mode . ocaml)
+     (meson-mode . meson) (typescript-ts-mode . typescript) (ninja-mode . ninja) (noir-mode . noir) (ocaml-mode . ocaml)
      (org-mode . org) (pascal-mode . pascal) (perl-mode . perl) (php-mode . php) (qss-mode . css) (prisma-mode . prisma)
      (python-mode . python) (pygn-mode . pgn) (racket-mode . racket) (rjsx-mode . javascript) (rst-mode . rst)
      (ruby-mode . ruby) (rust-mode . rust) (rustic-mode . rust) (scala-mode . scala) (scheme-mode . scheme)
      (solidity-mode . solidity) (smithy-mode . smithy) (sql-mode . sql) (swift-mode . swift) (tablegen-mode . tablegen)
      (toml-mode . toml) (conf-toml-mode . toml) (tcl-mode . tcl) (tuareg-mode . ocaml) (twig-mode . twig)
-     (ng2-html-mode . tsx) (typst-mode . typst) (verilog-mode . verilog) (vhdl-mode . vhdl) (nxml-mode . xml)
+     (tsx-ts-mode . tsx) (typst-mode . typst) (verilog-mode . verilog) (vhdl-mode . vhdl) (nxml-mode . xml)
      (yaml-mode . yaml) (k8s-mode . yaml) (zig-mode . zig)))
  '(typescript-enabled-frameworks '(typescript))
  '(typescript-indent-level 2)

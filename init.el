@@ -178,12 +178,28 @@
 (use-package ivy :ensure t :config (ivy-mode 1))
 (use-package kotlin-ts-mode :ensure t)
 (use-package lispy :ensure t)
+(use-package
+ lsp-mode
+ :ensure t
+ :commands lsp
+ :hook (typescript-mode . lsp-deferred) ;; only start LSP when buffer is visible.
+ :config
+ ;; figured out problems with angular language service, below did not replace it
+ ;; keeping it for the next time I have to register a client
+ (lsp-register-client
+  (make-lsp-client
+   :new-connection (lsp-stdio-connection '("node" "/Users/adrianflanagan/Devel/mobelux/Springbok/myogram/client/node_modules/typescript/lib/tsserver.js"))
+
+   :major-modes '(typescript-mode)
+   :priority -2 ;; Higher priority ensures it is chosen over others like angular-ls  angular-ls priority is -1
+   :server-id 'my-tsserver))
+ )
 (use-package lsp-origami :ensure t)
 (use-package magit :ensure t)
 (use-package markdown-toc :ensure t)
 (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
 (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
-(use-package ng2-mode :ensure t)
+;; (use-package ng2-mode :ensure t)
 (use-package nov :ensure t) ;; epub reader
 
 
@@ -280,7 +296,7 @@ Should only be run in a directory or project with a tsconfig file."
      ;; installed. However, if you want to *update* a grammar then
      ;; this obviously prevents that from happening.
      (unless (treesit-language-available-p (car grammar))
-       (treesit-install-language-grammar (car grammar)))))
+       (treesit-install-language-grammar (car grammar))))))
 
 ;; is this still necessary?
 ;; (dolist (mapping
@@ -322,7 +338,11 @@ Should only be run in a directory or project with a tsconfig file."
  :ensure t
  :hook
  ((typescript-mode . lsp)
-  (typescript-mode . display-line-numbers-mode))) ;; do we need this, if using typescript-ts-mode? or should we use it instead?
+  (typescript-mode . display-line-numbers-mode)
+  (typescript-mode . flycheck-mode)
+  (typescript-mode . eldoc-mode)
+  (typescript-mode . hs-minor-mode)
+  (typescript-mode . company-mode)))
 (use-package w3m :ensure t)
 (use-package web-beautify :ensure t)
 (use-package web-mode :ensure t)
