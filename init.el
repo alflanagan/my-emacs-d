@@ -359,7 +359,7 @@ Should only be run in a directory or project with a tsconfig file."
 ;;; Everything Else
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
-(if (or (not (boundp server-process)) (null server-process))
+(if (or (not (boundp 'server-process)) (null server-process))
     (server-start))
 
 ;; because I often hit this key by accident and use "C-x C-c" instead anyway
