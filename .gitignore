@@ -60,3 +60,4 @@ url/
 \#*
 .\#*
 .lsp-session*
+.cache/

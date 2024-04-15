@@ -119,7 +119,7 @@
 (use-package django-snippets :ensure t)
 (use-package docker-compose-mode :ensure t)
 (use-package dockerfile-mode :ensure t)
-(use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+;; (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 (use-package editorconfig :ensure t :config (editorconfig-mode 1))
 (use-package eldoc :ensure t)
 (use-package
@@ -184,15 +184,14 @@
  :commands lsp
  :hook (typescript-mode . lsp-deferred) ;; only start LSP when buffer is visible.
  :config
- ;; figured out problems with angular language service, below did not replace it
- ;; keeping it for the next time I have to register a client
- (lsp-register-client
-  (make-lsp-client
-   :new-connection (lsp-stdio-connection '("node" "/Users/adrianflanagan/Devel/mobelux/Springbok/myogram/client/node_modules/typescript/lib/tsserver.js"))
+ ;; figured out problems with angular language service
+ ;; (lsp-register-client
+ ;;  (make-lsp-client
+ ;;   :new-connection (lsp-stdio-connection '("node" "/Users/adrianflanagan/Devel/mobelux/Springbok/myogram/client/node_modules/typescript/lib/tsserver.js"))
 
-   :major-modes '(typescript-mode)
-   :priority -2 ;; Higher priority ensures it is chosen over others like angular-ls  angular-ls priority is -1
-   :server-id 'my-tsserver))
+ ;;   :major-modes '(typescript-mode)
+ ;;   :priority 0 ;; Higher (more negative) ensures that angular-ls (priority -1) is chosen first
+ ;;   :server-id 'my-tsserver))
  )
 (use-package lsp-origami :ensure t)
 (use-package magit :ensure t)
