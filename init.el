@@ -26,8 +26,8 @@
 ;;
 ;; This file is not part of GNU Emacs.
 
-(load-file (expand-file-name "~/.emacs.d/lisp/alists.el"))
-(load-file (expand-file-name "~/.emacs.d/lisp/hideshowvis.el"))
+;; (load-file (expand-file-name "~/.emacs.d/lisp/alists.el"))
+;; (load-file (expand-file-name "~/.emacs.d/lisp/hideshowvis.el"))
 
 
 ;;; custom lisp directory
@@ -40,13 +40,13 @@
 
 (global-auto-revert-mode 1)
 
-(defmacro add-hook-if-exists (a-hook a-function &rest args)
-  "Add to hook A-HOOK a call to (A-FUNCTION ARGS) with a check to ensure A-FUNCTION is defined."
-  `(add-hook
-    ,a-hook
-    (lambda ()
-      (if (functionp ,a-function)
-          (funcall ,a-function ,@args)))))
+;; (defmacro add-hook-if-exists (a-hook a-function &rest args)
+;;   "Add to hook A-HOOK a call to (A-FUNCTION ARGS) with a check to ensure A-FUNCTION is defined."
+;;   `(add-hook
+;;     ,a-hook
+;;     (lambda ()
+;;       (if (functionp ,a-function)
+;;           (funcall ,a-function ,@args)))))
 
 ;; (macroexpand  '(add-hook-if-exists 'js2-mode-hook 'prettify-symbols-mode 1 2 3))
 ;; ==>
@@ -66,8 +66,8 @@
 ;; this is set in custom.el -- but we haven't loaded it yet
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
-        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-        ("melpa" . "https://melpa.org/packages/")))
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+;;  ("melpa" . "https://melpa.org/packages/")))
 
 (package-initialize)
 
@@ -88,215 +88,226 @@
 ;;; Use Packages
 
 ;; KEEP THIS SORTED!
+(setq user-init-directory (file-name-directory user-init-file)) ;; why isn't this standard? :-)
+(require 'better-defaults (file-name-concat user-init-directory "lisp/better-defaults/better-defaults"))
+(require 'smex (file-name-concat user-init-directory "lisp/smex/smex.el"))
+;; (smex-initialize) ;; not required, might make first use faster
+
+;; visible-bell is very nice on Linux and very obnoxious on a Mac
+(setq visible-bell (not (equal system-type 'darwin)))
+(setq
+    fill-column 120
+    indent-tabs-mode nil)
+
 ;; except for this, it kind of needs to be first
-(use-package
- better-defaults
- :ensure t
- :config
- (progn
-   ;; visible-bell is very nice on Linux and very obnoxious on a Mac
-   (setq visible-bell (not (equal system-type 'darwin)))
-   ;; better-defaults set custom-file to custom.el
-   (load custom-file)))
-
-(use-package async :ensure t)
-(use-package auto-header :ensure t)
-(use-package auto-rename-tag :ensure t)
-(use-package blacken :ensure t)
-(use-package cargo-mode :ensure t :pin "melpa" :hook 'rust-mode-hook)
-(use-package cmake-mode :ensure t)
-(use-package code-archive :ensure t)
-(use-package company :ensure t)
-(use-package company-jedi :ensure t)
-(use-package company-math :ensure t)
-(use-package company-shell :ensure t)
-(use-package company-terraform :ensure t)
-(use-package company-web :ensure t)
-(use-package counsel :ensure t)
-(use-package counsel-projectile :ensure t)
-(use-package css-eldoc :ensure t)
-(use-package devdocs :ensure t)
-(use-package django-snippets :ensure t)
-(use-package docker-compose-mode :ensure t)
-(use-package dockerfile-mode :ensure t)
-(use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
-(use-package editorconfig :ensure t :config (editorconfig-mode 1))
-(use-package eldoc :ensure t)
-(use-package
- elisp-autofmt
- :ensure t
- :commands (elisp-autofmt-mode elisp-autofmt-buffer)
- :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
- :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
-(use-package elisp-def :ensure t)
-(use-package elisp-lint :ensure t)
-(use-package elisp-refs :ensure t)
-(use-package eslint-disable-rule :ensure t)
-(use-package eslint-fix :ensure t)
-(use-package emmet-mode :ensure t)
-
-;; Flycheck
-(use-package flycheck :ensure t)
-(use-package flycheck-aspell :ensure t)
-(use-package flycheck-bashate :ensure t)
-(use-package flycheck-cask :ensure t)
-(use-package flycheck-clang-tidy :ensure t)
-(use-package flycheck-eglot :ensure t)
-(use-package flycheck-golangci-lint :ensure t)
-(use-package flycheck-jest :ensure t)
-(use-package flycheck-kotlin :ensure t)
-(use-package flycheck-mypy :ensure t)
-(use-package flycheck-package :ensure t)
-(use-package flycheck-pycheckers :ensure t)
-(use-package flycheck-relint :ensure t)
-(use-package flycheck-rust :ensure t)
-(use-package flylisp :ensure t)
-
-(use-package focus-autosave-mode :ensure t)
-(use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
-(use-package forth-mode :ensure t)
-(use-package git-modes :ensure t)
-(use-package gnu-elpa-keyring-update :ensure t)
-(use-package go-autocomplete :ensure t)
-(use-package go-eldoc :ensure t)
-(use-package go-mode :ensure t)
-(use-package go-projectile :ensure t)
-(use-package go-scratch :ensure t)
-(use-package guru-mode :ensure t)
-(use-package highlight-parentheses :ensure t)
-(use-package hl-todo :ensure t)
-(use-package ibuffer :ensure t :bind (("C-x C-b" . ibuffer-list-buffers)))
-(use-package ibuffer-projectile :ensure t)
-(use-package ietf-docs :ensure t)
-(use-package
- immaterial-theme
- :ensure t
- :config
- (progn
-   (load-theme 'immaterial-dark t)
-   (load-theme 'immaterial-light t)))
-(use-package ivy :ensure t :config (ivy-mode 1))
-(use-package kotlin-ts-mode :ensure t)
-(use-package lispy :ensure t)
-(use-package
- lsp-mode
- :ensure t
- :commands lsp
- :hook (typescript-mode . lsp-deferred) ;; only start LSP when buffer is visible.
- :config
- ;; figured out problems with angular language service, below did not replace it
- ;; keeping it for the next time I have to register a client
- (lsp-register-client
-  (make-lsp-client
-   :new-connection (lsp-stdio-connection '("node" "/Users/adrianflanagan/Devel/mobelux/Springbok/myogram/client/node_modules/typescript/lib/tsserver.js"))
-
-   :major-modes '(typescript-mode)
-   :priority -2 ;; Higher priority ensures it is chosen over others like angular-ls  angular-ls priority is -1
-   :server-id 'my-tsserver))
- )
-(use-package lsp-origami :ensure t)
-(use-package magit :ensure t)
-(use-package markdown-toc :ensure t)
-(use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
-(use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
-;; (use-package ng2-mode :ensure t)
-(use-package nov :ensure t) ;; epub reader
-
-
-;; org-mode packages
-(use-package org-contrib :ensure t)
-(use-package org-modern :ensure t)
-(use-package org-ai :ensure t)
-(use-package org-msg :ensure t)
-(use-package org-ql :ensure t)
-(use-package org-recur :ensure t)
-(use-package org-special-block-extras :ensure t)
-(use-package org-tidy :ensure t)
-(use-package org-web-tools :ensure t)
-
-(use-package
- origami
- :ensure t
- :config (global-origami-mode)
- :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
-(use-package parrot :ensure t)
-(use-package
- projectile
- :ensure t
- :config (projectile-mode +1)
- :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
-(use-package projectile-codesearch :ensure t)
-;; (use-package projectile-speedbar :ensure t)
-(use-package pyenv-mode :ensure t)
-(use-package rainbow-delimiters :ensure t)
-(use-package reddigg :ensure t)
-(use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
-(use-package slime :ensure t)
-(use-package smart-mode-line :ensure t :config (sml/setup))
-(use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
-(use-package super-save :ensure t)
-(use-package term-projectile :ensure t)
-(defun setup-tide ()
-  "Set up `tide-mode', an IDE for typescript.
-
-Should only be run in a directory or project with a tsconfig file."
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (hs-minor-mode +1)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1)
-  (hideshowvis-enable)
-  ;; disable lsp mode because tide has its own (better) server
-  (lsp-mode -1)
-  (display-line-numbers-mode +1))
-
-;; trying to use LSP mode, seems to be better, maybe?
 ;; (use-package
-;;  tide
+;;  better-defaults
 ;;  :ensure t
-;;  :hook
-;;  ((typescript-ts-mode . setup-tide)
-;;   (ng2-mode . setup-tide)
-;;   (tsx-ts-mode . setup-tide)
-;;   (before-save . tide-format-before-save))
 ;;  :config
-;;  ;; aligns annotation to the right hand side
-;;  (setq company-tooltip-align-annotations t))
+;;  (progn
+;;    ;; visible-bell is very nice on Linux and very obnoxious on a Mac
+;;    (setq visible-bell (not (equal system-type 'darwin)))
+;;    ;; better-defaults set custom-file to custom.el
+;;    (load custom-file)))
 
-(use-package tree-sitter-indent :ensure t)
-(use-package
- treesit
- :mode (("\\.tsx\\'" . tsx-ts-mode))
- :preface
- (defun mp-setup-install-grammars ()
-   "Install Tree-sitter grammars if they are absent."
-   (interactive)
-   ;; it's not clear there's much advantage to specifying the version here
-   (dolist (grammar
-            '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-              (bash "https://github.com/tree-sitter/tree-sitter-bash")
-              (cmake "https://github.com/uyha/tree-sitter-cmake")
-              (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-              (go "https://github.com/tree-sitter/tree-sitter-go")
-              (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-              (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
-              (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
-              (make "https://github.com/alemuller/tree-sitter-make")
-              (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-              (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
-              (toml "https://github.com/tree-sitter/tree-sitter-toml")
-              (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-              (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-              (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-     (add-to-list 'treesit-language-source-alist grammar)
-     ;; Only install `grammar' if we don't already have it
-     ;; installed. However, if you want to *update* a grammar then
-     ;; this obviously prevents that from happening.
-     (unless (treesit-language-available-p (car grammar))
-       (treesit-install-language-grammar (car grammar))))))
+;; (use-package async :ensure t)
+;; (use-package auto-header :ensure t)
+;; (use-package auto-rename-tag :ensure t)
+;; (use-package blacken :ensure t)
+;; (use-package cargo-mode :ensure t :pin "melpa" :hook 'rust-mode-hook)
+;; (use-package cmake-mode :ensure t)
+;; (use-package code-archive :ensure t)
+;; (use-package company :ensure t)
+;; (use-package company-jedi :ensure t)
+;; (use-package company-math :ensure t)
+;; (use-package company-shell :ensure t)
+;; (use-package company-terraform :ensure t)
+;; (use-package company-web :ensure t)
+;; (use-package counsel :ensure t)
+;; (use-package counsel-projectile :ensure t)
+;; (use-package css-eldoc :ensure t)
+;; (use-package devdocs :ensure t)
+;; (use-package django-snippets :ensure t)
+;; (use-package docker-compose-mode :ensure t)
+;; (use-package dockerfile-mode :ensure t)
+;; (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+;; (use-package editorconfig :ensure t :config (editorconfig-mode 1))
+;; (use-package eldoc :ensure t)
+;; (use-package
+;;  elisp-autofmt
+;;  :ensure t
+;;  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+;;  :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
+;;  :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
+;; (use-package elisp-def :ensure t)
+;; (use-package elisp-lint :ensure t)
+;; (use-package elisp-refs :ensure t)
+;; (use-package eslint-disable-rule :ensure t)
+;; (use-package eslint-fix :ensure t)
+;; (use-package emmet-mode :ensure t)
+;; 
+;; ;; Flycheck
+;; (use-package flycheck :ensure t)
+;; (use-package flycheck-aspell :ensure t)
+;; (use-package flycheck-bashate :ensure t)
+;; (use-package flycheck-cask :ensure t)
+;; (use-package flycheck-clang-tidy :ensure t)
+;; (use-package flycheck-eglot :ensure t)
+;; (use-package flycheck-golangci-lint :ensure t)
+;; (use-package flycheck-jest :ensure t)
+;; (use-package flycheck-kotlin :ensure t)
+;; (use-package flycheck-mypy :ensure t)
+;; (use-package flycheck-package :ensure t)
+;; (use-package flycheck-pycheckers :ensure t)
+;; (use-package flycheck-relint :ensure t)
+;; (use-package flycheck-rust :ensure t)
+;; (use-package flylisp :ensure t)
+;; 
+;; (use-package focus-autosave-mode :ensure t)
+;; (use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
+;; (use-package forth-mode :ensure t)
+;; (use-package git-modes :ensure t)
+;; (use-package gnu-elpa-keyring-update :ensure t)
+;; (use-package go-autocomplete :ensure t)
+;; (use-package go-eldoc :ensure t)
+;; (use-package go-mode :ensure t)
+;; (use-package go-projectile :ensure t)
+;; (use-package go-scratch :ensure t)
+;; (use-package guru-mode :ensure t)
+;; (use-package highlight-parentheses :ensure t)
+;; (use-package hl-todo :ensure t)
+;; (use-package ibuffer :ensure t :bind (("C-x C-b" . ibuffer-list-buffers)))
+;; (use-package ibuffer-projectile :ensure t)
+;; (use-package ietf-docs :ensure t)
+;; (use-package
+;;  immaterial-theme
+;;  :ensure t
+;;  :config
+;;  (progn
+;;    (load-theme 'immaterial-dark t)
+;;    (load-theme 'immaterial-light t)))
+;; (use-package ivy :ensure t :config (ivy-mode 1))
+;; (use-package kotlin-ts-mode :ensure t)
+;; (use-package lispy :ensure t)
+;; (use-package
+;;  lsp-mode
+;;  :ensure t
+;;  :commands lsp
+;;  :hook (typescript-mode . lsp-deferred) ;; only start LSP when buffer is visible.
+;;  :config
+;;  ;; figured out problems with angular language service, below did not replace it
+;;  ;; keeping it for the next time I have to register a client
+;;  (lsp-register-client
+;;   (make-lsp-client
+;;    :new-connection (lsp-stdio-connection '("node" "/Users/adrianflanagan/Devel/mobelux/Springbok/myogram/client/node_modules/typescript/lib/tsserver.js"))
+
+;;    :major-modes '(typescript-mode)
+;;    :priority -2 ;; Higher priority ensures it is chosen over others like angular-ls  angular-ls priority is -1
+;;    :server-id 'my-tsserver))
+;;  )
+;; (use-package lsp-origami :ensure t)
+;; (use-package magit :ensure t)
+;; (use-package markdown-toc :ensure t)
+;; (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
+;; (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
+;; ;; (use-package ng2-mode :ensure t)
+;; (use-package nov :ensure t) ;; epub reader
+
+;; 
+;; ;; org-mode packages
+;; (use-package org-contrib :ensure t)
+;; (use-package org-modern :ensure t)
+;; (use-package org-ai :ensure t)
+;; (use-package org-msg :ensure t)
+;; (use-package org-ql :ensure t)
+;; (use-package org-recur :ensure t)
+;; (use-package org-special-block-extras :ensure t)
+;; (use-package org-tidy :ensure t)
+;; (use-package org-web-tools :ensure t)
+;; 
+;; (use-package
+;;  origami
+;;  :ensure t
+;;  :config (global-origami-mode)
+;;  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
+;; (use-package parrot :ensure t)
+;; (use-package
+;;  projectile
+;;  :ensure t
+;;  :config (projectile-mode +1)
+;;  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+;; (use-package projectile-codesearch :ensure t)
+;; ;; (use-package projectile-speedbar :ensure t)
+;; (use-package pyenv-mode :ensure t)
+;; (use-package rainbow-delimiters :ensure t)
+;; (use-package reddigg :ensure t)
+;; (use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
+;; (use-package slime :ensure t)
+;; (use-package smart-mode-line :ensure t :config (sml/setup))
+;; (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
+;; (use-package super-save :ensure t)
+;; (use-package term-projectile :ensure t)
+;; (defun setup-tide ()
+;;   "Set up `tide-mode', an IDE for typescript.
+
+;; Should only be run in a directory or project with a tsconfig file."
+;;   (interactive)
+;;   (tide-setup)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (hs-minor-mode +1)
+;;   (tide-hl-identifier-mode +1)
+;;   (company-mode +1)
+;;   (hideshowvis-enable)
+;;   ;; disable lsp mode because tide has its own (better) server
+;;   (lsp-mode -1)
+;;   (display-line-numbers-mode +1))
+
+;; ;; trying to use LSP mode, seems to be better, maybe?
+;; ;; (use-package
+;; ;;  tide
+;; ;;  :ensure t
+;; ;;  :hook
+;; ;;  ((typescript-ts-mode . setup-tide)
+;; ;;   (ng2-mode . setup-tide)
+;; ;;   (tsx-ts-mode . setup-tide)
+;; ;;   (before-save . tide-format-before-save))
+;; ;;  :config
+;; ;;  ;; aligns annotation to the right hand side
+;; ;;  (setq company-tooltip-align-annotations t))
+
+;; (use-package tree-sitter-indent :ensure t)
+;; (use-package
+;;  treesit
+;;  :mode (("\\.tsx\\'" . tsx-ts-mode))
+;;  :preface
+;;  (defun mp-setup-install-grammars ()
+;;    "Install Tree-sitter grammars if they are absent."
+;;    (interactive)
+;;    ;; it's not clear there's much advantage to specifying the version here
+;;    (dolist (grammar
+;;             '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+;;               (bash "https://github.com/tree-sitter/tree-sitter-bash")
+;;               (cmake "https://github.com/uyha/tree-sitter-cmake")
+;;               (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+;;               (go "https://github.com/tree-sitter/tree-sitter-go")
+;;               (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+;;               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
+;;               (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+;;               (make "https://github.com/alemuller/tree-sitter-make")
+;;               (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+;;               (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+;;               (toml "https://github.com/tree-sitter/tree-sitter-toml")
+;;               (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+;;               (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+;;               (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+;;      (add-to-list 'treesit-language-source-alist grammar)
+;;      ;; Only install `grammar' if we don't already have it
+;;      ;; installed. However, if you want to *update* a grammar then
+;;      ;; this obviously prevents that from happening.
+;;      (unless (treesit-language-available-p (car grammar))
+;;        (treesit-install-language-grammar (car grammar))))))
 
 ;; is this still necessary?
 ;; (dolist (mapping
@@ -332,28 +343,28 @@ Should only be run in a directory or project with a tsconfig file."
 ;;  ;; Amend this to the directory where you keep Combobulate's source
 ;;  ;; code.
 ;;  :load-path ("/Users/adrianflanagan/Devel/personal/emacs/combobulate/"))
-(use-package treesit-auto :ensure t)
-(use-package
- typescript-mode
- :ensure t
- :hook
- ((typescript-mode . lsp)
-  (typescript-mode . display-line-numbers-mode)
-  (typescript-mode . flycheck-mode)
-  (typescript-mode . eldoc-mode)
-  (typescript-mode . hs-minor-mode)
-  (typescript-mode . company-mode)))
-(use-package w3m :ensure t)
-(use-package web-beautify :ensure t)
-(use-package web-mode :ensure t)
-(use-package weyland-yutani-theme :ensure t)
-(use-package ws-butler :ensure t)
-(use-package xkcd :ensure t)
-(use-package yasnippet :ensure t :pin melpa)
+;; (use-package treesit-auto :ensure t)
+;; (use-package
+;;  typescript-mode
+;;  :ensure t
+;;  :hook
+;;  ((typescript-mode . lsp)
+;;   (typescript-mode . display-line-numbers-mode)
+;;   (typescript-mode . flycheck-mode)
+;;   (typescript-mode . eldoc-mode)
+;;   (typescript-mode . hs-minor-mode)
+;;   (typescript-mode . company-mode)))
+;; (use-package w3m :ensure t)
+;; (use-package web-beautify :ensure t)
+;; (use-package web-mode :ensure t)
+;; (use-package weyland-yutani-theme :ensure t)
+;; (use-package ws-butler :ensure t)
+;; (use-package xkcd :ensure t)
+;; (use-package yasnippet :ensure t :pin melpa)
 
-;; should have a separate section for Elisp libraries
-(use-package dash :ensure t) ;; list functions
-(use-package s :ensure t) ;; string functions
+;; ;; should have a separate section for Elisp libraries
+;; (use-package dash :ensure t) ;; list functions
+;; (use-package s :ensure t) ;; string functions
 
 
 ;;; Everything Else
@@ -406,31 +417,31 @@ Should only be run in a directory or project with a tsconfig file."
 ;; enable these for all environments so I don't have to remember on non-Macs
 (bind-keys ("C-c C-q" . indent-pp-sexp) ("C-c C-s" . kill-sexp) ("C-%" . query-replace))
 
-(setq treesit-language-source-alist
-      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-        (cmake "https://github.com/uyha/tree-sitter-cmake")
-        (css "https://github.com/tree-sitter/tree-sitter-css")
-        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-        (go "https://github.com/tree-sitter/tree-sitter-go")
-        (html "https://github.com/tree-sitter/tree-sitter-html")
-        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-        (json "https://github.com/tree-sitter/tree-sitter-json")
-        (make "https://github.com/alemuller/tree-sitter-make")
-        (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-        (python "https://github.com/tree-sitter/tree-sitter-python")
-        (toml "https://github.com/tree-sitter/tree-sitter-toml")
-        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-        (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+;; (setq treesit-language-source-alist
+;;       '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+;;         (cmake "https://github.com/uyha/tree-sitter-cmake")
+;;         (css "https://github.com/tree-sitter/tree-sitter-css")
+;;         (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+;;         (go "https://github.com/tree-sitter/tree-sitter-go")
+;;         (html "https://github.com/tree-sitter/tree-sitter-html")
+;;         (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+;;         (json "https://github.com/tree-sitter/tree-sitter-json")
+;;         (make "https://github.com/alemuller/tree-sitter-make")
+;;         (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+;;         (python "https://github.com/tree-sitter/tree-sitter-python")
+;;         (toml "https://github.com/tree-sitter/tree-sitter-toml")
+;;         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+;;         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+;;         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
-(add-hook
- 'emacs-lisp-mode-hook
- (lambda ()
-   (setq-local compile-command
-               (concat
-                "emacs -batch -f batch-byte-compile "
-                (if buffer-file-name
-                    (shell-quote-argument buffer-file-name))))))
+;; (add-hook
+;;  'emacs-lisp-mode-hook
+;;  (lambda ()
+;;    (setq-local compile-command
+;;                (concat
+;;                 "emacs -batch -f batch-byte-compile "
+;;                 (if buffer-file-name
+;;                     (shell-quote-argument buffer-file-name))))))
 
 (setq column-number-mode t)
 
@@ -449,7 +460,7 @@ Should only be run in a directory or project with a tsconfig file."
 ;; system locations
 
 ;; this may be _too_ clever
-(setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc 2> /dev/null && nvm which default")))
+;; (setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc 2> /dev/null && nvm which default")))
 
 
 ;; Org-mode setup
@@ -457,7 +468,19 @@ Should only be run in a directory or project with a tsconfig file."
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
-(setq global-org-modern-mode t)
+;; (setq global-org-modern-mode t)
 
 (message "%s" "init.el completed")
 ;;; init.el ends here :-)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
