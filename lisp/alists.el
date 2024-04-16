@@ -36,7 +36,7 @@
   "If KEY is in ALIST, set to VALUE. Otherwise push (KEY . VALUE) to ALIST"
   (let ((pair (assoc key alist)))
     (if pair
-        (setcdr pair new-value)
-      (push (cons key new-value) alist))))
+        (setcdr pair value)
+      (push (cons key value) alist))))
 
 (provide 'alf-alists)
