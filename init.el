@@ -26,7 +26,7 @@
 ;;
 ;; This file is not part of GNU Emacs.
 
-;; (load-file (expand-file-name "~/.emacs.d/lisp/alists.el"))
+(load-file (expand-file-name "~/.emacs.d/lisp/alists.el"))
 ;; (load-file (expand-file-name "~/.emacs.d/lisp/hideshowvis.el"))
 
 
@@ -39,23 +39,6 @@
 
 
 (global-auto-revert-mode 1)
-
-;; (defmacro add-hook-if-exists (a-hook a-function &rest args)
-;;   "Add to hook A-HOOK a call to (A-FUNCTION ARGS) with a check to ensure A-FUNCTION is defined."
-;;   `(add-hook
-;;     ,a-hook
-;;     (lambda ()
-;;       (if (functionp ,a-function)
-;;           (funcall ,a-function ,@args)))))
-
-;; (macroexpand  '(add-hook-if-exists 'js2-mode-hook 'prettify-symbols-mode 1 2 3))
-;; ==>
-;; (add-hook
-;;  'js2-mode-hook
-;;  (lambda ()
-;;    (if (functionp 'prettify-symbols-mode)
-;;        (funcall 'prettify-symbols-mode 1 2 3))))
-
 
 ;;; NOTE: customizations are in custom.el -- better-defaults changes the destination
 
@@ -88,7 +71,9 @@
 ;;; Use Packages
 
 ;; KEEP THIS SORTED!
-(setq user-init-directory (file-name-directory user-init-file)) ;; why isn't this standard? :-)
+;; (setq user-init-directory (file-name-directory user-init-file)) ;; why isn't this standard? :-)
+;; and apparently user-init-file isn't set yet?
+(setq user-init-directory (expand-file-name "~/.emacs.d"))
 (require 'better-defaults (file-name-concat user-init-directory "lisp/better-defaults/better-defaults"))
 (require 'smex (file-name-concat user-init-directory "lisp/smex/smex.el"))
 ;; (smex-initialize) ;; not required, might make first use faster
@@ -98,6 +83,7 @@
 (setq
     fill-column 120
     indent-tabs-mode nil)
+(setq auto-mode-alist (alist-key-add-or-replace "\\.ts\\'" 'typescript-ts-mode auto-mode-alist))
 
 ;; except for this, it kind of needs to be first
 ;; (use-package
@@ -133,12 +119,12 @@
 ;; (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 ;; (use-package editorconfig :ensure t :config (editorconfig-mode 1))
 ;; (use-package eldoc :ensure t)
-;; (use-package
-;;  elisp-autofmt
-;;  :ensure t
-;;  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
-;;  :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
-;;  :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
+(use-package
+ elisp-autofmt
+ :ensure t
+ :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+ :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
+ :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
 ;; (use-package elisp-def :ensure t)
 ;; (use-package elisp-lint :ensure t)
 ;; (use-package elisp-refs :ensure t)
@@ -174,7 +160,7 @@
 ;; (use-package go-projectile :ensure t)
 ;; (use-package go-scratch :ensure t)
 ;; (use-package guru-mode :ensure t)
-;; (use-package highlight-parentheses :ensure t)
+(use-package highlight-parentheses :ensure t)
 ;; (use-package hl-todo :ensure t)
 ;; (use-package ibuffer :ensure t :bind (("C-x C-b" . ibuffer-list-buffers)))
 ;; (use-package ibuffer-projectile :ensure t)
@@ -279,6 +265,7 @@
 ;; ;;  (setq company-tooltip-align-annotations t))
 
 ;; (use-package tree-sitter-indent :ensure t)
+
 (use-package
  treesit
  :mode (("\\.tsx\\'" . tsx-ts-mode))
@@ -310,6 +297,7 @@
      (unless (treesit-language-available-p (car grammar))
        (treesit-install-language-grammar (car grammar))))))
 
+
 ;; is this still necessary?
 ;; (dolist (mapping
 ;;          '((python-mode . python-ts-mode)
@@ -322,28 +310,6 @@
 ;;            (js-json-mode . json-ts-mode)))
 ;;   (add-to-list 'major-mode-remap-alist mapping)))
 
-;; Do not forget to customize Combobulate to your liking:
-;;
-;;  M-x customize-group RET combobulate RET
-;;
-;; (use-package
-;;  combobulate
-;;  :preface
-;;  ;; You can customize Combobulate's key prefix here.
-;;  ;; Note that you may have to restart Emacs for this to take effect!
-;;  (setq combobulate-key-prefix "C-c o")
-;;  :hook
-;;  ((python-ts-mode . combobulate-mode)
-;;   (js-ts-mode . combobulate-mode)
-;;   (html-ts-mode . combobulate-mode)
-;;   (css-ts-mode . combobulate-mode)
-;;   (yaml-ts-mode . combobulate-mode)
-;;   (typescript-ts-mode . combobulate-mode)
-;;   (json-ts-mode . combobulate-mode)
-;;   (tsx-ts-mode . combobulate-mode))
-;;  ;; Amend this to the directory where you keep Combobulate's source
-;;  ;; code.
-;;  :load-path ("/Users/adrianflanagan/Devel/personal/emacs/combobulate/"))
 ;; (use-package treesit-auto :ensure t)
 ;; (use-package
 ;;  typescript-mode
@@ -376,7 +342,7 @@
 
 ;; because I often hit this key by accident and use "C-x C-c" instead anyway
 (keymap-global-unset "s-q" nil)
-(keymap-global-set "C-x C-p" #'(project-list-buffers t))
+;; (keymap-global-set "C-x C-p" (lambda (x) (interactive) (project-list-buffers t)))
 
 
 ;; MAC-specific setup
@@ -473,19 +439,3 @@
 
 (message "%s" "init.el completed")
 ;;; init.el ends here :-)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(better-defaults form-feed-st lsp-mode projectile xkcd))
- '(safe-local-variable-values
-   '((org-todo-keywords quote
-                        ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|"
-                                   "DONE" "CANCELED"))))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
