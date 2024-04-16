@@ -66,8 +66,8 @@
 ;; this is set in custom.el -- but we haven't loaded it yet
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
-        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-;;  ("melpa" . "https://melpa.org/packages/")))
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+  ("melpa" . "https://melpa.org/packages/")))
 
 (package-initialize)
 
@@ -164,7 +164,7 @@
 ;; (use-package flylisp :ensure t)
 ;; 
 ;; (use-package focus-autosave-mode :ensure t)
-;; (use-package form-feed-st :ensure t :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
+(use-package form-feed-st :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
 ;; (use-package forth-mode :ensure t)
 ;; (use-package git-modes :ensure t)
 ;; (use-package gnu-elpa-keyring-update :ensure t)
@@ -189,22 +189,22 @@
 ;; (use-package ivy :ensure t :config (ivy-mode 1))
 ;; (use-package kotlin-ts-mode :ensure t)
 ;; (use-package lispy :ensure t)
-;; (use-package
-;;  lsp-mode
-;;  :ensure t
-;;  :commands lsp
-;;  :hook (typescript-mode . lsp-deferred) ;; only start LSP when buffer is visible.
-;;  :config
-;;  ;; figured out problems with angular language service, below did not replace it
-;;  ;; keeping it for the next time I have to register a client
-;;  (lsp-register-client
-;;   (make-lsp-client
-;;    :new-connection (lsp-stdio-connection '("node" "/Users/adrianflanagan/Devel/mobelux/Springbok/myogram/client/node_modules/typescript/lib/tsserver.js"))
+(use-package
+ lsp-mode
+ :ensure t
+ :commands lsp
+ :hook (typescript-mode . lsp-deferred) ;; only start LSP when buffer is visible.
+ ;; :config
+ ;; figured out problems with angular language service, below did not replace it
+ ;; keeping it for the next time I have to register a client
+ ;;  (lsp-register-client
+ ;;   (make-lsp-client
+ ;;    :new-connection (lsp-stdio-connection '("node" "/Users/adrianflanagan/Devel/mobelux/Springbok/myogram/client/node_modules/typescript/lib/tsserver.js"))
+ ;;    :major-modes '(typescript-mode)
+ ;;    :priority -2 ;; Higher priority ensures it is chosen over others like angular-ls  angular-ls priority is -1
+ ;;    :server-id 'my-tsserver))
+ )
 
-;;    :major-modes '(typescript-mode)
-;;    :priority -2 ;; Higher priority ensures it is chosen over others like angular-ls  angular-ls priority is -1
-;;    :server-id 'my-tsserver))
-;;  )
 ;; (use-package lsp-origami :ensure t)
 ;; (use-package magit :ensure t)
 ;; (use-package markdown-toc :ensure t)
@@ -231,11 +231,12 @@
 ;;  :config (global-origami-mode)
 ;;  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 ;; (use-package parrot :ensure t)
-;; (use-package
-;;  projectile
-;;  :ensure t
-;;  :config (projectile-mode +1)
-;;  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+(use-package
+ projectile
+ :ensure t
+ :init (keymap-global-unset "s-p")
+ :config (projectile-mode +1)
+ :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
 ;; (use-package projectile-codesearch :ensure t)
 ;; ;; (use-package projectile-speedbar :ensure t)
 ;; (use-package pyenv-mode :ensure t)
@@ -278,36 +279,36 @@
 ;; ;;  (setq company-tooltip-align-annotations t))
 
 ;; (use-package tree-sitter-indent :ensure t)
-;; (use-package
-;;  treesit
-;;  :mode (("\\.tsx\\'" . tsx-ts-mode))
-;;  :preface
-;;  (defun mp-setup-install-grammars ()
-;;    "Install Tree-sitter grammars if they are absent."
-;;    (interactive)
-;;    ;; it's not clear there's much advantage to specifying the version here
-;;    (dolist (grammar
-;;             '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-;;               (bash "https://github.com/tree-sitter/tree-sitter-bash")
-;;               (cmake "https://github.com/uyha/tree-sitter-cmake")
-;;               (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-;;               (go "https://github.com/tree-sitter/tree-sitter-go")
-;;               (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-;;               (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
-;;               (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
-;;               (make "https://github.com/alemuller/tree-sitter-make")
-;;               (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-;;               (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
-;;               (toml "https://github.com/tree-sitter/tree-sitter-toml")
-;;               (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-;;               (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-;;               (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-;;      (add-to-list 'treesit-language-source-alist grammar)
-;;      ;; Only install `grammar' if we don't already have it
-;;      ;; installed. However, if you want to *update* a grammar then
-;;      ;; this obviously prevents that from happening.
-;;      (unless (treesit-language-available-p (car grammar))
-;;        (treesit-install-language-grammar (car grammar))))))
+(use-package
+ treesit
+ :mode (("\\.tsx\\'" . tsx-ts-mode))
+ :preface
+ (defun mp-setup-install-grammars ()
+   "Install Tree-sitter grammars if they are absent."
+   (interactive)
+   ;; it's not clear there's much advantage to specifying the version here
+   (dolist (grammar
+            '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+              (bash "https://github.com/tree-sitter/tree-sitter-bash")
+              (cmake "https://github.com/uyha/tree-sitter-cmake")
+              (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+              (go "https://github.com/tree-sitter/tree-sitter-go")
+              (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+              (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
+              (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+              (make "https://github.com/alemuller/tree-sitter-make")
+              (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+              (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+              (toml "https://github.com/tree-sitter/tree-sitter-toml")
+              (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+              (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+              (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+     (add-to-list 'treesit-language-source-alist grammar)
+     ;; Only install `grammar' if we don't already have it
+     ;; installed. However, if you want to *update* a grammar then
+     ;; this obviously prevents that from happening.
+     (unless (treesit-language-available-p (car grammar))
+       (treesit-install-language-grammar (car grammar))))))
 
 ;; is this still necessary?
 ;; (dolist (mapping
@@ -359,7 +360,7 @@
 ;; (use-package web-mode :ensure t)
 ;; (use-package weyland-yutani-theme :ensure t)
 ;; (use-package ws-butler :ensure t)
-;; (use-package xkcd :ensure t)
+(use-package xkcd)
 ;; (use-package yasnippet :ensure t :pin melpa)
 
 ;; ;; should have a separate section for Elisp libraries
@@ -477,7 +478,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
+ '(package-selected-packages '(better-defaults form-feed-st lsp-mode projectile xkcd))
+ '(safe-local-variable-values
+   '((org-todo-keywords quote
+                        ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|"
+                                   "DONE" "CANCELED"))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
