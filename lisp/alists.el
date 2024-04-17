@@ -1,4 +1,4 @@
-;; -*- lexical-binding: true -*-
+;;; package -- My functions for associative lists.  -*- lexical-binding: true -*-
 
 ;; Copyright 2024 A. Lloyd Flanagan
 ;;
@@ -22,21 +22,24 @@
 ;;
 ;; This file is not part of GNU Emacs.
 
+;;; Commentary:
 
-;;; useful function suggested by ChatGPT
+;;; Code:
 
+;; useful function suggested by ChatGPT
 (defun alist-replace-cdr (key new-value alist)
-  "Replace the cdr of a key in an alist with a new value."
+  "Replace the cdr of KEY in ALIST with NEW-VALUE."
   (let ((pair (assoc key alist)))
     (when pair
       (setcdr pair new-value))))
 
 
 (defun alist-key-add-or-replace (key value alist)
-  "If KEY is in ALIST, set to VALUE. Otherwise push (KEY . VALUE) to ALIST"
+  "If KEY is in ALIST, set to VALUE.  Otherwise push (KEY . VALUE) to ALIST."
   (let ((pair (assoc key alist)))
     (if pair
         (setcdr pair value)
       (push (cons key value) alist))))
 
 (provide 'alf-alists)
+;;; alists.el ends here
