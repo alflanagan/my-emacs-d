@@ -1,6 +1,4 @@
-;; -*- lexical-binding: t; indent-tabs-mode: nil; -*-
-
-;;; init.el -- Non-site-specific initialization
+;;; init.el -- Non-site-specific initialization -*- lexical-binding: t; -*-
 
 ;; Copyright © 2024 A. Lloyd Flanagan
 ;;
@@ -26,15 +24,20 @@
 ;;
 ;; This file is not part of GNU Emacs.
 
-(load-file (expand-file-name "~/.emacs.d/lisp/alists.el"))
-;; (load-file (expand-file-name "~/.emacs.d/lisp/hideshowvis.el"))
+;;; Commentary:
 
+;; (require 'hideshowvis "hideshowvis")
+
+;;; Code:
 
 ;;; custom lisp directory
 
-(let ((lispdir (expand-file-name "~/.emacs.d/lisp")))
+(let ((lispdir (directory-file-name (expand-file-name "~/.emacs.d/lisp"))))
   (unless (member lispdir load-path)
     (push lispdir load-path)))
+
+(require 'alf-alists "alists")
+(load "./secrets")
 
 
 
@@ -44,13 +47,26 @@
 
 ;;; Packages
 ;;; Eventual goal is to remove from customization entirely, and use use-package for all.
-(load "./secrets")
 
-;; this is set in custom.el -- but we haven't loaded it yet
+;; first we add melpa archive (use with caution!)
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-  ("melpa" . "https://melpa.org/packages/")))
+        ("melpa" . "https://melpa.org/packages/")))
+
+;; set up use-package
+
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+;; load better-defaults immediately so it will affect all later installs.
+(use-package better-defaults :ensure t)
+;; :config
+;; (progn
+;;   ;; better-defaults set custom-file to custom.el
+;;   (load custom-file)))
+
+(load custom-file)
 
 (package-initialize)
 
@@ -71,30 +87,11 @@
 ;;; Use Packages
 
 ;; KEEP THIS SORTED!
-;; (setq user-init-directory (file-name-directory user-init-file)) ;; why isn't this standard? :-)
-;; and apparently user-init-file isn't set yet?
-(setq user-init-directory (expand-file-name "~/.emacs.d"))
-(require 'better-defaults (file-name-concat user-init-directory "lisp/better-defaults/better-defaults"))
-(require 'smex (file-name-concat user-init-directory "lisp/smex/smex.el"))
+
+;; (require 'better-defaults "better-defaults/better-defaults")
+(require 'smex "smex/smex")
+
 ;; (smex-initialize) ;; not required, might make first use faster
-
-;; visible-bell is very nice on Linux and very obnoxious on a Mac
-(setq visible-bell (not (equal system-type 'darwin)))
-(setq
-    fill-column 120
-    indent-tabs-mode nil)
-(setq auto-mode-alist (alist-key-add-or-replace "\\.ts\\'" 'typescript-ts-mode auto-mode-alist))
-
-;; except for this, it kind of needs to be first
-;; (use-package
-;;  better-defaults
-;;  :ensure t
-;;  :config
-;;  (progn
-;;    ;; visible-bell is very nice on Linux and very obnoxious on a Mac
-;;    (setq visible-bell (not (equal system-type 'darwin)))
-;;    ;; better-defaults set custom-file to custom.el
-;;    (load custom-file)))
 
 ;; (use-package async :ensure t)
 ;; (use-package auto-header :ensure t)
@@ -132,13 +129,13 @@
 ;; (use-package eslint-fix :ensure t)
 ;; (use-package emmet-mode :ensure t)
 ;; 
-;; ;; Flycheck
-;; (use-package flycheck :ensure t)
+;; Flycheck
+(use-package flycheck :ensure t :config (add-hook 'after-init-hook #'global-flycheck-mode))
 ;; (use-package flycheck-aspell :ensure t)
 ;; (use-package flycheck-bashate :ensure t)
 ;; (use-package flycheck-cask :ensure t)
 ;; (use-package flycheck-clang-tidy :ensure t)
-;; (use-package flycheck-eglot :ensure t)
+(use-package flycheck-eglot :ensure t)
 ;; (use-package flycheck-golangci-lint :ensure t)
 ;; (use-package flycheck-jest :ensure t)
 ;; (use-package flycheck-kotlin :ensure t)
@@ -162,7 +159,6 @@
 ;; (use-package guru-mode :ensure t)
 (use-package highlight-parentheses :ensure t)
 ;; (use-package hl-todo :ensure t)
-;; (use-package ibuffer :ensure t :bind (("C-x C-b" . ibuffer-list-buffers)))
 ;; (use-package ibuffer-projectile :ensure t)
 ;; (use-package ietf-docs :ensure t)
 ;; (use-package
@@ -175,23 +171,13 @@
 ;; (use-package ivy :ensure t :config (ivy-mode 1))
 ;; (use-package kotlin-ts-mode :ensure t)
 ;; (use-package lispy :ensure t)
+
 (use-package
  lsp-mode
  :ensure t
  :commands lsp
- :hook (typescript-mode . lsp-deferred) ;; only start LSP when buffer is visible.
- ;; :config
- ;; figured out problems with angular language service, below did not replace it
- ;; keeping it for the next time I have to register a client
- ;;  (lsp-register-client
- ;;   (make-lsp-client
- ;;    :new-connection (lsp-stdio-connection '("node" "/Users/adrianflanagan/Devel/mobelux/Springbok/myogram/client/node_modules/typescript/lib/tsserver.js"))
- ;;    :major-modes '(typescript-mode)
- ;;    :priority -2 ;; Higher priority ensures it is chosen over others like angular-ls  angular-ls priority is -1
- ;;    :server-id 'my-tsserver))
- )
+ :hook (typescript-ts-mode . lsp-deferred)) ;; only start LSP when buffer is visible.
 
-;; (use-package lsp-origami :ensure t)
 ;; (use-package magit :ensure t)
 ;; (use-package markdown-toc :ensure t)
 ;; (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
@@ -199,7 +185,7 @@
 ;; ;; (use-package ng2-mode :ensure t)
 ;; (use-package nov :ensure t) ;; epub reader
 
-;; 
+
 ;; ;; org-mode packages
 ;; (use-package org-contrib :ensure t)
 ;; (use-package org-modern :ensure t)
@@ -210,12 +196,15 @@
 ;; (use-package org-special-block-extras :ensure t)
 ;; (use-package org-tidy :ensure t)
 ;; (use-package org-web-tools :ensure t)
-;; 
-;; (use-package
-;;  origami
-;;  :ensure t
-;;  :config (global-origami-mode)
-;;  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
+
+(use-package
+ origami
+ :ensure t
+ :defer t
+ :config (global-origami-mode)
+ :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
+(use-package lsp-origami :ensure t :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
+
 ;; (use-package parrot :ensure t)
 (use-package
  projectile
@@ -268,6 +257,7 @@
 
 (use-package
  treesit
+ :defer t
  :mode (("\\.tsx\\'" . tsx-ts-mode))
  :preface
  (defun mp-setup-install-grammars ()
@@ -336,6 +326,14 @@
 
 ;;; Everything Else
 
+;; visible-bell is very nice on Linux and very obnoxious on a Mac
+(setq visible-bell (not (equal system-type 'darwin)))
+(setq
+ fill-column 120
+ indent-tabs-mode nil)
+(setq auto-mode-alist (alist-key-add-or-replace "\\.ts\\'" 'typescript-ts-mode auto-mode-alist))
+(setq column-number-mode t)
+
 ;; not having a lot of luck setting up emacs as a brew service, so far
 (if (or (not (boundp 'server-process)) (null server-process))
     (server-start))
@@ -348,7 +346,7 @@
 ;; MAC-specific setup
 ;; to work with emacsclient, commands that affect the frame need to be in server-after-make-frame-hook
 (defun setup-frame-for-mac ()
-  "sets up graphical elements for new frames specific to macs"
+  "Set up new frames with elements specific to macs."
   (push '(ns-transparent-titlebar . t) default-frame-alist)
   (push '(ns-appearance . dark) default-frame-alist))
 
@@ -358,7 +356,6 @@
   (add-hook 'server-after-make-frame-hook #'setup-frame-for-mac)
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
   (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
-  (setq visible-bell nil)
   (setq ring-bell-function
         (lambda ()
           "do nothing and do it well"
@@ -367,11 +364,11 @@
 
 ;; Linux-specific setup
 
-(when (equal system-type 'gnu/linux)
-  (setq visible-bell t))
+;; (when (equal system-type 'gnu/linux))
 
 
 (defun set-def-frame-size ()
+  "Default frame size way too small for my monitor."
   (set-frame-size nil 180 60))
 (add-hook 'server-after-make-frame-hook #'set-def-frame-size)
 ;; and set this frame
@@ -410,18 +407,15 @@
 ;;                 (if buffer-file-name
 ;;                     (shell-quote-argument buffer-file-name))))))
 
-(setq column-number-mode t)
-
 
 ;; TypeScript setup
+(setq typescript-ts-mode-hook nil)
 
-;; ng2-mode is (currently) working better than typescript-mode.
-;; ng2-mode uses the "official" typescript language server. which is currently not LSP-compatible, and
-;; no one seems interested in making it compatible.
-;; (with-eval-after-load 'ng2-mode
-;;   (add-to-list 'auto-mode-alist '("\\.ts\\'" . ng2-ts-mode) #'car)
-;;   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . ng2-html-mode) #'car))
-
+(with-eval-after-load 'typescript-ts-mode
+  "sets up typescript-ts-mode-hook with more goodies"
+  (add-hook 'typescript-ts-mode-hook #'eglot)
+  (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)
+  (add-hook 'typescript-ts-mode-hook (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled)))))
 
 
 ;; system locations
