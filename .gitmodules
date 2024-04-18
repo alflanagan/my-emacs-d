@@ -1,3 +1,6 @@
 [submodule "lisp/emacs-which-key"]
 	path = lisp/emacs-which-key
 	url = git@github.com:justbur/emacs-which-key.git
+[submodule "lisp/org-contrib"]
+	path = lisp/org-contrib
+	url = https://git.sr.ht/~bzg/org-contrib
