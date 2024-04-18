@@ -53,6 +53,7 @@ notes
 
 # secrets should NEVER be checked in
 secrets.el
+
 lisp/default.el
 .org-generic-id-locations
 request/
@@ -60,3 +61,5 @@ url/
 \#*
 .\#*
 .lsp-session*
+ido.last
+.cache/
