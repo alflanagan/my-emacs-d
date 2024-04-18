@@ -1,0 +1,3 @@
+[submodule "lisp/emacs-which-key"]
+	path = lisp/emacs-which-key
+	url = git@github.com:justbur/emacs-which-key.git
