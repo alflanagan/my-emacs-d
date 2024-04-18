@@ -413,9 +413,9 @@
 
 (with-eval-after-load 'typescript-ts-mode
   "sets up typescript-ts-mode-hook with more goodies"
-  (add-hook 'typescript-ts-mode-hook #'eglot)
   (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)
-  (add-hook 'typescript-ts-mode-hook (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled)))))
+  (add-hook 'typescript-ts-mode-hook (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
+  (add-hook 'typescript-ts-mode-hook #'eglot))
 
 
 ;; system locations
