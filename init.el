@@ -32,18 +32,22 @@
 
 ;;; custom lisp directory
 
-(let ((lispdir (directory-file-name (expand-file-name "~/.emacs.d/lisp"))))
+(let ((lispdir (directory-file-name (concat user-emacs-directory "lisp"))))
   (unless (member lispdir load-path)
     (push lispdir load-path)))
 
 (require 'alf-alists "alists")
 (load "./secrets")
+(require 'better-defaults "better-defaults/better-defaults")
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file)
 
 
 
 (global-auto-revert-mode 1)
 
-;;; NOTE: customizations are in custom.el -- better-defaults changes the destination
+;;; NOTE: customizations are in custom.el
 
 ;;; Packages
 ;;; Eventual goal is to remove from customization entirely, and use use-package for all.
@@ -58,15 +62,6 @@
 
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
-
-;; load better-defaults immediately so it will affect all later installs.
-(use-package better-defaults :ensure t)
-;; :config
-;; (progn
-;;   ;; better-defaults set custom-file to custom.el
-;;   (load custom-file)))
-
-(load custom-file)
 
 (package-initialize)
 
@@ -118,7 +113,7 @@
 ;; (use-package eldoc :ensure t)
 (use-package
  elisp-autofmt
- :ensure t
+ :defer t
  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
  :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
  :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
@@ -130,12 +125,12 @@
 ;; (use-package emmet-mode :ensure t)
 ;; 
 ;; Flycheck
-(use-package flycheck :ensure t :config (add-hook 'after-init-hook #'global-flycheck-mode))
+(use-package flycheck :defer t :config (add-hook 'after-init-hook #'global-flycheck-mode))
 ;; (use-package flycheck-aspell :ensure t)
 ;; (use-package flycheck-bashate :ensure t)
 ;; (use-package flycheck-cask :ensure t)
 ;; (use-package flycheck-clang-tidy :ensure t)
-(use-package flycheck-eglot :ensure t)
+(use-package flycheck-eglot :defer t)
 ;; (use-package flycheck-golangci-lint :ensure t)
 ;; (use-package flycheck-jest :ensure t)
 ;; (use-package flycheck-kotlin :ensure t)
@@ -157,7 +152,7 @@
 ;; (use-package go-projectile :ensure t)
 ;; (use-package go-scratch :ensure t)
 ;; (use-package guru-mode :ensure t)
-(use-package highlight-parentheses :ensure t)
+(use-package highlight-parentheses)
 ;; (use-package hl-todo :ensure t)
 ;; (use-package ibuffer-projectile :ensure t)
 ;; (use-package ietf-docs :ensure t)
@@ -174,7 +169,7 @@
 
 (use-package
  lsp-mode
- :ensure t
+ :defer t
  :commands lsp
  :hook (typescript-ts-mode . lsp-deferred)) ;; only start LSP when buffer is visible.
 
@@ -199,16 +194,14 @@
 
 (use-package
  origami
- :ensure t
  :defer t
  :config (global-origami-mode)
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
-(use-package lsp-origami :ensure t :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
+(use-package lsp-origami :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
 
 ;; (use-package parrot :ensure t)
 (use-package
  projectile
- :ensure t
  :init (keymap-global-unset "s-p")
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
@@ -255,11 +248,6 @@
 
 ;; (use-package tree-sitter-indent :ensure t)
 
-(use-package
- treesit
- :defer t
- :mode (("\\.tsx\\'" . tsx-ts-mode))
- :preface
  (defun mp-setup-install-grammars ()
    "Install Tree-sitter grammars if they are absent."
    (interactive)
@@ -285,7 +273,7 @@
      ;; installed. However, if you want to *update* a grammar then
      ;; this obviously prevents that from happening.
      (unless (treesit-language-available-p (car grammar))
-       (treesit-install-language-grammar (car grammar))))))
+       (treesit-install-language-grammar (car grammar)))))
 
 
 ;; is this still necessary?
@@ -316,7 +304,7 @@
 ;; (use-package web-mode :ensure t)
 ;; (use-package weyland-yutani-theme :ensure t)
 ;; (use-package ws-butler :ensure t)
-(use-package xkcd)
+(use-package xkcd :defer t)
 ;; (use-package yasnippet :ensure t :pin melpa)
 
 ;; ;; should have a separate section for Elisp libraries
@@ -331,7 +319,10 @@
 (setq
  fill-column 120
  indent-tabs-mode nil)
+;; surely there's a better function for this?
 (setq auto-mode-alist (alist-key-add-or-replace "\\.ts\\'" 'typescript-ts-mode auto-mode-alist))
+(setq auto-mode-alist (alist-key-add-or-replace "\\.tsx\\'" 'tsx-ts-mode auto-mode-alist))
+
 (setq column-number-mode t)
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
@@ -409,13 +400,18 @@
 
 
 ;; TypeScript setup
-(setq typescript-ts-mode-hook nil)
 
-(with-eval-after-load 'typescript-ts-mode
-  "sets up typescript-ts-mode-hook with more goodies"
-  (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)
-  (add-hook 'typescript-ts-mode-hook (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
-  (add-hook 'typescript-ts-mode-hook #'eglot))
+;; tree-sitter nodes don't have load event?
+;; (with-eval-after-load 'typescript-ts-mode
+;;  "sets up typescript-ts-mode-hook with more goodies"
+(use-package
+ typescript-ts-mode
+ :defer t
+ :hook
+ ((typescript-ts-mode-hook . lsp-deferred)
+  (typescript-ts-mode-hook . display-line-numbers-mode)
+  (typescript-ts-mode-hook . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
+  (typescript-ts-mode-hook . eglot)))
 
 
 ;; system locations
