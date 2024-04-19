@@ -78,6 +78,7 @@
 ;; paradox is having problems like putting all its output into minibuffer and freezing emacs :-(
 ;; (use-package fold-dwim :ensure t :bind (("C-+" . fold-dwim-toggle)("C-=" . fold-dwim-toggle)))
 ;; I have no idea what fold-dwim's problem is, but it almost never Does What I Mean.
+;; eglot -- built-in, fine as far as I know, superceded by lsp-mode
 
 ;;; Use Packages
 
@@ -110,7 +111,7 @@
 ;; (use-package dockerfile-mode :ensure t)
 ;; (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 ;; (use-package editorconfig :ensure t :config (editorconfig-mode 1))
-;; (use-package eldoc :ensure t)
+(use-package eldoc :defer t)
 (use-package
  elisp-autofmt
  :defer t
@@ -125,12 +126,11 @@
 ;; (use-package emmet-mode :ensure t)
 ;; 
 ;; Flycheck
-(use-package flycheck :defer t :config (add-hook 'after-init-hook #'global-flycheck-mode))
+(use-package flycheck :config (add-hook 'after-init-hook #'global-flycheck-mode) :pin nongnu :ensure t)
 ;; (use-package flycheck-aspell :ensure t)
 ;; (use-package flycheck-bashate :ensure t)
 ;; (use-package flycheck-cask :ensure t)
 ;; (use-package flycheck-clang-tidy :ensure t)
-(use-package flycheck-eglot :defer t)
 ;; (use-package flycheck-golangci-lint :ensure t)
 ;; (use-package flycheck-jest :ensure t)
 ;; (use-package flycheck-kotlin :ensure t)
@@ -176,14 +176,12 @@
 ;; (use-package magit :ensure t)
 ;; (use-package markdown-toc :ensure t)
 ;; (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
-;; (use-package mwim :ensure t :bind (("C-a" . mwim-beginning) ("C-e" . mwim-end)))
-;; ;; (use-package ng2-mode :ensure t)
 ;; (use-package nov :ensure t) ;; epub reader
 
 
 ;; ;; org-mode packages
 ;; (use-package org-contrib :ensure t)
-;; (use-package org-modern :ensure t)
+(use-package org-modern :ensure t :defer t)
 ;; (use-package org-ai :ensure t)
 ;; (use-package org-msg :ensure t)
 ;; (use-package org-ql :ensure t)
@@ -206,7 +204,6 @@
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
 ;; (use-package projectile-codesearch :ensure t)
-;; ;; (use-package projectile-speedbar :ensure t)
 ;; (use-package pyenv-mode :ensure t)
 ;; (use-package rainbow-delimiters :ensure t)
 ;; (use-package reddigg :ensure t)
@@ -216,77 +213,33 @@
 ;; (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
 ;; (use-package super-save :ensure t)
 ;; (use-package term-projectile :ensure t)
-;; (defun setup-tide ()
-;;   "Set up `tide-mode', an IDE for typescript.
-
-;; Should only be run in a directory or project with a tsconfig file."
-;;   (interactive)
-;;   (tide-setup)
-;;   (flycheck-mode +1)
-;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-;;   (eldoc-mode +1)
-;;   (hs-minor-mode +1)
-;;   (tide-hl-identifier-mode +1)
-;;   (company-mode +1)
-;;   (hideshowvis-enable)
-;;   ;; disable lsp mode because tide has its own (better) server
-;;   (lsp-mode -1)
-;;   (display-line-numbers-mode +1))
-
-;; ;; trying to use LSP mode, seems to be better, maybe?
-;; ;; (use-package
-;; ;;  tide
-;; ;;  :ensure t
-;; ;;  :hook
-;; ;;  ((typescript-ts-mode . setup-tide)
-;; ;;   (ng2-mode . setup-tide)
-;; ;;   (tsx-ts-mode . setup-tide)
-;; ;;   (before-save . tide-format-before-save))
-;; ;;  :config
-;; ;;  ;; aligns annotation to the right hand side
-;; ;;  (setq company-tooltip-align-annotations t))
-
 ;; (use-package tree-sitter-indent :ensure t)
-
- (defun mp-setup-install-grammars ()
-   "Install Tree-sitter grammars if they are absent."
-   (interactive)
-   ;; it's not clear there's much advantage to specifying the version here
-   (dolist (grammar
-            '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-              (bash "https://github.com/tree-sitter/tree-sitter-bash")
-              (cmake "https://github.com/uyha/tree-sitter-cmake")
-              (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-              (go "https://github.com/tree-sitter/tree-sitter-go")
-              (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-              (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
-              (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
-              (make "https://github.com/alemuller/tree-sitter-make")
-              (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-              (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
-              (toml "https://github.com/tree-sitter/tree-sitter-toml")
-              (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-              (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-              (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-     (add-to-list 'treesit-language-source-alist grammar)
-     ;; Only install `grammar' if we don't already have it
-     ;; installed. However, if you want to *update* a grammar then
-     ;; this obviously prevents that from happening.
-     (unless (treesit-language-available-p (car grammar))
-       (treesit-install-language-grammar (car grammar)))))
-
-
-;; is this still necessary?
-;; (dolist (mapping
-;;          '((python-mode . python-ts-mode)
-;;            (css-mode . css-ts-mode)
-;;            (typescript-mode . typescript-ts-mode)
-;;            (js2-mode . js-ts-mode)
-;;            (bash-mode . bash-ts-mode)
-;;            (css-mode . css-ts-mode)
-;;            (json-mode . json-ts-mode)
-;;            (js-json-mode . json-ts-mode)))
-;;   (add-to-list 'major-mode-remap-alist mapping)))
+(defun mp-setup-install-grammars ()
+  "Install Tree-sitter grammars if they are absent."
+  (interactive)
+  ;; it's not clear there's much advantage to specifying the version here
+  (dolist (grammar
+           '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+             (bash "https://github.com/tree-sitter/tree-sitter-bash")
+             (cmake "https://github.com/uyha/tree-sitter-cmake")
+             (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+             (go "https://github.com/tree-sitter/tree-sitter-go")
+             (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+             (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
+             (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+             (make "https://github.com/alemuller/tree-sitter-make")
+             (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+             (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+             (toml "https://github.com/tree-sitter/tree-sitter-toml")
+             (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+             (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+             (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+    (add-to-list 'treesit-language-source-alist grammar)
+    ;; Only install `grammar' if we don't already have it
+    ;; installed. However, if you want to *update* a grammar then
+    ;; this obviously prevents that from happening.
+    (unless (treesit-language-available-p (car grammar))
+      (treesit-install-language-grammar (car grammar)))))
 
 ;; (use-package treesit-auto :ensure t)
 ;; (use-package
@@ -324,6 +277,7 @@
 (setq auto-mode-alist (alist-key-add-or-replace "\\.tsx\\'" 'tsx-ts-mode auto-mode-alist))
 
 (setq column-number-mode t)
+(setq sentence-end-double-space nil)
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
 (if (or (not (boundp 'server-process)) (null server-process))
@@ -408,10 +362,13 @@
  typescript-ts-mode
  :defer t
  :hook
- ((typescript-ts-mode-hook . lsp-deferred)
-  (typescript-ts-mode-hook . display-line-numbers-mode)
-  (typescript-ts-mode-hook . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
-  (typescript-ts-mode-hook . eglot)))
+ ((typescript-ts-mode . lsp-deferred)
+  (typescript-ts-mode . display-line-numbers-mode)
+  (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
+  (typescript-ts-mode . flycheck-mode)
+  (typescript-ts-mode . eldoc-mode)
+;;   (typescript-mode . company-mode)))
+))
 
 
 ;; system locations
