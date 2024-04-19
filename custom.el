@@ -53,7 +53,7 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(lsp-origami origami flycheck-eglot flycheck xkcd projectile lsp-mode highlight-parentheses form-feed-st elisp-autofmt better-defaults))
+   '(treesit xkcd projectile lsp-origami highlight-parentheses form-feed-st flycheck-eglot elisp-autofmt better-defaults))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path '("~/Devel" "~/org"))
@@ -61,6 +61,8 @@
  '(safe-local-variable-directories '("/Users/adrianflanagan/org/projects/Springbok/"))
  '(safe-local-variable-values
    '((org-todo-keywords quote
+                        ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
+     (org-todo-keywords quote
                         ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
      (lexical-binding . true)))
  '(show-trailing-whitespace nil)
