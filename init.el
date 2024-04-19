@@ -84,7 +84,6 @@
 
 ;; KEEP THIS SORTED!
 
-;; (require 'better-defaults "better-defaults/better-defaults")
 (require 'smex "smex/smex")
 
 ;; (smex-initialize) ;; not required, might make first use faster
@@ -198,11 +197,13 @@
 (use-package lsp-origami :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
 
 ;; (use-package parrot :ensure t)
+
 (use-package
  projectile
  :init (keymap-global-unset "s-p")
  :config (projectile-mode +1)
  :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+
 ;; (use-package projectile-codesearch :ensure t)
 ;; (use-package pyenv-mode :ensure t)
 ;; (use-package rainbow-delimiters :ensure t)
@@ -214,6 +215,7 @@
 ;; (use-package super-save :ensure t)
 ;; (use-package term-projectile :ensure t)
 ;; (use-package tree-sitter-indent :ensure t)
+
 (defun mp-setup-install-grammars ()
   "Install Tree-sitter grammars if they are absent."
   (interactive)
@@ -242,22 +244,17 @@
       (treesit-install-language-grammar (car grammar)))))
 
 ;; (use-package treesit-auto :ensure t)
-;; (use-package
-;;  typescript-mode
-;;  :ensure t
-;;  :hook
-;;  ((typescript-mode . lsp)
-;;   (typescript-mode . display-line-numbers-mode)
-;;   (typescript-mode . flycheck-mode)
-;;   (typescript-mode . eldoc-mode)
-;;   (typescript-mode . hs-minor-mode)
-;;   (typescript-mode . company-mode)))
 ;; (use-package w3m :ensure t)
 ;; (use-package web-beautify :ensure t)
 ;; (use-package web-mode :ensure t)
 ;; (use-package weyland-yutani-theme :ensure t)
+
+(use-package whitespace-cleanup-mode :ensure t)
+
 ;; (use-package ws-butler :ensure t)
+
 (use-package xkcd :defer t)
+
 ;; (use-package yasnippet :ensure t :pin melpa)
 
 ;; ;; should have a separate section for Elisp libraries
