@@ -53,14 +53,15 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(treesit xkcd projectile lsp-origami highlight-parentheses form-feed-st flycheck-eglot elisp-autofmt better-defaults))
+   '(flycheck whitespace-cleanup-mode org-modern eldoc treesit xkcd projectile lsp-origami highlight-parentheses form-feed-st elisp-autofmt))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path '("~/Devel" "~/org"))
  '(reddigg-subs '(emacs rust))
  '(safe-local-variable-directories '("/Users/adrianflanagan/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((org-todo-keywords quote
+   '((eglot-inlay-hints-mode)
+     (org-todo-keywords quote
                         ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
      (org-todo-keywords quote
                         ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
