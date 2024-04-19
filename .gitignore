@@ -63,3 +63,4 @@ url/
 .lsp-session*
 ido.last
 .cache/
+.DS_Store
