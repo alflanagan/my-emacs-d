@@ -308,13 +308,6 @@
 ;; (when (equal system-type 'gnu/linux))
 
 
-(defun set-def-frame-size ()
-  "Default frame size way too small for my monitor."
-  (set-frame-size nil 180 60))
-(add-hook 'server-after-make-frame-hook #'set-def-frame-size)
-;; and set this frame
-(set-def-frame-size)
-
 ;; Mac keybindings that conflict with Emacs defaults
 ;; M-% launches screen capture
 ;; C-M-k brings up calender in MacOS topbar
@@ -339,14 +332,15 @@
 ;;         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
 ;;         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
-;; (add-hook
-;;  'emacs-lisp-mode-hook
-;;  (lambda ()
-;;    (setq-local compile-command
-;;                (concat
-;;                 "emacs -batch -f batch-byte-compile "
-;;                 (if buffer-file-name
-;;                     (shell-quote-argument buffer-file-name))))))
+;; Tell emacs lisp mode to do the right thing on build.
+(add-hook
+ 'emacs-lisp-mode-hook
+ (lambda ()
+   (setq-local compile-command
+               (concat
+                "emacs -batch -f batch-byte-compile "
+                (if buffer-file-name
+                    (shell-quote-argument buffer-file-name))))))
 
 
 ;; TypeScript setup
@@ -363,8 +357,8 @@
   (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
   (typescript-ts-mode . flycheck-mode)
   (typescript-ts-mode . eldoc-mode)
-;;   (typescript-mode . company-mode)))
-))
+  ;;   (typescript-mode . company-mode)))
+  ))
 
 
 ;; system locations
