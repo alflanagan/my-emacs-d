@@ -197,11 +197,17 @@
 
 ;; (use-package parrot :ensure t)
 
-(use-package
- projectile
- :init (keymap-global-unset "s-p")
- :config (projectile-mode +1)
- :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+(if (equal system-type 'darwin)
+    (use-package
+     projectile
+     :init (keymap-global-unset "s-p")
+     :config (projectile-mode +1)
+     :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+  (use-package
+   projectile
+   :init (keymap-global-unset "M-p")
+   :config (projectile-mode +1)
+   :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
 ;; (use-package projectile-codesearch :ensure t)
 ;; (use-package pyenv-mode :ensure t)
