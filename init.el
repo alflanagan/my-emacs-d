@@ -32,9 +32,12 @@
 
 ;;; custom lisp directory
 
-(let ((lispdir (directory-file-name (concat user-emacs-directory "lisp"))))
+(let ((lispdir (directory-file-name (concat (expand-file-name user-emacs-directory) "lisp"))))
   (unless (member lispdir load-path)
     (push lispdir load-path)))
+
+(let ((ng2dir (directory-file-name (concat (expand-file-name user-emacs-directory) "lisp/ng2-mode"))))
+  (push ng2dir load-path))
 
 (require 'alf-alists "alists")
 (load "./secrets")
@@ -104,7 +107,7 @@
 ;; (use-package counsel :ensure t)
 ;; (use-package counsel-projectile :ensure t)
 ;; (use-package css-eldoc :ensure t)
-;; (use-package devdocs :ensure t)
+(use-package devdocs :ensure t)
 ;; (use-package django-snippets :ensure t)
 ;; (use-package docker-compose-mode :ensure t)
 ;; (use-package dockerfile-mode :ensure t)
@@ -169,11 +172,13 @@
 (use-package
  lsp-mode
  :defer t
+ :ensure t
  :commands lsp
  :hook (typescript-ts-mode . lsp-deferred)) ;; only start LSP when buffer is visible.
 ;; (use-package magit :ensure t)
 ;; (use-package markdown-toc :ensure t)
 ;; (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
+;; (use-package ng2-mode :commands ng2-mode)
 ;; (use-package nov :ensure t) ;; epub reader
 
 
@@ -197,6 +202,7 @@
 
 ;; (use-package parrot :ensure t)
 
+;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
     (use-package
      projectile
@@ -215,8 +221,8 @@
 ;; (use-package reddigg :ensure t)
 ;; (use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
 ;; (use-package slime :ensure t)
-;; (use-package smart-mode-line :ensure t :config (sml/setup))
-;; (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
+(use-package smart-mode-line :ensure t :config (sml/setup))
+(use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
 ;; (use-package super-save :ensure t)
 ;; (use-package term-projectile :ensure t)
 ;; (use-package tree-sitter-indent :ensure t)
@@ -255,9 +261,6 @@
 ;; (use-package weyland-yutani-theme :ensure t)
 
 (use-package whitespace-cleanup-mode :ensure t)
-
-;; (use-package ws-butler :ensure t)
-
 (use-package xkcd :defer t)
 
 ;; (use-package yasnippet :ensure t :pin melpa)

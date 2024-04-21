@@ -42,8 +42,8 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(eldoc elisp-autofmt flycheck form-feed-st highlight-parentheses lsp-mode lsp-origami org-modern origami projectile
-           whitespace-cleanup-mode xkcd))
+   '(devdocs eldoc elisp-autofmt flycheck form-feed-st highlight-parentheses lsp-mode lsp-origami org-modern origami
+             projectile smart-mode-line smart-mode-line-powerline-theme whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path '("~/Devel" "~/org"))
