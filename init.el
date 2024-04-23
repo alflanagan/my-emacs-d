@@ -169,16 +169,10 @@
 ;; (use-package kotlin-ts-mode :ensure t)
 ;; (use-package lispy :ensure t)
 
-(use-package
- lsp-mode
- :defer t
- :ensure t
- :commands lsp
- :hook (typescript-ts-mode . lsp-deferred)) ;; only start LSP when buffer is visible.
+(use-package lsp-mode :defer t :ensure t :commands lsp)
 ;; (use-package magit :ensure t)
 ;; (use-package markdown-toc :ensure t)
 ;; (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
-;; (use-package ng2-mode :commands ng2-mode)
 ;; (use-package nov :ensure t) ;; epub reader
 
 
@@ -232,9 +226,9 @@
   (interactive)
   ;; it's not clear there's much advantage to specifying the version here
   (dolist (grammar
-           '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-             (bash "https://github.com/tree-sitter/tree-sitter-bash")
+           '((bash "https://github.com/tree-sitter/tree-sitter-bash")
              (cmake "https://github.com/uyha/tree-sitter-cmake")
+             (css . ("https://github.com/tree-sitter/tree-sitter-css"))
              (elisp "https://github.com/Wilfred/tree-sitter-elisp")
              (go "https://github.com/tree-sitter/tree-sitter-go")
              (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
@@ -243,10 +237,12 @@
              (make "https://github.com/alemuller/tree-sitter-make")
              (markdown "https://github.com/ikatyang/tree-sitter-markdown")
              (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+             (rust "https://github.com/tree-sitter/tree-sitter-rust")
              (toml "https://github.com/tree-sitter/tree-sitter-toml")
              (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
              (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
              (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
     (add-to-list 'treesit-language-source-alist grammar)
     ;; Only install `grammar' if we don't already have it
     ;; installed. However, if you want to *update* a grammar then
@@ -294,11 +290,6 @@
 
 
 ;; MAC-specific setup
-;; to work with emacsclient, commands that affect the frame need to be in server-after-make-frame-hook
-(defun setup-frame-for-mac ()
-  "Set up new frames with elements specific to macs."
-  (push '(ns-transparent-titlebar . t) default-frame-alist)
-  (push '(ns-appearance . dark) default-frame-alist))
 
 (when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
@@ -323,23 +314,6 @@
 ;; C-M-q locks the screen
 ;; enable these for all environments so I don't have to remember on non-Macs
 (bind-keys ("C-c C-q" . indent-pp-sexp) ("C-c C-s" . kill-sexp) ("C-%" . query-replace))
-
-;; (setq treesit-language-source-alist
-;;       '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-;;         (cmake "https://github.com/uyha/tree-sitter-cmake")
-;;         (css "https://github.com/tree-sitter/tree-sitter-css")
-;;         (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-;;         (go "https://github.com/tree-sitter/tree-sitter-go")
-;;         (html "https://github.com/tree-sitter/tree-sitter-html")
-;;         (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-;;         (json "https://github.com/tree-sitter/tree-sitter-json")
-;;         (make "https://github.com/alemuller/tree-sitter-make")
-;;         (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-;;         (python "https://github.com/tree-sitter/tree-sitter-python")
-;;         (toml "https://github.com/tree-sitter/tree-sitter-toml")
-;;         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-;;         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-;;         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
 ;; Tell emacs lisp mode to do the right thing on build.
 (add-hook
@@ -366,6 +340,7 @@
   (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
   (typescript-ts-mode . flycheck-mode)
   (typescript-ts-mode . eldoc-mode)
+  (tsx-ts-mode . lsp-deferred)
   ;;   (typescript-mode . company-mode)))
   ))
 
