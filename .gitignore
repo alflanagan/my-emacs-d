@@ -64,3 +64,6 @@ url/
 ido.last
 .cache/
 .DS_Store
+
+# emacs data store
+bookmarks
