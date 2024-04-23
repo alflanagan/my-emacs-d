@@ -14,7 +14,9 @@
                          "/opt/homebrew/Cellar/gcc/13.2.0/lib/gcc/current/gcc/aarch64-apple-darwin23/13")
                        ":"))
   (modify-all-frames-parameters
-   '((font . "-*-FiraCode Nerd Font Mono-regular-normal-normal-*-16-*-*-*-m-0-iso10646-1"))))
+   '((font . "-*-FiraCode Nerd Font Mono-regular-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+     (ns-transparent-titlebar . t)
+     (ns-appearance . dark))))
 
 ;; need to set this in early-init to set for intitial frame
 (modify-all-frames-parameters '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 60)))
