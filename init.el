@@ -217,6 +217,8 @@
 ;; (use-package slime :ensure t)
 (use-package smart-mode-line :ensure t :config (sml/setup))
 (use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
+(use-package sql-indent :ensure t :defer t)
+
 ;; (use-package super-save :ensure t)
 ;; (use-package term-projectile :ensure t)
 ;; (use-package tree-sitter-indent :ensure t)
