@@ -103,7 +103,7 @@
 ;; (use-package company-math :ensure t)
 ;; (use-package company-shell :ensure t)
 ;; (use-package company-terraform :ensure t)
-;; (use-package company-web :ensure t)
+(use-package company-web :ensure t)
 ;; (use-package counsel :ensure t)
 ;; (use-package counsel-projectile :ensure t)
 ;; (use-package css-eldoc :ensure t)
@@ -183,8 +183,8 @@
 ;; (use-package org-msg :ensure t)
 ;; (use-package org-ql :ensure t)
 ;; (use-package org-recur :ensure t)
-;; (use-package org-special-block-extras :ensure t)
-;; (use-package org-tidy :ensure t)
+;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
+(use-package org-special-block-extras :ensure t)
 ;; (use-package org-web-tools :ensure t)
 
 (use-package
@@ -343,8 +343,7 @@
   (typescript-ts-mode . flycheck-mode)
   (typescript-ts-mode . eldoc-mode)
   (tsx-ts-mode . lsp-deferred)
-  ;;   (typescript-mode . company-mode)))
-  ))
+  (typescript-ts-mode . company-mode)))
 
 
 ;; system locations
@@ -360,5 +359,12 @@
 (global-set-key (kbd "C-c c") #'org-capture)
 ;; (setq global-org-modern-mode t)
 
+
+;; enabled "risky" commands
+
+(put 'downcase-region 'disabled nil)
+
+
 (message "%s" "init.el completed")
+
 ;;; init.el ends here :-)
