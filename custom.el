@@ -37,20 +37,26 @@
    '(("ocaml" . tuareg-mode) ("elisp" . emacs-lisp-mode) ("ditaa" . artist-mode) ("asymptote" . asy-mode)
      ("dot" . fundamental-mode) ("sqlite" . sql-mode) ("calc" . fundamental-mode) ("C" . c-mode) ("cpp" . c++-mode)
      ("C++" . c++-mode) ("screen" . shell-script-mode) ("shell" . sh-mode) ("bash" . sh-mode) ("sh" . sh-mode)))
+ '(markdown-command "/home/lloyd/.pyenv/shims/markdown_py")
  '(mode-require-final-newline 'visit-save)
  '(package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(devdocs eldoc elisp-autofmt flycheck form-feed-st highlight-parentheses lsp-mode lsp-origami org-modern origami
-             projectile smart-mode-line smart-mode-line-powerline-theme whitespace-cleanup-mode xkcd))
+   '(company devdocs elisp-autofmt flycheck form-feed-st highlight-parentheses ivy lsp-origami org-modern projectile
+             smart-mode-line-powerline-theme sql-indent whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
+ '(projectile-globally-ignored-directories
+   '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$"
+     "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$"
+     "^\\.clangd$" "^\\.sl$" "^\\.jj$" "^node-modules$" "^.venv$"))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path '("~/Devel" "~/org"))
  '(reddigg-subs '(emacs rust))
  '(safe-local-variable-directories '("/Users/adrianflanagan/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((eglot-inlay-hints-mode) (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
+   '((checkdoc-package-keywords-flag) (eglot-inlay-hints-mode)
+     (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
      (lexical-binding . true)))
  '(show-trailing-whitespace nil)

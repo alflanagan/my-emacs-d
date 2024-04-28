@@ -98,7 +98,7 @@
 ;; (use-package cargo-mode :ensure t :pin "melpa" :hook 'rust-mode-hook)
 ;; (use-package cmake-mode :ensure t)
 ;; (use-package code-archive :ensure t)
-;; (use-package company :ensure t)
+(use-package company :ensure t)
 ;; (use-package company-jedi :ensure t)
 ;; (use-package company-math :ensure t)
 ;; (use-package company-shell :ensure t)
@@ -165,7 +165,7 @@
 ;;  (progn
 ;;    (load-theme 'immaterial-dark t)
 ;;    (load-theme 'immaterial-light t)))
-;; (use-package ivy :ensure t :config (ivy-mode 1))
+(use-package ivy :ensure t :config (ivy-mode 1))
 ;; (use-package kotlin-ts-mode :ensure t)
 ;; (use-package lispy :ensure t)
 
