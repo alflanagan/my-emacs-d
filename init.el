@@ -221,6 +221,7 @@
 
 ;; (use-package super-save :ensure t)
 ;; (use-package term-projectile :ensure t)
+(use-package tree-sitter :ensure t)
 ;; (use-package tree-sitter-indent :ensure t)
 
 (defun mp-setup-install-grammars ()
