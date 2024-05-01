@@ -60,7 +60,7 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(eldoc lsp-mode org-special-block-extras origami smart-mode-line tree-sitter company devdocs elisp-autofmt flycheck form-feed-st highlight-parentheses ivy lsp-origami org-modern projectile smart-mode-line-powerline-theme sql-indent whitespace-cleanup-mode xkcd))
+   '(company-web eldoc-box dockerfile-mode eldoc lsp-mode org-special-block-extras origami smart-mode-line tree-sitter company devdocs elisp-autofmt flycheck form-feed-st highlight-parentheses ivy lsp-origami org-modern projectile smart-mode-line-powerline-theme sql-indent whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$" "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$" "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))

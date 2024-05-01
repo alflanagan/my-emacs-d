@@ -110,10 +110,11 @@
 (use-package devdocs :ensure t)
 ;; (use-package django-snippets :ensure t)
 ;; (use-package docker-compose-mode :ensure t)
-;; (use-package dockerfile-mode :ensure t)
+(use-package dockerfile-mode :ensure t)
 ;; (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 ;; (use-package editorconfig :ensure t :config (editorconfig-mode 1))
 (use-package eldoc :defer t)
+(use-package eldoc-box :defer t :config (eldoc-box-hover-at-point-mode) :after eldoc)
 (use-package
  elisp-autofmt
  :defer t
