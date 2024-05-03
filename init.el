@@ -178,8 +178,9 @@
 
 
 ;; ;; org-mode packages
+(use-package org :defer t :pin gnu :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture)))
 ;; (use-package org-contrib :ensure t)
-(use-package org-modern :ensure t :defer t)
+(use-package org-modern :ensure t :after org config: (global-org-modern-mode))
 ;; (use-package org-ai :ensure t)
 ;; (use-package org-msg :ensure t)
 ;; (use-package org-ql :ensure t)
@@ -352,14 +353,6 @@
 
 ;; this may be _too_ clever
 ;; (setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc 2> /dev/null && nvm which default")))
-
-
-;; Org-mode setup
-
-(global-set-key (kbd "C-c l") #'org-store-link)
-(global-set-key (kbd "C-c a") #'org-agenda)
-(global-set-key (kbd "C-c c") #'org-capture)
-;; (setq global-org-modern-mode t)
 
 
 ;; enabled "risky" commands
