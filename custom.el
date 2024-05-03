@@ -55,12 +55,13 @@
      ("sh" . sh-mode)))
  '(markdown-command "/home/lloyd/.pyenv/shims/markdown_py")
  '(mode-require-final-newline 'visit-save)
+ '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "ON HOLD" "DONE(!)")))
  '(package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(company-web eldoc-box dockerfile-mode eldoc lsp-mode org-special-block-extras origami smart-mode-line tree-sitter company devdocs elisp-autofmt flycheck form-feed-st highlight-parentheses ivy lsp-origami org-modern projectile smart-mode-line-powerline-theme sql-indent whitespace-cleanup-mode xkcd))
+   '(org org-contacts company-web eldoc-box dockerfile-mode eldoc lsp-mode org-special-block-extras origami smart-mode-line tree-sitter company devdocs elisp-autofmt flycheck form-feed-st highlight-parentheses ivy lsp-origami org-modern projectile smart-mode-line-powerline-theme sql-indent whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$" "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$" "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
@@ -70,6 +71,10 @@
  '(safe-local-variable-directories '("/Users/adrianflanagan/org/projects/Springbok/"))
  '(safe-local-variable-values
    '((org-todo-keywords quote
+                        ((sequence "TODO" "IN PROGRESS" "DEFERRED" "CLIENT" "|" "DONE" "CANCELED")))
+     (org-todo-keywords quote
+                        ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD" "NEEDS INPUT" "|" "DONE" "CANCELED")))
+     (org-todo-keywords quote
                         ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
      (checkdoc-package-keywords-flag)
      (eglot-inlay-hints-mode)
