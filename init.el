@@ -126,8 +126,8 @@
 ;; (use-package elisp-refs :ensure t)
 ;; (use-package eslint-disable-rule :ensure t)
 ;; (use-package eslint-fix :ensure t)
-;; (use-package emmet-mode :ensure t)
-;; 
+ (use-package emmet-mode :ensure t :hook ((html-mode . emmet-mode)))
+
 ;; Flycheck
 (use-package flycheck :config (add-hook 'after-init-hook #'global-flycheck-mode) :pin nongnu :ensure t)
 ;; (use-package flycheck-aspell :ensure t)
@@ -143,7 +143,7 @@
 ;; (use-package flycheck-relint :ensure t)
 ;; (use-package flycheck-rust :ensure t)
 ;; (use-package flylisp :ensure t)
-;; 
+
 ;; (use-package focus-autosave-mode :ensure t)
 (use-package form-feed-st :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
 ;; (use-package forth-mode :ensure t)
@@ -177,7 +177,7 @@
 ;; (use-package nov :ensure t) ;; epub reader
 
 
-;; ;; org-mode packages
+;; org-mode packages
 (use-package org :defer t :pin gnu :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture)))
 ;; (use-package org-contrib :ensure t)
 (use-package org-modern :ensure t :after org config: (global-org-modern-mode))
