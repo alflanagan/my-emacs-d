@@ -114,7 +114,7 @@
 ;; (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 ;; (use-package editorconfig :ensure t :config (editorconfig-mode 1))
 (use-package eldoc :defer t)
-(use-package eldoc-box :defer t :config (eldoc-box-hover-at-point-mode) :after eldoc)
+(use-package eldoc-box :defer t :after eldoc)
 (use-package
  elisp-autofmt
  :defer t
@@ -345,6 +345,7 @@
   (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
   (typescript-ts-mode . flycheck-mode)
   (typescript-ts-mode . eldoc-mode)
+  (typescript-ts-mode . eldoc-box-hover-mode)
   (tsx-ts-mode . lsp-deferred)
   (typescript-ts-mode . company-mode)))
 
