@@ -350,6 +350,12 @@
   (typescript-ts-mode . company-mode)))
 
 
+;;; buffer(s) opened on startup
+
+(find-file (expand-file-name "~/org/personal/todo-main.org"))
+
+
+
 ;; system locations
 
 ;; this may be _too_ clever
