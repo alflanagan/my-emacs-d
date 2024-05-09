@@ -14,6 +14,10 @@
  '(display-line-numbers-major-tick 100)
  '(display-line-numbers-minor-tick 10)
  '(ede-project-directories nil)
+ '(elpy-disable-backend-error-display nil)
+ '(elpy-formatter 'black)
+ '(elpy-modules
+   '(elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-folding elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults))
  '(fill-column 120)
  '(global-highlight-parentheses-mode t)
  '(global-prettify-symbols-mode t)
@@ -61,7 +65,7 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(company company-web devdocs dockerfile-mode eldoc eldoc-box elisp-autofmt emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami org org-contacts org-modern org-special-block-extras origami projectile smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
+   '(elpy company company-web devdocs dockerfile-mode eldoc eldoc-box elisp-autofmt emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami org org-contacts org-modern org-special-block-extras origami projectile smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$" "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$" "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
@@ -217,8 +221,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 200 :width normal :foundry "nil" :family "FiraCode Nerd Font Mono"))))
  '(fixed-pitch ((t nil)))
- '(line-number-major-tick ((t (:background "gray85" :weight bold :height 0.8))))
- '(line-number-minor-tick ((t (:background "gray91" :slant italic :height 0.8)))))
+ '(line-number-major-tick ((t (:weight bold))))
+ '(line-number-minor-tick ((t (:slant italic :weight medium)))))
 
 (provide 'custom)
 ;;; custom.el ends here
