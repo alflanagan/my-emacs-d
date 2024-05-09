@@ -212,7 +212,11 @@
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
 ;; (use-package projectile-codesearch :ensure t)
-;; (use-package pyenv-mode :ensure t)
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
 ;; (use-package rainbow-delimiters :ensure t)
 ;; (use-package reddigg :ensure t)
 ;; (use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
