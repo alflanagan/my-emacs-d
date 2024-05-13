@@ -180,7 +180,7 @@
 ;; org-mode packages
 (use-package org :defer t :pin gnu :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture)))
 ;; (use-package org-contrib :ensure t)
-(use-package org-modern :ensure t :after org config: (global-org-modern-mode))
+(use-package org-modern :ensure t :after org config: (global-org-modern-mode +1))
 ;; (use-package org-ai :ensure t)
 ;; (use-package org-msg :ensure t)
 ;; (use-package org-ql :ensure t)
@@ -323,6 +323,10 @@
 ;; C-M-q locks the screen
 ;; enable these for all environments so I don't have to remember on non-Macs
 (bind-keys ("C-c C-q" . indent-pp-sexp) ("C-c C-s" . kill-sexp) ("C-%" . query-replace))
+
+(keymap-set global-map "C-x M-r" #'remember)
+(keymap-set global-map "C-x M-R" #'remember-region)
+
 
 ;; Tell emacs lisp mode to do the right thing on build.
 (add-hook
