@@ -98,7 +98,13 @@
 ;; (use-package cargo-mode :ensure t :pin "melpa" :hook 'rust-mode-hook)
 ;; (use-package cmake-mode :ensure t)
 ;; (use-package code-archive :ensure t)
-(use-package company :ensure t)
+;; don't load company until a source file has loaded (check: startup load of org file doesn't load it)
+(use-package company
+  :ensure t
+  :after prog-mode
+  :config
+  (add-hook 'prog-mode-hook 'company-mode))
+
 ;; (use-package company-jedi :ensure t)
 ;; (use-package company-math :ensure t)
 ;; (use-package company-shell :ensure t)
@@ -180,7 +186,7 @@
 ;; org-mode packages
 (use-package org :defer t :pin gnu :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture)))
 ;; (use-package org-contrib :ensure t)
-(use-package org-modern :ensure t :after org config: (global-org-modern-mode +1))
+(use-package org-modern :ensure t :after org :config (global-org-modern-mode +1))
 ;; (use-package org-ai :ensure t)
 ;; (use-package org-msg :ensure t)
 ;; (use-package org-ql :ensure t)
