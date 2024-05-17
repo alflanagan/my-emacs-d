@@ -94,6 +94,7 @@
 ;; (use-package async :ensure t)
 ;; (use-package auto-header :ensure t)
 ;; (use-package auto-rename-tag :ensure t)
+(use-package binky :ensure t :config (binky-mode +1))
 ;; (use-package blacken :ensure t)
 ;; (use-package cargo-mode :ensure t :pin "melpa" :hook 'rust-mode-hook)
 ;; (use-package cmake-mode :ensure t)

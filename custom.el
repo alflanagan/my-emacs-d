@@ -4,6 +4,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(binky-mode t)
  '(create-lockfiles nil)
  '(cua-enable-cua-keys nil)
  '(custom-safe-themes
@@ -11,8 +12,9 @@
  '(devdocs-window-select nil)
  '(display-fill-column-indicator t)
  '(display-line-numbers nil)
- '(display-line-numbers-major-tick 100)
- '(display-line-numbers-minor-tick 10)
+ '(display-line-numbers-major-tick 0)
+ '(display-line-numbers-minor-tick 0)
+ '(display-line-numbers-width nil)
  '(ede-project-directories nil)
  '(elpy-disable-backend-error-display nil)
  '(elpy-formatter 'black)
@@ -65,7 +67,7 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(elpy company company-web devdocs dockerfile-mode eldoc eldoc-box elisp-autofmt emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami org org-contacts org-modern org-special-block-extras origami projectile smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
+   '(binky elpy company company-web devdocs dockerfile-mode eldoc eldoc-box elisp-autofmt emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami org org-contacts org-modern org-special-block-extras origami projectile smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$" "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$" "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
