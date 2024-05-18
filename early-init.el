@@ -19,7 +19,7 @@
      (ns-appearance . dark))))
 
 ;; need to set this in early-init to set for intitial frame
-(modify-all-frames-parameters '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 60)))
+(modify-all-frames-parameters '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 160) (height . 50)))
 
 ;; set this here so it gets applied to load of init.el (we hope)
 (setq load-prefer-newer t) ;; IMHO the default value of this being nil is nuts
