@@ -205,6 +205,11 @@
 
 ;; (use-package parrot :ensure t)
 
+;; intriguing, but doesn't seem to be working correctly (may just need more config)
+;; https://github.com/kcyarn/pretty-speedbar
+;; (use-package pretty-speedbar :ensure t :defer t :after projectile-speedbar :config
+;;   (setq pretty-speedbar-font "Font Awesome 6 Free Solid"))
+
 ;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
     (use-package
@@ -218,6 +223,7 @@
    :config (projectile-mode +1)
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
+(use-package projectile-speedbar :ensure t :after projectile :defer t)
 ;; (use-package projectile-codesearch :ensure t)
 (use-package elpy
   :ensure t
@@ -310,7 +316,6 @@
 (when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
-  (add-hook 'server-after-make-frame-hook #'setup-frame-for-mac)
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
   (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
   (setq ring-bell-function
