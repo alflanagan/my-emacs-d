@@ -21,7 +21,6 @@
  '(display-line-numbers nil)
  '(display-line-numbers-major-tick 0)
  '(display-line-numbers-minor-tick 0)
- '(display-line-numbers-width nil)
  '(ede-project-directories nil)
  '(elpy-disable-backend-error-display nil)
  '(elpy-formatter 'black)
@@ -38,7 +37,7 @@
  '(initial-buffer-choice t)
  '(js-chain-indent t)
  '(js-indent-level 2)
- '(kill-ring-max 5000)
+ '(kill-ring-max 50000)
  '(lsp-clients-typescript-tls-path
    "/Users/adrianflanagan/.nvm/versions/node/v20.12.2/bin/typescript-language-server")
  '(lsp-javascript-format-enable nil)
@@ -120,7 +119,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 200 :width normal :foundry "nil" :family "FiraCode Nerd Font Mono"))))
  '(fixed-pitch ((t nil)))
  '(line-number-major-tick ((t (:weight bold))))
  '(line-number-minor-tick ((t (:slant italic :weight medium)))))
