@@ -46,6 +46,14 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
+;; see also initial-frame-alist in early-init.el
+(setq default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 160) (height . 50)))
+
+;; (use-package fira-code-mode
+;;   ;; == and === come out as set operators on linux?
+;;   :custom (fira-code-mode-disabled-ligatures '("[]" "===" "==" ":" ))  ; ligatures you don't want
+;;   :hook prog-mode)                                         ; mode to enable fira-code-mode in
+
 
 
 (global-auto-revert-mode 1)
