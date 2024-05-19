@@ -7,21 +7,41 @@
 ;; also setup of options which the initial frame shoud obey
 
 ;;; Code:
-(when (equal system-type 'darwin)
-  (setenv "LIBRARY_PATH"
-          (string-join '("/opt/homebrew/opt/gcc/lib/gcc/13"
-                         "/opt/homebrew/opt/libgccjit/lib/gcc/13"
-                         "/opt/homebrew/Cellar/gcc/13.2.0/lib/gcc/current/gcc/aarch64-apple-darwin23/13")
-                       ":"))
-  (modify-all-frames-parameters
-   '((font . "-*-FiraCode Nerd Font Mono-regular-normal-normal-*-16-*-*-*-m-0-iso10646-1")
-     (ns-transparent-titlebar . t)
-     (ns-appearance . dark))))
+(if (equal system-type 'darwin)
+    (progn
+      (setenv
+       "LIBRARY_PATH"
+       (string-join
+        '("/opt/homebrew/opt/gcc/lib/gcc/13"
+          "/opt/homebrew/opt/libgccjit/lib/gcc/13"
+          "/opt/homebrew/Cellar/gcc/13.2.0/lib/gcc/current/gcc/aarch64-apple-darwin23/13")
+        ":"))
+      (modify-all-frames-parameters
+       '((ns-transparent-titlebar . t) (ns-appearance . dark)))
+      (set-face-attribute
+       'default nil
+       :family "FiraCode Nerd Font Mono" ; -regular-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+       :height 160
+       :weight 'normal
+       :slant 'normal
+       :width 'normal))
+
+  (set-face-attribute 'default nil
+                      :family "Fira Code"
+                      :height 160
+                      :weight 'normal
+                      :slant 'normal
+                      :width 'normal))
 
 ;; need to set this in early-init to set for intitial frame
-(modify-all-frames-parameters '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 160) (height . 50)))
+(setq initial-frame-alist
+      '((horizontal-scroll-bars)
+        (vertical-scroll-bars)
+        (width . 160)
+        (height . 50)))
 
 ;; set this here so it gets applied to load of init.el (we hope)
+;; OTOH init.elc shouldn't exist (check for it??)
 (setq load-prefer-newer t) ;; IMHO the default value of this being nil is nuts
 
 ;;; early-init.el ends here
