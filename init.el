@@ -132,6 +132,7 @@
 ;; (use-package elisp-def)
 ;; (use-package elisp-lint)
 ;; (use-package elisp-refs)
+(use-package elpy :defer t :init (advice-add 'python-mode :before 'elpy-enable))
 ;; (use-package eslint-disable-rule)
 ;; (use-package eslint-fix)
 (use-package emmet-mode :hook ((html-mode . emmet-mode)))
@@ -178,6 +179,7 @@
 ;; (use-package lispy)
 
 (use-package lsp-mode :defer t :commands lsp)
+(use-package lsp-origami :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
 ;; (use-package magit)
 ;; (use-package markdown-toc)
 ;; (use-package morlock :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
@@ -201,7 +203,6 @@
  :defer t
  :config (global-origami-mode)
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
-(use-package lsp-origami :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
 
 ;; (use-package parrot)
 
@@ -225,7 +226,6 @@
 
 (use-package projectile-speedbar :after projectile :defer t)
 ;; (use-package projectile-codesearch)
-(use-package elpy :defer t :init (advice-add 'python-mode :before 'elpy-enable))
 ;; (use-package rainbow-delimiters)
 ;; (use-package reddigg)
 ;; (use-package rust-mode :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
@@ -269,6 +269,27 @@
       (treesit-install-language-grammar (car grammar)))))
 
 ;; (use-package treesit-auto)
+
+
+;; TypeScript setup
+
+;; tree-sitter nodes don't have load event?
+;; (with-eval-after-load 'typescript-ts-mode
+;;  "sets up typescript-ts-mode-hook with more goodies"
+(use-package
+ typescript-ts-mode
+ :defer t
+ :hook
+ ((typescript-ts-mode . lsp-deferred)
+  (typescript-ts-mode . display-line-numbers-mode)
+  (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
+  (typescript-ts-mode . flycheck-mode)
+  (typescript-ts-mode . eldoc-mode)
+  (typescript-ts-mode . eldoc-box-hover-mode)
+  (tsx-ts-mode . lsp-deferred)
+  (typescript-ts-mode . company-mode)))
+
+
 ;; (use-package w3m)
 ;; (use-package web-beautify)
 ;; (use-package web-mode)
@@ -344,25 +365,6 @@
                 "emacs -batch -f batch-byte-compile "
                 (if buffer-file-name
                     (shell-quote-argument buffer-file-name))))))
-
-
-;; TypeScript setup
-
-;; tree-sitter nodes don't have load event?
-;; (with-eval-after-load 'typescript-ts-mode
-;;  "sets up typescript-ts-mode-hook with more goodies"
-(use-package
- typescript-ts-mode
- :defer t
- :hook
- ((typescript-ts-mode . lsp-deferred)
-  (typescript-ts-mode . display-line-numbers-mode)
-  (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
-  (typescript-ts-mode . flycheck-mode)
-  (typescript-ts-mode . eldoc-mode)
-  (typescript-ts-mode . eldoc-box-hover-mode)
-  (tsx-ts-mode . lsp-deferred)
-  (typescript-ts-mode . company-mode)))
 
 
 ;;; buffer(s) opened on startup
