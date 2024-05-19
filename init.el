@@ -70,24 +70,25 @@
         ("melpa" . "https://melpa.org/packages/")))
 
 ;; set up use-package
-
+;; so I don't have to specify :ensure t on ever call
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
 (package-initialize)
 
+;; nifty interface for execute-extended-command (M-x)
+(require 'smex "smex/smex")
+;; (smex-initialize) ;; not required, might make first use faster
+
 
-;; TODO: set up and maintain blacklist of packages that look useful, but don't work for me
-;; (use-package go :ensure t) ;; the game, not the language -- causes crash in ivy?
-;; so very out of date...
-;; (use-package angular-mode :ensure t)
-;; this is a) the wrong kind of go (the game, not the language)
-;; and b) crashes ivy in spectacular fashion. DO NOT WANT.
-;; (use-package go :ensure t)
-;; currently, djangonaut commands are failing
-;; (use-package djangonaut :ensure t) ;; TODO: link to my rework of the damn package
-;; paradox is having problems like putting all its output into minibuffer and freezing emacs :-(
-;; (use-package fold-dwim :ensure t :bind (("C-+" . fold-dwim-toggle)("C-=" . fold-dwim-toggle)))
+;; Blacklisted Packages
+;; this is reminder (to myself) not to use these packages, and why
+
+;; (use-package go) ;; the game, not the language -- causes crash in ivy?
+;; (use-package angular-mode) ;; so very out of date...
+;; (use-package djangonaut) ;; currently, djangonaut commands are failing
+;; (use-package paradox)  problems like putting all its output into minibuffer and freezing emacs :-(
+;; (use-package fold-dwim :bind (("C-+" . fold-dwim-toggle)("C-=" . fold-dwim-toggle)))
 ;; I have no idea what fold-dwim's problem is, but it almost never Does What I Mean.
 ;; eglot -- built-in, fine as far as I know, superceded by lsp-mode
 
@@ -95,39 +96,31 @@
 
 ;; KEEP THIS SORTED!
 
-(require 'smex "smex/smex")
-
-;; (smex-initialize) ;; not required, might make first use faster
-
-;; (use-package async :ensure t)
-;; (use-package auto-header :ensure t)
-;; (use-package auto-rename-tag :ensure t)
-(use-package binky :ensure t :config (binky-mode +1))
-;; (use-package blacken :ensure t)
-;; (use-package cargo-mode :ensure t :pin "melpa" :hook 'rust-mode-hook)
-;; (use-package cmake-mode :ensure t)
-;; (use-package code-archive :ensure t)
+;; (use-package async)
+;; (use-package auto-header)
+;; (use-package auto-rename-tag)
+(use-package binky :config (binky-mode +1))
+;; (use-package blacken)
+;; (use-package cargo-mode :pin "melpa" :hook 'rust-mode-hook)
+;; (use-package cmake-mode)
+;; (use-package code-archive)
 ;; don't load company until a source file has loaded (check: startup load of org file doesn't load it)
-(use-package company
-  :ensure t
-  :after prog-mode
-  :config
-  (add-hook 'prog-mode-hook 'company-mode))
+(use-package company :after prog-mode :config (add-hook 'prog-mode-hook 'company-mode))
 
-;; (use-package company-jedi :ensure t)
-;; (use-package company-math :ensure t)
-;; (use-package company-shell :ensure t)
-;; (use-package company-terraform :ensure t)
-(use-package company-web :ensure t)
-;; (use-package counsel :ensure t)
-;; (use-package counsel-projectile :ensure t)
-;; (use-package css-eldoc :ensure t)
-(use-package devdocs :ensure t)
-;; (use-package django-snippets :ensure t)
-;; (use-package docker-compose-mode :ensure t)
-(use-package dockerfile-mode :ensure t)
-;; (use-package dumb-jump :ensure t :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
-;; (use-package editorconfig :ensure t :config (editorconfig-mode 1))
+;; (use-package company-jedi)
+;; (use-package company-math)
+;; (use-package company-shell)
+;; (use-package company-terraform)
+(use-package company-web)
+;; (use-package counsel)
+;; (use-package counsel-projectile)
+;; (use-package css-eldoc)
+(use-package devdocs)
+;; (use-package django-snippets)
+;; (use-package docker-compose-mode)
+(use-package dockerfile-mode)
+;; (use-package dumb-jump :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+;; (use-package editorconfig :config (editorconfig-mode 1))
 (use-package eldoc :defer t)
 (use-package eldoc-box :defer t :after eldoc)
 (use-package
@@ -136,73 +129,72 @@
  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
  :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
  :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
-;; (use-package elisp-def :ensure t)
-;; (use-package elisp-lint :ensure t)
-;; (use-package elisp-refs :ensure t)
-;; (use-package eslint-disable-rule :ensure t)
-;; (use-package eslint-fix :ensure t)
- (use-package emmet-mode :ensure t :hook ((html-mode . emmet-mode)))
+;; (use-package elisp-def)
+;; (use-package elisp-lint)
+;; (use-package elisp-refs)
+;; (use-package eslint-disable-rule)
+;; (use-package eslint-fix)
+(use-package emmet-mode :hook ((html-mode . emmet-mode)))
 
 ;; Flycheck
-(use-package flycheck :config (add-hook 'after-init-hook #'global-flycheck-mode) :pin nongnu :ensure t)
-;; (use-package flycheck-aspell :ensure t)
-;; (use-package flycheck-bashate :ensure t)
-;; (use-package flycheck-cask :ensure t)
-;; (use-package flycheck-clang-tidy :ensure t)
-;; (use-package flycheck-golangci-lint :ensure t)
-;; (use-package flycheck-jest :ensure t)
-;; (use-package flycheck-kotlin :ensure t)
-;; (use-package flycheck-mypy :ensure t)
-;; (use-package flycheck-package :ensure t)
-;; (use-package flycheck-pycheckers :ensure t)
-;; (use-package flycheck-relint :ensure t)
-;; (use-package flycheck-rust :ensure t)
-;; (use-package flylisp :ensure t)
+(use-package flycheck :config (add-hook 'after-init-hook #'global-flycheck-mode) :pin nongnu)
+;; (use-package flycheck-aspell)
+;; (use-package flycheck-bashate)
+;; (use-package flycheck-cask)
+;; (use-package flycheck-clang-tidy)
+;; (use-package flycheck-golangci-lint)
+;; (use-package flycheck-jest)
+;; (use-package flycheck-kotlin)
+;; (use-package flycheck-mypy)
+;; (use-package flycheck-package)
+;; (use-package flycheck-pycheckers)
+;; (use-package flycheck-relint)
+;; (use-package flycheck-rust)
+;; (use-package flylisp)
 
-;; (use-package focus-autosave-mode :ensure t)
+;; (use-package focus-autosave-mode)
 (use-package form-feed-st :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
-;; (use-package forth-mode :ensure t)
-;; (use-package git-modes :ensure t)
-;; (use-package gnu-elpa-keyring-update :ensure t)
-;; (use-package go-autocomplete :ensure t)
-;; (use-package go-eldoc :ensure t)
-;; (use-package go-mode :ensure t)
-;; (use-package go-projectile :ensure t)
-;; (use-package go-scratch :ensure t)
-;; (use-package guru-mode :ensure t)
+;; (use-package forth-mode)
+;; (use-package git-modes)
+;; (use-package gnu-elpa-keyring-update)
+;; (use-package go-autocomplete)
+;; (use-package go-eldoc)
+;; (use-package go-mode)
+;; (use-package go-projectile)
+;; (use-package go-scratch)
+;; (use-package guru-mode)
 (use-package highlight-parentheses)
-;; (use-package hl-todo :ensure t)
-;; (use-package ibuffer-projectile :ensure t)
-;; (use-package ietf-docs :ensure t)
+;; (use-package hl-todo)
+;; (use-package ibuffer-projectile)
+;; (use-package ietf-docs)
 ;; (use-package
 ;;  immaterial-theme
-;;  :ensure t
 ;;  :config
 ;;  (progn
 ;;    (load-theme 'immaterial-dark t)
 ;;    (load-theme 'immaterial-light t)))
-(use-package ivy :ensure t :config (ivy-mode 1))
-;; (use-package kotlin-ts-mode :ensure t)
-;; (use-package lispy :ensure t)
+(use-package ivy :config (ivy-mode 1))
+;; (use-package kotlin-ts-mode)
+;; (use-package lispy)
 
-(use-package lsp-mode :defer t :ensure t :commands lsp)
-;; (use-package magit :ensure t)
-;; (use-package markdown-toc :ensure t)
-;; (use-package morlock :ensure t :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
-;; (use-package nov :ensure t) ;; epub reader
+(use-package lsp-mode :defer t :commands lsp)
+;; (use-package magit)
+;; (use-package markdown-toc)
+;; (use-package morlock :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
+;; (use-package nov) ;; epub reader
 
 
 ;; org-mode packages
 (use-package org :defer t :pin gnu :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture)))
-;; (use-package org-contrib :ensure t)
-(use-package org-modern :ensure t :after org :config (global-org-modern-mode +1))
-;; (use-package org-ai :ensure t)
-;; (use-package org-msg :ensure t)
-;; (use-package org-ql :ensure t)
-;; (use-package org-recur :ensure t)
+;; (use-package org-contrib)
+(use-package org-modern :after org :config (global-org-modern-mode +1))
+;; (use-package org-ai)
+;; (use-package org-msg)
+;; (use-package org-ql)
+;; (use-package org-recur)
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
-(use-package org-special-block-extras :ensure t)
-;; (use-package org-web-tools :ensure t)
+(use-package org-special-block-extras)
+;; (use-package org-web-tools)
 
 (use-package
  origami
@@ -211,11 +203,11 @@
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 (use-package lsp-origami :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
 
-;; (use-package parrot :ensure t)
+;; (use-package parrot)
 
 ;; intriguing, but doesn't seem to be working correctly (may just need more config)
 ;; https://github.com/kcyarn/pretty-speedbar
-;; (use-package pretty-speedbar :ensure t :defer t :after projectile-speedbar :config
+;; (use-package pretty-speedbar :defer t :after projectile-speedbar :config
 ;;   (setq pretty-speedbar-font "Font Awesome 6 Free Solid"))
 
 ;; attempt to set up equivalent keys on Mac and my PC.
@@ -231,25 +223,21 @@
    :config (projectile-mode +1)
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
-(use-package projectile-speedbar :ensure t :after projectile :defer t)
-;; (use-package projectile-codesearch :ensure t)
-(use-package elpy
-  :ensure t
-  :defer t
-  :init
-  (advice-add 'python-mode :before 'elpy-enable))
-;; (use-package rainbow-delimiters :ensure t)
-;; (use-package reddigg :ensure t)
-;; (use-package rust-mode :ensure t :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
-;; (use-package slime :ensure t)
-(use-package smart-mode-line :ensure t :config (sml/setup))
-(use-package smart-mode-line-powerline-theme :ensure t :config (sml/apply-theme 'light-powerline))
-(use-package sql-indent :ensure t :defer t)
+(use-package projectile-speedbar :after projectile :defer t)
+;; (use-package projectile-codesearch)
+(use-package elpy :defer t :init (advice-add 'python-mode :before 'elpy-enable))
+;; (use-package rainbow-delimiters)
+;; (use-package reddigg)
+;; (use-package rust-mode :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
+;; (use-package slime)
+(use-package smart-mode-line :config (sml/setup))
+(use-package smart-mode-line-powerline-theme :config (sml/apply-theme 'light-powerline))
+(use-package sql-indent :defer t)
 
-;; (use-package super-save :ensure t)
-;; (use-package term-projectile :ensure t)
-(use-package tree-sitter :ensure t)
-;; (use-package tree-sitter-indent :ensure t)
+;; (use-package super-save)
+;; (use-package term-projectile)
+(use-package tree-sitter)
+;; (use-package tree-sitter-indent)
 
 (defun mp-setup-install-grammars ()
   "Install Tree-sitter grammars if they are absent."
@@ -280,20 +268,20 @@
     (unless (treesit-language-available-p (car grammar))
       (treesit-install-language-grammar (car grammar)))))
 
-;; (use-package treesit-auto :ensure t)
-;; (use-package w3m :ensure t)
-;; (use-package web-beautify :ensure t)
-;; (use-package web-mode :ensure t)
-;; (use-package weyland-yutani-theme :ensure t)
+;; (use-package treesit-auto)
+;; (use-package w3m)
+;; (use-package web-beautify)
+;; (use-package web-mode)
+;; (use-package weyland-yutani-theme)
 
-(use-package whitespace-cleanup-mode :ensure t)
+(use-package whitespace-cleanup-mode)
 (use-package xkcd :defer t)
 
-;; (use-package yasnippet :ensure t :pin melpa)
+;; (use-package yasnippet :pin melpa)
 
 ;; ;; should have a separate section for Elisp libraries
-;; (use-package dash :ensure t) ;; list functions
-;; (use-package s :ensure t) ;; string functions
+;; (use-package dash) ;; list functions
+;; (use-package s) ;; string functions
 
 
 ;;; Everything Else
@@ -347,7 +335,6 @@
 (keymap-set global-map "C-x M-r" #'remember)
 (keymap-set global-map "C-x M-R" #'remember-region)
 
-
 ;; Tell emacs lisp mode to do the right thing on build.
 (add-hook
  'emacs-lisp-mode-hook
@@ -381,7 +368,6 @@
 ;;; buffer(s) opened on startup
 
 (find-file (expand-file-name "~/org/personal/todo-main.org"))
-
 
 
 ;; system locations
