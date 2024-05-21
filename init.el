@@ -180,7 +180,8 @@
 
 (use-package lsp-mode :defer t :commands lsp)
 (use-package lsp-origami :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
-;; (use-package magit)
+(use-package magit)
+(use-package magit-todos)
 ;; (use-package markdown-toc)
 ;; (use-package morlock :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
 ;; (use-package nov) ;; epub reader
