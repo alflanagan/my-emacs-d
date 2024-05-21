@@ -37,8 +37,8 @@
 (setq initial-frame-alist
       '((horizontal-scroll-bars)
         (vertical-scroll-bars)
-        (width . 160)
-        (height . 50)))
+        (width . 180)
+        (height . 70)))
 
 ;; set this here so it gets applied to load of init.el (we hope)
 ;; OTOH init.elc shouldn't exist (check for it??)

@@ -47,7 +47,7 @@
 (load custom-file)
 
 ;; see also initial-frame-alist in early-init.el
-(setq default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 160) (height . 50)))
+(setq default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)))
 
 ;; (use-package fira-code-mode
 ;;   ;; == and === come out as set operators on linux?
