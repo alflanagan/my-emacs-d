@@ -188,7 +188,15 @@
 
 
 ;; org-mode packages
-(use-package org :defer t :pin gnu :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture)))
+(use-package
+  org
+  :defer t
+  :pin gnu
+  :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
+  :config (progn
+            (setq org-adapt-indentation 'headline-data)
+            (setq org-ctrl-k-protect-subtree t)
+            (setq org-special-ctrl-a/e t)))
 ;; (use-package org-contrib)
 (use-package org-modern :after org :config (global-org-modern-mode +1))
 ;; (use-package org-ai)
