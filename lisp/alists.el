@@ -33,7 +33,7 @@
     (when pair
       (setcdr pair new-value))))
 
-
+;; arguably not necessary; just push a new (KEY . VALUE) to the front of the list
 (defun alist-key-add-or-replace (key value alist)
   "If KEY is in ALIST, set to VALUE.  Otherwise push (KEY . VALUE) to ALIST."
   (let ((pair (assoc key alist)))
