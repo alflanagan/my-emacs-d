@@ -322,8 +322,13 @@
  fill-column 120
  indent-tabs-mode nil)
 ;; surely there's a better function for this?
-(setq auto-mode-alist (alist-key-add-or-replace "\\.ts\\'" 'typescript-ts-mode auto-mode-alist))
-(setq auto-mode-alist (alist-key-add-or-replace "\\.tsx\\'" 'tsx-ts-mode auto-mode-alist))
+;; and alist-key-add-or-replace doesn't work properly
+;; these aren't defined in auto-mode-alist and this works
+(push '("\\.ts\\'" . typescript-ts-mode) auto-mode-alist)
+(push '("\\.tsx\\'" . tsx-ts-mode) auto-mode-alist)
+(push '("\\.js[mx]?\\'" . js-ts-mode) auto-mode-alist)
+(push '("\\.har\\'" . js-ts-mode) auto-mode-alist)
+
 
 (setq column-number-mode t)
 (setq sentence-end-double-space nil)
