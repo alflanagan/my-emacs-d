@@ -29,8 +29,6 @@
  '(js-chain-indent t)
  '(js-indent-level 2)
  '(kill-ring-max 50000)
- '(lsp-clients-typescript-tls-path
-   "/Users/adrianflanagan/.nvm/versions/node/v20.12.2/bin/typescript-language-server")
  '(lsp-javascript-format-enable nil)
  '(lsp-typescript-format-enable nil)
  '(lsp-typescript-tsserver-trace "messages")
