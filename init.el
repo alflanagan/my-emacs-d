@@ -99,7 +99,6 @@
 ;; (use-package async)
 ;; (use-package auto-header)
 ;; (use-package auto-rename-tag)
-(use-package binky :config (binky-mode +1))
 ;; (use-package blacken)
 ;; (use-package cargo-mode :pin "melpa" :hook 'rust-mode-hook)
 ;; (use-package cmake-mode)
@@ -119,6 +118,13 @@
 ;; (use-package django-snippets)
 ;; (use-package docker-compose-mode)
 (use-package dockerfile-mode)
+(use-package dogears :config (dogears-mode 1)
+  :bind (:map global-map
+              ("M-g d" . dogears-go)
+              ("M-g M-b" . dogears-back)
+              ("M-g M-f" . dogears-forward)
+              ("M-g M-d" . dogears-list)
+              ("M-g M-D" . dogears-sidebar)))
 ;; (use-package dumb-jump :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 ;; (use-package editorconfig :config (editorconfig-mode 1))
 (use-package eldoc :defer t)
@@ -197,6 +203,22 @@
             (setq org-adapt-indentation 'headline-data)
             (setq org-ctrl-k-protect-subtree t)
             (setq org-special-ctrl-a/e t)))
+
+
+(use-package org-contacts :defer t :config (push org-capture-templates '("c" "Contacts" entry (file "~/org/contacts.org")
+                                           "* %(org-contacts-template-name)
+:PROPERTIES:
+:EMAIL: %(org-contacts-template-email)
+:PHONE:
+:ALIAS:
+:NICKNAME:
+:IGNORE:
+:ICON:
+:NOTE:
+:ADDRESS:
+:BIRTHDAY:
+:END:")))
+
 ;; (use-package org-contrib)
 (use-package org-modern :after org :config (global-org-modern-mode +1))
 ;; (use-package org-ai)
