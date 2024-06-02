@@ -115,13 +115,17 @@
 ;; (use-package django-snippets)
 ;; (use-package docker-compose-mode)
 (use-package dockerfile-mode)
-(use-package dogears :config (dogears-mode 1)
-  :bind (:map global-map
-              ("M-g d" . dogears-go)
-              ("M-g M-b" . dogears-back)
-              ("M-g M-f" . dogears-forward)
-              ("M-g M-d" . dogears-list)
-              ("M-g M-D" . dogears-sidebar)))
+(use-package
+ dogears
+ :config (dogears-mode 1)
+ :bind
+ (:map
+  global-map
+  ("M-g d" . dogears-go)
+  ("M-g M-b" . dogears-back)
+  ("M-g M-f" . dogears-forward)
+  ("M-g M-d" . dogears-list)
+  ("M-g M-D" . dogears-sidebar)))
 ;; (use-package dumb-jump :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 ;; (use-package editorconfig :config (editorconfig-mode 1))
 (use-package eldoc :defer t)
@@ -197,18 +201,24 @@
 
 ;; org-mode packages
 (use-package
-  org
-  :defer t
-  :pin gnu
-  :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
-  :config (progn
-            (setq org-adapt-indentation 'headline-data)
-            (setq org-ctrl-k-protect-subtree t)
-            (setq org-special-ctrl-a/e t)))
+ org
+ :defer t
+ :pin gnu
+ :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
+ :config
+ (progn
+   (setq org-adapt-indentation 'headline-data)
+   (setq org-ctrl-k-protect-subtree t)
+   (setq org-special-ctrl-a/e t)))
 
 
-(use-package org-contacts :defer t :config (push org-capture-templates '("c" "Contacts" entry (file "~/org/contacts.org")
-                                           "* %(org-contacts-template-name)
+(use-package
+ org-contacts
+ :defer t
+ :config
+ (push org-capture-templates
+       '("c" "Contacts" entry (file "~/org/contacts.org")
+         "* %(org-contacts-template-name)
 :PROPERTIES:
 :EMAIL: %(org-contacts-template-email)
 :PHONE:
