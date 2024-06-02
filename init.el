@@ -49,10 +49,6 @@
 ;; see also initial-frame-alist in early-init.el
 (setq default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)))
 
-;; (use-package fira-code-mode
-;;   ;; == and === come out as set operators on linux?
-;;   :custom (fira-code-mode-disabled-ligatures '("[]" "===" "==" ":" ))  ; ligatures you don't want
-;;   :hook prog-mode)                                         ; mode to enable fira-code-mode in
 
 
 
@@ -99,6 +95,7 @@
 ;; (use-package async)
 ;; (use-package auto-header)
 ;; (use-package auto-rename-tag)
+(use-package bbdb)
 ;; (use-package blacken)
 ;; (use-package cargo-mode :pin "melpa" :hook 'rust-mode-hook)
 ;; (use-package cmake-mode)
@@ -142,6 +139,11 @@
 ;; (use-package eslint-disable-rule)
 ;; (use-package eslint-fix)
 (use-package emmet-mode :hook ((html-mode . emmet-mode)))
+;; (use-package fira-code-mode
+;;   ;; == and === come out as set operators on linux?
+;;   :custom (fira-code-mode-disabled-ligatures '("[]" "===" "==" ":" ))  ; ligatures you don't want
+;;   :hook prog-mode)                                         ; mode to enable fira-code-mode in
+
 
 ;; Flycheck
 (use-package flycheck :config (add-hook 'after-init-hook #'global-flycheck-mode) :pin nongnu)
@@ -218,6 +220,9 @@
 :ADDRESS:
 :BIRTHDAY:
 :END:")))
+
+(use-package org-chef)
+(use-package org-elisp-help)
 
 ;; (use-package org-contrib)
 (use-package org-modern :after org :config (global-org-modern-mode +1))

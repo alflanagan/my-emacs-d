@@ -1,8 +1,9 @@
-binky
+bbdb
 company
 company-web
 devdocs
 dockerfile-mode
+dogears
 eldoc
 eldoc-box
 elisp-autofmt
@@ -14,6 +15,12 @@ highlight-parentheses
 ivy
 lsp-mode
 lsp-origami
+magit
+magit-todos
+org
+org-chef
+org-contacts
+org-elisp-help
 org-modern
 org-special-block-extras
 origami

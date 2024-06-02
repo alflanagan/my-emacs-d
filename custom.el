@@ -63,7 +63,10 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(bbdb magit magit-todos company company-web devdocs dockerfile-mode dogears eldoc eldoc-box elisp-autofmt elpy emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami org org-contacts org-modern org-special-block-extras origami projectile projectile-speedbar smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
+   '(bbdb company company-web devdocs dockerfile-mode dogears eldoc eldoc-box elisp-autofmt elpy emmet-mode flycheck
+          form-feed-st highlight-parentheses ivy lsp-mode lsp-origami magit magit-todos org org-chef org-contacts
+          org-elisp-help org-modern org-special-block-extras origami projectile projectile-speedbar smart-mode-line
+          smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$" "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$" "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
