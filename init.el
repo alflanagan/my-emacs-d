@@ -49,9 +49,10 @@
 (scroll-bar-mode -1)
 
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 (save-place-mode t)
+(show-paren-mode 1)
+(global-auto-revert-mode 1)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -61,32 +62,31 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-(show-paren-mode 1)
 (setq-default indent-tabs-mode nil)
 (setq
+ apropos-do-all t
+ backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
+ column-number-mode t
+ custom-file (concat user-emacs-directory "custom.el")
+ default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)) ;; see also early-init.el
+ mouse-yank-at-point t
+ save-interprogram-paste-before-kill t
+ save-place-file (concat user-emacs-directory "places")
  select-enable-clipboard t
  select-enable-primary t
- save-interprogram-paste-before-kill t
- apropos-do-all t
- mouse-yank-at-point t
- save-place-file (concat user-emacs-directory "places")
- backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
+ sentence-end-double-space nil
+ uniquify-buffer-name-style 'post-forward-angle-brackets)
 
-(setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
-
-;; see also initial-frame-alist in early-init.el
-(setq default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)))
-
-
-
-
-(global-auto-revert-mode 1)
 
 ;;; NOTE: customizations are in custom.el
 
 ;;; Packages
 ;;; Eventual goal is to remove from customization entirely, and use use-package for all.
+;; ... except in practice it's easier to add from list-packages and thus it sets variable
+;; package-select-packages anyway -- should we advise use-package to do that also??
+;; heck, why not rewrite list-packages so insert adds a use-package declaration to a
+;; section of this file?
 
 ;; first we add melpa archive (use with caution!)
 (setq package-archives
@@ -394,10 +394,6 @@
 (push '("\\.tsx\\'" . tsx-ts-mode) auto-mode-alist)
 (push '("\\.js[mx]?\\'" . js-ts-mode) auto-mode-alist)
 (push '("\\.har\\'" . js-ts-mode) auto-mode-alist)
-
-
-(setq column-number-mode t)
-(setq sentence-end-double-space nil)
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
 (if (or (not (boundp 'server-process)) (null server-process))
