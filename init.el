@@ -31,17 +31,46 @@
 ;;; Code:
 
 ;;; custom lisp directory
-
-(let ((lispdir (directory-file-name (concat (expand-file-name user-emacs-directory) "lisp"))))
-  (unless (member lispdir load-path)
-    (push lispdir load-path)))
-
-(let ((ng2dir (directory-file-name (concat (expand-file-name user-emacs-directory) "lisp/ng2-mode"))))
-  (push ng2dir load-path))
+(let ((default-directory (directory-file-name (concat (expand-file-name user-emacs-directory) "lisp"))))
+  (add-to-list 'load-path default-directory)
+  (normal-top-level-add-subdirs-to-load-path))
 
 (require 'alf-alists "alists")
 (load "./secrets")
-(require 'better-defaults "better-defaults/better-defaults")
+
+;; various settings gleaned from package better-defaults
+
+(ido-mode t)
+(setq ido-enable-flex-matching t)
+
+;; these nodes are discouraged because they use mouse -- keep hands on the keyboard!
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+(save-place-mode t)
+
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+
+(show-paren-mode 1)
+(setq-default indent-tabs-mode nil)
+(setq
+ select-enable-clipboard t
+ select-enable-primary t
+ save-interprogram-paste-before-kill t
+ apropos-do-all t
+ mouse-yank-at-point t
+ save-place-file (concat user-emacs-directory "places")
+ backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
@@ -66,7 +95,7 @@
         ("melpa" . "https://melpa.org/packages/")))
 
 ;; set up use-package
-;; so I don't have to specify :ensure t on ever call
+;; so I don't have to specify :ensure t on every call
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
