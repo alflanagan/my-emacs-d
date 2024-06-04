@@ -43,7 +43,7 @@
 (ido-mode t)
 (setq ido-enable-flex-matching t)
 
-;; these nodes are discouraged because they use mouse -- keep hands on the keyboard!
+;; these modes are discouraged because they use mouse -- keep hands on the keyboard!
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -370,7 +370,7 @@
 ;; (use-package web-mode)
 ;; (use-package weyland-yutani-theme)
 
-(use-package whitespace-cleanup-mode)
+(use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 (use-package xkcd :defer t)
 
 ;; (use-package yasnippet :pin melpa)
