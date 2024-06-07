@@ -229,6 +229,11 @@
 
 
 ;; org-mode packages
+(defun set-org-tab-width ()
+  "Because 'org-mode' now insists 'tab-width' be 8."
+  ;; makes tab-width buffer-local
+  (setq tab-width 8))
+
 (use-package
  org
  :defer t
@@ -238,7 +243,8 @@
  (progn
    (setq org-adapt-indentation 'headline-data)
    (setq org-ctrl-k-protect-subtree t)
-   (setq org-special-ctrl-a/e t)))
+   (setq org-special-ctrl-a/e t)
+   (add-hook 'org-mode-hook  #'set-org-tab-width)))
 
 
 (use-package
@@ -348,12 +354,13 @@
 
 ;; TypeScript setup
 
-;; tree-sitter nodes don't have load event?
+;;
 ;; (with-eval-after-load 'typescript-ts-mode
 ;;  "sets up typescript-ts-mode-hook with more goodies"
 (use-package
  typescript-ts-mode
  :defer t
+ :ensure nil  ;; built-in mode
  :hook
  ((typescript-ts-mode . lsp-deferred)
   (typescript-ts-mode . display-line-numbers-mode)
