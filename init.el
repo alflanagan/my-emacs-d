@@ -394,13 +394,13 @@
 (setq
  fill-column 120
  indent-tabs-mode nil)
-;; surely there's a better function for this?
-;; and alist-key-add-or-replace doesn't work properly
-;; these aren't defined in auto-mode-alist and this works
+
+
 (push '("\\.ts\\'" . typescript-ts-mode) auto-mode-alist)
 (push '("\\.tsx\\'" . tsx-ts-mode) auto-mode-alist)
 (push '("\\.js[mx]?\\'" . js-ts-mode) auto-mode-alist)
 (push '("\\.har\\'" . js-ts-mode) auto-mode-alist)
+(push '("\\.ya?ml\\'" . yaml-ts-mode) auto-mode-alist)
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
 (if (or (not (boundp 'server-process)) (null server-process))
