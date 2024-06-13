@@ -127,6 +127,32 @@
 (use-package bbdb)
 ;; (use-package blacken)
 ;; (use-package cargo-mode :pin "melpa" :hook 'rust-mode-hook)
+(use-package casual-info
+  :defer t
+  :bind (:map Info-mode-map ("C-o" . 'casual-info-tmenu))
+  :config (progn
+            ;; # Info
+            ;; Use web-browser history navigation bindings
+            (keymap-set Info-mode-map "M-[" #'Info-history-back)
+            (keymap-set Info-mode-map "M-]" #'Info-history-forward)
+            ;; Bind p and n to paragraph navigation
+            (keymap-set Info-mode-map "p" #'casual-info-browse-backward-paragraph)
+            (keymap-set Info-mode-map "n" #'casual-info-browse-forward-paragraph)
+            ;; Bind h and l to navigate to previous and next nodes
+            ;; Bind j and k to navigate to next and previous references
+            (keymap-set Info-mode-map "h" #'Info-prev)
+            (keymap-set Info-mode-map "j" #'Info-next-reference)
+            (keymap-set Info-mode-map "k" #'Info-prev-reference)
+            (keymap-set Info-mode-map "l" #'Info-next)
+            ;; Bind / to search
+            (keymap-set Info-mode-map "/" #'Info-search)
+            ;; Set Bookmark
+            (keymap-set Info-mode-map "B" #'bookmark-set)
+
+            (add-hook 'Info-mode-hook #'hl-line-mode)
+            (add-hook 'Info-mode-hook #'scroll-lock-mode)
+            ))
+
 ;; (use-package cmake-mode)
 ;; (use-package code-archive)
 ;; don't load company until a source file has loaded (check: startup load of org file doesn't load it)
@@ -294,11 +320,13 @@
 
 ;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
-    (use-package
+    (progn
+      (use-package
      projectile
      :init (keymap-global-unset "s-p")
      :config (projectile-mode +1)
      :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+      (use-package osx-lib :defer t))
   (use-package
    projectile
    :init (keymap-global-unset "M-p")
@@ -370,12 +398,12 @@
   (typescript-ts-mode . eldoc-box-hover-mode)
   (tsx-ts-mode . lsp-deferred)
   (typescript-ts-mode . company-mode)))
-
+(use-package undo-fu :defer t)
 
 ;; (use-package w3m)
 ;; (use-package web-beautify)
 ;; (use-package web-mode)
-;; (use-package weyland-yutani-theme)
+(use-package weyland-yutani-theme)
 
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 (use-package xkcd :defer t)

@@ -1,4 +1,5 @@
 bbdb
+casual-info
 company
 company-web
 devdocs
@@ -24,11 +25,14 @@ org-elisp-help
 org-modern
 org-special-block-extras
 origami
+osx-lib
 projectile
 projectile-speedbar
 smart-mode-line
 smart-mode-line-powerline-theme
 sql-indent
 tree-sitter
+undo-fu
+weyland-yutani-theme
 whitespace-cleanup-mode
 xkcd
