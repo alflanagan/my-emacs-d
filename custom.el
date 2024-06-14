@@ -62,7 +62,7 @@
  '(markdown-command "/home/lloyd/.pyenv/shims/markdown_py")
  '(mode-require-final-newline 'visit-save)
  '(org-agenda-files
-   '("/Users/adrianflanagan/org/personal/todo-house.org" "/Users/adrianflanagan/org/personal/todo-emacs.org" "/Users/adrianflanagan/org/personal/todo-daily.org" "/Users/adrianflanagan/org/personal/appointments.org" "/Users/adrianflanagan/org/personal/todo-main.org"))
+   '("~/org/projects/VentureRichmond/todo.org" "/Users/adrianflanagan/org/projects/Montpelier/todo.org" "/Users/adrianflanagan/org/projects/Livio/sdl-web/todo.org" "/Users/adrianflanagan/org/personal/todo-house.org" "/Users/adrianflanagan/org/personal/todo-emacs.org" "/Users/adrianflanagan/org/personal/todo-daily.org" "/Users/adrianflanagan/org/personal/appointments.org" "/Users/adrianflanagan/org/personal/todo-main.org"))
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-w3m org-mac-iCal))
  '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "ON HOLD" "DONE(!)")))
@@ -71,7 +71,7 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(weyland-yutani-theme osx-lib undo-fu casual-info bbdb company company-web devdocs dockerfile-mode dogears eldoc eldoc-box elisp-autofmt elpy emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami magit magit-todos org org-chef org-contacts org-elisp-help org-modern org-special-block-extras origami projectile projectile-speedbar smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
+   '(org-beautify-theme org-gcal org-mac-link org-recur org-shoplist org-superstar weyland-yutani-theme osx-lib undo-fu casual-info bbdb company company-web devdocs dockerfile-mode dogears eldoc eldoc-box elisp-autofmt elpy emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami magit magit-todos org org-chef org-contacts org-elisp-help org-special-block-extras origami projectile projectile-speedbar smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$" "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$" "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))

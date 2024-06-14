@@ -116,6 +116,8 @@
 ;; (use-package fold-dwim :bind (("C-+" . fold-dwim-toggle)("C-=" . fold-dwim-toggle)))
 ;; I have no idea what fold-dwim's problem is, but it almost never Does What I Mean.
 ;; eglot -- built-in, fine as far as I know, superceded by lsp-mode
+;; (use-package org-modern :after org :config (global-org-modern-mode +1))
+;; org-modern makes org mode look really nice, but it makes editing much harder
 
 ;;; Use Packages
 
@@ -272,7 +274,7 @@
    (setq org-special-ctrl-a/e t)
    (add-hook 'org-mode-hook  #'set-org-tab-width)))
 
-
+(use-package org-beautify-theme)lo
 (use-package
  org-contacts
  :defer t
@@ -296,11 +298,22 @@
 (use-package org-elisp-help)
 
 ;; (use-package org-contrib)
-(use-package org-modern :after org :config (global-org-modern-mode +1))
 ;; (use-package org-ai)
 ;; (use-package org-msg)
 ;; (use-package org-ql)
-;; (use-package org-recur)
+(use-package org-recur
+  :hook ((org-mode . org-recur-mode)
+         (org-agenda-mode . org-recur-agenda-mode))
+  :demand t
+  :config
+  (define-key org-recur-mode-map (kbd "C-c d") 'org-recur-finish)
+
+  ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
+  (define-key org-recur-agenda-mode-map (kbd "d") 'org-recur-finish)
+  (define-key org-recur-agenda-mode-map (kbd "C-c d") 'org-recur-finish)
+
+  (setq org-recur-finish-done t
+        org-recur-finish-archive t))
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
 (use-package org-special-block-extras)
 ;; (use-package org-web-tools)
@@ -308,7 +321,7 @@
 (use-package
  origami
  :defer t
- :config (global-origami-mode)
+ ;; don't want global origami mode -- it activates in org buffers, etc. where it shouldn't
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
 ;; (use-package parrot)
