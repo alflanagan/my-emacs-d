@@ -274,7 +274,7 @@
    (setq org-special-ctrl-a/e t)
    (add-hook 'org-mode-hook  #'set-org-tab-width)))
 
-(use-package org-beautify-theme)lo
+(use-package org-beautify-theme)
 (use-package
  org-contacts
  :defer t
