@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; misc.el -- some generally-useful functions
+;;; misc.el -- some generally-useful functions   -*- lexical-binding: t -*-
 
 ;; Copyright 2024 A. Lloyd Flanagan
 ;;
