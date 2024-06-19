@@ -62,7 +62,7 @@
  '(markdown-command "/home/lloyd/.pyenv/shims/markdown_py")
  '(mode-require-final-newline 'visit-save)
  '(org-agenda-files
-   '("~/org/projects/VentureRichmond/todo.org" "/Users/adrianflanagan/org/projects/Montpelier/todo.org" "/Users/adrianflanagan/org/projects/Livio/sdl-web/todo.org" "/Users/adrianflanagan/org/personal/todo-house.org" "/Users/adrianflanagan/org/personal/todo-emacs.org" "/Users/adrianflanagan/org/personal/todo-daily.org" "/Users/adrianflanagan/org/personal/appointments.org" "/Users/adrianflanagan/org/personal/todo-main.org"))
+   '("~/org/projects/Springbok/todo.org" "/Users/adrianflanagan/org/projects/SilverPoint/todo.org" "/Users/adrianflanagan/org/mobelux/todo.org" "/Users/adrianflanagan/org/personal/todo-weekly.org" "/Users/adrianflanagan/org/personal/appointments.org" "/Users/adrianflanagan/org/projects/VentureRichmond/todo.org" "/Users/adrianflanagan/org/projects/Montpelier/todo.org" "/Users/adrianflanagan/org/projects/Livio/sdl-web/todo.org" "/Users/adrianflanagan/org/personal/todo-house.org" "/Users/adrianflanagan/org/personal/todo-emacs.org" "/Users/adrianflanagan/org/personal/todo-daily.org" "/Users/adrianflanagan/org/personal/todo-main.org"))
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-w3m org-mac-iCal))
  '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "ON HOLD" "DONE(!)")))
