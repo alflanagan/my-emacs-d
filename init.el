@@ -129,31 +129,32 @@
 (use-package bbdb)
 ;; (use-package blacken)
 ;; (use-package cargo-mode :pin "melpa" :hook 'rust-mode-hook)
-(use-package casual-info
-  :defer t
-  :bind (:map Info-mode-map ("C-o" . 'casual-info-tmenu))
-  :config (progn
-            ;; # Info
-            ;; Use web-browser history navigation bindings
-            (keymap-set Info-mode-map "M-[" #'Info-history-back)
-            (keymap-set Info-mode-map "M-]" #'Info-history-forward)
-            ;; Bind p and n to paragraph navigation
-            (keymap-set Info-mode-map "p" #'casual-info-browse-backward-paragraph)
-            (keymap-set Info-mode-map "n" #'casual-info-browse-forward-paragraph)
-            ;; Bind h and l to navigate to previous and next nodes
-            ;; Bind j and k to navigate to next and previous references
-            (keymap-set Info-mode-map "h" #'Info-prev)
-            (keymap-set Info-mode-map "j" #'Info-next-reference)
-            (keymap-set Info-mode-map "k" #'Info-prev-reference)
-            (keymap-set Info-mode-map "l" #'Info-next)
-            ;; Bind / to search
-            (keymap-set Info-mode-map "/" #'Info-search)
-            ;; Set Bookmark
-            (keymap-set Info-mode-map "B" #'bookmark-set)
+(use-package
+ casual-info
+ :defer t
+ :bind (:map Info-mode-map ("C-o" . 'casual-info-tmenu))
+ :config
+ (progn
+   ;; # Info
+   ;; Use web-browser history navigation bindings
+   (keymap-set Info-mode-map "M-[" #'Info-history-back)
+   (keymap-set Info-mode-map "M-]" #'Info-history-forward)
+   ;; Bind p and n to paragraph navigation
+   (keymap-set Info-mode-map "p" #'casual-info-browse-backward-paragraph)
+   (keymap-set Info-mode-map "n" #'casual-info-browse-forward-paragraph)
+   ;; Bind h and l to navigate to previous and next nodes
+   ;; Bind j and k to navigate to next and previous references
+   (keymap-set Info-mode-map "h" #'Info-prev)
+   (keymap-set Info-mode-map "j" #'Info-next-reference)
+   (keymap-set Info-mode-map "k" #'Info-prev-reference)
+   (keymap-set Info-mode-map "l" #'Info-next)
+   ;; Bind / to search
+   (keymap-set Info-mode-map "/" #'Info-search)
+   ;; Set Bookmark
+   (keymap-set Info-mode-map "B" #'bookmark-set)
 
-            (add-hook 'Info-mode-hook #'hl-line-mode)
-            (add-hook 'Info-mode-hook #'scroll-lock-mode)
-            ))
+   (add-hook 'Info-mode-hook #'hl-line-mode)
+   (add-hook 'Info-mode-hook #'scroll-lock-mode)))
 
 ;; (use-package cmake-mode)
 ;; (use-package code-archive)
@@ -272,7 +273,7 @@
    (setq org-adapt-indentation 'headline-data)
    (setq org-ctrl-k-protect-subtree t)
    (setq org-special-ctrl-a/e t)
-   (add-hook 'org-mode-hook  #'set-org-tab-width)))
+   (add-hook 'org-mode-hook #'set-org-tab-width)))
 
 (use-package org-beautify-theme)
 (use-package
@@ -301,19 +302,19 @@
 ;; (use-package org-ai)
 ;; (use-package org-msg)
 ;; (use-package org-ql)
-(use-package org-recur
-  :hook ((org-mode . org-recur-mode)
-         (org-agenda-mode . org-recur-agenda-mode))
-  :demand t
-  :config
-  (define-key org-recur-mode-map (kbd "C-c d") 'org-recur-finish)
+(use-package
+ org-recur
+ :hook ((org-mode . org-recur-mode) (org-agenda-mode . org-recur-agenda-mode))
+ :demand t
+ :config (define-key org-recur-mode-map (kbd "C-c d") 'org-recur-finish)
 
-  ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
-  (define-key org-recur-agenda-mode-map (kbd "d") 'org-recur-finish)
-  (define-key org-recur-agenda-mode-map (kbd "C-c d") 'org-recur-finish)
+ ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
+ (define-key org-recur-agenda-mode-map (kbd "d") 'org-recur-finish)
+ (define-key org-recur-agenda-mode-map (kbd "C-c d") 'org-recur-finish)
 
-  (setq org-recur-finish-done t
-        org-recur-finish-archive t))
+ (setq
+  org-recur-finish-done t
+  org-recur-finish-archive t))
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
 (use-package org-special-block-extras)
 ;; (use-package org-web-tools)
@@ -335,10 +336,10 @@
 (if (equal system-type 'darwin)
     (progn
       (use-package
-     projectile
-     :init (keymap-global-unset "s-p")
-     :config (projectile-mode +1)
-     :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
+       projectile
+       :init (keymap-global-unset "s-p")
+       :config (projectile-mode +1)
+       :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
       (use-package osx-lib :defer t))
   (use-package
    projectile
@@ -371,12 +372,12 @@
              (css . ("https://github.com/tree-sitter/tree-sitter-css"))
              (elisp "https://github.com/Wilfred/tree-sitter-elisp")
              (go "https://github.com/tree-sitter/tree-sitter-go")
-             (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-             (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
-             (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+             (html . ("https://github.com/tree-sitter/tree-sitter-html"))
+             (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
+             (json . ("https://github.com/tree-sitter/tree-sitter-json"))
              (make "https://github.com/alemuller/tree-sitter-make")
              (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-             (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+             (python . ("https://github.com/tree-sitter/tree-sitter-python"))
              (rust "https://github.com/tree-sitter/tree-sitter-rust")
              (toml "https://github.com/tree-sitter/tree-sitter-toml")
              (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
@@ -401,16 +402,24 @@
 (use-package
  typescript-ts-mode
  :defer t
- :ensure nil  ;; built-in mode
- :hook
- ((typescript-ts-mode . lsp-deferred)
-  (typescript-ts-mode . display-line-numbers-mode)
-  (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
-  (typescript-ts-mode . flycheck-mode)
-  (typescript-ts-mode . eldoc-mode)
-  (typescript-ts-mode . eldoc-box-hover-mode)
-  (tsx-ts-mode . lsp-deferred)
-  (typescript-ts-mode . company-mode)))
+ :ensure nil ;; built-in mode
+ ;; :hook  ;; this is not working at all
+ ;; ((typescript-ts-mode . lsp-deferred)
+ ;;  (typescript-ts-mode . display-line-numbers-mode)
+ ;;  (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
+ ;;  (typescript-ts-mode . flycheck-mode)
+ ;;  (typescript-ts-mode . eldoc-mode)
+ ;;  (typescript-ts-mode . eldoc-box-hover-mode)
+ ;;  (tsx-ts-mode . lsp-deferred)
+ ;;  (typescript-ts-mode . company-mode))
+ :config
+ (progn
+   (add-hook 'typescript-ts-mode-hook #'lsp-deferred)
+   (add-hook 'typescript-ts-mode-hook #'eldoc-mode)
+   (add-hook 'typescript-ts-mode-hook #'eldoc-box-hover-mode)
+   (add-hook 'typescript-ts-mode-hook #'company-mode)
+   (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)))
+
 (use-package undo-fu :defer t)
 
 ;; (use-package w3m)
@@ -444,7 +453,7 @@
 (push '("\\.ya?ml\\'" . yaml-ts-mode) auto-mode-alist)
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
-(if (or (not (boundp 'server-process)) (null server-process))
+(if (not (server-running-p))
     (server-start))
 
 ;; because I often hit this key by accident and use "C-x C-c" instead anyway
