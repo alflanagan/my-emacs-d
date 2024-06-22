@@ -185,7 +185,7 @@
   ("M-g M-d" . dogears-list)
   ("M-g M-D" . dogears-sidebar)))
 ;; (use-package dumb-jump :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
-;; (use-package editorconfig :config (editorconfig-mode 1))
+(use-package editorconfig :config (editorconfig-mode 1))
 (use-package eldoc :defer t)
 (use-package eldoc-box :defer t :after eldoc)
 (use-package
@@ -331,6 +331,7 @@
 ;; https://github.com/kcyarn/pretty-speedbar
 ;; (use-package pretty-speedbar :defer t :after projectile-speedbar :config
 ;;   (setq pretty-speedbar-font "Font Awesome 6 Free Solid"))
+(use-package prettier :defer t)
 
 ;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
@@ -418,7 +419,8 @@
    (add-hook 'typescript-ts-mode-hook #'eldoc-mode)
    (add-hook 'typescript-ts-mode-hook #'eldoc-box-hover-mode)
    (add-hook 'typescript-ts-mode-hook #'company-mode)
-   (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)))
+   (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)
+   (add-hook 'typescript-ts-mode-hook #'prettier-mode)))
 
 (use-package undo-fu :defer t)
 
