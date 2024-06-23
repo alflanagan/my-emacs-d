@@ -331,7 +331,7 @@
 ;; https://github.com/kcyarn/pretty-speedbar
 ;; (use-package pretty-speedbar :defer t :after projectile-speedbar :config
 ;;   (setq pretty-speedbar-font "Font Awesome 6 Free Solid"))
-(use-package prettier :defer t)
+(use-package prettier :defer t :config (add-hook 'html-mode-hook #'prettier-mode))
 
 ;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
