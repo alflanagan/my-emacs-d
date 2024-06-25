@@ -325,6 +325,8 @@
  ;; don't want global origami mode -- it activates in org buffers, etc. where it shouldn't
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
+(use-package ng2-mode :defer t :config (add-hook ng2-html-mode-hook #'prettier-mode))
+
 ;; (use-package parrot)
 
 ;; intriguing, but doesn't seem to be working correctly (may just need more config)
@@ -348,6 +350,7 @@
    :config (projectile-mode +1)
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
+(use-package prettier :defer t)
 (use-package projectile-speedbar :after projectile :defer t)
 ;; (use-package projectile-codesearch)
 ;; (use-package rainbow-delimiters)

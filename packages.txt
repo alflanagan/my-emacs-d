@@ -34,6 +34,7 @@ org-special-block-extras
 org-superstar
 origami
 osx-lib
+prettier
 projectile
 projectile-speedbar
 smart-mode-line
