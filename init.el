@@ -198,6 +198,8 @@
 ;; (use-package elisp-lint)
 ;; (use-package elisp-refs)
 (use-package elpy :defer t :init (advice-add 'python-mode :before 'elpy-enable))
+(use-package emacsql :defer t)
+(use-package emacsql-pg :defer t :after 'emacsql)
 ;; (use-package eslint-disable-rule)
 ;; (use-package eslint-fix)
 (use-package emmet-mode :hook ((html-mode . emmet-mode)))
@@ -279,24 +281,28 @@
 (use-package
  org-contacts
  :defer t
- :config
- (push org-capture-templates
-       '("c" "Contacts" entry (file "~/org/contacts.org")
-         "* %(org-contacts-template-name)
-:PROPERTIES:
-:EMAIL: %(org-contacts-template-email)
-:PHONE:
-:ALIAS:
-:NICKNAME:
-:IGNORE:
-:ICON:
-:NOTE:
-:ADDRESS:
-:BIRTHDAY:
-:END:")))
+ ;;  :config
+ ;;  (push org-capture-templates
+ ;;        '("c" "Contacts" entry (file "~/org/contacts.org")
+ ;;          "* %(org-contacts-template-name)
+ ;; :PROPERTIES:
+ ;; :EMAIL: %(org-contacts-template-email)
+ ;; :PHONE:
+ ;; :ALIAS:
+ ;; :NICKNAME:
+ ;; :IGNORE:
+ ;; :ICON:
+ ;; :NOTE:
+ ;; :ADDRESS:
+ ;; :BIRTHDAY:
+ ;; :END:"))
+ )
 
 (use-package org-chef)
 (use-package org-elisp-help)
+;; org-gcal requires setup to contact google calendar
+;; org-gcal: must set ‘org-gcal-client-id’ and ‘org-gcal-client-secret’ for this package to work. Please run ‘org-gcal-reload-client-id-secret’ after setting these variables.
+;; (use-package org-gcal)
 
 ;; (use-package org-contrib)
 ;; (use-package org-ai)
@@ -315,6 +321,8 @@
  (setq
   org-recur-finish-done t
   org-recur-finish-archive t))
+(use-package org-shoplist)
+(use-package org-superstar)
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
 (use-package org-special-block-extras)
 ;; (use-package org-web-tools)
@@ -325,7 +333,7 @@
  ;; don't want global origami mode -- it activates in org buffers, etc. where it shouldn't
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
-(use-package ng2-mode :defer t :config (add-hook ng2-html-mode-hook #'prettier-mode))
+(use-package ng2-mode :defer t :config (add-hook 'ng2-html-mode-hook #'prettier-mode))
 
 ;; (use-package parrot)
 
@@ -342,8 +350,7 @@
        projectile
        :init (keymap-global-unset "s-p")
        :config (projectile-mode +1)
-       :bind (:map projectile-mode-map ("s-p" . projectile-command-map)))
-      (use-package osx-lib :defer t))
+       :bind (:map projectile-mode-map ("s-p" . projectile-command-map))))
   (use-package
    projectile
    :init (keymap-global-unset "M-p")
@@ -473,6 +480,8 @@
   (setq mac-option-modifier 'super)
   (set-fontset-font t 'symbol (font-spec :family "Apple Symbols") nil 'prepend)
   (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
+  (use-package org-mac-link)
+  (use-package osx-lib :defer t)
   (setq ring-bell-function
         (lambda ()
           "do nothing and do it well"
