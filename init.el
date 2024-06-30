@@ -203,10 +203,11 @@
 ;; (use-package eslint-disable-rule)
 ;; (use-package eslint-fix)
 (use-package emmet-mode :hook ((html-mode . emmet-mode)))
-;; (use-package fira-code-mode
-;;   ;; == and === come out as set operators on linux?
-;;   :custom (fira-code-mode-disabled-ligatures '("[]" "===" "==" ":" ))  ; ligatures you don't want
-;;   :hook prog-mode)                                         ; mode to enable fira-code-mode in
+;; also check out package 'ligature'
+(use-package fira-code-mode
+  ;; == and === come out as set operators on linux?
+  :custom (fira-code-mode-disabled-ligatures '("[]" "===" "==" ":" ))  ; ligatures you don't want
+  :hook prog-mode)                                         ; mode to enable fira-code-mode in
 
 
 ;; Flycheck
@@ -333,7 +334,7 @@
  ;; don't want global origami mode -- it activates in org buffers, etc. where it shouldn't
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
-(use-package ng2-mode :defer t :config (add-hook 'ng2-html-mode-hook #'prettier-mode))
+(use-package ng2-mode :defer t :config (add-hook 'ng2-html-mode-hook #'prettier-mode) :after prettier)
 
 ;; (use-package parrot)
 
@@ -432,7 +433,8 @@
    (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)
    (add-hook 'typescript-ts-mode-hook #'prettier-mode)))
 
-(use-package undo-fu :defer t)
+;; had a lot of undo info disappear -- maybe user error?
+;; (use-package undo-fu :defer t)
 
 ;; (use-package w3m)
 ;; (use-package web-beautify)
