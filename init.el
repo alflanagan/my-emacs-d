@@ -183,7 +183,8 @@
   ("M-g M-b" . dogears-back)
   ("M-g M-f" . dogears-forward)
   ("M-g M-d" . dogears-list)
-  ("M-g M-D" . dogears-sidebar)))
+  ("M-g M-D" . dogears-sidebar)
+  ("M-g M-r" . dogears-remember)))
 ;; (use-package dumb-jump :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 (use-package editorconfig :config (editorconfig-mode 1))
 (use-package eldoc :defer t)
@@ -204,10 +205,11 @@
 ;; (use-package eslint-fix)
 (use-package emmet-mode :hook ((html-mode . emmet-mode)))
 ;; also check out package 'ligature'
-(use-package fira-code-mode
-  ;; == and === come out as set operators on linux?
-  :custom (fira-code-mode-disabled-ligatures '("[]" "===" "==" ":" ))  ; ligatures you don't want
-  :hook prog-mode)                                         ; mode to enable fira-code-mode in
+(use-package
+ fira-code-mode
+ ;; == and === come out as set operators on linux?
+ :custom (fira-code-mode-disabled-ligatures '("[]" "===" "==" ":")) ; ligatures you don't want
+ :hook prog-mode) ; mode to enable fira-code-mode in
 
 
 ;; Flycheck
