@@ -61,7 +61,7 @@
      ("shell" . sh-mode)
      ("bash" . sh-mode)
      ("sh" . sh-mode)))
- '(markdown-command "/home/lloyd/.pyenv/shims/markdown_py")
+ '(markdown-command "~/.pyenv/shims/markdown_py")
  '(mode-require-final-newline 'visit-save)
  '(org-agenda-files
    '("~/org/projects/Springbok/todo.org" "/Users/adrianflanagan/org/projects/SilverPoint/todo.org" "/Users/adrianflanagan/org/mobelux/todo.org" "/Users/adrianflanagan/org/personal/todo-weekly.org" "/Users/adrianflanagan/org/personal/appointments.org" "/Users/adrianflanagan/org/projects/VentureRichmond/todo.org" "/Users/adrianflanagan/org/projects/Montpelier/todo.org" "/Users/adrianflanagan/org/projects/Livio/sdl-web/todo.org" "/Users/adrianflanagan/org/personal/todo-house.org" "/Users/adrianflanagan/org/personal/todo-emacs.org" "/Users/adrianflanagan/org/personal/todo-daily.org" "/Users/adrianflanagan/org/personal/todo-main.org"))
