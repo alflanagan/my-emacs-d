@@ -73,7 +73,7 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(nodejs-repl fira-code-mode prettier ng2-mode emacsql emacsql-pg org-beautify-theme org-gcal org-mac-link org-recur org-shoplist org-superstar weyland-yutani-theme osx-lib casual-info bbdb company company-web devdocs dockerfile-mode dogears eldoc eldoc-box elisp-autofmt elpy emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami magit magit-todos org org-chef org-contacts org-elisp-help org-special-block-extras origami projectile projectile-speedbar smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
+   '(company-terraform terraform-doc terraform-mode nodejs-repl fira-code-mode prettier ng2-mode emacsql emacsql-pg org-beautify-theme org-gcal org-mac-link org-shoplist weyland-yutani-theme osx-lib casual-info bbdb company company-web devdocs dockerfile-mode dogears eldoc eldoc-box elisp-autofmt elpy emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami magit magit-todos org-chef org-contacts org-elisp-help origami projectile projectile-speedbar smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$" "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$" "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
@@ -96,7 +96,6 @@
  '(show-trailing-whitespace nil)
  '(sml/theme 'dark)
  '(sql-product 'postgres)
- '(tab-width 4)
  '(track-eol t)
  '(tree-sitter-major-mode-language-alist
    '((actionscript-mode . actionscript)

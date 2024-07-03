@@ -263,10 +263,10 @@
 
 
 ;; org-mode packages
-(defun set-org-tab-width ()
-  "Because 'org-mode' now insists 'tab-width' be 8."
-  ;; makes tab-width buffer-local
-  (setq tab-width 8))
+;; (defun set-org-tab-width ()
+;;   "Because 'org-mode' now insists 'tab-width' be 8."
+;;   ;; makes tab-width buffer-local
+;;   (setq tab-width 8))
 
 (use-package
  org
@@ -277,8 +277,8 @@
  (progn
    (setq org-adapt-indentation 'headline-data)
    (setq org-ctrl-k-protect-subtree t)
-   (setq org-special-ctrl-a/e t)
-   (add-hook 'org-mode-hook #'set-org-tab-width)))
+   (setq org-special-ctrl-a/e t)))
+;;   (add-hook 'org-mode-hook #'set-org-tab-width)))
 
 (use-package org-beautify-theme)
 (use-package
