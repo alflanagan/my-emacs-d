@@ -123,6 +123,7 @@
 
 ;; KEEP THIS SORTED!
 
+(use-package all-the-icons :if (display-graphic-p))
 ;; (use-package async)
 ;; (use-package auto-header)
 ;; (use-package auto-rename-tag)
@@ -169,6 +170,43 @@
 ;; (use-package counsel)
 ;; (use-package counsel-projectile)
 ;; (use-package css-eldoc)
+(use-package dashboard-hackernews)
+(use-package
+ dashboard
+ :after dashboard-hackernews page-break-lines
+ :config
+ (setq
+  dashboard-startupify-list
+  '(dashboard-insert-banner
+    dashboard-insert-newline
+    dashboard-insert-banner-title
+    dashboard-insert-newline
+    dashboard-insert-init-info
+    dashboard-insert-items
+    dashboard-insert-newline
+    dashboard-hackernews-insert
+    dashboard-insert-newline
+    dashboard-insert-footer)
+  dashboard-banner-logo-title "My Dashboard"
+  dashboard-startup-banner 'logo
+  dashboard-set-init-info t
+  ;; dashboard-set-heading-icons t
+  dashboard-set-file-icons t
+  dashboard-items '((recents . 5) (bookmarks . 5) (projects . 10) (hackernews . 5) (agenda . 5))
+  ;; somehow this was getting set to nil?
+  dashboard-heading-icons
+  '((recents . "history")
+    (bookmarks . "bookmark")
+    (agenda . "calendar")
+    (projects . "rocket")
+    (hackernews . "hacker-news"))
+  ;;    (hackernews . (all-the-icons-faicon "hacker-news")))
+  dashboard-icon-type 'all-the-icons
+  dashboard-projects-backend 'projectile
+  dashboard-center-content t
+  dashboard-week-agenda t)
+ (dashboard-setup-startup-hook))
+
 (use-package devdocs)
 ;; (use-package django-snippets)
 ;; (use-package docker-compose-mode)
@@ -336,6 +374,7 @@
  ;; don't want global origami mode -- it activates in org buffers, etc. where it shouldn't
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
+(use-package page-break-lines)
 (use-package ng2-mode :defer t :config (add-hook 'ng2-html-mode-hook #'prettier-mode) :after prettier)
 
 ;; (use-package parrot)
