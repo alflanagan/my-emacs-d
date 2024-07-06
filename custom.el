@@ -1,14 +1,23 @@
-;; format: off
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(casual-info-use-unicode-symbols t)
+ '(casual-lib-use-unicode t)
  '(create-lockfiles nil)
  '(cua-enable-cua-keys nil)
  '(custom-safe-themes
-   '("b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "f149d9986497e8877e0bd1981d1bef8c8a6d35be7d82cba193ad7e46f0989f6a" "87de2a48139167bfe19e314996ee0a8d081a6d8803954bafda08857684109b4e" "a04676d7b664d62cf8cd68eaddca902899f98985fff042d8d474a0d51e8c9236" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
+   '("31deed4ac5d0b65dc051a1da3611ef52411490b2b6e7c2058c13c7190f7e199b"
+     "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d"
+     "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223"
+     "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa"
+     "f149d9986497e8877e0bd1981d1bef8c8a6d35be7d82cba193ad7e46f0989f6a"
+     "87de2a48139167bfe19e314996ee0a8d081a6d8803954bafda08857684109b4e"
+     "a04676d7b664d62cf8cd68eaddca902899f98985fff042d8d474a0d51e8c9236"
+     "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279"
+     "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
+     default))
  '(devdocs-window-select nil)
  '(display-fill-column-indicator t)
  '(display-line-numbers nil)
@@ -19,7 +28,15 @@
  '(elpy-disable-backend-error-display nil)
  '(elpy-formatter 'black)
  '(elpy-modules
-   '(elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-folding elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults))
+   '(elpy-module-company
+     elpy-module-eldoc
+     elpy-module-flymake
+     elpy-module-folding
+     elpy-module-pyvenv
+     elpy-module-highlight-indentation
+     elpy-module-yasnippet
+     elpy-module-django
+     elpy-module-sane-defaults))
  '(fill-column 120)
  '(global-highlight-parentheses-mode t)
  '(global-prettify-symbols-mode t)
@@ -64,34 +81,116 @@
  '(markdown-command "~/.pyenv/shims/markdown_py")
  '(mode-require-final-newline 'visit-save)
  '(org-agenda-files
-   '("~/org/projects/Springbok/todo.org" "/Users/adrianflanagan/org/projects/SilverPoint/todo.org" "/Users/adrianflanagan/org/mobelux/todo.org" "/Users/adrianflanagan/org/personal/todo-weekly.org" "/Users/adrianflanagan/org/personal/appointments.org" "/Users/adrianflanagan/org/projects/VentureRichmond/todo.org" "/Users/adrianflanagan/org/projects/Montpelier/todo.org" "/Users/adrianflanagan/org/projects/Livio/sdl-web/todo.org" "/Users/adrianflanagan/org/personal/todo-house.org" "/Users/adrianflanagan/org/personal/todo-emacs.org" "/Users/adrianflanagan/org/personal/todo-daily.org" "/Users/adrianflanagan/org/personal/todo-main.org"))
- '(org-modules
-   '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-w3m org-mac-iCal))
+   '("~/org/projects/Springbok/todo.org"
+     "~/org/mobelux/todo.org"
+     "~/org/personal/todo-weekly.org"
+     "~/org/personal/appointments.org"
+     "~/org/projects/VentureRichmond/todo.org"
+     "~/org/projects/Montpelier/todo.org"
+     "~/org/projects/Livio/sdl-web/todo.org"
+     "~/org/personal/todo-house.org"
+     "~/org/personal/todo-emacs.org"
+     "~/org/personal/todo-daily.org"
+     "~/org/personal/todo-main.org"))
+ '(org-modules '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-w3m org-mac-iCal))
  '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "ON HOLD" "DONE(!)")))
  '(package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(page-break-lines all-the-icons org org-special-block-extras org-superstar org-recur dashboard-hackernews dashboard company-terraform terraform-doc terraform-mode nodejs-repl fira-code-mode prettier ng2-mode emacsql emacsql-pg org-beautify-theme org-gcal org-mac-link org-shoplist weyland-yutani-theme osx-lib casual-info bbdb company company-web devdocs dockerfile-mode dogears eldoc eldoc-box elisp-autofmt elpy emmet-mode flycheck form-feed-st highlight-parentheses ivy lsp-mode lsp-origami magit magit-todos org-chef org-contacts org-elisp-help origami projectile projectile-speedbar smart-mode-line smart-mode-line-powerline-theme sql-indent tree-sitter whitespace-cleanup-mode xkcd))
+   '(all-the-icons
+     bbdb
+     casual-info
+     company
+     company-terraform
+     company-web
+     dashboard
+     dashboard-hackernews
+     devdocs
+     dockerfile-mode
+     dogears
+     eldoc
+     eldoc-box
+     elisp-autofmt
+     elpy
+     emacsql
+     emacsql-pg
+     emmet-mode
+     fira-code-mode
+     flycheck
+     form-feed-st
+     highlight-parentheses
+     ivy
+     lsp-mode
+     lsp-origami
+     magit
+     magit-todos
+     ng2-mode
+     nodejs-repl
+     org
+     org-beautify-theme
+     org-chef
+     org-contacts
+     org-elisp-help
+     org-gcal
+     org-mac-link
+     org-recur
+     org-shoplist
+     org-special-block-extras
+     org-superstar
+     origami
+     osx-lib
+     page-break-lines
+     prettier
+     projectile
+     projectile-speedbar
+     smart-mode-line
+     smart-mode-line-powerline-theme
+     sql-indent
+     terraform-doc
+     terraform-mode
+     tree-sitter
+     undo-fu
+     weyland-yutani-theme
+     whitespace-cleanup-mode
+     xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
-   '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$" "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$" "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
+   '("^\\.idea$"
+     "^\\.vscode$"
+     "^\\.ensime_cache$"
+     "^\\.eunit$"
+     "^\\.git$"
+     "^\\.hg$"
+     "^\\.fslckout$"
+     "^_FOSSIL_$"
+     "^\\.bzr$"
+     "^_darcs$"
+     "^\\.pijul$"
+     "^\\.tox$"
+     "^\\.svn$"
+     "^\\.stack-work$"
+     "^\\.ccls-cache$"
+     "^\\.cache$"
+     "^\\.clangd$"
+     "^\\.sl$"
+     "^\\.jj$"
+     "*^node-modules$"
+     "*^\\.venv$"))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path '("~/Devel" "~/org"))
  '(reddigg-subs '(emacs rust))
- '(safe-local-variable-directories '("/Users/adrianflanagan/org/projects/Springbok/"))
+ '(safe-local-variable-directories '("~/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((org-todo-keywords quote
-                        ((sequence "TODO" "IN PROGRESS" "DEFERRED" "CLIENT" "|" "DONE" "CANCELED")))
-     (org-todo-keywords quote
-                        ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD" "NEEDS INPUT" "|" "DONE" "CANCELED")))
-     (org-todo-keywords quote
-                        ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
-     (checkdoc-package-keywords-flag)
-     (eglot-inlay-hints-mode)
-     (org-todo-keywords quote
-                        ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
+   '((org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "CLIENT" "|" "DONE" "CANCELED")))
+     (org-todo-keywords
+      quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD" "NEEDS INPUT" "|" "DONE" "CANCELED")))
+     (org-todo-keywords
+      quote ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
+     (checkdoc-package-keywords-flag) (eglot-inlay-hints-mode)
+     (org-todo-keywords
+      quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
      (lexical-binding . true)))
  '(show-trailing-whitespace nil)
  '(sml/theme 'dark)
@@ -224,7 +323,20 @@
  '(undo-strong-limit 655360)
  '(warning-minimum-level :error)
  '(whitespace-style
-   '(face trailing tabs spaces lines newline missing-newline-at-eof empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark)))
+   '(face
+     trailing
+     tabs
+     spaces
+     lines
+     newline
+     missing-newline-at-eof
+     empty
+     indentation
+     space-after-tab
+     space-before-tab
+     space-mark
+     tab-mark
+     newline-mark)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,7 +1,11 @@
+all-the-icons
 bbdb
 casual-info
 company
+company-terraform
 company-web
+dashboard
+dashboard-hackernews
 devdocs
 dockerfile-mode
 dogears
@@ -12,6 +16,7 @@ elpy
 emacsql
 emacsql-pg
 emmet-mode
+fira-code-mode
 flycheck
 form-feed-st
 highlight-parentheses
@@ -21,6 +26,7 @@ lsp-origami
 magit
 magit-todos
 ng2-mode
+nodejs-repl
 org
 org-beautify-theme
 org-chef
@@ -34,12 +40,15 @@ org-special-block-extras
 org-superstar
 origami
 osx-lib
+page-break-lines
 prettier
 projectile
 projectile-speedbar
 smart-mode-line
 smart-mode-line-powerline-theme
 sql-indent
+terraform-doc
+terraform-mode
 tree-sitter
 undo-fu
 weyland-yutani-theme

@@ -80,6 +80,16 @@
 (load custom-file)
 
 ;;; NOTE: customizations are in custom.el
+
+;; Fix directories
+;; get HOME directory
+;; check entries in org-agenda-files to see if they are in subdirs of HOME
+;; if not, substitute actual home dir for home in variable (tricky-ish)
+;; and this needs to be added to use-package so org-agenda-files exists
+;; (let ((home-dir (getenv "HOME")))(dolist (agenda-file org-agenda-files))
+;;      (if (not (or (void agenda-file) (string-prefix-p home-dir agenda-file)))
+;;          (print agenda-file)))
+
 
 ;;; Packages
 ;;; Eventual goal is to remove from customization entirely, and use use-package for all.
