@@ -186,6 +186,7 @@
  :after dashboard-hackernews page-break-lines
  :config
  (setq
+  dashboard-items '((recents . 5) (bookmarks . 5) (projects . 10) (agenda . 5))
   dashboard-startupify-list
   '(dashboard-insert-banner
     dashboard-insert-newline
@@ -194,7 +195,7 @@
     dashboard-insert-init-info
     dashboard-insert-items
     dashboard-insert-newline
-    dashboard-hackernews-insert
+    (lambda () (dashboard-hackernews-insert 5))
     dashboard-insert-newline
     dashboard-insert-footer)
   dashboard-banner-logo-title "My Dashboard"
@@ -202,7 +203,6 @@
   dashboard-set-init-info t
   ;; dashboard-set-heading-icons t
   dashboard-set-file-icons t
-  dashboard-items '((recents . 5) (bookmarks . 5) (projects . 10) (hackernews . 5) (agenda . 5))
   ;; somehow this was getting set to nil?
   dashboard-heading-icons
   '((recents . "history")
