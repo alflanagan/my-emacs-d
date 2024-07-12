@@ -16,10 +16,14 @@ elpy
 emacsql
 emacsql-pg
 emmet-mode
+enh-ruby-mode
+erblint
 fira-code-mode
 flycheck
+flymake-ruby
 form-feed-st
 highlight-parentheses
+inf-ruby
 ivy
 lsp-mode
 lsp-origami
@@ -41,9 +45,12 @@ org-superstar
 origami
 osx-lib
 page-break-lines
+poly-erb
+poly-ruby
 prettier
 projectile
 projectile-speedbar
+robe
 smart-mode-line
 smart-mode-line-powerline-theme
 sql-indent

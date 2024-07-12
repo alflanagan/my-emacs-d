@@ -53,6 +53,7 @@
 (save-place-mode t)
 (show-paren-mode 1)
 (global-auto-revert-mode 1)
+(global-display-line-numbers-mode 1)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -78,8 +79,6 @@
  uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 (load custom-file)
-
-;;; NOTE: customizations are in custom.el
 
 ;; Fix directories
 ;; get HOME directory
@@ -175,7 +174,7 @@
 ;; (use-package company-jedi)
 ;; (use-package company-math)
 ;; (use-package company-shell)
-;; (use-package company-terraform)
+(use-package company-terraform)
 (use-package company-web)
 ;; (use-package counsel)
 ;; (use-package counsel-projectile)
@@ -252,6 +251,9 @@
 ;; (use-package eslint-disable-rule)
 ;; (use-package eslint-fix)
 (use-package emmet-mode :hook ((html-mode . emmet-mode)))
+(use-package enh-ruby-mode :hook ((ruby-mode . enh-ruby-mode)))
+(use-package erblint)
+
 ;; also check out package 'ligature'
 (use-package
  fira-code-mode
@@ -297,6 +299,7 @@
 ;;  (progn
 ;;    (load-theme 'immaterial-dark t)
 ;;    (load-theme 'immaterial-light t)))
+(use-package  inf-ruby)
 (use-package ivy :config (ivy-mode 1))
 ;; (use-package kotlin-ts-mode)
 ;; (use-package lispy)
@@ -307,6 +310,8 @@
 (use-package magit-todos)
 ;; (use-package markdown-toc)
 ;; (use-package morlock :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
+(use-package ng2-mode :defer t :config (add-hook 'ng2-html-mode-hook #'prettier-mode) :after prettier)
+(use-package nodejs-repl)
 ;; (use-package nov) ;; epub reader
 
 
@@ -385,8 +390,8 @@
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
 (use-package page-break-lines)
-(use-package ng2-mode :defer t :config (add-hook 'ng2-html-mode-hook #'prettier-mode) :after prettier)
-
+(use-package poly-erb)
+(use-package poly-ruby)
 ;; (use-package parrot)
 
 ;; intriguing, but doesn't seem to be working correctly (may just need more config)
@@ -394,6 +399,7 @@
 ;; (use-package pretty-speedbar :defer t :after projectile-speedbar :config
 ;;   (setq pretty-speedbar-font "Font Awesome 6 Free Solid"))
 (use-package prettier :defer t :config (add-hook 'html-mode-hook #'prettier-mode))
+(use-package robe)
 
 ;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
@@ -422,6 +428,8 @@
 
 ;; (use-package super-save)
 ;; (use-package term-projectile)
+(use-package terraform-doc)
+(use-package terraform-mode)
 (use-package tree-sitter)
 ;; (use-package tree-sitter-indent)
 
