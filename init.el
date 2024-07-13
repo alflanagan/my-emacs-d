@@ -415,7 +415,6 @@
    :config (projectile-mode +1)
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
-(use-package prettier :defer t)
 (use-package projectile-speedbar :after projectile :defer t)
 ;; (use-package projectile-codesearch)
 ;; (use-package rainbow-delimiters)
@@ -430,7 +429,14 @@
 ;; (use-package term-projectile)
 (use-package terraform-doc)
 (use-package terraform-mode)
-(use-package tree-sitter)
+(use-package tree-sitter
+ :config
+ (progn
+   (add-hook 'python-ts-mode-hook #'lsp-deferred)
+   (add-hook 'python-ts-mode-hook #'eldoc-mode)
+   (add-hook 'python-ts-mode-hook #'eldoc-box-hover-mode)
+   (add-hook 'python-ts-mode-hook #'company-mode)
+   (add-hook 'python-ts-mode-hook #'display-line-numbers-mode)))
 ;; (use-package tree-sitter-indent)
 
 (defun mp-setup-install-grammars ()
