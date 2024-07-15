@@ -37,6 +37,7 @@
      elpy-module-yasnippet
      elpy-module-django
      elpy-module-sane-defaults))
+ '(enh-ruby-add-encoding-comment-on-save t)
  '(fill-column 120)
  '(global-highlight-parentheses-mode t)
  '(global-prettify-symbols-mode t)
@@ -81,7 +82,8 @@
  '(markdown-command "~/.pyenv/shims/markdown_py")
  '(mode-require-final-newline 'visit-save)
  '(org-agenda-files
-   '("~/org/projects/Springbok/todo.org"
+   '("~/org/org-todo.org"
+     "~/org/projects/Springbok/todo.org"
      "~/org/mobelux/todo.org"
      "~/org/personal/todo-weekly.org"
      "~/org/personal/appointments.org"
@@ -117,10 +119,14 @@
      emacsql
      emacsql-pg
      emmet-mode
+     enh-ruby-mode
+     erblint
      fira-code-mode
      flycheck
+     flymake-ruby
      form-feed-st
      highlight-parentheses
+     inf-ruby
      ivy
      lsp-mode
      lsp-origami
@@ -142,16 +148,18 @@
      origami
      osx-lib
      page-break-lines
+     poly-erb
+     poly-ruby
      prettier
      projectile
      projectile-speedbar
+     robe
      smart-mode-line
      smart-mode-line-powerline-theme
      sql-indent
      terraform-doc
      terraform-mode
      tree-sitter
-     undo-fu
      weyland-yutani-theme
      whitespace-cleanup-mode
      xkcd))
@@ -342,6 +350,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(enh-ruby-string-delimiter-face ((t (:foreground "DarkOrchid3"))))
+ '(erm-syn-errline ((t (:box (:line-width (1 . 1) :color "red")))))
  '(fixed-pitch ((t nil)))
  '(line-number-major-tick ((t (:weight bold))))
  '(line-number-minor-tick ((t (:slant italic :weight medium)))))
