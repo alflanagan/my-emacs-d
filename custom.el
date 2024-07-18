@@ -101,7 +101,9 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(all-the-icons
+   '(graphql
+     graphql-ts-mode
+     all-the-icons
      bbdb
      casual-info
      company
@@ -191,14 +193,14 @@
  '(reddigg-subs '(emacs rust))
  '(safe-local-variable-directories '("~/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "CLIENT" "|" "DONE" "CANCELED")))
+   '((lsp-typescript-sdk . "/Users/adrianflanagan/Devel/mobelux/MMS/gatsby-source-mms/node_modules/typescript/bin")
+     (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "CLIENT" "|" "DONE" "CANCELED")))
      (org-todo-keywords
       quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD" "NEEDS INPUT" "|" "DONE" "CANCELED")))
-     (org-todo-keywords
-      quote ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
-     (checkdoc-package-keywords-flag) (eglot-inlay-hints-mode)
-     (org-todo-keywords
-      quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
+     (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFFERED" "|" "DONE" "CANCELED")))
+     (checkdoc-package-keywords-flag)
+     (eglot-inlay-hints-mode)
+     (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "|" "DONE" "CANCELED")))
      (lexical-binding . true)))
  '(show-trailing-whitespace nil)
  '(sml/theme 'dark)
