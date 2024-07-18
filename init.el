@@ -55,13 +55,12 @@
 (global-auto-revert-mode 1)
 (global-display-line-numbers-mode 1)
 
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
-(global-set-key (kbd "C-M-s") 'isearch-forward)
-(global-set-key (kbd "C-M-r") 'isearch-backward)
+(keymap-set global-map "M-/" 'hippie-expand)
+(keymap-set global-map "C-x C-b" 'ibuffer)
+(keymap-set global-map "C-s" 'isearch-forward-regexp)
+(keymap-set global-map "C-r" 'isearch-backward-regexp)
+(keymap-set global-map "C-M-s" 'isearch-forward)
+(keymap-set global-map "C-M-r" 'isearch-backward)
 
 (setq-default indent-tabs-mode nil)
 (setq
@@ -76,7 +75,10 @@
  select-enable-clipboard t
  select-enable-primary t
  sentence-end-double-space nil
- uniquify-buffer-name-style 'post-forward-angle-brackets)
+ uniquify-buffer-name-style 'post-forward-angle-brackets
+ user-email-address "lloyd.flanagan@proton.me")
+(setopt selection-coding-system 'utf-8)
+
 
 (load custom-file)
 
@@ -299,7 +301,7 @@
 ;;  (progn
 ;;    (load-theme 'immaterial-dark t)
 ;;    (load-theme 'immaterial-light t)))
-(use-package  inf-ruby)
+(use-package inf-ruby)
 (use-package ivy :config (ivy-mode 1))
 ;; (use-package kotlin-ts-mode)
 ;; (use-package lispy)
@@ -368,11 +370,11 @@
  org-recur
  :hook ((org-mode . org-recur-mode) (org-agenda-mode . org-recur-agenda-mode))
  :demand t
- :config (define-key org-recur-mode-map (kbd "C-c d") 'org-recur-finish)
+ :config (keymap-set org-recur-mode-map "C-c d" 'org-recur-finish)
 
  ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
- (define-key org-recur-agenda-mode-map (kbd "d") 'org-recur-finish)
- (define-key org-recur-agenda-mode-map (kbd "C-c d") 'org-recur-finish)
+ (keymap-set org-recur-agenda-mode-map "d" 'org-recur-finish)
+ (keymap-set org-recur-agenda-mode-map "C-c d" 'org-recur-finish)
 
  (setq
   org-recur-finish-done t
@@ -429,7 +431,8 @@
 ;; (use-package term-projectile)
 (use-package terraform-doc)
 (use-package terraform-mode)
-(use-package tree-sitter
+(use-package
+ tree-sitter
  :config
  (progn
    (add-hook 'python-ts-mode-hook #'lsp-deferred)
