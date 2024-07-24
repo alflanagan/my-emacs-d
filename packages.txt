@@ -1,6 +1,7 @@
 all-the-icons
 bbdb
 casual-info
+coffee-mode
 company
 company-terraform
 company-web
@@ -22,6 +23,8 @@ fira-code-mode
 flycheck
 flymake-ruby
 form-feed-st
+graphql
+graphql-ts-mode
 highlight-parentheses
 inf-ruby
 ivy
@@ -57,7 +60,6 @@ sql-indent
 terraform-doc
 terraform-mode
 tree-sitter
-undo-fu
 weyland-yutani-theme
 whitespace-cleanup-mode
 xkcd

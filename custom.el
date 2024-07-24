@@ -104,6 +104,7 @@
    '(all-the-icons
      bbdb
      casual-info
+     coffee-mode
      company
      company-terraform
      company-web
