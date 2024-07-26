@@ -101,9 +101,7 @@
      ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(graphql
-     graphql-ts-mode
-     all-the-icons
+   '(all-the-icons
      bbdb
      casual-info
      company
@@ -127,6 +125,8 @@
      flycheck
      flymake-ruby
      form-feed-st
+     graphql
+     graphql-ts-mode
      highlight-parentheses
      inf-ruby
      ivy
@@ -193,7 +193,8 @@
  '(reddigg-subs '(emacs rust))
  '(safe-local-variable-directories '("~/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((lsp-typescript-sdk . "/Users/adrianflanagan/Devel/mobelux/MMS/gatsby-source-mms/node_modules/typescript/bin")
+   '((hcl-indent-level . 2)
+     (lsp-typescript-sdk . "/Users/adrianflanagan/Devel/mobelux/MMS/gatsby-source-mms/node_modules/typescript/bin")
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "CLIENT" "|" "DONE" "CANCELED")))
      (org-todo-keywords
       quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD" "NEEDS INPUT" "|" "DONE" "CANCELED")))
