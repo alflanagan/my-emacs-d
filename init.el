@@ -30,10 +30,15 @@
 
 ;;; Code:
 
-;;; custom lisp directory
-(let ((default-directory (directory-file-name (concat (expand-file-name user-emacs-directory) "lisp"))))
+;; TODO set up custom variable for path to my emacs customization files
+;; custom lisp directory
+(let ((default-directory (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp"))))
   (add-to-list 'load-path default-directory)
   (normal-top-level-add-subdirs-to-load-path))
+
+;; this needs to go first so it can affect rest of the file. It also needs some setup?
+;; see my_emacs/lisp/no-littering/migrate.org
+;; (require 'no-littering)
 
 (require 'alf-alists "alists")
 (load "./secrets")
@@ -67,7 +72,8 @@
  apropos-do-all t
  backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
  column-number-mode t
- custom-file (concat user-emacs-directory "custom.el")
+ ;; or perhaps we just create link in .config/emacs?
+ custom-file (concat user-emacs-directory "my_emacs/custom.el")
  default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)) ;; see also early-init.el
  mouse-yank-at-point t
  save-interprogram-paste-before-kill t
@@ -330,9 +336,11 @@
  :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
  :config
  (progn
-   (setq org-adapt-indentation 'headline-data)
-   (setq org-ctrl-k-protect-subtree t)
-   (setq org-special-ctrl-a/e t)))
+   (setq
+    org-adapt-indentation 'headline-data
+    org-ctrl-k-protect-subtree t
+    org-special-ctrl-a/e t
+    org-return-follows-link t)))
 ;;   (add-hook 'org-mode-hook #'set-org-tab-width)))
 
 (use-package org-beautify-theme)
