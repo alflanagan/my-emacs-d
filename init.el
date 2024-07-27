@@ -72,7 +72,6 @@
  apropos-do-all t
  backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
  column-number-mode t
- ;; or perhaps we just create link in .config/emacs?
  custom-file (concat user-emacs-directory "my_emacs/custom.el")
  default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)) ;; see also early-init.el
  mouse-yank-at-point t

@@ -1,71 +1,10 @@
 # Compiled
 *.elc
 
-# Packaging
-.cask
-elpa/
-
 # Backup files
 *~
-
-# Undo-tree save-files
-*.~undo-tree
-
-# tracking files only useful locally
-
-places
-tabsession.el
-ede-projects.el
-history
-recentf
-projects
-
-# miscellaneous
-# TODO: move all custom eLisp into subdirectory, make init.el just a loader for those files,
-# and base the repository in subdirectory? that would keep us from having to ignore all
-# the files and directories emacs puts in .emacs.d/
-
-.#*
-.persistent-scratch
-persistent-scratch/
-transient/
-eshell/
-network-security.data
-semanticdb/
-
-# projectile
-projectile-bookmarks.eld
-
-# tree-sitter grammars/compiled libraries
-tree-sitter/
-
-# downloaded doc files
-devdocs/
-
-# caches
-elisp-autofmt-cache/
-projectile.cache
-eln-cache/
-
-nov-places
-xkcd/
-notes
 
 # secrets should NEVER be checked in
 secrets.el
 
-lisp/default.el
-.org-generic-id-locations
-request/
-url/
-\#*
-.\#*
-.lsp-session*
-ido.last
-.cache/
-.DS_Store
-
-# emacs data store
-bookmarks
-elpy/
 lisp/site.el
