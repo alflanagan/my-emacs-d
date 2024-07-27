@@ -1,0 +1,13 @@
+* Project TODOs
+
+** TODO Set up github actions to run tests
+  - At a minimum, we should ensure emacs won't fail on startup. Will need to setup a config directory structure.
+
+** TODO Create Issue Template
+  - Make reporting as easy as possible, but capture required information.
+
+** TODO Formalize contributions policy in CONTRIBUTING.md.
+
+** DONE Adopt a Code Of Conduct
+- State "DONE"       from "ON HOLD"    [2024-07-27 Sat 12:48]
+  - well, aside from "don't piss me off"
