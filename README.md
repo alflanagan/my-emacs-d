@@ -29,6 +29,15 @@ The code is divided into sections, which unfortunately are rather haphazard. TOD
 I'm using the `use-package` macro to combine Emacs downloading and loading the package with configuration, key bindings,
 and other setup stuff. _Much_ better than having it spread all through the file.
 
+## Git Submodules
+
+This repository includes several elisp packages as submodules, so if you clone it you'll need to do
+
+```sh
+git submodule init
+git submodule update
+```
+
 ## Notes on Specific Packages
 
 ## Contributing
