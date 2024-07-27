@@ -30,7 +30,10 @@
 
 ;;; Code:
 
-;; TODO set up custom variable for path to my emacs customization files
+;; TODO set up custom variable for path to my emacs customization files (obviously would have to do something tricky to
+;; implement it, since the custom.el file is in the directory it would point to). Easiest solution is probably to use a
+;; global variable with a default, then user can set it before loading this file.
+
 ;; custom lisp directory
 (let ((default-directory (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp"))))
   (add-to-list 'load-path default-directory)
