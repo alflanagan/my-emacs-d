@@ -3,6 +3,8 @@
 
 # Backup files
 *~
+\#*
+.\#*
 
 # secrets should NEVER be checked in
 secrets.el
