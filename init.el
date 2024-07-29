@@ -178,6 +178,7 @@
 
 ;; (use-package cmake-mode)
 ;; (use-package code-archive)
+(use-package coffee-mode :defer t)
 ;; don't load company until a source file has loaded (check: startup load of org file doesn't load it)
 (use-package company :after prog-mode :config (add-hook 'prog-mode-hook 'company-mode))
 
@@ -449,7 +450,8 @@
    (add-hook 'python-ts-mode-hook #'eldoc-mode)
    (add-hook 'python-ts-mode-hook #'eldoc-box-hover-mode)
    (add-hook 'python-ts-mode-hook #'company-mode)
-   (add-hook 'python-ts-mode-hook #'display-line-numbers-mode)))
+   (add-hook 'python-ts-mode-hook #'display-line-numbers-mode)
+   (add-hook 'python-ts-mode-hook (lambda () (flymake-mode 0)))))
 ;; (use-package tree-sitter-indent)
 
 (defun mp-setup-install-grammars ()
