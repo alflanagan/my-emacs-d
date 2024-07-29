@@ -5,4 +5,4 @@
 for PKG in $(cat packages.txt )
 do
   grep ${PKG} init.el
-done | grep use-package | grep -v '^ *;;' | sort -u
+done | grep use-package | grep -v '^ *;;' | sed -e "s/^ *//" | cut -d' ' -f2 | cut -d')' -f1 | sort -u
