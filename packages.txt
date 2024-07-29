@@ -10,6 +10,7 @@ dashboard-hackernews
 devdocs
 dockerfile-mode
 dogears
+easysession
 eldoc
 eldoc-box
 elisp-autofmt
@@ -23,7 +24,7 @@ fira-code-mode
 flycheck
 flymake-ruby
 form-feed-st
-graphql
+graphql-doc
 graphql-ts-mode
 highlight-parentheses
 inf-ruby
