@@ -404,7 +404,6 @@
 
 (use-package page-break-lines)
 (use-package poly-erb)
-(use-package poly-ruby)
 ;; (use-package parrot)
 
 ;; intriguing, but doesn't seem to be working correctly (may just need more config)
