@@ -142,15 +142,14 @@
 ;; Blacklisted Packages
 ;; this is reminder (to myself) not to use these packages, and why
 
-;; (use-package go) ;; the game, not the language -- causes crash in ivy?
-;; (use-package angular-mode) ;; so very out of date...
-;; (use-package djangonaut) ;; currently, djangonaut commands are failing
-;; (use-package paradox)  problems like putting all its output into minibuffer and freezing emacs :-(
-;; (use-package fold-dwim :bind (("C-+" . fold-dwim-toggle)("C-=" . fold-dwim-toggle)))
-;; I have no idea what fold-dwim's problem is, but it almost never Does What I Mean.
+;; angular-mode -- so very out of date...
+;; djangonaut -- currently, djangonaut commands are failing
 ;; eglot -- built-in, fine as far as I know, superceded by lsp-mode
-;; (use-package org-modern :after org :config (global-org-modern-mode +1))
-;; org-modern makes org mode look really nice, but it makes editing much harder
+;; fold-dwim -- it almost never Does What I Mean.
+;; go -- the game, not the language -- causes crash in ivy?
+;; org-modern --  makes org mode look really nice, but it makes editing much harder
+;; paradox -- nice, but has problems like putting all its output into minibuffer and freezing emacs :-(
+;; speedar -- OK, but treemacs is better (for file lists anyway)
 
 ;;; Use Packages
 
@@ -281,7 +280,7 @@
 
 
 ;; Flycheck
-(use-package flycheck :hook (after-init . global-flycheck-mode)) :pin nongnu)
+(use-package flycheck :hook (after-init . global-flycheck-mode) :pin "nongnu")
 ;; (use-package flycheck-aspell)
 ;; (use-package flycheck-bashate)
 ;; (use-package flycheck-cask)
@@ -297,7 +296,7 @@
 ;; (use-package flylisp)
 
 ;; (use-package focus-autosave-mode)
-(use-package form-feed-st :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
+(use-package form-feed-st :hook (emacs-lisp-mode lisp-data-mode))
 ;; (use-package forth-mode)
 ;; (use-package git-modes)
 ;; (use-package gnu-elpa-keyring-update)
@@ -317,18 +316,18 @@
 ;;  (progn
 ;;    (load-theme 'immaterial-dark t)
 ;;    (load-theme 'immaterial-light t)))
-(use-package inf-ruby)
+(use-package inf-ruby :defer t)
 (use-package ivy :config (ivy-mode 1))
 ;; (use-package kotlin-ts-mode)
 ;; (use-package lispy)
 
 (use-package lsp-mode :defer t :commands lsp)
-(use-package lsp-origami :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
-(use-package magit)
-(use-package magit-todos)
+(use-package lsp-origami :hook (lsp-after-open . lsp-origami-try-enable))
+(use-package magit :defer t)
+(use-package magit-todos :defer t)
 ;; (use-package markdown-toc)
 ;; (use-package morlock :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
-(use-package ng2-mode :defer t :config (add-hook 'ng2-html-mode-hook #'prettier-mode) :after prettier)
+(use-package ng2-mode :defer t)
 (use-package nodejs-repl)
 ;; (use-package nov) ;; epub reader
 
@@ -410,15 +409,11 @@
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
 (use-package page-break-lines)
-(use-package poly-erb)
+(use-package poly-erb :defer t)
 ;; (use-package parrot)
 
-;; intriguing, but doesn't seem to be working correctly (may just need more config)
-;; https://github.com/kcyarn/pretty-speedbar
-;; (use-package pretty-speedbar :defer t :after projectile-speedbar :config
-;;   (setq pretty-speedbar-font "Font Awesome 6 Free Solid"))
-(use-package prettier :defer t :config (add-hook 'html-mode-hook #'prettier-mode))
-(use-package robe)
+(use-package prettier :hook (html-mode ng2-html-mode))
+(use-package robe :defer t)
 
 ;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
@@ -428,13 +423,13 @@
        :init (keymap-global-unset "s-p")
        :config (projectile-mode +1)
        :bind (:map projectile-mode-map ("s-p" . projectile-command-map))))
+  ;; on GNOME desktop, "s-p" opens desktop menu
   (use-package
    projectile
    :init (keymap-global-unset "M-p")
    :config (projectile-mode +1)
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
-(use-package projectile-speedbar :after projectile :defer t)
 ;; (use-package projectile-codesearch)
 ;; (use-package rainbow-delimiters)
 ;; (use-package reddigg)
