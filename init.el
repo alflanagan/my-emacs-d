@@ -71,21 +71,35 @@
 (keymap-set global-map "C-M-r" 'isearch-backward)
 
 (setq-default indent-tabs-mode nil)
-(setq
- apropos-do-all t
- backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
- column-number-mode t
- custom-file (concat user-emacs-directory "my_emacs/custom.el")
- default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)) ;; see also early-init.el
- mouse-yank-at-point t
- save-interprogram-paste-before-kill t
- save-place-file (concat user-emacs-directory "places")
- select-enable-clipboard t
- select-enable-primary t
- sentence-end-double-space nil
- uniquify-buffer-name-style 'post-forward-angle-brackets
- user-email-address "lloyd.flanagan@proton.me")
-(setopt selection-coding-system 'utf-8)
+(setopt
+ apropos-do-all
+ t
+ backup-directory-alist
+ `(("." . ,(concat user-emacs-directory "backups")))
+ column-number-mode
+ t
+ custom-file
+ (concat user-emacs-directory "my_emacs/custom.el")
+ default-frame-alist
+ '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)) ;; see also early-init.el
+ mouse-yank-at-point
+ t
+ save-interprogram-paste-before-kill
+ t
+ save-place-file
+ (concat user-emacs-directory "places")
+ select-enable-clipboard
+ t
+ select-enable-primary
+ t
+ sentence-end-double-space
+ nil
+ uniquify-buffer-name-style
+ 'post-forward-angle-brackets
+ user-email-address
+ "lloyd.flanagan@proton.me"
+ selection-coding-system
+ 'utf-8)
 
 
 (load custom-file)
