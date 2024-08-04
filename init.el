@@ -234,10 +234,10 @@
  (dashboard-week-agenda t)
  :config (dashboard-setup-startup-hook))
 
-(use-package devdocs)
+(use-package devdocs :defer t)
 ;; (use-package django-snippets)
 ;; (use-package docker-compose-mode)
-(use-package dockerfile-mode)
+(use-package dockerfile-mode :defer t)
 (use-package
  dogears
  :config (dogears-mode 1)
@@ -268,8 +268,8 @@
 (use-package emacsql-pg :defer t :after 'emacsql)
 ;; (use-package eslint-disable-rule)
 ;; (use-package eslint-fix)
-(use-package emmet-mode :hook ((html-mode . emmet-mode)))
-(use-package enh-ruby-mode :hook ((ruby-mode . enh-ruby-mode)))
+(use-package emmet-mode :hook (html-mode . emmet-mode))
+(use-package enh-ruby-mode :hook (ruby-mode . enh-ruby-mode))
 (use-package erblint)
 
 ;; also check out package 'ligature'
@@ -281,7 +281,7 @@
 
 
 ;; Flycheck
-(use-package flycheck :config (add-hook 'after-init-hook #'global-flycheck-mode) :pin nongnu)
+(use-package flycheck :hook (after-init . global-flycheck-mode)) :pin nongnu)
 ;; (use-package flycheck-aspell)
 ;; (use-package flycheck-bashate)
 ;; (use-package flycheck-cask)
