@@ -186,24 +186,25 @@
 ;; (use-package code-archive)
 (use-package coffee-mode :defer t)
 ;; don't load company until a source file has loaded (check: startup load of org file doesn't load it)
-(use-package company :after prog-mode :config (add-hook 'prog-mode-hook 'company-mode))
+(use-package company :hook prog-mode)
 
 ;; (use-package company-jedi)
 ;; (use-package company-math)
 ;; (use-package company-shell)
-(use-package company-terraform)
-(use-package company-web)
+(use-package company-terraform :defer t)
+(use-package company-web :defer t)
 ;; (use-package counsel)
 ;; (use-package counsel-projectile)
 ;; (use-package css-eldoc)
 (use-package dashboard-hackernews)
 (use-package
  dashboard
- :after dashboard-hackernews page-break-lines
- :config
- (setq
-  dashboard-items '((recents . 5) (bookmarks . 5) (projects . 10) (agenda . 5))
-  dashboard-startupify-list
+ :after
+ dashboard-hackernews
+ page-break-lines
+ :custom
+ (dashboard-items '((recents . 5) (bookmarks . 5) (projects . 10) (agenda . 5)))
+ (dashboard-startupify-list
   '(dashboard-insert-banner
     dashboard-insert-newline
     dashboard-insert-banner-title
@@ -213,25 +214,25 @@
     dashboard-insert-newline
     (lambda () (dashboard-hackernews-insert 5))
     dashboard-insert-newline
-    dashboard-insert-footer)
-  dashboard-banner-logo-title "My Dashboard"
-  dashboard-startup-banner 'logo
-  dashboard-set-init-info t
-  ;; dashboard-set-heading-icons t
-  dashboard-set-file-icons t
-  ;; somehow this was getting set to nil?
-  dashboard-heading-icons
+    dashboard-insert-footer))
+ (dashboard-banner-logo-title "My Dashboard")
+ (dashboard-startup-banner 'logo)
+ (dashboard-set-init-info t)
+ ;; dashboard-set-heading-icons t
+ (dashboard-set-file-icons t)
+ ;; somehow this was getting set to nil?
+ (dashboard-heading-icons
   '((recents . "history")
     (bookmarks . "bookmark")
     (agenda . "calendar")
     (projects . "rocket")
-    (hackernews . "hacker-news"))
-  ;;    (hackernews . (all-the-icons-faicon "hacker-news")))
-  dashboard-icon-type 'all-the-icons
-  dashboard-projects-backend 'projectile
-  dashboard-center-content t
-  dashboard-week-agenda t)
- (dashboard-setup-startup-hook))
+    (hackernews . "hacker-news")))
+ ;;    (hackernews . (all-the-icons-faicon "hacker-news")))
+ (dashboard-icon-type 'all-the-icons)
+ (dashboard-projects-backend 'projectile)
+ (dashboard-center-content t)
+ (dashboard-week-agenda t)
+ :config (dashboard-setup-startup-hook))
 
 (use-package devdocs)
 ;; (use-package django-snippets)
