@@ -26,7 +26,7 @@
 
 ;;; Commentary:
 
-;; (require 'hideshowvis "hideshowvis")
+;; see repository file README.md
 
 ;;; Code:
 
@@ -251,7 +251,8 @@
   ("M-g M-r" . dogears-remember)))
 ;; (use-package dumb-jump :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 (use-package editorconfig :config (editorconfig-mode 1))
-(use-package eldoc :defer t)
+(use-package eldoc :defer t :hook (typescript-ts-mode python-ts-mode))
+
 (use-package eldoc-box :defer t :after eldoc)
 (use-package
  elisp-autofmt
@@ -462,13 +463,7 @@
 (treemacs-start-on-boot)
 
 
-(use-package
- tree-sitter
- :hook
- ((python-ts-mode . lsp-deferred)
-  (python-ts-mode . eldoc-mode)
-  (python-ts-mode . eldoc-box-hover-mode)
-  (python-ts-mode . company-mode)))
+(use-package tree-sitter :defer t)
 ;; (use-package tree-sitter-indent)
 
 (defun mp-setup-install-grammars ()
@@ -502,12 +497,6 @@
 
 ;; (use-package treesit-auto)
 
-
-;; TypeScript setup
-
-;;
-;; (with-eval-after-load 'typescript-ts-mode
-;;  "sets up typescript-ts-mode-hook with more goodies"
 (use-package
  typescript-ts-mode
  :defer t
@@ -517,16 +506,9 @@
  ;;  (typescript-ts-mode . display-line-numbers-mode)
  ;;  (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
  ;;  (typescript-ts-mode . flycheck-mode)
- ;;  (typescript-ts-mode . eldoc-mode)
- ;;  (typescript-ts-mode . eldoc-box-hover-mode)
  ;;  (tsx-ts-mode . lsp-deferred)
- ;;  (typescript-ts-mode . company-mode))
  :config
  (progn
-   (add-hook 'typescript-ts-mode-hook #'lsp-deferred)
-   (add-hook 'typescript-ts-mode-hook #'eldoc-mode)
-   (add-hook 'typescript-ts-mode-hook #'eldoc-box-hover-mode)
-   (add-hook 'typescript-ts-mode-hook #'company-mode)
    (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)
    (add-hook 'typescript-ts-mode-hook #'prettier-mode)))
 
@@ -536,7 +518,7 @@
 ;; (use-package w3m)
 ;; (use-package web-beautify)
 ;; (use-package web-mode)
-(use-package weyland-yutani-theme)
+(use-package weyland-yutani-theme :defer t)
 
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 (use-package xkcd :defer t)
