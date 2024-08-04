@@ -146,35 +146,27 @@
 ;; (use-package async)
 ;; (use-package auto-header)
 ;; (use-package auto-rename-tag)
-(use-package bbdb)
+(use-package bbdb :defer t)
 ;; (use-package blacken)
 ;; (use-package cargo-mode :pin "melpa" :hook 'rust-mode-hook)
 (use-package
  casual-info
  :defer t
- :bind (:map Info-mode-map ("C-o" . 'casual-info-tmenu))
- :config
- (progn
-   ;; # Info
-   ;; Use web-browser history navigation bindings
-   (keymap-set Info-mode-map "M-[" #'Info-history-back)
-   (keymap-set Info-mode-map "M-]" #'Info-history-forward)
-   ;; Bind p and n to paragraph navigation
-   (keymap-set Info-mode-map "p" #'casual-info-browse-backward-paragraph)
-   (keymap-set Info-mode-map "n" #'casual-info-browse-forward-paragraph)
-   ;; Bind h and l to navigate to previous and next nodes
-   ;; Bind j and k to navigate to next and previous references
-   (keymap-set Info-mode-map "h" #'Info-prev)
-   (keymap-set Info-mode-map "j" #'Info-next-reference)
-   (keymap-set Info-mode-map "k" #'Info-prev-reference)
-   (keymap-set Info-mode-map "l" #'Info-next)
-   ;; Bind / to search
-   (keymap-set Info-mode-map "/" #'Info-search)
-   ;; Set Bookmark
-   (keymap-set Info-mode-map "B" #'bookmark-set)
-
-   (add-hook 'Info-mode-hook #'hl-line-mode)
-   (add-hook 'Info-mode-hook #'scroll-lock-mode)))
+ :bind
+ (:map
+  Info-mode-map ("C-o" . casual-info-tmenu) ("M-[" . Info-history-back)
+  ;; Use web-browser history navigation bindings
+  ("M-]" . Info-history-forward)
+  ;; Bind p and n to paragraph navigation
+  ("p" . casual-info-browse-backward-paragraph) ("n" . casual-info-browse-forward-paragraph)
+  ;; Bind h and l to navigate to previous and next nodes
+  ;; Bind j and k to navigate to next and previous references
+  ("h" . Info-prev) ("j" . Info-next-reference) ("k" . Info-prev-reference) ("l" . Info-next)
+  ;; Bind / to search
+  ("/" . Info-search)
+  ;; Set Bookmark
+  ("B" . bookmark-set))
+ :hook (Info-mode . hl-line-mode) (Info-mode . scroll-lock-mode))
 
 ;; (use-package cmake-mode)
 ;; (use-package code-archive)
