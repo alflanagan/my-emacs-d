@@ -179,7 +179,7 @@
   ("/" . Info-search)
   ;; Set Bookmark
   ("B" . bookmark-set))
- :hook (Info-mode . hl-line-mode) (Info-mode . scroll-lock-mode))
+ :hook ((Info-mode . hl-line-mode) (Info-mode . scroll-lock-mode)))
 
 ;; (use-package cmake-mode)
 ;; (use-package code-archive)
@@ -267,8 +267,8 @@
 (use-package emacsql-pg :defer t :after 'emacsql)
 ;; (use-package eslint-disable-rule)
 ;; (use-package eslint-fix)
-(use-package emmet-mode :hook (html-mode . emmet-mode))
-(use-package enh-ruby-mode :hook (ruby-mode . enh-ruby-mode))
+(use-package emmet-mode :hook html-mode)
+(use-package enh-ruby-mode :hook ruby-mode)
 (use-package erblint)
 
 ;; also check out package 'ligature'
@@ -280,7 +280,7 @@
 
 
 ;; Flycheck
-(use-package flycheck :hook (after-init . global-flycheck-mode) :pin "nongnu")
+(use-package flycheck :hook ((after-init . global-flycheck-mode)) :pin "nongnu")
 ;; (use-package flycheck-aspell)
 ;; (use-package flycheck-bashate)
 ;; (use-package flycheck-cask)
@@ -322,7 +322,7 @@
 ;; (use-package lispy)
 
 (use-package lsp-mode :defer t :commands lsp)
-(use-package lsp-origami :hook (lsp-after-open . lsp-origami-try-enable))
+(use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
 (use-package magit :defer t)
 (use-package magit-todos :defer t)
 ;; (use-package markdown-toc)
@@ -464,14 +464,11 @@
 
 (use-package
  tree-sitter
- :config
- (progn
-   (add-hook 'python-ts-mode-hook #'lsp-deferred)
-   (add-hook 'python-ts-mode-hook #'eldoc-mode)
-   (add-hook 'python-ts-mode-hook #'eldoc-box-hover-mode)
-   (add-hook 'python-ts-mode-hook #'company-mode)
-   (add-hook 'python-ts-mode-hook #'display-line-numbers-mode)
-   (add-hook 'python-ts-mode-hook (lambda () (flymake-mode 0)))))
+ :hook
+ ((python-ts-mode . lsp-deferred)
+  (python-ts-mode . eldoc-mode)
+  (python-ts-mode . eldoc-box-hover-mode)
+  (python-ts-mode . company-mode)))
 ;; (use-package tree-sitter-indent)
 
 (defun mp-setup-install-grammars ()
