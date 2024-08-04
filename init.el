@@ -333,24 +333,16 @@
 
 
 ;; org-mode packages
-;; (defun set-org-tab-width ()
-;;   "Because 'org-mode' now insists 'tab-width' be 8."
-;;   ;; makes tab-width buffer-local
-;;   (setq tab-width 8))
 
 (use-package
  org
- :defer t
- :pin gnu
+ :pin "gnu"
  :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
- :config
- (progn
-   (setq
-    org-adapt-indentation 'headline-data
-    org-ctrl-k-protect-subtree t
-    org-special-ctrl-a/e t
-    org-return-follows-link t)))
-;;   (add-hook 'org-mode-hook #'set-org-tab-width)))
+ :custom
+ (org-adapt-indentation 'headline-data)
+ (org-ctrl-k-protect-subtree t)
+ (org-special-ctrl-a/e t)
+ (org-return-follows-link t))
 
 (use-package org-beautify-theme)
 (use-package
@@ -373,8 +365,8 @@
  ;; :END:"))
  )
 
-(use-package org-chef)
-(use-package org-elisp-help)
+(use-package org-chef :defer t)
+(use-package org-elisp-help :defer t)
 ;; org-gcal requires setup to contact google calendar
 ;; org-gcal: must set ‘org-gcal-client-id’ and ‘org-gcal-client-secret’ for this package to work. Please run ‘org-gcal-reload-client-id-secret’ after setting these variables.
 ;; (use-package org-gcal)
@@ -387,19 +379,17 @@
  org-recur
  :hook ((org-mode . org-recur-mode) (org-agenda-mode . org-recur-agenda-mode))
  :demand t
- :config (keymap-set org-recur-mode-map "C-c d" 'org-recur-finish)
+ :bind
+ (:map
+  org-recur-mode-map ("C-c d" . org-recur-finish)
+  ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
+  :map org-recur-agenda-mode-map ("d" . org-recur-finish) ("C-c d" . org-recur-finish))
+ :custom (org-recur-finish-done t) (org-recur-finish-archive t))
 
- ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
- (keymap-set org-recur-agenda-mode-map "d" 'org-recur-finish)
- (keymap-set org-recur-agenda-mode-map "C-c d" 'org-recur-finish)
-
- (setq
-  org-recur-finish-done t
-  org-recur-finish-archive t))
-(use-package org-shoplist)
-(use-package org-superstar)
+(use-package org-shoplist :defer t)
+(use-package org-superstar :defer t)
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
-(use-package org-special-block-extras)
+(use-package org-special-block-extras :defer t)
 ;; (use-package org-web-tools)
 
 (use-package
