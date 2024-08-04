@@ -642,8 +642,11 @@
 (push '("\\.yml\\'" . yaml-ts-mode) auto-mode-alist)
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
-(if (not (server-running-p))
-    (server-start))
+(use-package
+ server
+ :config
+ (when (null server-process)
+   (server-start)))
 
 ;; because I often hit this key by accident and use "C-x C-c" instead anyway
 (keymap-global-unset "s-q" nil)
