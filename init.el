@@ -148,7 +148,7 @@
 ;; go -- the game, not the language -- causes crash in ivy?
 ;; org-modern --  makes org mode look really nice, but it makes editing much harder
 ;; paradox -- nice, but has problems like putting all its output into minibuffer and freezing emacs :-(
-;; speedar -- OK, but treemacs is better (for file lists anyway)
+;; speedbar -- OK, but treemacs is better (for file lists anyway)
 
 ;;; Use Packages
 
