@@ -25,7 +25,8 @@
        :weight 'normal
        :slant 'normal
        :width 'normal))
-
+  ;; mac gets fancy FiraCode Nerd, everybody else just Fira Code.
+  ;; someday I may get around to setting up nerd font for linux too
   (set-face-attribute 'default nil
                       :family "Fira Code"
                       :height 160
@@ -34,7 +35,7 @@
                       :width 'normal))
 
 ;; need to set this in early-init to set for intitial frame
-(setq initial-frame-alist
+(setopt initial-frame-alist
       '((horizontal-scroll-bars)
         (vertical-scroll-bars)
         (width . 180)

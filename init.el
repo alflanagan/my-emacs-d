@@ -26,7 +26,7 @@
 
 ;;; Commentary:
 
-;; (require 'hideshowvis "hideshowvis")
+;; see repository file README.md
 
 ;;; Code:
 
@@ -61,7 +61,6 @@
 (save-place-mode t)
 (show-paren-mode 1)
 (global-auto-revert-mode 1)
-(global-display-line-numbers-mode 1)
 
 (keymap-set global-map "M-/" 'hippie-expand)
 (keymap-set global-map "C-x C-b" 'ibuffer)
@@ -71,21 +70,35 @@
 (keymap-set global-map "C-M-r" 'isearch-backward)
 
 (setq-default indent-tabs-mode nil)
-(setq
- apropos-do-all t
- backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
- column-number-mode t
- custom-file (concat user-emacs-directory "my_emacs/custom.el")
- default-frame-alist '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)) ;; see also early-init.el
- mouse-yank-at-point t
- save-interprogram-paste-before-kill t
- save-place-file (concat user-emacs-directory "places")
- select-enable-clipboard t
- select-enable-primary t
- sentence-end-double-space nil
- uniquify-buffer-name-style 'post-forward-angle-brackets
- user-email-address "lloyd.flanagan@proton.me")
-(setopt selection-coding-system 'utf-8)
+(setopt
+ apropos-do-all
+ t
+ backup-directory-alist
+ `(("." . ,(concat user-emacs-directory "backups")))
+ column-number-mode
+ t
+ custom-file
+ (concat user-emacs-directory "my_emacs/custom.el")
+ default-frame-alist
+ '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)) ;; see also early-init.el
+ mouse-yank-at-point
+ t
+ save-interprogram-paste-before-kill
+ t
+ save-place-file
+ (concat user-emacs-directory "places")
+ select-enable-clipboard
+ t
+ select-enable-primary
+ t
+ sentence-end-double-space
+ nil
+ uniquify-buffer-name-style
+ 'post-forward-angle-brackets
+ user-email-address
+ "lloyd.flanagan@proton.me"
+ selection-coding-system
+ 'utf-8)
 
 
 (load custom-file)
@@ -128,15 +141,14 @@
 ;; Blacklisted Packages
 ;; this is reminder (to myself) not to use these packages, and why
 
-;; (use-package go) ;; the game, not the language -- causes crash in ivy?
-;; (use-package angular-mode) ;; so very out of date...
-;; (use-package djangonaut) ;; currently, djangonaut commands are failing
-;; (use-package paradox)  problems like putting all its output into minibuffer and freezing emacs :-(
-;; (use-package fold-dwim :bind (("C-+" . fold-dwim-toggle)("C-=" . fold-dwim-toggle)))
-;; I have no idea what fold-dwim's problem is, but it almost never Does What I Mean.
+;; angular-mode -- so very out of date...
+;; djangonaut -- currently, djangonaut commands are failing
 ;; eglot -- built-in, fine as far as I know, superceded by lsp-mode
-;; (use-package org-modern :after org :config (global-org-modern-mode +1))
-;; org-modern makes org mode look really nice, but it makes editing much harder
+;; fold-dwim -- it almost never Does What I Mean.
+;; go -- the game, not the language -- causes crash in ivy?
+;; org-modern --  makes org mode look really nice, but it makes editing much harder
+;; paradox -- nice, but has problems like putting all its output into minibuffer and freezing emacs :-(
+;; speedbar -- OK, but treemacs is better (for file lists anyway)
 
 ;;; Use Packages
 
@@ -146,58 +158,51 @@
 ;; (use-package async)
 ;; (use-package auto-header)
 ;; (use-package auto-rename-tag)
-(use-package bbdb)
+(use-package bbdb :defer t)
 ;; (use-package blacken)
 ;; (use-package cargo-mode :pin "melpa" :hook 'rust-mode-hook)
 (use-package
  casual-info
  :defer t
- :bind (:map Info-mode-map ("C-o" . 'casual-info-tmenu))
- :config
- (progn
-   ;; # Info
-   ;; Use web-browser history navigation bindings
-   (keymap-set Info-mode-map "M-[" #'Info-history-back)
-   (keymap-set Info-mode-map "M-]" #'Info-history-forward)
-   ;; Bind p and n to paragraph navigation
-   (keymap-set Info-mode-map "p" #'casual-info-browse-backward-paragraph)
-   (keymap-set Info-mode-map "n" #'casual-info-browse-forward-paragraph)
-   ;; Bind h and l to navigate to previous and next nodes
-   ;; Bind j and k to navigate to next and previous references
-   (keymap-set Info-mode-map "h" #'Info-prev)
-   (keymap-set Info-mode-map "j" #'Info-next-reference)
-   (keymap-set Info-mode-map "k" #'Info-prev-reference)
-   (keymap-set Info-mode-map "l" #'Info-next)
-   ;; Bind / to search
-   (keymap-set Info-mode-map "/" #'Info-search)
-   ;; Set Bookmark
-   (keymap-set Info-mode-map "B" #'bookmark-set)
-
-   (add-hook 'Info-mode-hook #'hl-line-mode)
-   (add-hook 'Info-mode-hook #'scroll-lock-mode)))
+ :bind
+ (:map
+  Info-mode-map ("C-o" . casual-info-tmenu) ("M-[" . Info-history-back)
+  ;; Use web-browser history navigation bindings
+  ("M-]" . Info-history-forward)
+  ;; Bind p and n to paragraph navigation
+  ("p" . casual-info-browse-backward-paragraph) ("n" . casual-info-browse-forward-paragraph)
+  ;; Bind h and l to navigate to previous and next nodes
+  ;; Bind j and k to navigate to next and previous references
+  ("h" . Info-prev) ("j" . Info-next-reference) ("k" . Info-prev-reference) ("l" . Info-next)
+  ;; Bind / to search
+  ("/" . Info-search)
+  ;; Set Bookmark
+  ("B" . bookmark-set))
+ :hook ((Info-mode . hl-line-mode) (Info-mode . scroll-lock-mode)))
 
 ;; (use-package cmake-mode)
 ;; (use-package code-archive)
 (use-package coffee-mode :defer t)
 ;; don't load company until a source file has loaded (check: startup load of org file doesn't load it)
-(use-package company :after prog-mode :config (add-hook 'prog-mode-hook 'company-mode))
+(use-package company :hook prog-mode)
 
 ;; (use-package company-jedi)
 ;; (use-package company-math)
 ;; (use-package company-shell)
-(use-package company-terraform)
-(use-package company-web)
+(use-package company-terraform :defer t)
+(use-package company-web :defer t)
 ;; (use-package counsel)
 ;; (use-package counsel-projectile)
 ;; (use-package css-eldoc)
 (use-package dashboard-hackernews)
 (use-package
  dashboard
- :after dashboard-hackernews page-break-lines
- :config
- (setq
-  dashboard-items '((recents . 5) (bookmarks . 5) (projects . 10) (agenda . 5))
-  dashboard-startupify-list
+ :after
+ dashboard-hackernews
+ page-break-lines
+ :custom
+ (dashboard-items '((recents . 5) (bookmarks . 5) (projects . 10) (agenda . 5)))
+ (dashboard-startupify-list
   '(dashboard-insert-banner
     dashboard-insert-newline
     dashboard-insert-banner-title
@@ -207,30 +212,30 @@
     dashboard-insert-newline
     (lambda () (dashboard-hackernews-insert 5))
     dashboard-insert-newline
-    dashboard-insert-footer)
-  dashboard-banner-logo-title "My Dashboard"
-  dashboard-startup-banner 'logo
-  dashboard-set-init-info t
-  ;; dashboard-set-heading-icons t
-  dashboard-set-file-icons t
-  ;; somehow this was getting set to nil?
-  dashboard-heading-icons
+    dashboard-insert-footer))
+ (dashboard-banner-logo-title "My Dashboard")
+ (dashboard-startup-banner 'logo)
+ (dashboard-set-init-info t)
+ ;; dashboard-set-heading-icons t
+ (dashboard-set-file-icons t)
+ ;; somehow this was getting set to nil?
+ (dashboard-heading-icons
   '((recents . "history")
     (bookmarks . "bookmark")
     (agenda . "calendar")
     (projects . "rocket")
-    (hackernews . "hacker-news"))
-  ;;    (hackernews . (all-the-icons-faicon "hacker-news")))
-  dashboard-icon-type 'all-the-icons
-  dashboard-projects-backend 'projectile
-  dashboard-center-content t
-  dashboard-week-agenda t)
- (dashboard-setup-startup-hook))
+    (hackernews . "hacker-news")))
+ ;;    (hackernews . (all-the-icons-faicon "hacker-news")))
+ (dashboard-icon-type 'all-the-icons)
+ (dashboard-projects-backend 'projectile)
+ (dashboard-center-content t)
+ (dashboard-week-agenda t)
+ :config (dashboard-setup-startup-hook))
 
-(use-package devdocs)
+(use-package devdocs :defer t)
 ;; (use-package django-snippets)
 ;; (use-package docker-compose-mode)
-(use-package dockerfile-mode)
+(use-package dockerfile-mode :defer t)
 (use-package
  dogears
  :config (dogears-mode 1)
@@ -245,7 +250,8 @@
   ("M-g M-r" . dogears-remember)))
 ;; (use-package dumb-jump :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 (use-package editorconfig :config (editorconfig-mode 1))
-(use-package eldoc :defer t)
+(use-package eldoc :defer t :hook (typescript-ts-mode python-ts-mode))
+
 (use-package eldoc-box :defer t :after eldoc)
 (use-package
  elisp-autofmt
@@ -261,8 +267,8 @@
 (use-package emacsql-pg :defer t :after 'emacsql)
 ;; (use-package eslint-disable-rule)
 ;; (use-package eslint-fix)
-(use-package emmet-mode :hook ((html-mode . emmet-mode)))
-(use-package enh-ruby-mode :hook ((ruby-mode . enh-ruby-mode)))
+(use-package emmet-mode :hook html-mode)
+(use-package enh-ruby-mode :hook ruby-mode)
 (use-package erblint)
 
 ;; also check out package 'ligature'
@@ -274,7 +280,7 @@
 
 
 ;; Flycheck
-(use-package flycheck :config (add-hook 'after-init-hook #'global-flycheck-mode) :pin nongnu)
+(use-package flycheck :hook ((after-init . global-flycheck-mode)) :pin "nongnu")
 ;; (use-package flycheck-aspell)
 ;; (use-package flycheck-bashate)
 ;; (use-package flycheck-cask)
@@ -290,7 +296,7 @@
 ;; (use-package flylisp)
 
 ;; (use-package focus-autosave-mode)
-(use-package form-feed-st :config (add-hook 'emacs-lisp-mode-hook 'form-feed-st-mode))
+(use-package form-feed-st :hook (emacs-lisp-mode lisp-data-mode))
 ;; (use-package forth-mode)
 ;; (use-package git-modes)
 ;; (use-package gnu-elpa-keyring-update)
@@ -310,41 +316,33 @@
 ;;  (progn
 ;;    (load-theme 'immaterial-dark t)
 ;;    (load-theme 'immaterial-light t)))
-(use-package inf-ruby)
+(use-package inf-ruby :defer t)
 (use-package ivy :config (ivy-mode 1))
 ;; (use-package kotlin-ts-mode)
 ;; (use-package lispy)
 
 (use-package lsp-mode :defer t :commands lsp)
-(use-package lsp-origami :defer t :config (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
-(use-package magit)
-(use-package magit-todos)
+(use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
+(use-package magit :defer t)
+(use-package magit-todos :defer t)
 ;; (use-package markdown-toc)
 ;; (use-package morlock :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
-(use-package ng2-mode :defer t :config (add-hook 'ng2-html-mode-hook #'prettier-mode) :after prettier)
+(use-package ng2-mode :defer t)
 (use-package nodejs-repl)
 ;; (use-package nov) ;; epub reader
 
 
 ;; org-mode packages
-;; (defun set-org-tab-width ()
-;;   "Because 'org-mode' now insists 'tab-width' be 8."
-;;   ;; makes tab-width buffer-local
-;;   (setq tab-width 8))
 
 (use-package
  org
- :defer t
- :pin gnu
+ :pin "gnu"
  :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
- :config
- (progn
-   (setq
-    org-adapt-indentation 'headline-data
-    org-ctrl-k-protect-subtree t
-    org-special-ctrl-a/e t
-    org-return-follows-link t)))
-;;   (add-hook 'org-mode-hook #'set-org-tab-width)))
+ :custom
+ (org-adapt-indentation 'headline-data)
+ (org-ctrl-k-protect-subtree t)
+ (org-special-ctrl-a/e t)
+ (org-return-follows-link t))
 
 (use-package org-beautify-theme)
 (use-package
@@ -367,8 +365,8 @@
  ;; :END:"))
  )
 
-(use-package org-chef)
-(use-package org-elisp-help)
+(use-package org-chef :defer t)
+(use-package org-elisp-help :defer t)
 ;; org-gcal requires setup to contact google calendar
 ;; org-gcal: must set ‘org-gcal-client-id’ and ‘org-gcal-client-secret’ for this package to work. Please run ‘org-gcal-reload-client-id-secret’ after setting these variables.
 ;; (use-package org-gcal)
@@ -381,19 +379,17 @@
  org-recur
  :hook ((org-mode . org-recur-mode) (org-agenda-mode . org-recur-agenda-mode))
  :demand t
- :config (keymap-set org-recur-mode-map "C-c d" 'org-recur-finish)
+ :bind
+ (:map
+  org-recur-mode-map ("C-c d" . org-recur-finish)
+  ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
+  :map org-recur-agenda-mode-map ("d" . org-recur-finish) ("C-c d" . org-recur-finish))
+ :custom (org-recur-finish-done t) (org-recur-finish-archive t))
 
- ;; Rebind the 'd' key in org-agenda (default: `org-agenda-day-view').
- (keymap-set org-recur-agenda-mode-map "d" 'org-recur-finish)
- (keymap-set org-recur-agenda-mode-map "C-c d" 'org-recur-finish)
-
- (setq
-  org-recur-finish-done t
-  org-recur-finish-archive t))
-(use-package org-shoplist)
-(use-package org-superstar)
+(use-package org-shoplist :defer t)
+(use-package org-superstar :defer t)
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
-(use-package org-special-block-extras)
+(use-package org-special-block-extras :defer t)
 ;; (use-package org-web-tools)
 
 (use-package
@@ -403,15 +399,11 @@
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
 (use-package page-break-lines)
-(use-package poly-erb)
+(use-package poly-erb :defer t)
 ;; (use-package parrot)
 
-;; intriguing, but doesn't seem to be working correctly (may just need more config)
-;; https://github.com/kcyarn/pretty-speedbar
-;; (use-package pretty-speedbar :defer t :after projectile-speedbar :config
-;;   (setq pretty-speedbar-font "Font Awesome 6 Free Solid"))
-(use-package prettier :defer t :config (add-hook 'html-mode-hook #'prettier-mode))
-(use-package robe)
+(use-package prettier :hook (html-mode ng2-html-mode))
+(use-package robe :defer t)
 
 ;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
@@ -421,13 +413,13 @@
        :init (keymap-global-unset "s-p")
        :config (projectile-mode +1)
        :bind (:map projectile-mode-map ("s-p" . projectile-command-map))))
+  ;; on GNOME desktop, "s-p" opens desktop menu
   (use-package
    projectile
    :init (keymap-global-unset "M-p")
    :config (projectile-mode +1)
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
-(use-package projectile-speedbar :after projectile :defer t)
 ;; (use-package projectile-codesearch)
 ;; (use-package rainbow-delimiters)
 ;; (use-package reddigg)
@@ -439,90 +431,16 @@
 
 ;; (use-package super-save)
 ;; (use-package term-projectile)
-(use-package terraform-doc)
-(use-package terraform-mode)
+(use-package terraform-doc :defer t)
+(use-package terraform-mode :defer t)
 
 ;; Treemacs https://github.com/Alexander-Miller/treemacs?tab=readme-ov-file#installation
 (use-package
  treemacs
- :defer t
- ;; :init
- ;; (with-eval-after-load 'winum
- ;;   (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
- ;; :config
- ;; settings with default values
- ;;    treemacs-collapse-dirs
- ;;    (if treemacs-python-executable
- ;;        3
- ;;      0)
- ;;    treemacs-deferred-git-apply-delay 0.5
- ;;    treemacs-directory-name-transformer #'identity
- ;;    treemacs-display-in-side-window t
- ;;    treemacs-eldoc-display 'simple
- ;;    treemacs-file-event-delay 2000
- ;;    treemacs-file-extension-regex treemacs-last-period-regex-value
- ;;    treemacs-file-follow-delay 0.2
- ;;    treemacs-file-name-transformer #'identity
- ;;    treemacs-follow-after-init t
- ;;    treemacs-expand-after-init t
- ;;    treemacs-find-workspace-method 'find-for-file-or-pick-first
- ;;    treemacs-git-command-pipe ""
- ;;    treemacs-goto-tag-strategy 'refetch-index
- ;;    treemacs-header-scroll-indicators '(nil . "^^^^^^")
- ;;    treemacs-hide-dot-git-directory t
- ;;    treemacs-indentation 2
- ;;    treemacs-indentation-string " "
- ;;    treemacs-is-never-other-window nil
- ;;    treemacs-max-git-entries 5000
- ;;    treemacs-missing-project-action 'ask
- ;;    treemacs-move-files-by-mouse-dragging t
- ;;    treemacs-move-forward-on-expand nil
- ;;    treemacs-no-png-images nil
- ;;    treemacs-no-delete-other-windows t
- ;;    treemacs-project-follow-cleanup nil
- ;;    treemacs-persist-file (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
- ;;    treemacs-position 'left
- ;;    treemacs-read-string-input 'from-child-frame
- ;;    treemacs-recenter-distance 0.1
- ;;    treemacs-recenter-after-file-follow nil
- ;;    treemacs-recenter-after-tag-follow nil
- ;;    treemacs-recenter-after-project-jump 'always
- ;;    treemacs-recenter-after-project-expand 'on-distance
- ;;    treemacs-litter-directories '("/node_modules" "/.venv" "/.cask")
- ;;    treemacs-project-follow-into-home nil
- ;;    treemacs-show-cursor nil
- ;;    treemacs-show-hidden-files t
- ;;    treemacs-silent-filewatch nil
- ;;    treemacs-silent-refresh nil
- ;;    treemacs-sorting 'alphabetic-asc
- ;;    treemacs-select-when-already-in-treemacs 'move-back
- ;;    treemacs-space-between-root-nodes t
- ;;    treemacs-tag-follow-cleanup t
- ;;    treemacs-tag-follow-delay 1.5
- ;;    treemacs-text-scale nil
- ;;    treemacs-user-mode-line-format nil
- ;;    treemacs-user-header-line-format nil
- ;;    treemacs-wide-toggle-width 70
- ;;    treemacs-width 35
- ;;    treemacs-width-increment 1
- ;;    treemacs-width-is-initially-locked t
- ;;    treemacs-workspace-switch-cleanup nil)
- ;;
- ;; The default width and height of the icons is 22 pixels. If you are
- ;; using a Hi-DPI display, uncomment this to double the icon size.
- ;;(treemacs-resize-icons 44)
-
- ;;   (treemacs-follow-mode t)
- ;;   (treemacs-filewatch-mode t)
- ;;   (treemacs-fringe-indicator-mode 'always)
- ;;   (when treemacs-python-executable
- ;;     (treemacs-git-commit-diff-mode t))
- ;;
- ;;   (pcase (cons (not (null (executable-find "git"))) (not (null treemacs-python-executable)))
- ;;     (`(t . t) (treemacs-git-mode 'deferred))
- ;;     (`(t . _) (treemacs-git-mode 'simple)))
- ;;
- ;;   (treemacs-hide-gitignored-files-mode nil))
+ :custom
+ (treemacs-is-never-other-window t)
+ (treemacs-sorting 'alphabetic-case-insensitive-asc)
+ (treemacs-width-is-initially-locked t)
  :bind
  ;; some of these replace functions from tab-bar, which I don't use anyway
  (:map
@@ -543,16 +461,7 @@
 (treemacs-start-on-boot)
 
 
-(use-package
- tree-sitter
- :config
- (progn
-   (add-hook 'python-ts-mode-hook #'lsp-deferred)
-   (add-hook 'python-ts-mode-hook #'eldoc-mode)
-   (add-hook 'python-ts-mode-hook #'eldoc-box-hover-mode)
-   (add-hook 'python-ts-mode-hook #'company-mode)
-   (add-hook 'python-ts-mode-hook #'display-line-numbers-mode)
-   (add-hook 'python-ts-mode-hook (lambda () (flymake-mode 0)))))
+(use-package tree-sitter :defer t)
 ;; (use-package tree-sitter-indent)
 
 (defun mp-setup-install-grammars ()
@@ -586,33 +495,12 @@
 
 ;; (use-package treesit-auto)
 
-
-;; TypeScript setup
-
-;;
-;; (with-eval-after-load 'typescript-ts-mode
-;;  "sets up typescript-ts-mode-hook with more goodies"
 (use-package
  typescript-ts-mode
  :defer t
  :ensure nil ;; built-in mode
- ;; :hook  ;; this is not working at all
- ;; ((typescript-ts-mode . lsp-deferred)
- ;;  (typescript-ts-mode . display-line-numbers-mode)
- ;;  (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
- ;;  (typescript-ts-mode . flycheck-mode)
- ;;  (typescript-ts-mode . eldoc-mode)
- ;;  (typescript-ts-mode . eldoc-box-hover-mode)
- ;;  (tsx-ts-mode . lsp-deferred)
- ;;  (typescript-ts-mode . company-mode))
- :config
- (progn
-   (add-hook 'typescript-ts-mode-hook #'lsp-deferred)
-   (add-hook 'typescript-ts-mode-hook #'eldoc-mode)
-   (add-hook 'typescript-ts-mode-hook #'eldoc-box-hover-mode)
-   (add-hook 'typescript-ts-mode-hook #'company-mode)
-   (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)
-   (add-hook 'typescript-ts-mode-hook #'prettier-mode)))
+ :hook
+    prettier-mode)
 
 ;; had a lot of undo info disappear -- maybe user error?
 ;; (use-package undo-fu :defer t)
@@ -620,7 +508,7 @@
 ;; (use-package w3m)
 ;; (use-package web-beautify)
 ;; (use-package web-mode)
-(use-package weyland-yutani-theme)
+(use-package weyland-yutani-theme :defer t)
 
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 (use-package xkcd :defer t)
@@ -650,8 +538,12 @@
 (push '("\\.yml\\'" . yaml-ts-mode) auto-mode-alist)
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
-(if (not (server-running-p))
-    (server-start))
+;; and this doesn't seem to work either.
+(use-package
+ server
+ :config
+ (when (null server-process)
+   (server-start)))
 
 ;; because I often hit this key by accident and use "C-x C-c" instead anyway
 (keymap-global-unset "s-q" nil)
@@ -687,6 +579,8 @@
 
 (keymap-set global-map "C-x M-r" #'remember)
 (keymap-set global-map "C-x M-R" #'remember-region)
+
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;; Tell emacs lisp mode to do the right thing on build.
 (add-hook
