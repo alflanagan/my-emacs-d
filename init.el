@@ -61,7 +61,6 @@
 (save-place-mode t)
 (show-paren-mode 1)
 (global-auto-revert-mode 1)
-(global-display-line-numbers-mode 1)
 
 (keymap-set global-map "M-/" 'hippie-expand)
 (keymap-set global-map "C-x C-b" 'ibuffer)
@@ -438,7 +437,6 @@
 ;; Treemacs https://github.com/Alexander-Miller/treemacs?tab=readme-ov-file#installation
 (use-package
  treemacs
- :config (line-number-mode 0)
  :custom
  (treemacs-is-never-other-window t)
  (treemacs-sorting 'alphabetic-case-insensitive-asc)
@@ -501,16 +499,8 @@
  typescript-ts-mode
  :defer t
  :ensure nil ;; built-in mode
- ;; :hook  ;; this is not working at all
- ;; ((typescript-ts-mode . lsp-deferred)
- ;;  (typescript-ts-mode . display-line-numbers-mode)
- ;;  (typescript-ts-mode . (lambda () (setq flycheck-check-syntax-automatically '(save mode-enabled))))
- ;;  (typescript-ts-mode . flycheck-mode)
- ;;  (tsx-ts-mode . lsp-deferred)
- :config
- (progn
-   (add-hook 'typescript-ts-mode-hook #'display-line-numbers-mode)
-   (add-hook 'typescript-ts-mode-hook #'prettier-mode)))
+ :hook
+    prettier-mode)
 
 ;; had a lot of undo info disappear -- maybe user error?
 ;; (use-package undo-fu :defer t)
@@ -589,6 +579,8 @@
 
 (keymap-set global-map "C-x M-r" #'remember)
 (keymap-set global-map "C-x M-R" #'remember-region)
+
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;; Tell emacs lisp mode to do the right thing on build.
 (add-hook
