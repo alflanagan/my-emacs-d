@@ -144,6 +144,7 @@
 ;; angular-mode -- so very out of date...
 ;; djangonaut -- currently, djangonaut commands are failing
 ;; eglot -- built-in, fine as far as I know, superceded by lsp-mode
+;; enh-ruby-mode -- doesn't support ruby-ts-mode??
 ;; fold-dwim -- it almost never Does What I Mean.
 ;; go -- the game, not the language -- causes crash in ivy?
 ;; org-modern --  makes org mode look really nice, but it makes editing much harder
@@ -268,7 +269,6 @@
 ;; (use-package eslint-disable-rule)
 ;; (use-package eslint-fix)
 (use-package emmet-mode :hook html-mode)
-(use-package enh-ruby-mode :hook ruby-mode)
 (use-package erblint)
 
 ;; also check out package 'ligature'
