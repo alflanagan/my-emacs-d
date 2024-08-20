@@ -321,10 +321,11 @@
 ;; (use-package kotlin-ts-mode)
 ;; (use-package lispy)
 
-(use-package lsp-mode :defer t :commands lsp)
+(use-package lsp-mode :defer t :commands lsp :hook ruby-base-mode)
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
 (use-package magit :defer t)
 (use-package magit-todos :defer t)
+(use-package minitest :hook ruby-base-mode)
 ;; (use-package markdown-toc)
 ;; (use-package morlock :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
 (use-package ng2-mode :defer t)
