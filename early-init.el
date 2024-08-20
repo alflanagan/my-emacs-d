@@ -38,7 +38,7 @@
 (setopt initial-frame-alist
       '((horizontal-scroll-bars)
         (vertical-scroll-bars)
-        (width . 180)
+        (width . 200)
         (height . 70)))
 
 ;; set this here so it gets applied to load of init.el (we hope)
