@@ -325,6 +325,18 @@
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
 (use-package magit :defer t)
 (use-package magit-todos :defer t)
+(use-package
+ markdown-mode
+ :mode ("README\\.md\\'" . gfm-mode)
+ :init
+ ; flycheck uses markdownlint, but generates very annoying error message instead of useful checks
+ (flycheck-mode 0)
+ :custom
+ (markdown-code-lang-modes
+  '(("ocaml" . tuareg-mode) ("elisp" . emacs-lisp-mode) ("ditaa" . artist-mode) ("asymptote" . asy-mode)
+    ("dot" . fundamental-mode) ("sqlite" . sql-mode) ("calc" . fundamental-mode) ("C" . c-mode) ("cpp" . c++-mode)
+    ("C++" . c++-mode) ("screen" . shell-script-mode) ("shell" . sh-mode) ("bash" . sh-mode) ("sh" . sh-mode)))
+ (markdown-command "/Users/adrianflanagan/bin/markdown2"))
 (use-package minitest :hook ruby-base-mode)
 ;; (use-package markdown-toc)
 ;; (use-package morlock :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
@@ -442,6 +454,7 @@
  (treemacs-is-never-other-window t)
  (treemacs-sorting 'alphabetic-case-insensitive-asc)
  (treemacs-width-is-initially-locked t)
+ (treemacs-project-follow-mode t)
  :bind
  ;; some of these replace functions from tab-bar, which I don't use anyway
  (:map
@@ -500,15 +513,30 @@
  typescript-ts-mode
  :defer t
  :ensure nil ;; built-in mode
- :hook
-    prettier-mode)
+ :hook prettier-mode)
 
 ;; had a lot of undo info disappear -- maybe user error?
 ;; (use-package undo-fu :defer t)
 
 ;; (use-package w3m)
 ;; (use-package web-beautify)
-;; (use-package web-mode)
+(use-package
+ ; see https://web-mode.org/!!
+ web-mode
+ :defer t
+ :mode
+ (("\\.phtml\\'" . web-mode)
+  ("\\.php\\'" . web-mode)
+  ("\\.tpl\\'" . web-mode)
+  ("\\.[agj]sp\\'" . web-mode)
+  ("\\.as[cp]x\\'" . web-mode)
+  ("\\.erb\\'" . web-mode)
+  ("\\.mustache\\'" . web-mode)
+  ("\\.djhtml\\'" . web-mode))
+ :custom (web-mode-enable-comment-interpolation t) (web-mode-enable-engine-detection t)
+ ; this assumes we're always using django
+ (web-mode-engines-alist '(("django" . "\\.html\\'"))))
+
 (use-package weyland-yutani-theme :defer t)
 
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
