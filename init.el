@@ -30,9 +30,7 @@
 
 ;;; Code:
 
-;; TODO set up custom variable for path to my emacs customization files (obviously would have to do something tricky to
-;; implement it, since the custom.el file is in the directory it would point to). Easiest solution is probably to use a
-;; global variable with a default, then user can set it before loading this file.
+;; contents of .config/emacs/init.el:  (load "~/.config/emacs/my_emacs/init")
 
 ;; custom lisp directory
 (let ((default-directory (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp"))))
@@ -49,7 +47,7 @@
 ;; various settings gleaned from package better-defaults
 
 (ido-mode t)
-(setq ido-enable-flex-matching t)
+(setopt ido-enable-flex-matching t)
 
 ;; these modes are discouraged because they use mouse -- keep hands on the keyboard!
 (menu-bar-mode -1)
@@ -115,6 +113,7 @@
 
 ;;; Packages
 ;;; Eventual goal is to remove from customization entirely, and use use-package for all.
+
 ;; ... except in practice it's easier to add from list-packages and thus it sets variable
 ;; package-select-packages anyway -- should we advise use-package to do that also??
 ;; heck, why not rewrite list-packages so insert adds a use-package declaration to a
@@ -133,35 +132,13 @@
 
 (package-initialize)
 
-;; nifty interface for execute-extended-command (M-x)
-(require 'smex "smex/smex")
-;; (smex-initialize) ;; not required, might make first use faster
-
-
-;; Blacklisted Packages
-;; this is reminder (to myself) not to use these packages, and why
-
-;; angular-mode -- so very out of date...
-;; djangonaut -- currently, djangonaut commands are failing
-;; eglot -- built-in, fine as far as I know, superceded by lsp-mode
-;; enh-ruby-mode -- doesn't support ruby-ts-mode??
-;; fold-dwim -- it almost never Does What I Mean.
-;; go -- the game, not the language -- causes crash in ivy?
-;; org-modern --  makes org mode look really nice, but it makes editing much harder
-;; paradox -- nice, but has problems like putting all its output into minibuffer and freezing emacs :-(
-;; speedbar -- OK, but treemacs is better (for file lists anyway)
 
 ;;; Use Packages
 
 ;; KEEP THIS SORTED!
 
 (use-package all-the-icons :if (display-graphic-p))
-;; (use-package async)
-;; (use-package auto-header)
-;; (use-package auto-rename-tag)
 (use-package bbdb :defer t)
-;; (use-package blacken)
-;; (use-package cargo-mode :pin "melpa" :hook 'rust-mode-hook)
 (use-package
  casual-info
  :defer t
@@ -181,20 +158,12 @@
   ("B" . bookmark-set))
  :hook ((Info-mode . hl-line-mode) (Info-mode . scroll-lock-mode)))
 
-;; (use-package cmake-mode)
-;; (use-package code-archive)
 (use-package coffee-mode :defer t)
 ;; don't load company until a source file has loaded (check: startup load of org file doesn't load it)
 (use-package company :hook prog-mode)
 
-;; (use-package company-jedi)
-;; (use-package company-math)
-;; (use-package company-shell)
 (use-package company-terraform :defer t)
 (use-package company-web :defer t)
-;; (use-package counsel)
-;; (use-package counsel-projectile)
-;; (use-package css-eldoc)
 (use-package dashboard-hackernews)
 (use-package
  dashboard
@@ -234,8 +203,6 @@
  :config (dashboard-setup-startup-hook))
 
 (use-package devdocs :defer t)
-;; (use-package django-snippets)
-;; (use-package docker-compose-mode)
 (use-package dockerfile-mode :defer t)
 (use-package
  dogears
@@ -249,7 +216,6 @@
   ("M-g M-d" . dogears-list)
   ("M-g M-D" . dogears-sidebar)
   ("M-g M-r" . dogears-remember)))
-;; (use-package dumb-jump :config (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 (use-package editorconfig :config (editorconfig-mode 1))
 (use-package eldoc :defer t :hook (typescript-ts-mode python-ts-mode))
 
@@ -260,14 +226,9 @@
  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
  :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
  :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
-;; (use-package elisp-def)
-;; (use-package elisp-lint)
-;; (use-package elisp-refs)
 (use-package elpy :defer t :init (advice-add 'python-mode :before 'elpy-enable))
 (use-package emacsql :defer t)
 (use-package emacsql-pg :defer t :after 'emacsql)
-;; (use-package eslint-disable-rule)
-;; (use-package eslint-fix)
 (use-package emmet-mode :hook html-mode)
 (use-package erblint)
 
@@ -281,45 +242,10 @@
 
 ;; Flycheck
 (use-package flycheck :hook ((after-init . global-flycheck-mode)) :pin "nongnu")
-;; (use-package flycheck-aspell)
-;; (use-package flycheck-bashate)
-;; (use-package flycheck-cask)
-;; (use-package flycheck-clang-tidy)
-;; (use-package flycheck-golangci-lint)
-;; (use-package flycheck-jest)
-;; (use-package flycheck-kotlin)
-;; (use-package flycheck-mypy)
-;; (use-package flycheck-package)
-;; (use-package flycheck-pycheckers)
-;; (use-package flycheck-relint)
-;; (use-package flycheck-rust)
-;; (use-package flylisp)
-
-;; (use-package focus-autosave-mode)
 (use-package form-feed-st :hook (emacs-lisp-mode lisp-data-mode))
-;; (use-package forth-mode)
-;; (use-package git-modes)
-;; (use-package gnu-elpa-keyring-update)
-;; (use-package go-autocomplete)
-;; (use-package go-eldoc)
-;; (use-package go-mode)
-;; (use-package go-projectile)
-;; (use-package go-scratch)
-;; (use-package guru-mode)
 (use-package highlight-parentheses)
-;; (use-package hl-todo)
-;; (use-package ibuffer-projectile)
-;; (use-package ietf-docs)
-;; (use-package
-;;  immaterial-theme
-;;  :config
-;;  (progn
-;;    (load-theme 'immaterial-dark t)
-;;    (load-theme 'immaterial-light t)))
 (use-package inf-ruby :defer t)
 (use-package ivy :config (ivy-mode 1))
-;; (use-package kotlin-ts-mode)
-;; (use-package lispy)
 
 (use-package lsp-mode :defer t :commands lsp :hook ruby-base-mode)
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
@@ -338,11 +264,8 @@
     ("C++" . c++-mode) ("screen" . shell-script-mode) ("shell" . sh-mode) ("bash" . sh-mode) ("sh" . sh-mode)))
  (markdown-command "/Users/adrianflanagan/bin/markdown2"))
 (use-package minitest :hook ruby-base-mode)
-;; (use-package markdown-toc)
-;; (use-package morlock :config (global-morlock-mode 1)) ;; additional syntax highlighting for ELisp
 (use-package ng2-mode :defer t)
 (use-package nodejs-repl)
-;; (use-package nov) ;; epub reader
 
 
 ;; org-mode packages
@@ -380,14 +303,6 @@
 
 (use-package org-chef :defer t)
 (use-package org-elisp-help :defer t)
-;; org-gcal requires setup to contact google calendar
-;; org-gcal: must set ‘org-gcal-client-id’ and ‘org-gcal-client-secret’ for this package to work. Please run ‘org-gcal-reload-client-id-secret’ after setting these variables.
-;; (use-package org-gcal)
-
-;; (use-package org-contrib)
-;; (use-package org-ai)
-;; (use-package org-msg)
-;; (use-package org-ql)
 (use-package
  org-recur
  :hook ((org-mode . org-recur-mode) (org-agenda-mode . org-recur-agenda-mode))
@@ -403,7 +318,6 @@
 (use-package org-superstar :defer t)
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
 (use-package org-special-block-extras :defer t)
-;; (use-package org-web-tools)
 
 (use-package
  origami
@@ -413,7 +327,6 @@
 
 (use-package page-break-lines)
 (use-package poly-erb :defer t)
-;; (use-package parrot)
 
 (use-package prettier :hook (html-mode ng2-html-mode))
 (use-package robe :defer t)
@@ -433,17 +346,10 @@
    :config (projectile-mode +1)
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
-;; (use-package projectile-codesearch)
-;; (use-package rainbow-delimiters)
-;; (use-package reddigg)
-;; (use-package rust-mode :pin "melpa" :config (add-hook 'rust-mode-hook #'cargo-minor-mode))
-;; (use-package slime)
 (use-package smart-mode-line :config (sml/setup))
 (use-package smart-mode-line-powerline-theme :config (sml/apply-theme 'light-powerline))
 (use-package sql-indent :defer t)
 
-;; (use-package super-save)
-;; (use-package term-projectile)
 (use-package terraform-doc :defer t)
 (use-package terraform-mode :defer t)
 
@@ -476,7 +382,6 @@
 
 
 (use-package tree-sitter :defer t)
-;; (use-package tree-sitter-indent)
 
 (defun mp-setup-install-grammars ()
   "Install Tree-sitter grammars if they are absent."
@@ -507,7 +412,6 @@
     (unless (treesit-language-available-p (car grammar))
       (treesit-install-language-grammar (car grammar)))))
 
-;; (use-package treesit-auto)
 
 (use-package
  typescript-ts-mode
@@ -515,11 +419,6 @@
  :ensure nil ;; built-in mode
  :hook prettier-mode)
 
-;; had a lot of undo info disappear -- maybe user error?
-;; (use-package undo-fu :defer t)
-
-;; (use-package w3m)
-;; (use-package web-beautify)
 (use-package
  ; see https://web-mode.org/!!
  web-mode
@@ -541,12 +440,6 @@
 
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 (use-package xkcd :defer t)
-
-;; (use-package yasnippet :pin melpa)
-
-;; ;; should have a separate section for Elisp libraries
-;; (use-package dash) ;; list functions
-;; (use-package s) ;; string functions
 
 
 ;;; Everything Else
@@ -578,9 +471,14 @@
 (keymap-global-unset "s-q" nil)
 ;; (keymap-global-set "C-x C-p" (lambda (x) (interactive) (project-list-buffers t)))
 
+;; doesn't use use-package -- see lisp directory
+;; nifty interface for execute-extended-command (M-x)
+(require 'smex "smex/smex")
+;; (smex-initialize) ;; not required, might make first use faster
+
 
 ;; MAC-specific setup
-
+;; TODO: move this to site.macos.el
 (when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
@@ -592,11 +490,6 @@
         (lambda ()
           "do nothing and do it well"
           ())))
-
-
-;; Linux-specific setup
-
-;; (when (equal system-type 'gnu/linux))
 
 
 ;; Mac keybindings that conflict with Emacs defaults
@@ -627,17 +520,24 @@
 (find-file (expand-file-name "~/org/personal/todo-main.org"))
 
 
-;; system locations
-
-;; this may be _too_ clever
-;; (setq global-node-executable (s-chomp (shell-command-to-string ". ~/.zshrc 2> /dev/null && nvm which default")))
-
-
 ;; enabled "risky" commands
 
 (put 'downcase-region 'disabled nil)
 
 
 (message "%s" "init.el completed")
+
+;; Blacklisted Packages
+;; this is reminder (to myself) not to use these packages, and why
 
+;; angular-mode -- so very out of date...
+;; djangonaut -- currently, djangonaut commands are failing
+;; eglot -- built-in, fine as far as I know, superceded by lsp-mode
+;; enh-ruby-mode -- doesn't support ruby-ts-mode??
+;; fold-dwim -- it almost never Does What I Mean.
+;; go -- the game, not the language -- causes crash in ivy?
+;; org-modern --  makes org mode look really nice, but it makes editing much harder
+;; paradox -- nice, but has problems like putting all its output into minibuffer and freezing emacs :-(
+;; speedbar -- OK, but treemacs is better (for file lists anyway)
+
 ;;; init.el ends here :-)
