@@ -1,8 +1,10 @@
+;;; site.macos.el -- Initialization specific to MacOS -*- lexical-binding: t; -*-
+
+;;; Commentary:
 ;; this file should have site-specifc customizations, which may override the values set in init.el or custom.el.
 
-(setq projectile-project-search-path
-      '("~/.emacs.d" "~/Devel/Personal" ("~/Devel/Mobelux" . 3) "~/Devel/HackRVA" "~/Devel/ThirdParty"))
-(setq elisp-autofmt-python-bin "/Users/adrianflanagan/.pyenv/versions/3.12.2/bin/python")
+;;; Code:
+
 (setq exec-path
       '("/usr/bin"
         "/bin"
@@ -18,8 +20,20 @@
         "/usr/local/go/bin"
         "~/.cargo/bin"
         "~/.local/bin"
-        "~/go/bin"
-        "/opt/homebrew/Cellar/emacs-plus@30/30.0.50/libexec/emacs/30.0.50/aarch64-apple-darwin23.2.0"))
-(setq python-interpreter "/Users/adrianflanagan/.pyenv/shims/python")
-(setq python-shell-exec-path '("/Users/adrianflanagan/.pyenv/shims"))
-(setq python-shell-interpreter "/Users/adrianflanagan/.pyenv/shims/python")
+        "~/go/bin"))
+(setopt
+ projectile-project-search-path
+ '("~/.emacs.d" "~/Devel/Personal" ("~/Devel/Mobelux" . 3) "~/Devel/HackRVA" "~/Devel/ThirdParty")
+ elisp-autofmt-python-bin
+ "/Users/adrianflanagan/.pyenv/versions/3.12.2/bin/python"
+ python-interpreter
+ "/Users/adrianflanagan/.pyenv/shims/python"
+ python-shell-exec-path
+ '("/Users/adrianflanagan/.pyenv/shims")
+ python-shell-interpreter
+ "/Users/adrianflanagan/.pyenv/shims/python")
+
+(message "lisp/site.macos.el loaded")
+
+(provide "site.macos")
+;;; site.macos.el ends here
