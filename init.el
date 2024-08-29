@@ -239,7 +239,6 @@
  :custom (fira-code-mode-disabled-ligatures '("[]" "===" "==" ":")) ; ligatures you don't want
  :hook prog-mode) ; mode to enable fira-code-mode in
 
-
 ;; Flycheck
 (use-package flycheck :hook ((after-init . global-flycheck-mode)) :pin "nongnu")
 (use-package form-feed-st :hook (emacs-lisp-mode lisp-data-mode))
@@ -247,8 +246,19 @@
 (use-package inf-ruby :defer t)
 (use-package ivy :config (ivy-mode 1))
 
-(use-package lsp-mode :defer t :commands lsp :hook ruby-base-mode)
+(use-package lsp-mode :defer t :commands lsp
+  ;; it's preferable, I think, to set lsp-mode in each mode's use-package, but some don't have one
+  :hook (ruby-base-mode python-ts-mode))
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
+
+; why is this not registering with lsp??
+(use-package lsp-sourcekit
+  :after lsp-mode
+  :config
+  ;; TODO: we need to figure out how to set this up on non-Mac machines
+  (setq lsp-sourcekit-executable (string-trim (shell-command-to-string "xcrun --find sourcekit-lsp"))))
+;;  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
+
 (use-package magit :defer t)
 (use-package magit-todos :defer t)
 (use-package
@@ -350,9 +360,11 @@
 (use-package smart-mode-line-powerline-theme :config (sml/apply-theme 'light-powerline))
 (use-package sql-indent :defer t)
 
+(use-package swift-ts-mode :mode ("\\.swift\\'" . swift-ts-mode)
+  :hook (swift-ts-mode . (lambda () (lsp))))
 (use-package terraform-doc :defer t)
 (use-package terraform-mode :defer t)
-
+
 ;; Treemacs https://github.com/Alexander-Miller/treemacs?tab=readme-ov-file#installation
 (use-package
  treemacs
@@ -380,7 +392,6 @@
 ;; see git page above for other related package setups
 (treemacs-start-on-boot)
 
-
 (use-package tree-sitter :defer t)
 
 (defun mp-setup-install-grammars ()
@@ -411,7 +422,6 @@
     ;; this obviously prevents that from happening.
     (unless (treesit-language-available-p (car grammar))
       (treesit-install-language-grammar (car grammar)))))
-
 
 (use-package
  typescript-ts-mode
@@ -476,7 +486,6 @@
 (require 'smex "smex/smex")
 ;; (smex-initialize) ;; not required, might make first use faster
 
-
 ;; MAC-specific setup
 ;; TODO: move this to site.macos.el
 (when (equal system-type 'darwin)
@@ -491,7 +500,6 @@
           "do nothing and do it well"
           ())))
 
-
 ;; Mac keybindings that conflict with Emacs defaults
 ;; M-% launches screen capture
 ;; C-M-k brings up calender in MacOS topbar
@@ -514,7 +522,6 @@
                 (if buffer-file-name
                     (shell-quote-argument buffer-file-name))))))
 
-
 ;;; buffer(s) opened on startup
 
 (find-file (expand-file-name "~/org/personal/todo-main.org"))
@@ -524,7 +531,6 @@
 
 (put 'downcase-region 'disabled nil)
 
-
 (message "%s" "init.el completed")
 
 ;; Blacklisted Packages
