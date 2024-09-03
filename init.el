@@ -164,6 +164,7 @@
 
 (use-package company-terraform :defer t)
 (use-package company-web :defer t)
+(use-package csv-mode :defer t)
 (use-package dashboard-hackernews)
 (use-package
  dashboard
@@ -219,6 +220,7 @@
 (use-package editorconfig :config (editorconfig-mode 1))
 (use-package eldoc :defer t :hook (typescript-ts-mode python-ts-mode))
 
+(use-package easysession :defer t)
 (use-package eldoc-box :defer t :after eldoc)
 (use-package
  elisp-autofmt
@@ -242,22 +244,33 @@
 ;; Flycheck
 (use-package flycheck :hook ((after-init . global-flycheck-mode)) :pin "nongnu")
 (use-package form-feed-st :hook (emacs-lisp-mode lisp-data-mode))
+
+(use-package graphql-doc :defer t)
+(use-package graphql-ts-mode :defer t)
+
 (use-package highlight-parentheses)
 (use-package inf-ruby :defer t)
 (use-package ivy :config (ivy-mode 1))
 
-(use-package lsp-mode :defer t :commands lsp
-  ;; it's preferable, I think, to set lsp-mode in each mode's use-package, but some don't have one
-  :hook (ruby-base-mode python-ts-mode))
+(use-package
+ lsp-mode
+ :defer t
+ :commands lsp
+ ;; it's preferable, I think, to set lsp-mode in each mode's use-package, but some don't have one
+ :hook (ruby-base-mode python-ts-mode))
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
 
 ; why is this not registering with lsp??
-(use-package lsp-sourcekit
-  :after lsp-mode
-  :config
-  ;; TODO: we need to figure out how to set this up on non-Mac machines
-  (setq lsp-sourcekit-executable (string-trim (shell-command-to-string "xcrun --find sourcekit-lsp"))))
+(use-package
+ lsp-sourcekit
+ :after lsp-mode
+ :config
+ ;; TODO: we need to figure out how to set this up on non-Mac machines
+ (setq lsp-sourcekit-executable (string-trim (shell-command-to-string "xcrun --find sourcekit-lsp"))))
 ;;  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
+
+(use-package lsp-treemacs: :after lsp-mode)
+(use-package lsp-ui :after lsp-mode)
 
 (use-package magit :defer t)
 (use-package magit-todos :defer t)
@@ -313,6 +326,9 @@
 
 (use-package org-chef :defer t)
 (use-package org-elisp-help :defer t)
+
+(use-package org-node :after org)
+
 (use-package
  org-recur
  :hook ((org-mode . org-recur-mode) (org-agenda-mode . org-recur-agenda-mode))
@@ -328,6 +344,9 @@
 (use-package org-superstar :defer t)
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
 (use-package org-special-block-extras :defer t)
+
+(use-package ox-gfm :defer t :after org)
+
 
 (use-package
  origami
@@ -339,6 +358,11 @@
 (use-package poly-erb :defer t)
 
 (use-package prettier :hook (html-mode ng2-html-mode))
+
+(use-package pyenv-mode :defer t)
+
+(use-package reaper :ensure t :bind ("C-c h" . reaper))
+
 (use-package robe :defer t)
 
 ;; attempt to set up equivalent keys on Mac and my PC.
@@ -360,8 +384,7 @@
 (use-package smart-mode-line-powerline-theme :config (sml/apply-theme 'light-powerline))
 (use-package sql-indent :defer t)
 
-(use-package swift-ts-mode :mode ("\\.swift\\'" . swift-ts-mode)
-  :hook (swift-ts-mode . (lambda () (lsp))))
+(use-package swift-ts-mode :mode ("\\.swift\\'" . swift-ts-mode) :hook (swift-ts-mode . (lambda () (lsp))))
 (use-package terraform-doc :defer t)
 (use-package terraform-mode :defer t)
 
