@@ -269,7 +269,8 @@
  (setq lsp-sourcekit-executable (string-trim (shell-command-to-string "xcrun --find sourcekit-lsp"))))
 ;;  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
 
-(use-package lsp-treemacs: :after lsp-mode)
+;; "unavailable" ???
+;; (use-package lsp-treemacs: :after lsp-mode)
 (use-package lsp-ui :after lsp-mode)
 
 (use-package magit :defer t)
