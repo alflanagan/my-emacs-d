@@ -41,8 +41,8 @@
 ;; see my_emacs/lisp/no-littering/migrate.org
 ;; (require 'no-littering)
 
-(require 'alf-alists "alists")
-(load "./secrets")
+(require 'alf-alists (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp/alists")))
+(require 'secrets)
 
 ;; various settings gleaned from package better-defaults
 
