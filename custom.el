@@ -34,11 +34,20 @@
                          elpy-module-sane-defaults))
  '(enh-ruby-add-encoding-comment-on-save t)
  '(fill-column 120)
+ '(flycheck-markdown-markdownlint-cli-config
+   '(".markdownlint.json" ".markdownlint.jsonc" ".markdownlint.yaml" ".markdownlint"))
  '(flycheck-rubocop-lint-only t)
  '(global-highlight-parentheses-mode t)
  '(global-prettify-symbols-mode t)
  '(global-tree-sitter-mode t)
  '(highlight-parentheses-colors '("firebrick1" "dark blue" "green4" "DeepSkyBlue2"))
+ '(ido-big-directories '("node_modules" "\\.?venv"))
+ '(ido-cannot-complete-command 'ido-completion-help)
+ '(ido-enable-flex-matching nil)
+ '(ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
+ '(ido-use-filename-at-point nil)
+ '(ido-use-url-at-point t)
+ '(ido-use-virtual-buffers 'auto)
  '(indent-tabs-mode nil)
  '(initial-buffer-choice t)
  '(js-chain-indent t)
@@ -49,17 +58,18 @@
  '(kill-ring-max 256)
  '(kill-whole-line nil)
  '(lsp-javascript-format-enable nil)
+ '(lsp-rubocop-use-bundler t)
+ '(lsp-ruby-lsp-use-bundler t)
  '(lsp-typescript-format-enable nil)
  '(lsp-typescript-tsserver-trace "messages")
  '(major-mode-remap-alist
    '((css-mode . css-ts-mode) (js-json-mode . json-ts-mode) (go-mode . go-ts-mode) (c-mode . c-ts-mode)
      (c++-mode . c++-ts-mode) (rust . rust-ts-mode) (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)
      (ruby-mode . ruby-ts-mode)))
- '(markdown-code-lang-modes
-   '(("ocaml" . tuareg-mode) ("elisp" . emacs-lisp-mode) ("ditaa" . artist-mode) ("asymptote" . asy-mode)
-     ("dot" . fundamental-mode) ("sqlite" . sql-mode) ("calc" . fundamental-mode) ("C" . c-mode) ("cpp" . c++-mode)
-     ("C++" . c++-mode) ("screen" . shell-script-mode) ("shell" . sh-mode) ("bash" . sh-mode) ("sh" . sh-mode)))
- '(markdown-command "/Users/adrianflanagan/bin/markdown2")
+ '(markdown-asymmetric-header t)
+ '(markdown-enable-highlighting-syntax t)
+ '(markdown-hide-urls t)
+ '(markdown-special-ctrl-a/e t)
  '(mode-require-final-newline 'visit-save)
  '(org-agenda-files
    '("~/org/org-todo.org" "~/org/projects/Springbok/todo.org" "~/org/mobelux/todo.org" "~/org/personal/todo-weekly.org"
@@ -72,7 +82,15 @@
  '(package-archives
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(all-the-icons bbdb casual-info coffee-mode company-terraform company-web csv-mode dashboard-hackernews devdocs
+                   dockerfile-mode dogears easysession eldoc-box elisp-autofmt elpy emacsql emacsql-pg emmet-mode
+                   erblint fira-code-mode flycheck form-feed-st graphql-doc graphql-ts-mode highlight-parentheses ivy
+                   lsp-origami lsp-sourcekit lsp-ui magit-todos minitest ng2-mode nodejs-repl org-beautify-theme
+                   org-chef org-contacts org-elisp-help org-mac-link org-node org-recur org-shoplist
+                   org-special-block-extras org-superstar osx-lib ox-gfm page-break-lines poly-erb prettier pyenv-mode
+                   reaper robe smart-mode-line-powerline-theme sql-indent swift-ts-mode terraform-doc tree-sitter
+                   treemacs-magit treemacs-projectile web-mode weyland-yutani-theme whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$"
@@ -80,11 +98,13 @@
      "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path '("~/Devel" "~/org"))
+ '(reaper-account-id "323803")
  '(reddigg-subs '(emacs rust))
  '(ruby-flymake-use-rubocop-if-available t)
  '(safe-local-variable-directories '("~/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((pyenv-workon . myogram) (hcl-indent-level . 2)
+   '((web-mode-indent-style . 2) (web-mode-block-padding . 2) (web-mode-script-padding . 2) (web-mode-style-padding . 2)
+     (pyenv-workon . myogram) (hcl-indent-level . 2)
      (lsp-typescript-sdk . "/Users/adrianflanagan/Devel/mobelux/MMS/gatsby-source-mms/node_modules/typescript/bin")
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "CLIENT" "|" "DONE" "CANCELED")))
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD" "NEEDS INPUT" "|" "DONE" "CANCELED")))
