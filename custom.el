@@ -8,7 +8,8 @@
  '(create-lockfiles nil)
  '(cua-enable-cua-keys nil)
  '(custom-safe-themes
-   '("31deed4ac5d0b65dc051a1da3611ef52411490b2b6e7c2058c13c7190f7e199b"
+   '("fc1275617f9c8d1c8351df9667d750a8e3da2658077cfdda2ca281a2ebc914e0"
+     "31deed4ac5d0b65dc051a1da3611ef52411490b2b6e7c2058c13c7190f7e199b"
      "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d"
      "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223"
      "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa"
@@ -83,7 +84,7 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(all-the-icons bbdb casual-info coffee-mode company-terraform company-web csv-mode dashboard-hackernews devdocs
+   '(all-the-icons bbdb casual-info chatu coffee-mode company-terraform company-web csv-mode dashboard-hackernews devdocs
                    dockerfile-mode dogears easysession eldoc-box elisp-autofmt elpy emacsql emacsql-pg emmet-mode
                    erblint fira-code-mode flycheck form-feed-st graphql-doc graphql-ts-mode highlight-parentheses ivy
                    lsp-origami lsp-sourcekit lsp-ui magit-todos minitest ng2-mode nodejs-repl org-beautify-theme
