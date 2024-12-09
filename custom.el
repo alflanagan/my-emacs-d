@@ -33,8 +33,24 @@
    '(elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-folding elpy-module-pyvenv
                          elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django
                          elpy-module-sane-defaults))
- '(enh-ruby-add-encoding-comment-on-save t)
  '(fill-column 120)
+ '(flycheck-checkers
+   '(ada-gnat asciidoctor asciidoc awk-gawk bazel-build-buildifier bazel-module-buildifier bazel-starlark-buildifier
+              bazel-workspace-buildifier c/c++-clang c/c++-gcc c/c++-cppcheck cfengine coffee coffee-coffeelint
+              css-csslint css-stylelint cuda-nvcc cwl d-dmd dockerfile-hadolint elixir-credo emacs-lisp
+              emacs-lisp-checkdoc ember-template erlang-rebar3 erlang eruby-erubis eruby-ruumba fortran-gfortran
+              go-gofmt go-vet go-build go-test go-errcheck go-unconvert go-staticcheck groovy haml haml-lint handlebars
+              haskell-stack-ghc haskell-ghc haskell-hlint html-tidy javascript-eslint javascript-jshint
+              javascript-standard json-jsonlint json-python-json json-jq jsonnet less less-stylelint llvm-llc
+              lua-luacheck lua markdown-markdownlint-cli markdown-mdl markdown-pymarkdown nix nix-linter opam perl
+              perl-perlcritic php php-phpmd php-phpcs php-phpcs-changed processing proselint protobuf-protoc
+              protobuf-prototool pug puppet-parser puppet-lint python-flake8 python-ruff python-pylint python-pycompile
+              python-pyright python-mypy r-lintr racket rpm-rpmlint rst-sphinx rst ruby-rubocop ruby-chef-cookstyle
+              ruby-standard ruby-reek ruby ruby-jruby rust-cargo rust rust-clippy scala scala-scalastyle scheme-chicken
+              scss-lint sass-stylelint scss-stylelint sass/scss-sass-lint sass scss sh-bash sh-posix-dash sh-posix-bash
+              sh-zsh sh-shellcheck slim slim-lint sql-sqlint statix systemd-analyze tcl-nagelfar terraform
+              terraform-tflint tex-chktex tex-lacheck texinfo textlint typescript-tslint verilog-verilator vhdl-ghdl
+              xml-xmlstarlet xml-xmllint yaml-yamllint yaml-actionlint yaml-jsyaml yaml-ruby))
  '(flycheck-markdown-markdownlint-cli-config
    '(".markdownlint.json" ".markdownlint.jsonc" ".markdownlint.yaml" ".markdownlint"))
  '(flycheck-rubocop-lint-only t)
@@ -84,14 +100,14 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(all-the-icons bbdb casual-info chatu coffee-mode company-terraform company-web csv-mode dashboard-hackernews devdocs
-                   dockerfile-mode dogears easysession eldoc-box elisp-autofmt elpy emacsql emacsql-pg emmet-mode
-                   erblint fira-code-mode flycheck form-feed-st graphql-doc graphql-ts-mode highlight-parentheses ivy
-                   lsp-origami lsp-sourcekit lsp-ui magit-todos minitest ng2-mode nodejs-repl org-beautify-theme
-                   org-chef org-contacts org-elisp-help org-mac-link org-node org-recur org-shoplist
-                   org-special-block-extras org-superstar osx-lib ox-gfm page-break-lines poly-erb prettier pyenv-mode
-                   reaper robe smart-mode-line-powerline-theme sql-indent swift-ts-mode terraform-doc tree-sitter
-                   treemacs-magit treemacs-projectile web-mode weyland-yutani-theme whitespace-cleanup-mode xkcd))
+   '(all-the-icons bbdb casual-info chatu company-terraform company-web csv-mode dashboard-hackernews devdocs
+                   dockerfile-mode dogears easysession eldoc-box elisp-autofmt elisp-lint elpy emacsql emacsql-pg
+                   emmet-mode fira-code-mode flycheck highlight-parentheses ivy lsp-origami lsp-sourcekit lsp-ui
+                   magit-todos nice-org-html nodejs-repl nushell-ts-mode org-beautify-theme org-chef org-contacts
+                   org-elisp-help org-mac-link org-node org-recur org-special-block-extras org-superstar osx-lib ox-gfm
+                   page-break-lines prettier pyenv-mode reaper smart-mode-line-powerline-theme sql-indent swift-mode
+                   swift-ts-mode terraform-doc tree-sitter treemacs-magit treemacs-projectile web-mode
+                   weyland-yutani-theme whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$"
@@ -99,13 +115,12 @@
      "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
  '(projectile-mode t nil (projectile))
  '(projectile-project-search-path '("~/Devel" "~/org"))
- '(reaper-account-id "323803")
  '(reddigg-subs '(emacs rust))
  '(ruby-flymake-use-rubocop-if-available t)
  '(safe-local-variable-directories '("~/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((web-mode-indent-style . 2) (web-mode-block-padding . 2) (web-mode-script-padding . 2) (web-mode-style-padding . 2)
-     (pyenv-workon . myogram) (hcl-indent-level . 2)
+   '((elisp-lint-ignored-validators 'package-lint) (web-mode-indent-style . 2) (web-mode-block-padding . 2)
+     (web-mode-script-padding . 2) (web-mode-style-padding . 2) (pyenv-workon . myogram) (hcl-indent-level . 2)
      (lsp-typescript-sdk . "/Users/adrianflanagan/Devel/mobelux/MMS/gatsby-source-mms/node_modules/typescript/bin")
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "CLIENT" "|" "DONE" "CANCELED")))
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD" "NEEDS INPUT" "|" "DONE" "CANCELED")))
