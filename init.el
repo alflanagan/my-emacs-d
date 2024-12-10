@@ -32,16 +32,20 @@
 
 ;; contents of .config/emacs/init.el:  (load "~/.config/emacs/my_emacs/init")
 
-;; custom lisp directory
-(let ((default-directory (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp"))))
+(defun add-subdirs-to-load-path (parent-directory)
+  "Add PARENT-DIRECTORY and its immediate child directories to `load-path'."
+  (let ((default-directory parent-directory))
   (add-to-list 'load-path default-directory)
-  (normal-top-level-add-subdirs-to-load-path))
+  (normal-top-level-add-subdirs-to-load-path)))
+
+;; (add-subdirs-to-load-path "/opt/homebrew/share/emacs/site-lisp")
+(add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
+;; (add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "elpa")))
 
 ;; this needs to go first so it can affect rest of the file. It also needs some setup?
 ;; see my_emacs/lisp/no-littering/migrate.org
 ;; (require 'no-littering)
 
-(require 'alf-alists (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp/alists")))
 (require 'secrets)
 
 ;; various settings gleaned from package better-defaults
@@ -98,7 +102,6 @@
  selection-coding-system
  'utf-8)
 
-
 (load custom-file)
 
 ;; Fix directories
@@ -125,9 +128,18 @@
         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
         ("melpa" . "https://melpa.org/packages/")))
 
+;;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package)
+
 ;; set up use-package
 ;; so I don't have to specify :ensure t on every call
-(require 'use-package-ensure)
+  (require 'use-package-ensure))
+
 (setq use-package-always-ensure t)
 
 (package-initialize)
@@ -158,7 +170,13 @@
   ("B" . bookmark-set))
  :hook ((Info-mode . hl-line-mode) (Info-mode . scroll-lock-mode)))
 
-(use-package coffee-mode :defer t)
+(use-package chatu
+  :hook ((org-mode markdown-mode) . chatu-mode)
+  :commands (chatu-add
+             chatu-open)
+  :custom ((chatu-input-dir (concat (expand-file-name user-emacs-directory) "./draws"))
+           (chatu-output-dir (concat (expand-file-name user-emacs-directory) "./draws_out"))))
+
 ;; don't load company until a source file has loaded (check: startup load of org file doesn't load it)
 (use-package company :hook prog-mode)
 
@@ -205,6 +223,7 @@
 
 (use-package devdocs :defer t)
 (use-package dockerfile-mode :defer t)
+;; dogears is nice, but I'm not using it much
 (use-package
  dogears
  :config (dogears-mode 1)
@@ -228,11 +247,12 @@
  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
  :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
  :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
+(use-package elisp-lint :defer t)
+
 (use-package elpy :defer t :init (advice-add 'python-mode :before 'elpy-enable))
 (use-package emacsql :defer t)
 (use-package emacsql-pg :defer t :after 'emacsql)
 (use-package emmet-mode :hook html-mode)
-(use-package erblint)
 
 ;; also check out package 'ligature'
 (use-package
@@ -243,13 +263,8 @@
 
 ;; Flycheck
 (use-package flycheck :hook ((after-init . global-flycheck-mode)) :pin "nongnu")
-(use-package form-feed-st :hook (emacs-lisp-mode lisp-data-mode))
-
-(use-package graphql-doc :defer t)
-(use-package graphql-ts-mode :defer t)
 
 (use-package highlight-parentheses)
-(use-package inf-ruby :defer t)
 (use-package ivy :config (ivy-mode 1))
 
 (use-package
@@ -259,15 +274,6 @@
  ;; it's preferable, I think, to set lsp-mode in each mode's use-package, but some don't have one
  :hook (ruby-base-mode python-ts-mode))
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
-
-; why is this not registering with lsp??
-(use-package
- lsp-sourcekit
- :after lsp-mode
- :config
- ;; TODO: we need to figure out how to set this up on non-Mac machines
- (setq lsp-sourcekit-executable (string-trim (shell-command-to-string "xcrun --find sourcekit-lsp"))))
-;;  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
 
 ;; "unavailable" ???
 ;; (use-package lsp-treemacs: :after lsp-mode)
@@ -285,11 +291,10 @@
  (markdown-code-lang-modes
   '(("ocaml" . tuareg-mode) ("elisp" . emacs-lisp-mode) ("ditaa" . artist-mode) ("asymptote" . asy-mode)
     ("dot" . fundamental-mode) ("sqlite" . sql-mode) ("calc" . fundamental-mode) ("C" . c-mode) ("cpp" . c++-mode)
-    ("C++" . c++-mode) ("screen" . shell-script-mode) ("shell" . sh-mode) ("bash" . sh-mode) ("sh" . sh-mode)))
+    ("C++" . c++-mode) ("screen" . shell-script-mode) ("shell" . sh-mode) ("bash" . sh-mode) ("sh" . sh-ode)))
  (markdown-command "/Users/adrianflanagan/bin/markdown2"))
-(use-package minitest :hook ruby-base-mode)
-(use-package ng2-mode :defer t)
 (use-package nodejs-repl)
+(use-package nushell-ts-mode :defer t)
 
 
 ;; org-mode packages
@@ -341,12 +346,12 @@
   :map org-recur-agenda-mode-map ("d" . org-recur-finish) ("C-c d" . org-recur-finish))
  :custom (org-recur-finish-done t) (org-recur-finish-archive t))
 
-(use-package org-shoplist :defer t)
 (use-package org-superstar :defer t)
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
 (use-package org-special-block-extras :defer t)
 
 (use-package ox-gfm :defer t :after org)
+(use-package nice-org-html :defer t)
 
 
 (use-package
@@ -355,16 +360,13 @@
  ;; don't want global origami mode -- it activates in org buffers, etc. where it shouldn't
  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
-(use-package page-break-lines)
-(use-package poly-erb :defer t)
+(use-package page-break-lines :hook (emacs-lisp-mode))
 
-(use-package prettier :hook (html-mode ng2-html-mode))
+(use-package prettier :hook (html-mode))
 
 (use-package pyenv-mode :defer t)
 
 (use-package reaper :ensure t :bind ("C-c h" . reaper))
-
-(use-package robe :defer t)
 
 ;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
@@ -385,7 +387,6 @@
 (use-package smart-mode-line-powerline-theme :config (sml/apply-theme 'light-powerline))
 (use-package sql-indent :defer t)
 
-(use-package swift-ts-mode :mode ("\\.swift\\'" . swift-ts-mode) :hook (swift-ts-mode . (lambda () (lsp))))
 (use-package terraform-doc :defer t)
 (use-package terraform-mode :defer t)
 
@@ -444,7 +445,7 @@
     ;; Only install `grammar' if we don't already have it
     ;; installed. However, if you want to *update* a grammar then
     ;; this obviously prevents that from happening.
-    (unless (treesit-language-available-p (car grammar))
+    (unLess (treesit-language-available-p (car grammar))
       (treesit-install-language-grammar (car grammar)))))
 
 (use-package
@@ -463,7 +464,6 @@
   ("\\.tpl\\'" . web-mode)
   ("\\.[agj]sp\\'" . web-mode)
   ("\\.as[cp]x\\'" . web-mode)
-  ("\\.erb\\'" . web-mode)
   ("\\.mustache\\'" . web-mode)
   ("\\.djhtml\\'" . web-mode))
  :custom (web-mode-enable-comment-interpolation t) (web-mode-enable-engine-detection t)
@@ -474,6 +474,50 @@
 
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 (use-package xkcd :defer t)
+
+;;; Swift
+
+(defun find-sourcekit-lsp ()
+  "Locate sourcekit-lsp on this file system."
+  (or (executable-find "sourcekit-lsp")
+      (and (eq system-type 'darwin)
+           (string-trim (shell-command-to-string "xcrun -f sourcekit-lsp")))
+      "/usr/local/swift/usr/bin/sourcekit-lsp"))
+
+;;; Packages we want installed for Swift development
+
+;; Swift editing support
+(use-package swift-mode
+    :ensure t
+    :mode "\\.swift\\'"
+    :interpreter "swift"
+    :config (lsp-mode))
+
+;; there's a swift-ts-mode, it's not included in https://www.swift.org/documentation/articles/zero-to-swift-emacs.html
+;; (use-package swift-ts-mode :mode ("\\.swift\\'" . swift-ts-mode) :hook (swift-ts-mode . (lambda () (lsp))))
+
+;; Rainbow delimiters makes nested delimiters easier to understand
+;; (use-package rainbow-delimiters
+;;     :ensure t
+;;     :hook ((prog-mode . rainbow-delimiters-mode)))
+
+;; Used to interface with swift-lsp.
+(use-package lsp-mode
+    :ensure t
+    :commands lsp
+    :hook ((swift-mode . lsp))) ;; (sh-mode . lsp)
+
+;; lsp-mode's UI modules
+(use-package lsp-ui
+    :ensure t)
+
+;; sourcekit-lsp support
+(use-package lsp-sourcekit
+    :ensure t
+    :after lsp-mode
+    :custom
+    (lsp-sourcekit-executable (find-sourcekit-lsp) "Find sourcekit-lsp"))
+
 
 
 ;;; Everything Else
@@ -492,6 +536,8 @@
 ;; why is this not working for .yml files?
 (push '("\\.ya?ml\\'" . yaml-ts-mode) auto-mode-alist)
 (push '("\\.yml\\'" . yaml-ts-mode) auto-mode-alist)
+(push '("\\.\\([za]sh|bash\\)\\'" . bash-ts-mode) auto-mode-alist)
+;; ("/\\(?:Pipfile\\|\\.?flake8\\)\\'" . conf-mode)
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
 ;; and this doesn't seem to work either.
@@ -547,7 +593,6 @@
                     (shell-quote-argument buffer-file-name))))))
 
 ;;; buffer(s) opened on startup
-
 (find-file (expand-file-name "~/org/personal/todo-main.org"))
 
 
