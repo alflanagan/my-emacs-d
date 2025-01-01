@@ -237,7 +237,7 @@
   ("M-g M-D" . dogears-sidebar)
   ("M-g M-r" . dogears-remember)))
 (use-package editorconfig :config (editorconfig-mode 1))
-(use-package eldoc :defer t :hook (typescript-ts-mode python-ts-mode))
+(use-package eldoc :defer t) ;; :hook (typescript-ts-mode python-ts-mode))
 
 (use-package easysession :defer t)
 (use-package eldoc-box :defer t :after eldoc)
@@ -267,6 +267,9 @@
 (use-package highlight-parentheses)
 (use-package ivy :config (ivy-mode 1))
 
+;; lsp-mode enables integration with language server protocol
+;; TODO: investigate how this interacts w/tree-sitter; I think some tree-sitter libraries also
+;; use lsp
 (use-package
  lsp-mode
  :defer t
@@ -418,11 +421,18 @@
 (treemacs-start-on-boot)
 
 (use-package tree-sitter :defer t)
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 (defun mp-setup-install-grammars ()
   "Install Tree-sitter grammars if they are absent."
   (interactive)
   ;; it's not clear there's much advantage to specifying the version here
+  ;; TODO check versions and offer to upgrade. will need custom var w/last updated
   (dolist (grammar
            '((bash "https://github.com/tree-sitter/tree-sitter-bash")
              (cmake "https://github.com/uyha/tree-sitter-cmake")
@@ -445,8 +455,10 @@
     ;; Only install `grammar' if we don't already have it
     ;; installed. However, if you want to *update* a grammar then
     ;; this obviously prevents that from happening.
-    (unLess (treesit-language-available-p (car grammar))
+    (unless (treesit-language-available-p (car grammar))
       (treesit-install-language-grammar (car grammar)))))
+
+(mp-setup-install-grammars)
 
 (use-package
  typescript-ts-mode
