@@ -166,6 +166,7 @@
   ("B" . bookmark-set))
  :hook ((Info-mode . hl-line-mode) (Info-mode . scroll-lock-mode)))
 
+(use-package chatgpt-shell)
 (use-package chatu
   :hook ((org-mode markdown-mode) . chatu-mode)
   :commands (chatu-add
