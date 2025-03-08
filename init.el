@@ -63,15 +63,19 @@
 (keymap-set global-map "C-M-r" 'isearch-backward)
 
 (setq-default indent-tabs-mode nil)
+
 (setopt
  apropos-do-all
  t
  backup-directory-alist
  `(("." . ,(concat user-emacs-directory "backups")))
+ ;; displays current column in mode line
  column-number-mode
  t
+ ;; moves file used by customize to my config subdir
  custom-file
  (concat user-emacs-directory "my_emacs/custom.el")
+ ;; set initial window size, and enable scroll bars
  default-frame-alist
  '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)) ;; see also early-init.el
  mouse-yank-at-point
@@ -80,10 +84,12 @@
  t
  save-place-file
  (concat user-emacs-directory "places")
+ ;; integrate emacs with system clipboard
  select-enable-clipboard
  t
  select-enable-primary
  t
+ ;; don't automatically double space after sentence end -- obsolete style
  sentence-end-double-space
  nil
  uniquify-buffer-name-style
@@ -127,8 +133,8 @@
 (eval-when-compile
   (require 'use-package)
 
-;; set up use-package
-;; so I don't have to specify :ensure t on every call
+  ;; set up use-package
+  ;; so I don't have to specify :ensure t on every call
   (require 'use-package-ensure))
 
 (setq use-package-always-ensure t)
@@ -141,7 +147,6 @@
 ;; KEEP THIS SORTED!
 
 (use-package all-the-icons :if (display-graphic-p))
-(use-package bbdb :defer t)
 (use-package
  casual-info
  :defer t
