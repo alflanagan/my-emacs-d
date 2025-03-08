@@ -42,10 +42,6 @@
 (add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
 ;; (add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "elpa")))
 
-;; this needs to go first so it can affect rest of the file. It also needs some setup?
-;; see my_emacs/lisp/no-littering/migrate.org
-;; (require 'no-littering)
-
 (require 'secrets)
 
 ;; various settings gleaned from package better-defaults
