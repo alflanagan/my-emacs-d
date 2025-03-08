@@ -482,7 +482,6 @@
  ; this assumes we're always using django
  (web-mode-engines-alist '(("django" . "\\.html\\'"))))
 
-(use-package weyland-yutani-theme :defer t)
 
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 (use-package xkcd :defer t)
