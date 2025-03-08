@@ -49,11 +49,6 @@
 (ido-mode t)
 (setopt ido-enable-flex-matching t)
 
-;; these modes are discouraged because they use mouse -- keep hands on the keyboard!
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
 (require 'uniquify)
 
 (save-place-mode t)
