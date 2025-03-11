@@ -366,8 +366,6 @@
 
 (use-package pyenv-mode :defer t)
 
-(use-package reaper :ensure t :bind ("C-c h" . reaper))
-
 ;; attempt to set up equivalent keys on Mac and my PC.
 (if (equal system-type 'darwin)
     (progn
