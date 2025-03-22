@@ -496,8 +496,7 @@
 (use-package swift-mode
     :ensure t
     :mode "\\.swift\\'"
-    :interpreter "swift"
-    :config (lsp-mode))
+    :interpreter "swift")
 
 ;; there's a swift-ts-mode, it's not included in https://www.swift.org/documentation/articles/zero-to-swift-emacs.html
 ;; (use-package swift-ts-mode :mode ("\\.swift\\'" . swift-ts-mode) :hook (swift-ts-mode . (lambda () (lsp))))
