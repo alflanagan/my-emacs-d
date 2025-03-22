@@ -5,10 +5,15 @@
  ;; If there is more than one, they won't work right.
  '(casual-info-use-unicode-symbols t)
  '(casual-lib-use-unicode t)
+ '(completion-auto-select t)
  '(create-lockfiles nil)
  '(cua-enable-cua-keys nil)
+ '(custom-enabled-themes '(smart-mode-line-dark wombat))
  '(custom-safe-themes
-   '("fc1275617f9c8d1c8351df9667d750a8e3da2658077cfdda2ca281a2ebc914e0"
+   '("36d4b9573ed57b3c53261cb517eef2353058b7cf95b957f691f5ad066933ae84"
+     "17e0f989a947f8026eb7044c07c11a36c6c901ee370dd8ce58a1e08544c5cf9f"
+     "9b21c848d09ba7df8af217438797336ac99cbbbc87a08dc879e9291673a6a631"
+     "fc1275617f9c8d1c8351df9667d750a8e3da2658077cfdda2ca281a2ebc914e0"
      "31deed4ac5d0b65dc051a1da3611ef52411490b2b6e7c2058c13c7190f7e199b"
      "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d"
      "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223"
@@ -57,7 +62,7 @@
  '(global-highlight-parentheses-mode t)
  '(global-prettify-symbols-mode t)
  '(global-tree-sitter-mode t)
- '(highlight-parentheses-colors '("firebrick1" "dark blue" "green4" "DeepSkyBlue2"))
+ '(highlight-parentheses-colors '("#7ec98f" "#e5c06d" "#a4b5e6" "#834c98" "#8ac6f2"))
  '(ido-big-directories '("node_modules" "\\.?venv"))
  '(ido-cannot-complete-command 'ido-completion-help)
  '(ido-enable-flex-matching nil)
@@ -89,10 +94,19 @@
  '(markdown-special-ctrl-a/e t)
  '(mode-require-final-newline 'visit-save)
  '(org-agenda-files
-   '("~/org/org-todo.org" "~/org/projects/Springbok/todo.org" "~/org/mobelux/todo.org" "~/org/personal/todo-weekly.org"
-     "~/org/personal/appointments.org" "~/org/projects/VentureRichmond/todo.org" "~/org/projects/Montpelier/todo.org"
-     "~/org/projects/Livio/sdl-web/todo.org" "~/org/personal/todo-house.org" "~/org/personal/todo-emacs.org"
-     "~/org/personal/todo-daily.org" "~/org/personal/todo-main.org"))
+   '("/Users/adrianflanagan/org/personal/job_search/search_log.org" "/Users/adrianflanagan/org/index.org"
+     "/Users/adrianflanagan/org/elisp.org" "/Users/adrianflanagan/org/emacs_tips.org"
+     "/Users/adrianflanagan/org/org-todo.org" "/Users/adrianflanagan/org/quotes.org"
+     "/Users/adrianflanagan/org/personal/appointments.org" "/Users/adrianflanagan/org/personal/archery.org"
+     "/Users/adrianflanagan/org/personal/contacts.org" "/Users/adrianflanagan/org/personal/how_to_report_bugs.org"
+     "/Users/adrianflanagan/org/personal/rules_of_thumb.org" "/Users/adrianflanagan/org/personal/todo-daily.org"
+     "/Users/adrianflanagan/org/personal/todo-emacs.org" "/Users/adrianflanagan/org/personal/todo-house.org"
+     "/Users/adrianflanagan/org/personal/todo-main.org" "/Users/adrianflanagan/org/personal/todo-periodic.org"
+     "/Users/adrianflanagan/org/personal/todo-weekly.org"
+     "/Users/adrianflanagan/org/personal/job_search/LinkedIn_Connections.org"
+     "/Users/adrianflanagan/org/personal/job_search/online-sites.org"
+     "/Users/adrianflanagan/org/personal/job_search/todo-jobs.org"
+     "/Users/adrianflanagan/org/personal/job_search/unemp_ins.org"))
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-w3m org-mac-iCal))
  '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "ON HOLD" "DONE(!)")))
@@ -100,14 +114,15 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(all-the-icons bbdb casual-info chatu company-terraform company-web csv-mode dashboard-hackernews devdocs
-                   dockerfile-mode dogears easysession eldoc-box elisp-autofmt elisp-lint elpy emacsql emacsql-pg
-                   emmet-mode fira-code-mode flycheck highlight-parentheses ivy lsp-origami lsp-sourcekit lsp-ui
+   '(all-the-icons casual-info chatgpt-shell chatu company-terraform company-web copilot csv-mode cyberpunk-theme
+                   dashboard-hackernews devdocs djangonaut dockerfile-mode dogears easysession eldoc-box elisp-autofmt
+                   elisp-lint elpy emacsql-pg emmet-mode fira-code-mode flycheck haki-theme highlight-parentheses
+                   iceberg-theme ivy jetbrains-darcula-theme kaolin-themes leuven-theme lsp-origami lsp-sourcekit lsp-ui
                    magit-todos nice-org-html nodejs-repl nushell-ts-mode org-beautify-theme org-chef org-contacts
-                   org-elisp-help org-mac-link org-node org-recur org-special-block-extras org-superstar osx-lib ox-gfm
-                   page-break-lines prettier pyenv-mode reaper smart-mode-line-powerline-theme sql-indent swift-mode
-                   swift-ts-mode terraform-doc tree-sitter treemacs-magit treemacs-projectile web-mode
-                   weyland-yutani-theme whitespace-cleanup-mode xkcd))
+                   org-elisp-help org-gnosis org-mac-link org-node org-recur org-special-block-extras org-superstar
+                   osx-lib ox-gfm page-break-lines prettier pyenv-mode smart-mode-line-powerline-theme spider-man-theme
+                   sql-indent swift-mode swift-ts-mode terraform-doc tree-sitter treemacs-magit treemacs-projectile
+                   treesit-auto unspecified-theme uv-mode web-mode whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$"
@@ -117,7 +132,8 @@
  '(projectile-project-search-path '("~/Devel" "~/org"))
  '(reddigg-subs '(emacs rust))
  '(ruby-flymake-use-rubocop-if-available t)
- '(safe-local-variable-directories '("~/org/projects/Springbok/"))
+ '(safe-local-variable-directories
+   '("/Users/adrianflanagan/Devel/personal/people/" "~/org/projects/Springbok/"))
  '(safe-local-variable-values
    '((elisp-lint-ignored-validators 'package-lint) (web-mode-indent-style . 2) (web-mode-block-padding . 2)
      (web-mode-script-padding . 2) (web-mode-style-padding . 2) (pyenv-workon . myogram) (hcl-indent-level . 2)
@@ -131,6 +147,7 @@
  '(show-trailing-whitespace nil)
  '(sml/theme 'dark)
  '(sql-product 'postgres)
+ '(tab-always-indent 'complete)
  '(track-eol t)
  '(tree-sitter-major-mode-language-alist
    '((actionscript-mode . actionscript) (ada-mode . ada) (agda-mode . agda) (agda2-mode . agda) (arduino-mode . arduino)
@@ -158,6 +175,10 @@
      (toml-mode . toml) (conf-toml-mode . toml) (tcl-mode . tcl) (tuareg-mode . ocaml) (twig-mode . twig)
      (tsx-ts-mode . tsx) (typst-mode . typst) (verilog-mode . verilog) (vhdl-mode . vhdl) (nxml-mode . xml)
      (yaml-mode . yaml) (k8s-mode . yaml) (zig-mode . zig)))
+ '(treesit-auto-langs
+   '(awk bash bibtex blueprint c c-sharp clojure cmake commonlisp cpp css dart dockerfile elixir glsl go gomod heex html
+         java javascript json julia kotlin lua make markdown nix nu org perl proto python r ruby rust scala sql surface
+         toml tsx typescript typst verilog vhdl vue wast wat wgsl yaml))
  '(typescript-enabled-frameworks '(typescript))
  '(typescript-indent-level 2)
  '(undo-limit 524288)
