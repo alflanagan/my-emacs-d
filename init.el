@@ -431,27 +431,12 @@
   (global-treesit-auto-mode))
 
 (defun mp-setup-install-grammars ()
-  "Install Tree-sitter grammars if they are absent."
+  "Install Tree-sitter grammars if they are absent and not handled by treesit-auto."
   (interactive)
-  ;; it's not clear there's much advantage to specifying the version here
-  ;; TODO check versions and offer to upgrade. will need custom var w/last updated
   (dolist (grammar
-           '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-             (cmake "https://github.com/uyha/tree-sitter-cmake")
-             (css . ("https://github.com/tree-sitter/tree-sitter-css"))
-             (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-             (go "https://github.com/tree-sitter/tree-sitter-go")
-             (html . ("https://github.com/tree-sitter/tree-sitter-html"))
-             (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
-             (json . ("https://github.com/tree-sitter/tree-sitter-json"))
-             (make "https://github.com/alemuller/tree-sitter-make")
-             (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-             (python . ("https://github.com/tree-sitter/tree-sitter-python"))
-             (rust "https://github.com/tree-sitter/tree-sitter-rust")
-             (toml "https://github.com/tree-sitter/tree-sitter-toml")
-             (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-             (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-             (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+           '((hcl "https://github.com/tree-sitter-grammars/tree-sitter-hcl")
+             (scss "https://github.com/tree-sitter-grammars/tree-sitter-scss")
+             (graphql "https://github.com/bkegley/tree-sitter-graphql")))
 
     (add-to-list 'treesit-language-source-alist grammar)
     ;; Only install `grammar' if we don't already have it
