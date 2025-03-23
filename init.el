@@ -179,6 +179,13 @@
 
 (use-package company-terraform :defer t)
 (use-package company-web :defer t)
+(use-package copilot :defer nil
+  :hook prog-mode
+  :bind (:map
+         copilot-mode-map
+         (("<tab>" .  copilot-accept-completion)
+          ("TAB" . copilot-accept-completion))))
+
 (use-package csv-mode :defer t)
 (use-package dashboard-hackernews)
 (use-package
