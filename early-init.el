@@ -7,6 +7,24 @@
 ;; also setup of options which the initial frame shoud obey
 
 ;;; Code:
+
+
+;; garbage collection settings
+;; see https://emacsredux.com/blog/2025/03/28/speed-up-emacs-startup-by-tweaking-the-gc-settings/
+;; for a good discussion
+
+;; Temporarily increase GC threshold during startup
+;; This saves about 1.8seconds on startup time
+(setq gc-cons-threshold most-positive-fixnum)
+
+;; Restore to normal value after startup
+(add-hook 'emacs-startup-hook
+    ;; 800K is emacs startup default, need to try higher settings to see if they impove performance
+    (lambda () (setq gc-cons-threshold 800000))) ;; (* 5 1024 1024))))
+
+(setopt garbage-collection-messages t) ;; show GC messages for debugging
+
+
 (if (equal system-type 'darwin)
     (progn
       (setenv
