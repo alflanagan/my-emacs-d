@@ -80,6 +80,14 @@
  '(kill-ring-max 256)
  '(kill-whole-line nil)
  '(lsp-javascript-format-enable nil)
+ '(lsp-pylsp-plugins-isort-enabled t)
+ '(lsp-pylsp-plugins-preload-modules [])
+ '(lsp-pylsp-plugins-ruff-enabled t)
+ '(lsp-pylsp-plugins-ruff-exclude [])
+ '(lsp-pylsp-plugins-ruff-extend-ignore [])
+ '(lsp-pylsp-plugins-ruff-format [])
+ '(lsp-pylsp-plugins-ruff-ignore [])
+ '(lsp-pylsp-plugins-ruff-select [])
  '(lsp-rubocop-use-bundler t)
  '(lsp-ruby-lsp-use-bundler t)
  '(lsp-typescript-format-enable nil)
@@ -117,12 +125,12 @@
    '(all-the-icons casual-info chatgpt-shell chatu company-terraform company-web copilot csv-mode cyberpunk-theme
                    dashboard-hackernews devdocs djangonaut dockerfile-mode dogears easysession eldoc-box elisp-autofmt
                    elisp-lint elpy emacsql-pg emmet-mode fira-code-mode flycheck haki-theme highlight-parentheses
-                   iceberg-theme ivy jetbrains-darcula-theme kaolin-themes leuven-theme lsp-origami lsp-sourcekit lsp-ui
-                   magit-todos nice-org-html nodejs-repl nushell-ts-mode org-beautify-theme org-chef org-contacts
-                   org-elisp-help org-gnosis org-mac-link org-node org-recur org-special-block-extras org-superstar
-                   osx-lib ox-gfm page-break-lines prettier pyenv-mode smart-mode-line-powerline-theme spider-man-theme
-                   sql-indent swift-mode swift-ts-mode terraform-doc tree-sitter treemacs-magit treemacs-projectile
-                   treesit-auto unspecified-theme uv-mode web-mode whitespace-cleanup-mode xkcd))
+                   iceberg-theme ivy jetbrains-darcula-theme kaolin-themes leuven-theme lsp-origami lsp-sourcekit
+                   lsp-treemacs lsp-ui magit-todos nice-org-html nodejs-repl nushell-ts-mode org-beautify-theme org-chef
+                   org-contacts org-elisp-help org-gnosis org-mac-link org-node org-recur org-special-block-extras
+                   org-superstar osx-lib ox-gfm page-break-lines prettier pyenv-mode smart-mode-line-powerline-theme
+                   spider-man-theme sql-indent swift-mode swift-ts-mode terraform-doc tree-sitter treemacs-magit
+                   treemacs-projectile treesit-auto unspecified-theme uv-mode web-mode whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$"

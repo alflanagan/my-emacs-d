@@ -282,8 +282,7 @@
  :hook (ruby-base-mode python-ts-mode))
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
 
-;; "unavailable" ???
-;; (use-package lsp-treemacs: :after lsp-mode)
+(use-package lsp-treemacs: :after lsp-mode)
 (use-package lsp-ui :after lsp-mode)
 
 (use-package magit :defer t)
