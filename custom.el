@@ -127,10 +127,10 @@
                    elisp-lint elpy emacsql-pg emmet-mode fira-code-mode flycheck haki-theme highlight-parentheses
                    iceberg-theme ivy jetbrains-darcula-theme kaolin-themes leuven-theme lsp-origami lsp-sourcekit
                    lsp-treemacs lsp-ui magit-todos nice-org-html nodejs-repl nushell-ts-mode org-beautify-theme org-chef
-                   org-contacts org-elisp-help org-gnosis org-mac-link org-node org-recur org-special-block-extras
-                   org-superstar osx-lib ox-gfm page-break-lines prettier pyenv-mode smart-mode-line-powerline-theme
-                   spider-man-theme sql-indent swift-mode swift-ts-mode terraform-doc tree-sitter treemacs-magit
-                   treemacs-projectile treesit-auto unspecified-theme uv-mode web-mode whitespace-cleanup-mode xkcd))
+                   org-contacts org-elisp-help org-mac-link org-node org-recur org-special-block-extras org-superstar
+                   osx-lib ox-gfm page-break-lines prettier pyenv-mode smart-mode-line-powerline-theme spider-man-theme
+                   sql-indent swift-mode swift-ts-mode terraform-doc tree-sitter treemacs-magit treemacs-projectile
+                   treesit-auto unspecified-theme uv-mode web-mode whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$"
