@@ -144,9 +144,17 @@
 
 ;;; Use Packages
 
+;; drop into error trace if use-package errors
+(when init-file-debug
+  (setq use-package-verbose t
+        use-package-expand-minimally nil
+        use-package-compute-statistics t
+        debug-on-error t))
+
 ;; KEEP THIS SORTED!
 
 (use-package all-the-icons :if (display-graphic-p))
+(use-package amx)
 (use-package
  casual-info
  :defer t
@@ -282,7 +290,7 @@
  :hook (ruby-base-mode python-ts-mode))
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
 
-(use-package lsp-treemacs: :after lsp-mode)
+(use-package lsp-treemacs :after lsp-mode)
 (use-package lsp-ui :after lsp-mode)
 
 (use-package magit :defer t)
@@ -549,7 +557,7 @@
 
 ;; doesn't use use-package -- see lisp directory
 ;; nifty interface for execute-extended-command (M-x)
-(require 'smex "smex/smex")
+;; (require 'smex "smex/smex") replaced by amx
 ;; (smex-initialize) ;; not required, might make first use faster
 
 ;; MAC-specific setup
