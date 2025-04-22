@@ -400,6 +400,11 @@
    :config (projectile-mode +1)
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
+;; Rainbow delimiters makes nested delimiters easier to understand
+(use-package rainbow-delimiters
+    :ensure t
+    :hook ((prog-mode . rainbow-delimiters-mode)))
+
 (use-package smart-mode-line :config (sml/setup))
 (use-package smart-mode-line-powerline-theme :config (sml/apply-theme 'light-powerline))
 (use-package sql-indent :defer t)
@@ -501,14 +506,6 @@
     :ensure t
     :mode "\\.swift\\'"
     :interpreter "swift")
-
-;; there's a swift-ts-mode, it's not included in https://www.swift.org/documentation/articles/zero-to-swift-emacs.html
-;; (use-package swift-ts-mode :mode ("\\.swift\\'" . swift-ts-mode) :hook (swift-ts-mode . (lambda () (lsp))))
-
-;; Rainbow delimiters makes nested delimiters easier to understand
-;; (use-package rainbow-delimiters
-;;     :ensure t
-;;     :hook ((prog-mode . rainbow-delimiters-mode)))
 
 
 ;;; Everything Else
