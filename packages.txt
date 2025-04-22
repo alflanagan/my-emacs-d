@@ -1,4 +1,5 @@
 all-the-icons
+amx
 casual-info
 chatgpt-shell
 chatu
@@ -17,17 +18,20 @@ eldoc-box
 elisp-autofmt
 elisp-lint
 elpy
+emacsql
 emacsql-pg
 emmet-mode
 fira-code-mode
 flycheck
 haki-theme
+helpful
 highlight-parentheses
 iceberg-theme
 ivy
 jetbrains-darcula-theme
 kaolin-themes
 leuven-theme
+lisp-extra-font-lock
 lsp-origami
 lsp-sourcekit
 lsp-treemacs
@@ -50,6 +54,7 @@ ox-gfm
 page-break-lines
 prettier
 pyenv-mode
+rainbow-delimiters
 smart-mode-line-powerline-theme
 spider-man-theme
 sql-indent
@@ -63,5 +68,6 @@ treesit-auto
 unspecified-theme
 uv-mode
 web-mode
+which-key
 whitespace-cleanup-mode
 xkcd
