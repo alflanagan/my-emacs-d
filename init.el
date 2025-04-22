@@ -285,15 +285,8 @@
  lsp-mode
  :defer t
  :commands lsp
- ;; it's preferable, I think, to set lsp-mode in each mode's use-package, but some don't have one
- :hook (ruby-base-mode python-ts-mode swift-mode sh-mode))
+ :hook (ruby-base-mode python-ts-mode swift-ts-mode sh-mode))
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
-;; sourcekit-lsp support (Language Server Protocol implementation for Swift and C-based languages)
-(use-package lsp-sourcekit
-    :ensure t
-    :after lsp-mode
-    :custom
-    (lsp-sourcekit-executable (find-sourcekit-lsp) "Find sourcekit-lsp"))
 
 (use-package lsp-treemacs :after lsp-mode)
 (use-package lsp-ui :after lsp-mode)
@@ -408,7 +401,28 @@
 (use-package smart-mode-line :config (sml/setup))
 (use-package smart-mode-line-powerline-theme :config (sml/apply-theme 'light-powerline))
 (use-package sql-indent :defer t)
+
+;;; Swift
 
+(defun find-sourcekit-lsp ()
+  "Locate sourcekit-lsp on this file system."
+  (or (executable-find "sourcekit-lsp")
+      (and (eq system-type 'darwin)
+           (string-trim (shell-command-to-string "xcrun -f sourcekit-lsp")))
+      "/usr/local/swift/usr/bin/sourcekit-lsp"))
+
+;;; Packages we want installed for Swift development
+;; sourcekit-lsp support (Language Server Protocol implementation for Swift and C-based languages)
+(use-package lsp-sourcekit
+    :ensure t
+    :after lsp-mode
+    :custom
+    (lsp-sourcekit-executable (find-sourcekit-lsp) "Find sourcekit-lsp"))
+
+;; Swift editing support
+(use-package swift-ts-mode :mode ("\\.swift\\'" . swift-ts-mode))
+
+
 (use-package terraform-doc :defer t)
 (use-package terraform-mode :defer t)
 
@@ -489,23 +503,6 @@
 
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 (use-package xkcd :defer t)
-
-;;; Swift
-
-(defun find-sourcekit-lsp ()
-  "Locate sourcekit-lsp on this file system."
-  (or (executable-find "sourcekit-lsp")
-      (and (eq system-type 'darwin)
-           (string-trim (shell-command-to-string "xcrun -f sourcekit-lsp")))
-      "/usr/local/swift/usr/bin/sourcekit-lsp"))
-
-;;; Packages we want installed for Swift development
-
-;; Swift editing support
-(use-package swift-mode
-    :ensure t
-    :mode "\\.swift\\'"
-    :interpreter "swift")
 
 
 ;;; Everything Else
