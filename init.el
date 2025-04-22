@@ -248,10 +248,9 @@
   ("M-g M-d" . dogears-list)
   ("M-g M-D" . dogears-sidebar)
   ("M-g M-r" . dogears-remember)))
+(use-package easysession :defer t)
 (use-package editorconfig :config (editorconfig-mode 1))
 (use-package eldoc :defer t) ;; :hook (typescript-ts-mode python-ts-mode))
-
-(use-package easysession :defer t)
 (use-package eldoc-box :defer t :after eldoc)
 (use-package
  elisp-autofmt
@@ -287,8 +286,14 @@
  :defer t
  :commands lsp
  ;; it's preferable, I think, to set lsp-mode in each mode's use-package, but some don't have one
- :hook (ruby-base-mode python-ts-mode))
+ :hook (ruby-base-mode python-ts-mode swift-mode sh-mode))
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
+;; sourcekit-lsp support (Language Server Protocol implementation for Swift and C-based languages)
+(use-package lsp-sourcekit
+    :ensure t
+    :after lsp-mode
+    :custom
+    (lsp-sourcekit-executable (find-sourcekit-lsp) "Find sourcekit-lsp"))
 
 (use-package lsp-treemacs :after lsp-mode)
 (use-package lsp-ui :after lsp-mode)
@@ -360,9 +365,9 @@
   :map org-recur-agenda-mode-map ("d" . org-recur-finish) ("C-c d" . org-recur-finish))
  :custom (org-recur-finish-done t) (org-recur-finish-archive t))
 
-(use-package org-superstar :defer t)
 ;; http://alhassy.com/org-special-block-extras/ -- define your own Org blocks
 (use-package org-special-block-extras :defer t)
+(use-package org-superstar :defer t)
 
 (use-package ox-gfm :defer t :after org)
 (use-package nice-org-html :defer t)
@@ -504,24 +509,6 @@
 ;; (use-package rainbow-delimiters
 ;;     :ensure t
 ;;     :hook ((prog-mode . rainbow-delimiters-mode)))
-
-;; Used to interface with swift-lsp.
-(use-package lsp-mode
-    :ensure t
-    :commands lsp
-    :hook ((swift-mode . lsp))) ;; (sh-mode . lsp)
-
-;; lsp-mode's UI modules
-(use-package lsp-ui
-    :ensure t)
-
-;; sourcekit-lsp support
-(use-package lsp-sourcekit
-    :ensure t
-    :after lsp-mode
-    :custom
-    (lsp-sourcekit-executable (find-sourcekit-lsp) "Find sourcekit-lsp"))
-
 
 
 ;;; Everything Else
