@@ -35,8 +35,8 @@
 (defun add-subdirs-to-load-path (parent-directory)
   "Add PARENT-DIRECTORY and its immediate child directories to `load-path'."
   (let ((default-directory parent-directory))
-  (add-to-list 'load-path default-directory)
-  (normal-top-level-add-subdirs-to-load-path)))
+    (add-to-list 'load-path default-directory)
+    (normal-top-level-add-subdirs-to-load-path)))
 
 ;; (add-subdirs-to-load-path "/opt/homebrew/share/emacs/site-lisp")
 (add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
@@ -65,39 +65,26 @@
 (setq-default indent-tabs-mode nil)
 
 (setopt
- apropos-do-all
- t
- backup-directory-alist
- `(("." . ,(concat user-emacs-directory "backups")))
+ apropos-do-all t
+ backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
  ;; displays current column in mode line
- column-number-mode
- t
+ column-number-mode t
  ;; moves file used by customize to my config subdir
- custom-file
- (concat user-emacs-directory "my_emacs/custom.el")
+ custom-file (concat user-emacs-directory "my_emacs/custom.el")
  ;; set initial window size, and enable scroll bars
  default-frame-alist
  '((horizontal-scroll-bars) (vertical-scroll-bars) (width . 180) (height . 70)) ;; see also early-init.el
- mouse-yank-at-point
- t
- save-interprogram-paste-before-kill
- t
- save-place-file
- (concat user-emacs-directory "places")
+ mouse-yank-at-point t
+ save-interprogram-paste-before-kill t
+ save-place-file (concat user-emacs-directory "places")
  ;; integrate emacs with system clipboard
- select-enable-clipboard
- t
- select-enable-primary
- t
+ select-enable-clipboard t
+ select-enable-primary t
  ;; don't automatically double space after sentence end -- obsolete style
- sentence-end-double-space
- nil
- uniquify-buffer-name-style
- 'post-forward-angle-brackets
- user-email-address
- "lloyd.flanagan@proton.me"
- selection-coding-system
- 'utf-8)
+ sentence-end-double-space nil
+ uniquify-buffer-name-style 'post-forward-angle-brackets
+ user-email-address "lloyd.flanagan@proton.me"
+ selection-coding-system 'utf-8)
 
 (load custom-file)
 
@@ -146,10 +133,11 @@
 
 ;; drop into error trace if use-package errors
 (when init-file-debug
-  (setq use-package-verbose t
-        use-package-expand-minimally nil
-        use-package-compute-statistics t
-        debug-on-error t))
+  (setq
+   use-package-verbose t
+   use-package-expand-minimally nil
+   use-package-compute-statistics t
+   debug-on-error t))
 
 ;; KEEP THIS SORTED!
 
@@ -175,24 +163,24 @@
  :hook ((Info-mode . hl-line-mode) (Info-mode . scroll-lock-mode)))
 
 (use-package chatgpt-shell)
-(use-package chatu
-  :hook ((org-mode markdown-mode) . chatu-mode)
-  :commands (chatu-add
-             chatu-open)
-  :custom ((chatu-input-dir (concat (expand-file-name user-emacs-directory) "./draws"))
-           (chatu-output-dir (concat (expand-file-name user-emacs-directory) "./draws_out"))))
+(use-package
+ chatu
+ :hook ((org-mode markdown-mode) . chatu-mode)
+ :commands (chatu-add chatu-open)
+ :custom
+ ((chatu-input-dir (concat (expand-file-name user-emacs-directory) "./draws"))
+  (chatu-output-dir (concat (expand-file-name user-emacs-directory) "./draws_out"))))
 
 ;; don't load company until a source file has loaded (check: startup load of org file doesn't load it)
 (use-package company :hook prog-mode)
 
 (use-package company-terraform :defer t)
 (use-package company-web :defer t)
-(use-package copilot :defer nil
-  :hook prog-mode
-  :bind (:map
-         copilot-mode-map
-         (("<tab>" .  copilot-accept-completion)
-          ("TAB" . copilot-accept-completion))))
+(use-package
+ copilot
+ :defer nil
+ :hook prog-mode
+ :bind (:map copilot-mode-map (("<tab>" . copilot-accept-completion) ("TAB" . copilot-accept-completion))))
 
 (use-package csv-mode :defer t)
 (use-package dashboard-hackernews)
@@ -281,11 +269,7 @@
 ;; lsp-mode enables integration with language server protocol
 ;; TODO: investigate how this interacts w/tree-sitter; I think some tree-sitter libraries also
 ;; use lsp
-(use-package
- lsp-mode
- :defer t
- :commands lsp
- :hook (ruby-base-mode python-ts-mode swift-ts-mode sh-mode))
+(use-package lsp-mode :defer t :commands lsp :hook (ruby-base-mode python-ts-mode swift-ts-mode sh-mode))
 (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
 
 (use-package lsp-treemacs :after lsp-mode)
@@ -394,9 +378,7 @@
    :bind (:map projectile-mode-map ("M-p" . projectile-command-map))))
 
 ;; Rainbow delimiters makes nested delimiters easier to understand
-(use-package rainbow-delimiters
-    :ensure t
-    :hook ((prog-mode . rainbow-delimiters-mode)))
+(use-package rainbow-delimiters :ensure t :hook ((prog-mode . rainbow-delimiters-mode)))
 
 (use-package smart-mode-line :config (sml/setup))
 (use-package smart-mode-line-powerline-theme :config (sml/apply-theme 'light-powerline))
@@ -407,17 +389,16 @@
 (defun find-sourcekit-lsp ()
   "Locate sourcekit-lsp on this file system."
   (or (executable-find "sourcekit-lsp")
-      (and (eq system-type 'darwin)
-           (string-trim (shell-command-to-string "xcrun -f sourcekit-lsp")))
+      (and (eq system-type 'darwin) (string-trim (shell-command-to-string "xcrun -f sourcekit-lsp")))
       "/usr/local/swift/usr/bin/sourcekit-lsp"))
 
 ;;; Packages we want installed for Swift development
 ;; sourcekit-lsp support (Language Server Protocol implementation for Swift and C-based languages)
-(use-package lsp-sourcekit
-    :ensure t
-    :after lsp-mode
-    :custom
-    (lsp-sourcekit-executable (find-sourcekit-lsp) "Find sourcekit-lsp"))
+(use-package
+ lsp-sourcekit
+ :ensure t
+ :after lsp-mode
+ :custom (lsp-sourcekit-executable (find-sourcekit-lsp) "Find sourcekit-lsp"))
 
 ;; Swift editing support
 (use-package swift-ts-mode :mode ("\\.swift\\'" . swift-ts-mode))
@@ -454,12 +435,12 @@
 (treemacs-start-on-boot)
 
 (use-package tree-sitter :defer t)
-(use-package treesit-auto
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+(use-package
+ treesit-auto
+ :custom (treesit-auto-install 'prompt)
+ :config
+ (treesit-auto-add-to-auto-mode-alist 'all)
+ (global-treesit-auto-mode))
 
 (defun mp-setup-install-grammars ()
   "Install Tree-sitter grammars if they are absent and not handled by treesit-auto."
