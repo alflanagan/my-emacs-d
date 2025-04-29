@@ -128,11 +128,11 @@
                    dashboard-hackernews devdocs djangonaut dockerfile-mode dogears easysession eldoc-box elisp-autofmt
                    elisp-lint elpy emacsql emacsql-pg emmet-mode fira-code-mode flycheck haki-theme helpful
                    highlight-parentheses iceberg-theme ivy jetbrains-darcula-theme kaolin-themes leuven-theme
-                   lisp-extra-font-lock lsp-origami lsp-sourcekit lsp-treemacs lsp-ui magit-todos ng2-mode nice-org-html
-                   nodejs-repl nushell-ts-mode org-beautify-theme org-chef org-contacts org-elisp-help org-mac-link
-                   org-node org-recur org-special-block-extras org-superstar osx-lib ox-gfm page-break-lines prettier
-                   pyenv-mode rainbow-delimiters smart-mode-line-powerline-theme spider-man-theme sql-indent swift-mode
-                   swift-ts-mode terraform-doc tree-sitter treemacs-magit treemacs-projectile treesit-auto
+                   lisp-extra-font-lock lsp-sourcekit lsp-treemacs lsp-ui magit-todos ng2-mode nice-org-html nodejs-repl
+                   nushell-ts-mode org-beautify-theme org-chef org-contacts org-elisp-help org-mac-link org-node
+                   org-recur org-special-block-extras org-superstar osx-lib ox-gfm page-break-lines prettier pyenv-mode
+                   rainbow-delimiters smart-mode-line-powerline-theme spider-man-theme sql-indent swift-ts-mode
+                   terraform-doc tree-sitter treemacs-magit treemacs-projectile treesit-auto treesit-fold
                    unspecified-theme uv-mode web-mode which-key whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories

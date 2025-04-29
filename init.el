@@ -270,7 +270,7 @@
 ;; TODO: investigate how this interacts w/tree-sitter; I think some tree-sitter libraries also
 ;; use lsp
 (use-package lsp-mode :defer t :commands lsp :hook (ruby-base-mode python-ts-mode swift-ts-mode sh-mode))
-(use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
+;; (use-package lsp-origami :hook ((lsp-after-open . lsp-origami-try-enable)))
 
 (use-package lsp-treemacs :after lsp-mode)
 (use-package lsp-ui :after lsp-mode)
@@ -350,11 +350,11 @@
 (use-package nice-org-html :defer t)
 
 
-(use-package
- origami
- :defer t
- ;; don't want global origami mode -- it activates in org buffers, etc. where it shouldn't
- :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
+;; (use-package
+;;  origami
+;;  :defer t
+;;  ;; don't want global origami mode -- it activates in org buffers, etc. where it shouldn't
+;;  :bind (("C-+" . origami-forward-toggle-node) ("C-=" . origami-forward-toggle-node)))
 
 (use-package page-break-lines :hook (emacs-lisp-mode))
 
@@ -441,6 +441,12 @@
  :config
  (treesit-auto-add-to-auto-mode-alist 'all)
  (global-treesit-auto-mode))
+
+(use-package
+ treesit-fold
+ :after (treesit)
+ :hook ((prog-mode . treesit-fold-mode))
+ :bind (:map global-map ("C-=" . treesit-fold-toggle)))
 
 (defun mp-setup-install-grammars ()
   "Install Tree-sitter grammars if they are absent and not handled by treesit-auto."

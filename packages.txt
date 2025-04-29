@@ -32,7 +32,6 @@ jetbrains-darcula-theme
 kaolin-themes
 leuven-theme
 lisp-extra-font-lock
-lsp-origami
 lsp-sourcekit
 lsp-treemacs
 lsp-ui
@@ -65,6 +64,7 @@ tree-sitter
 treemacs-magit
 treemacs-projectile
 treesit-auto
+treesit-fold
 unspecified-theme
 uv-mode
 web-mode
