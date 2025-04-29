@@ -4,6 +4,3 @@
 [submodule "lisp/org-contrib"]
 	path = lisp/org-contrib
 	url = https://git.sr.ht/~bzg/org-contrib
-[submodule "lisp/no-littering"]
-	path = lisp/no-littering
-	url = git@github.com:emacscollective/no-littering.git
