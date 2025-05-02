@@ -64,6 +64,21 @@
  '(global-highlight-parentheses-mode t)
  '(global-prettify-symbols-mode t)
  '(global-tree-sitter-mode t)
+ '(global-treesit-auto-modes
+   '(yaml-mode yaml-ts-mode wgsl-mode wgsl-ts-mode wat-mode wat-ts-mode wat-mode wat-ts-wast-mode vue-mode vue-ts-mode
+               vhdl-mode vhdl-ts-mode verilog-mode verilog-ts-mode typst-mode typst-ts-mode typescript-mode
+               typescript-ts-mode typescript-tsx-mode tsx-ts-mode toml-mode conf-toml-mode toml-ts-mode surface-mode
+               surface-ts-mode sql-mode sql-ts-mode scala-mode scala-ts-mode rust-mode rust-ts-mode ruby-mode
+               ruby-ts-mode ess-mode r-ts-mode python-mode python-ts-mode protobuf-mode protobuf-ts-mode perl-mode
+               perl-ts-mode org-mode org-ts-mode nushell-mode nushell-ts-mode nix-mode nix-ts-mode markdown-mode
+               poly-markdown-mode makefile-mode makefile-ts-mode lua-mode lua-ts-mode kotlin-mode kotlin-ts-mode
+               julia-mode julia-ts-mode js-json-mode json-ts-mode js2-mode javascript-mode js-mode js-ts-mode java-mode
+               java-ts-mode sgml-mode mhtml-mode html-ts-mode heex-mode heex-ts-mode go-mod-mode go-mod-ts-mode go-mode
+               go-ts-mode glsl-mode glsl-ts-mode elixir-mode elixir-ts-mode dockerfile-mode dockerfile-ts-mode dart-mode
+               dart-ts-mode css-mode css-ts-mode c++-mode c++-ts-mode common-lisp-mode commonlisp-ts-mode cmake-mode
+               cmake-ts-mode clojurec-mode clojurescript-mode clojure-mode clojure-ts-mode csharp-mode csharp-ts-mode
+               c-mode c-ts-mode blueprint-mode blueprint-ts-mode bibtex-mode bibtex-ts-mode sh-mode bash-ts-mode
+               awk-mode awk-ts-mode))
  '(highlight-parentheses-colors '("#7ec98f" "#e5c06d" "#a4b5e6" "#834c98" "#8ac6f2"))
  '(ido-big-directories '("node_modules" "\\.?venv"))
  '(ido-cannot-complete-command 'ido-completion-help)
@@ -81,6 +96,7 @@
  '(kill-read-only-ok t)
  '(kill-ring-max 256)
  '(kill-whole-line nil)
+ '(lsp-bash-allowed-shells '(sh bash zsh))
  '(lsp-javascript-format-enable nil)
  '(lsp-pylsp-plugins-isort-enabled t)
  '(lsp-pylsp-plugins-preload-modules [])
