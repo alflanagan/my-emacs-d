@@ -509,6 +509,7 @@
 (push '("\\.ya?ml\\'" . yaml-ts-mode) auto-mode-alist)
 (push '("\\.yml\\'" . yaml-ts-mode) auto-mode-alist)
 (push '("\\.\\([za]sh|bash\\)\\'" . bash-ts-mode) auto-mode-alist)
+(add-to-list 'auto-mode-alist '("CMakeLists.txt\\'" . cmake-ts-mode))
 ;; ("/\\(?:Pipfile\\|\\.?flake8\\)\\'" . conf-mode)
 
 ;; not having a lot of luck setting up emacs as a brew service, so far
