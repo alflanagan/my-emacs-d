@@ -1,0 +1,118 @@
+* early-init.org: Emacs early configuration
+:PROPERTIES:
+:header-args: :tangle early-init.el
+:END:
+
+** Enable Lexical Binding
+In order to enable lexical binding in the config, this must be the
+first line of Emacs Lisp:
+
+#+begin_src emacs-lisp
+;; -*- lexical-binding: t -*-
+#+end_src
+
+** Note
+
+For the ~init.el~ file, we'll load the org mode and then dynamically
+tangle the org file. We can't do that here because we can't yet load
+org. So, we'll use ~org-babel-tangle-file~ to produce the
+~early-init.el~ file.
+
+** Tweaks of Garbage Collection
+
+We increase the GC threshold during startup, which reduces startup time by
+not performing unnecessary collections.
+
+See
+https://emacsredux.com/blog/2025/03/28/speed-up-emacs-startup-by-tweaking-the-gc-settings/
+for a good discussion
+
+Temporarily increase GC threshold during startup. This saves about 1.8
+seconds on startup time in early testing. Your milage may vary.
+
+#+begin_src emacs-lisp
+(setq gc-cons-threshold most-positive-fixnum)
+#+end_src
+
+Restore to a more normal value after startup. However, 800K is emacs
+startup default, which is probably much too low on modern machines. We
+need to try higher settings to see if they impove performance.
+
+#+begin_src emacs-lisp
+(add-hook 'emacs-startup-hook
+    (lambda () (setq gc-cons-threshold (* 5 1024 1024))))
+
+(setopt garbage-collection-messages t) ;; show GC messages for debugging
+#+end_src
+
+** Mac-Specific Issues
+
+First we need to fix the library path for gcc compilation. *This is
+almost certainly wrong* for your machine. Customize, or try commenting
+out and seeing if it just works as-is.
+
+#+begin_src emacs-lisp
+  (if (equal system-type 'darwin)
+         (setenv
+          "LIBRARY_PATH"
+          (string-join
+           '("/opt/homebrew/opt/gcc/lib/gcc/13"
+             "/opt/homebrew/opt/libgccjit/lib/gcc/13"
+             "/opt/homebrew/Cellar/gcc/13.2.0/lib/gcc/current/gcc/aarch64-apple-darwin23/13")
+           ":")))
+#+end_src
+
+** Set Up Default Fonts
+
+The Mac gets FiraCode Nerd, everybody else just Fira Code.  Someday I
+may get around to setting up nerd font for linux. You'll need to have the
+appropriate font installed on your system for this to work.
+
+#+begin_src emacs-lisp
+  (if (equal system-type 'darwin)
+    (set-face-attribute
+       'default nil
+       :family "FiraCode Nerd Font Mono"
+       :height 160
+       :weight 'normal
+       :slant 'normal
+       :width 'normal)
+    (set-face-attribute
+       'default nil
+       :family "Fira Code"
+       :height 160
+       :weight 'normal
+       :slant 'normal
+       :width 'normal))
+#+end_src
+
+** Initial Frame Size
+
+We need to set this in early-init to set for intitial frame.
+
+**** TODO determine initial values from screen size.
+
+#+begin_src emacs-lisp
+(setopt initial-frame-alist
+      '((horizontal-scroll-bars)
+        (vertical-scroll-bars)
+        (width . 150)
+        (height . 40)))
+#+end_src
+
+** Always Use .el File When Newer
+
+We set this here so it gets applied to load of init.el (we hope). IMHO
+the default value of this being ~nil~ is nuts.
+
+#+begin_src emacs-lisp
+(setq load-prefer-newer t)
+#+end_src
+
+** End
+
+Finally add a comment so we know the whole file is present.
+
+#+begin_src emacs-lisp
+;;; early-init.el ends here
+#+end_src
