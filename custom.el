@@ -119,20 +119,6 @@
  '(markdown-hide-urls t)
  '(markdown-special-ctrl-a/e t)
  '(mode-require-final-newline 'visit-save)
- '(org-agenda-files
-   '("~/org/personal/job_search/conversations.org" "/Users/adrianflanagan/org/personal/job_search/search_log.org"
-     "/Users/adrianflanagan/org/index.org" "/Users/adrianflanagan/org/elisp.org"
-     "/Users/adrianflanagan/org/emacs_tips.org" "/Users/adrianflanagan/org/org-todo.org"
-     "/Users/adrianflanagan/org/quotes.org" "/Users/adrianflanagan/org/personal/appointments.org"
-     "/Users/adrianflanagan/org/personal/archery.org" "/Users/adrianflanagan/org/personal/contacts.org"
-     "/Users/adrianflanagan/org/personal/how_to_report_bugs.org" "/Users/adrianflanagan/org/personal/rules_of_thumb.org"
-     "/Users/adrianflanagan/org/personal/todo-daily.org" "/Users/adrianflanagan/org/personal/todo-emacs.org"
-     "/Users/adrianflanagan/org/personal/todo-house.org" "/Users/adrianflanagan/org/personal/todo-main.org"
-     "/Users/adrianflanagan/org/personal/todo-periodic.org" "/Users/adrianflanagan/org/personal/todo-weekly.org"
-     "/Users/adrianflanagan/org/personal/job_search/LinkedIn_Connections.org"
-     "/Users/adrianflanagan/org/personal/job_search/online-sites.org"
-     "/Users/adrianflanagan/org/personal/job_search/todo-jobs.org"
-     "/Users/adrianflanagan/org/personal/job_search/unemp_ins.org"))
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-w3m org-mac-iCal))
  '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "ON HOLD" "DONE(!)")))
@@ -140,16 +126,17 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(all-the-icons amx casual-info chatgpt-shell chatu company-terraform company-web copilot csv-mode cyberpunk-theme
-                   dashboard-hackernews devdocs djangonaut dockerfile-mode dogears easysession eldoc-box elisp-autofmt
-                   elisp-lint elpy emacsql emacsql-pg emmet-mode fira-code-mode flycheck haki-theme helpful
-                   highlight-parentheses iceberg-theme ivy jetbrains-darcula-theme kaolin-themes leuven-theme
-                   lisp-extra-font-lock lsp-sourcekit lsp-treemacs lsp-ui magit-todos ng2-mode nice-org-html nodejs-repl
-                   nushell-ts-mode org-beautify-theme org-chef org-contacts org-elisp-help org-mac-link org-node
-                   org-recur org-special-block-extras org-superstar osx-lib ox-gfm page-break-lines prettier pyenv-mode
-                   rainbow-delimiters smart-mode-line-powerline-theme spider-man-theme sql-indent swift-ts-mode
-                   terraform-doc tree-sitter treemacs-magit treemacs-projectile treesit-auto treesit-fold
-                   unspecified-theme uv-mode web-mode which-key whitespace-cleanup-mode xkcd))
+   '(all-the-icons amx casual-info chatgpt-shell chatu company-go company-terraform company-web copilot csv-mode
+                   cyberpunk-theme dashboard-hackernews devdocs djangonaut dockerfile-mode dogears easysession eldoc-box
+                   elisp-autofmt elisp-lint elpy emacsql emacsql-pg emmet-mode fira-code-mode flycheck go-dlv go-eldoc
+                   go-projectile gotest-ts haki-theme helpful highlight-parentheses iceberg-theme ivy
+                   jetbrains-darcula-theme kaolin-themes leuven-theme lisp-extra-font-lock lsp-sourcekit lsp-treemacs
+                   lsp-ui magit-todos ng2-mode nice-org-html nodejs-repl nushell-ts-mode org-beautify-theme org-chef
+                   org-contacts org-elisp-help org-mac-link org-recur org-special-block-extras org-superstar osx-lib
+                   ox-gfm page-break-lines prettier pyenv-mode rainbow-delimiters smart-mode-line-powerline-theme
+                   spider-man-theme sql-indent swift-ts-mode terraform-doc tree-sitter treemacs-magit
+                   treemacs-projectile treesit-auto treesit-fold unspecified-theme uv-mode web-mode which-key
+                   whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(projectile-globally-ignored-directories
    '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$"
