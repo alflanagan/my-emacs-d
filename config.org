@@ -1,0 +1,158 @@
+* Emacs Configuration
+
+:PROPERTIES:
+:header-args: :tangle init.el
+:END:
+
+This is file config.org: Main emacs configuration.
+
+** File Setup
+
+*Must* be first line of the file.
+
+#+begin_src emacs-lisp
+;; -*- lexical-binding: t; -*-
+#+end_src
+
+** Customization
+
+This section is temporary; need to create separate file for the
+customization system to use.
+
+It would be ideal to set custom variables in the ~use-package~ form
+for each package. However, that does not seem to be compatible with
+standard emacs customization.
+
+#+begin_src emacs-lisp
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("31deed4ac5d0b65dc051a1da3611ef52411490b2b6e7c2058c13c7190f7e199b"
+     "fc1275617f9c8d1c8351df9667d750a8e3da2658077cfdda2ca281a2ebc914e0"
+     "9b55271bec4b2bae7eca6c96eac974b19f2f6d8cccc8fd34b30ab67220bb19d5"
+     "8e9e7bbc712ee659c2a1c9d5f2ba42c38ca199ce3d0a982dcad315881a3fcd90"
+     "3c9b0f7bb01f278aa1397bec6257483f70c628d24d24dbc2757e07a698f4c625"
+     "e1da45d87a83acb558e69b90015f0821679716be79ecb76d635aafdca8f6ebd4"
+     "c1ea9b4d114c3db33c417e837e53da60c940f5b70df1c990cde5a80749623c1e"
+     "b49f66a2e1724db880692485a5d5bcb9baf28ed2a3a05c7a799fa091f24321da"
+     "57a29645c35ae5ce1660d5987d3da5869b048477a7801ce7ab57bfb25ce12d3e"
+     default))
+ '(package-selected-packages
+   '(chatgpt-shell company-terraform company-web copilot csv-mode devdocs
+		   dockerfile-mode eldoc-box elisp-autofmt elisp-lint
+		   go-mode highlight-parentheses htmlize lsp-treemacs
+		   org org-beautify-theme org-contacts org-recur
+		   osx-lib ox-gfm page-break-lines prettier
+		   rainbow-delimiters smart-mode-line-powerline-theme
+		   tree-sitter treemacs-icons-dired treemacs-magit
+		   treesit-auto treesit-fold unspecified-theme uv-mode
+		   web-mode xkcd))
+ '(safe-local-variable-directories '("/Users/adrianflanagan/org/")))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+#+end_src
+
+Set up convenient global settings. Display line numbers by
+default. Convert ctrl-l characters to horizontal lines.
+
+#+begin_src emacs-lisp
+  (global-page-break-lines-mode)
+  (global-display-line-numbers-mode)
+#+end_src
+
+** Packages
+Eventual goal is to remove from customization entirely, and use
+~use-package~ for all.
+
+... except in practice it's easier to add from ~list-packages~ and
+thus it sets variable ~package-select-packages~ anyway -- should we
+advise ~use-package~ to do that also??
+
+*** Treemacs
+
+Set up treemacs, the directory tree sidebar.
+
+#+begin_src emacs-lisp
+(use-package
+ treemacs
+ :ensure t
+ :defer t
+ :init
+ (with-eval-after-load 'winum
+   (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+ :config
+ (progn
+   (setopt
+    treemacs-collapse-dirs
+    (if treemacs-python-executable
+        3
+      0)
+    treemacs-display-in-side-window t)
+   (treemacs-follow-mode t)
+   (treemacs-filewatch-mode t)
+   (treemacs-fringe-indicator-mode 'always)
+   (when treemacs-python-executable
+     (treemacs-git-commit-diff-mode t))
+
+   (pcase (cons
+           (not (null (executable-find "git")))
+           (not (null treemacs-python-executable)))
+     (`(t . t) (treemacs-git-mode 'deferred))
+     (`(t . _) (treemacs-git-mode 'simple)))
+
+   (treemacs-hide-gitignored-files-mode nil))
+ :bind
+ (:map
+  global-map
+  ("M-0" . treemacs-select-window)
+  ("C-x t 1" . treemacs-delete-other-windows)
+  ("C-x t t" . treemacs)
+  ("C-x t d" . treemacs-select-directory)
+  ("C-x t B" . treemacs-bookmark)
+  ("C-x t C-t" . treemacs-find-file)
+  ("C-x t M-t" . treemacs-find-tag)))
+#+end_src
+
+**** Treemacs-icons-dired
+
+Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
+
+#+begin_src emacs-lisp
+(use-package treemacs-icons-dired
+  :after (treemacs)
+  :hook (dired-mode . treemacs-icons-dired-enable-once)
+  :ensure t)
+#+end_src
+
+**** Treemacs-magit -- integrate git with treemacs.
+
+#+begin_src emacs-lisp
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
+#+end_src
+
+**** Treemacs start on boot.
+
+Initialiser specifically to start treemacs as part of your init
+file. Ensures that all visual elements are present which might
+otherwise be missing because their setup requires an interactive
+command or a post-command hook.
+
+#+begin_src emacs-lisp
+(treemacs-start-on-boot)
+#+end_src
+
+** End of File
+
+#+begin_src emacs-lisp
+;;; init.el ends here
+#+end_src
+
