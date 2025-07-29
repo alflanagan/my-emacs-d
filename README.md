@@ -11,16 +11,45 @@ Inclusion of a package in the configuration does *not* mean it's bug-free, of co
 package useful. I've got a comment section in the `init.el` file listing some packages I tried, and why I didn't keep
 them.
 
+## (Semi-)Literate Programming In Emacs
+
+Rather than put startup code directly into emacs startup files ~init.el~ and ~early-init.el~, I've set up files with 
+org-mode, which has a subsytem called babel. This allows me to intermix text, with formatting and editor support, and source
+code, also with formatting and editor support.
+
+I'm finding this to be a great way to set the code up for several reasons:
+
+* It makes for a very clean way to explain the code as I go, for other programmers
+* it results in more consistent and complete docs for my own understanding, next month or next year
+* It improves organization of code, and reduces the number of comments actually needed in the code.
+
+### How This Works
+
+As mentioned above, this system takes advantage of Emacs' Org mode. This is a complete personal information 
+manager that works directly with text files &emdash; no back-end database, no online system to keep your
+information locked in its system.
+
+Org mode is built into Emacs. However, there's usually a more recent version that can be installed with more
+features, bug fixes, etc. I want to use this latest version, but it means the two config files need to be produced
+differently.
+
+The code in the ~early-init.el~ file gets executed before packages are loaded, including org-mode. So it would have
+to use the built-in version of org mode, but bad things can happen if you initialize the mode and then try to load
+a newer package. So, the process for that file is distinctly old-school: you write code in the ~early-config.org~ file,
+then execute the emacs command ~org-babel-tangle~ to produce an early-init.el file with only the elisp code, which runs
+normally.
+
+In contrast, in the ~init.el~ file we can initialize the package manager, load the latest version of org-mode, then
+produce source code from config.org directly and run that, with no manual step needed.
+
 ## File System Organization
 
 As you add packages to Emacs, your Emacs config directory ends up with a lot of extra directories and files.[^1]
 
 To keep this repository clean, it's designed to be added as a subdirectory of the emacs config directory, named
-"my_emacs". My actual "init.el" file that gets loaded initially looks like this:
-
-```elisp
-(load "~/.config/emacs/my_emacs/init")
-```
+"my_emacs". My actual "init.el" and early-init.el files in my emacs home directory are just links to the same filename
+in the my_emacs/ directory. (Windows users will probably need to create a separate file, which does nothing but load the versions
+in this directory.)
 
 ## Code Sections
 
