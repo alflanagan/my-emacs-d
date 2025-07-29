@@ -14,6 +14,24 @@ This is file config.org: Main emacs configuration.
 ;; -*- lexical-binding: t; -*-
 #+end_src
 
+** Load Path
+
+In my local /lisp subdirectory, I've got some third-party projects
+which should be loaded from local files.
+
+#+begin_src emacs-lisp
+(defun add-subdirs-to-load-path (parent-directory)
+  "Add PARENT-DIRECTORY and its immediate child directories to `load-path'."
+  (let ((default-directory parent-directory))
+    (add-to-list 'load-path default-directory)
+    (normal-top-level-add-subdirs-to-load-path)))
+
+;; (add-subdirs-to-load-path "/opt/homebrew/share/emacs/site-lisp")
+(add-subdirs-to-load-path
+ (directory-file-name
+  (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
+#+end_src
+
 ** Customization
 
 This section is temporary; need to create separate file for the
