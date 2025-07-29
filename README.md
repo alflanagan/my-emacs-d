@@ -13,7 +13,7 @@ them.
 
 ## (Semi-)Literate Programming In Emacs
 
-Rather than put startup code directly into emacs startup files ~init.el~ and ~early-init.el~, I've set up files with 
+Rather than put startup code directly into emacs startup files -init.el- and -early-init.el-, I've set up files with 
 org-mode, which has a subsytem called babel. This allows me to intermix text, with formatting and editor support, and source
 code, also with formatting and editor support.
 
@@ -33,13 +33,13 @@ Org mode is built into Emacs. However, there's usually a more recent version tha
 features, bug fixes, etc. I want to use this latest version, but it means the two config files need to be produced
 differently.
 
-The code in the ~early-init.el~ file gets executed before packages are loaded, including org-mode. So it would have
+The code in the -early-init.el- file gets executed before packages are loaded, including org-mode. So it would have
 to use the built-in version of org mode, but bad things can happen if you initialize the mode and then try to load
-a newer package. So, the process for that file is distinctly old-school: you write code in the ~early-config.org~ file,
-then execute the emacs command ~org-babel-tangle~ to produce an early-init.el file with only the elisp code, which runs
+a newer package. So, the process for that file is distinctly old-school: you write code in the -early-config.org- file,
+then execute the emacs command -org-babel-tangle- to produce an early-init.el file with only the elisp code, which runs
 normally.
 
-In contrast, in the ~init.el~ file we can initialize the package manager, load the latest version of org-mode, then
+In contrast, in the -init.el- file we can initialize the package manager, load the latest version of org-mode, then
 produce source code from config.org directly and run that, with no manual step needed.
 
 ## File System Organization
