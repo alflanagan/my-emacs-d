@@ -1,9 +1,5 @@
 * Emacs Configuration
 
-:PROPERTIES:
-:header-args: :tangle init.el
-:END:
-
 This is file config.org: Main emacs configuration.
 
 ** File Setup
