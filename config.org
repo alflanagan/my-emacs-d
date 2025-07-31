@@ -98,8 +98,22 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 #+end_src
 
 ** Packages
-Eventual goal is to remove from customization entirely, and use
+Eventual goal is to remove these from customization entirely, and use
 ~use-package~ for all.
+
+*** Ido and amx
+There are (at least) two major emacs packages to enable
+auto-completion: "ivy" and "ido". Ivy is full-featured and includes
+"counsel", which modifies emacs commands to use ivy. However, it looks
+not to be actively maintained, and I've come to prefer "ido". It's
+builtin to Emacs, which is convenient.
+
+The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" to add features to the Emacs
+~execute-extended-command~ function (M-x).
+
+#+begin_src emacs-lisp
+(use-package amx)
+#+end_src
 
 *** Treemacs
 
