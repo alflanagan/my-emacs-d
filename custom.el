@@ -27,20 +27,9 @@
      "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(devdocs-window-select nil)
  '(display-fill-column-indicator t)
- '(display-line-numbers nil)
- '(display-line-numbers-major-tick 0)
- '(display-line-numbers-minor-tick 0)
  '(dockerfile-use-buildkit t)
- '(ede-project-directories nil)
  '(elisp-autofmt-format-quoted nil)
  '(elisp-autofmt-use-default-override-defs t)
- '(elpy-disable-backend-error-display nil)
- '(elpy-formatter 'black)
- '(elpy-modules
-   '(elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-folding elpy-module-pyvenv
-                         elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django
-                         elpy-module-sane-defaults))
- '(fill-column 120)
  '(flycheck-checkers
    '(ada-gnat asciidoctor asciidoc awk-gawk bazel-build-buildifier bazel-module-buildifier bazel-starlark-buildifier
               bazel-workspace-buildifier c/c++-clang c/c++-gcc c/c++-cppcheck cfengine coffee coffee-coffeelint
@@ -80,13 +69,6 @@
                c-mode c-ts-mode blueprint-mode blueprint-ts-mode bibtex-mode bibtex-ts-mode sh-mode bash-ts-mode
                awk-mode awk-ts-mode))
  '(highlight-parentheses-colors '("#7ec98f" "#e5c06d" "#a4b5e6" "#834c98" "#8ac6f2"))
- '(ido-big-directories '("node_modules" "\\.?venv"))
- '(ido-cannot-complete-command 'ido-completion-help)
- '(ido-enable-flex-matching nil)
- '(ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
- '(ido-use-filename-at-point nil)
- '(ido-use-url-at-point t)
- '(ido-use-virtual-buffers 'auto)
  '(indent-tabs-mode nil)
  '(initial-buffer-choice t)
  '(js-chain-indent t)
@@ -126,24 +108,11 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(all-the-icons amx casual-info chatgpt-shell chatu company-go company-terraform company-web copilot csv-mode
-                   cyberpunk-theme dashboard-hackernews devdocs djangonaut dockerfile-mode dogears easysession eldoc-box
-                   elisp-autofmt elisp-lint elpy emacsql emacsql-pg emmet-mode fira-code-mode flycheck go-dlv go-eldoc
-                   go-projectile gotest-ts haki-theme helpful highlight-parentheses iceberg-theme ivy
-                   jetbrains-darcula-theme kaolin-themes leuven-theme lisp-extra-font-lock lsp-sourcekit lsp-treemacs
-                   lsp-ui magit-todos ng2-mode nice-org-html nodejs-repl nushell-ts-mode org-beautify-theme org-chef
-                   org-contacts org-elisp-help org-mac-link org-recur org-special-block-extras org-superstar osx-lib
-                   ox-gfm page-break-lines prettier pyenv-mode rainbow-delimiters smart-mode-line-powerline-theme
-                   spider-man-theme sql-indent swift-ts-mode terraform-doc tree-sitter treemacs-magit
-                   treemacs-projectile treesit-auto treesit-fold unspecified-theme uv-mode web-mode which-key
-                   whitespace-cleanup-mode xkcd))
+   '(amx chatgpt-shell company-terraform company-web copilot csv-mode devdocs dockerfile-mode eldoc-box elisp-autofmt
+         elisp-lint go-mode highlight-parentheses htmlize lsp-treemacs org org-beautify-theme org-contacts org-recur
+         osx-lib ox-gfm page-break-lines prettier rainbow-delimiters smart-mode-line-powerline-theme tree-sitter
+         treemacs-icons-dired treemacs-magit treesit-auto treesit-fold unspecified-theme uv-mode web-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
- '(projectile-globally-ignored-directories
-   '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$"
-     "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$"
-     "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
- '(projectile-mode t nil (projectile))
- '(projectile-project-search-path '("~/Devel" "~/org"))
  '(reddigg-subs '(emacs rust))
  '(ruby-flymake-use-rubocop-if-available t)
  '(safe-local-variable-directories
