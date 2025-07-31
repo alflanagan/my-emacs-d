@@ -40,21 +40,66 @@ to this file.
  (load custom-file)
 #+end_src
 
-Set up convenient global settings. Display line numbers by
-default. Convert ctrl-l characters to horizontal lines.
+** Customizing Emacs Itself
+We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 
 #+begin_src emacs-lisp
-  (global-page-break-lines-mode)
-  (global-display-line-numbers-mode)
+  (use-package
+    emacs
+
+    :config
+    (setq frame-title-format "%b")
+    (setq-default indent-tabs-mode nil)
+    ;; enable built-in completion package
+    (ido-mode t)
+
+    :bind
+    (("M-/" . 'hippie-expand)
+     ("C-x C-b" . 'ibuffer)
+     ("C-s" . 'isearch-forward-regexp)
+     ("C-r" . 'isearch-backward-regexp)
+     ("C-M-s" . 'isearch-forward)
+     ("C-M-r" . 'isearch-backward))
+
+    :custom
+    (ido-enable-flex-matching t)
+    (ido-big-directories '("node_modules" "\\.?venv"))
+    (ido-cannot-complete-command 'ido-completion-help)
+    (ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
+    (ido-use-filename-at-point nil)
+    (ido-use-url-at-point t)
+    (ido-use-virtual-buffers 'auto)
+
+    (save-place-mode t)
+    (show-paren-mode 1)
+    (global-auto-revert-mode 1)
+    (apropos-do-all t)
+    ;; put file backups in single directory, not in same directory with '~' appended.
+    (backup-directory-alist
+     `(("." . ,(concat user-emacs-directory "backups"))))
+    (column-number-mode t nil nil "displays current column in mode line")
+    (default-frame-alist
+     '((horizontal-scroll-bars)
+       (vertical-scroll-bars)
+       (width . 180)
+       (height . 70))
+     nil
+     nil
+     "set initial window size, and enable scroll bars") ;; see also early-init.el
+    (mouse-yank-at-point t)
+    (save-interprogram-paste-before-kill t)
+    (save-place-file (concat user-emacs-directory "places"))
+    (select-enable-clipboard t nil nil "integrate emacs with system clipboard")
+    (select-enable-primary t)
+    (sentence-end-double-space nil)
+    (uniquify-buffer-name-style 'post-forward-angle-brackets)
+    (user-email-address "lloyd.flanagan@proton.me")
+    (selection-coding-system 'utf-8))
 #+end_src
 
 ** Packages
 Eventual goal is to remove from customization entirely, and use
 ~use-package~ for all.
-
-... except in practice it's easier to add from ~list-packages~ and
-thus it sets variable ~package-select-packages~ anyway -- should we
-advise ~use-package~ to do that also??
 
 *** Treemacs
 
