@@ -128,7 +128,8 @@ just when printed.
 
 *** Treemacs
 
-Set up treemacs, the directory tree sidebar.
+Set up treemacs, the directory tree sidebar. See [[https://github.com/Alexander-Miller/treemacs][treemacs repo]] for all
+the gory details.
 
 #+begin_src emacs-lisp
 (use-package
