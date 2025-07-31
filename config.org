@@ -115,6 +115,17 @@ The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" 
 (use-package amx)
 #+end_src
 
+*** Page-break Lines
+This is a neat little package that displays embedded ctrl-L characters
+as horizontal lines. This helps break up the file on the screen, not
+just when printed.
+
+#+begin_src emacs-lisp
+(use-package page-break-lines
+  :config
+  (global-page-break-lines-mode))
+#+end_src
+
 *** Treemacs
 
 Set up treemacs, the directory tree sidebar.
