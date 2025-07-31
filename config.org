@@ -149,7 +149,6 @@ the gory details.
     treemacs-display-in-side-window t)
    (treemacs-follow-mode t)
    (treemacs-filewatch-mode t)
-   (treemacs-fringe-indicator-mode 'always)
    (when treemacs-python-executable
      (treemacs-git-commit-diff-mode t))
 
@@ -193,10 +192,8 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 
 **** Treemacs start on boot.
 
-Initialiser specifically to start treemacs as part of your init
-file. Ensures that all visual elements are present which might
-otherwise be missing because their setup requires an interactive
-command or a post-command hook.
+This function is recommended to ensure all elements of treemacs are
+properly in place.
 
 #+begin_src emacs-lisp
 (treemacs-start-on-boot)
