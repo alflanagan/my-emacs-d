@@ -234,6 +234,18 @@ properly in place.
  :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
 #+end_src
 
+*** Org Mode
+
+Org mode itself is set up in the ~init.el~ file, because we need to
+load the newer version in order to process this file correctly.
+
+**** Beautify Theme
+
+#+begin_src emacs-lisp
+(use-package org-beautify-theme)
+#+end_src
+
+
 ** End of File
 
 #+begin_src emacs-lisp
