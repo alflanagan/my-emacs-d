@@ -14,7 +14,7 @@ Legal/copyright notice for the generated file. All terms are assumed to
 apply to this file also
 
 #+begin_src emacs-lisp
-;;; init.el -- Non-site-specific initialization -*- lexical-binding: t; -*-
+;;; config.el -- Non-site-specific initialization -*- lexical-binding: t; -*-
 
 ;; Copyright © 2025 A. Lloyd Flanagan
 ;;
@@ -112,7 +112,8 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
     (width . 180)
     (height . 70))
   "set initial window size, and enable scroll bars") ;; see also early-init.el
- (global-auto-revert-mode 1)
+ (global-auto-revert-mode t)
+ (global-display-line-numbers-mode t)
  (mouse-yank-at-point t)
  (save-interprogram-paste-before-kill t)
  (save-place-mode t)
@@ -123,7 +124,7 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (sentence-end-double-space
   nil
   "don't automatically double space after sentence end -- obsolete style")
- (show-paren-mode 1)
+ (show-paren-mode t)
  (uniquify-buffer-name-style 'post-forward-angle-brackets)
  (user-email-address "lloyd.flanagan@proton.me"))
 #+end_src
@@ -156,7 +157,6 @@ just when printed.
 #+end_src
 
 *** Treemacs
-
 Set up treemacs, the directory tree sidebar. See [[https://github.com/Alexander-Miller/treemacs][treemacs repo]] for all
 the gory details.
 
@@ -171,10 +171,11 @@ the gory details.
  :custom
  (treemacs-project-follow-mode t)
  (treemacs-filewatch-mode t)
- (treemacs-fringe-indicator-mode 'always)
  (treemacs-hide-gitignored-files-mode nil)
  (when treemacs-python-executable
    (treemacs-git-commit-diff-mode t))
+ (treemacs-is-never-other-window t)
+ (treemacs-follow-after-init t)
 
  :bind
  ("M-0" . treemacs-select-window)
@@ -189,7 +190,6 @@ the gory details.
 **** Treemacs-icons-dired
 
 Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
-
 #+begin_src emacs-lisp
 (use-package
  treemacs-icons-dired
