@@ -227,7 +227,7 @@ the gory details.
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
   :custom
-  (treemacs-follow-mode t)
+  (treemacs-project-follow-mode t)
   (treemacs-filewatch-mode t)
   (treemacs-fringe-indicator-mode 'always)
   (treemacs-hide-gitignored-files-mode nil)
@@ -270,6 +270,19 @@ properly in place.
 
 #+begin_src emacs-lisp
 (treemacs-start-on-boot)
+#+end_src
+
+*** ELisp Programming
+
+**** Elisp-autofmt
+
+#+begin_src emacs-lisp
+(use-package
+ elisp-autofmt
+ :defer t
+ :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+ :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
+ :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
 #+end_src
 
 ** End of File
