@@ -69,65 +69,66 @@ for each package, but on-the-fly or local-only customizations will go
 to this file.
 
 #+begin_src emacs-lisp
- (setq custom-file "~/.config/emacs/my_emacs/custom.el")
- (load custom-file)
+(setq custom-file "~/.config/emacs/my_emacs/custom.el")
+(load custom-file)
 #+end_src
 
 ** Customizing Emacs Itself
 We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 
 #+begin_src emacs-lisp
-  (use-package
-    emacs
+(use-package
+ emacs
 
-    :config
-    (setq frame-title-format "%b")
-    (setq-default indent-tabs-mode nil)
-    ;; enable built-in completion package
-    (ido-mode t)
+ :config
+ (setq frame-title-format "%b")
+ (setq-default indent-tabs-mode nil)
+ ;; enable built-in completion package
+ (ido-mode t)
 
-    :bind
-    (("M-/" . 'hippie-expand)
-     ("C-x C-b" . 'ibuffer)
-     ("C-s" . 'isearch-forward-regexp)
-     ("C-r" . 'isearch-backward-regexp)
-     ("C-M-s" . 'isearch-forward)
-     ("C-M-r" . 'isearch-backward))
+ :bind
+ (("M-/" . 'hippie-expand)
+  ("C-x C-b" . 'ibuffer)
+  ("C-s" . 'isearch-forward-regexp)
+  ("C-r" . 'isearch-backward-regexp)
+  ("C-M-s" . 'isearch-forward)
+  ("C-M-r" . 'isearch-backward))
 
-    :custom
-    (ido-enable-flex-matching t)
-    (ido-big-directories '("node_modules" "\\.?venv"))
-    (ido-cannot-complete-command 'ido-completion-help)
-    (ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
-    (ido-use-filename-at-point nil)
-    (ido-use-url-at-point t)
-    (ido-use-virtual-buffers 'auto)
+ :custom
+ (ido-enable-flex-matching t)
+ (ido-big-directories '("node_modules" "\\.?venv"))
+ (ido-cannot-complete-command 'ido-completion-help)
+ (ido-ignore-directories
+  '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
+ (ido-use-filename-at-point nil)
+ (ido-use-url-at-point t)
+ (ido-use-virtual-buffers 'auto)
 
-    (save-place-mode t)
-    (show-paren-mode 1)
-    (global-auto-revert-mode 1)
-    (apropos-do-all t)
-    ;; put file backups in single directory, not in same directory with '~' appended.
-    (backup-directory-alist
-     `(("." . ,(concat user-emacs-directory "backups"))))
-    (column-number-mode t nil nil "displays current column in mode line")
-    (default-frame-alist
-     '((horizontal-scroll-bars)
-       (vertical-scroll-bars)
-       (width . 180)
-       (height . 70))
-     nil
-     nil
-     "set initial window size, and enable scroll bars") ;; see also early-init.el
-    (mouse-yank-at-point t)
-    (save-interprogram-paste-before-kill t)
-    (save-place-file (concat user-emacs-directory "places"))
-    (select-enable-clipboard t nil nil "integrate emacs with system clipboard")
-    (select-enable-primary t)
-    (sentence-end-double-space nil)
-    (uniquify-buffer-name-style 'post-forward-angle-brackets)
-    (user-email-address "lloyd.flanagan@proton.me")
-    (selection-coding-system 'utf-8))
+ (save-place-mode t)
+ (show-paren-mode 1)
+ (global-auto-revert-mode 1)
+ (apropos-do-all t)
+ ;; put file backups in single directory, not in same directory with '~' appended.
+ (backup-directory-alist
+  `(("." . ,(concat user-emacs-directory "backups"))))
+ (column-number-mode t nil nil "displays current column in mode line")
+ (default-frame-alist
+  '((horizontal-scroll-bars)
+    (vertical-scroll-bars)
+    (width . 180)
+    (height . 70))
+  nil nil
+  "set initial window size, and enable scroll bars") ;; see also early-init.el
+ (mouse-yank-at-point t)
+ (save-interprogram-paste-before-kill t)
+ (save-place-file (concat user-emacs-directory "places"))
+ (select-enable-clipboard
+  t nil nil "integrate emacs with system clipboard")
+ (select-enable-primary t)
+ (sentence-end-double-space nil)
+ (uniquify-buffer-name-style 'post-forward-angle-brackets)
+ (user-email-address "lloyd.flanagan@proton.me")
+ (selection-coding-system 'utf-8))
 #+end_src
 
 ** Customizing Emacs Itself
@@ -208,9 +209,7 @@ as horizontal lines. This helps break up the file on the screen, not
 just when printed.
 
 #+begin_src emacs-lisp
-(use-package page-break-lines
-  :config
-  (global-page-break-lines-mode))
+(use-package page-break-lines :config (global-page-break-lines-mode))
 #+end_src
 
 *** Treemacs
@@ -220,28 +219,28 @@ the gory details.
 
 #+begin_src emacs-lisp
 (use-package
-  treemacs
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-  :custom
-  (treemacs-project-follow-mode t)
-  (treemacs-filewatch-mode t)
-  (treemacs-fringe-indicator-mode 'always)
-  (treemacs-hide-gitignored-files-mode nil)
-  (when treemacs-python-executable
-    (treemacs-git-commit-diff-mode t))
+ treemacs
+ :ensure t
+ :defer t
+ :init
+ (with-eval-after-load 'winum
+   (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+ :custom
+ (treemacs-project-follow-mode t)
+ (treemacs-filewatch-mode t)
+ (treemacs-fringe-indicator-mode 'always)
+ (treemacs-hide-gitignored-files-mode nil)
+ (when treemacs-python-executable
+   (treemacs-git-commit-diff-mode t))
 
-  :bind
-  ("M-0" . treemacs-select-window)
-  ("C-x t 1" . treemacs-delete-other-windows)
-  ("C-x t t" . treemacs)
-  ("C-x t d" . treemacs-select-directory)
-  ("C-x t B" . treemacs-bookmark)
-  ("C-x t C-t" . treemacs-find-file)
-  ("C-x t M-t" . treemacs-find-tag))
+ :bind
+ ("M-0" . treemacs-select-window)
+ ("C-x t 1" . treemacs-delete-other-windows)
+ ("C-x t t" . treemacs)
+ ("C-x t d" . treemacs-select-directory)
+ ("C-x t B" . treemacs-bookmark)
+ ("C-x t C-t" . treemacs-find-file)
+ ("C-x t M-t" . treemacs-find-tag))
 #+end_src
 
 **** Treemacs-icons-dired
@@ -249,18 +248,17 @@ the gory details.
 Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 
 #+begin_src emacs-lisp
-(use-package treemacs-icons-dired
-  :after (treemacs)
-  :hook (dired-mode . treemacs-icons-dired-enable-once)
-  :ensure t)
+(use-package
+ treemacs-icons-dired
+ :after (treemacs)
+ :hook (dired-mode . treemacs-icons-dired-enable-once)
+ :ensure t)
 #+end_src
 
 **** Treemacs-magit -- integrate git with treemacs.
 
 #+begin_src emacs-lisp
-(use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
+(use-package treemacs-magit :after (treemacs magit) :ensure t)
 #+end_src
 
 **** Treemacs start on boot.
@@ -281,7 +279,9 @@ properly in place.
  elisp-autofmt
  :defer t
  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
- :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
+ :hook
+ ((emacs-lisp-mode . elisp-autofmt-mode)
+  (lisp-data-mode . elisp-autofmt-mode))
  :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
 #+end_src
 
