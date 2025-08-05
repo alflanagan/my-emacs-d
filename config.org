@@ -3,7 +3,6 @@
 This is file config.org: Main emacs configuration.
 
 ** File Setup
-
 *Must* be first line of the file.
 
 #+begin_src emacs-lisp
@@ -44,7 +43,6 @@ apply to this file also
 #+end_src
 
 ** Load Path
-
 In my local /lisp subdirectory, I've got some third-party projects
 which should be loaded from local files.
 
@@ -80,11 +78,9 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 (use-package
  emacs
 
- :config
- (setq frame-title-format "%b")
- (setq-default indent-tabs-mode nil)
- ;; enable built-in completion package
- (ido-mode t)
+ :init
+ (setq custom-file (locate-user-emacs-file "custom.el"))
+ (load custom-file)
 
  :bind
  (("M-/" . 'hippie-expand)
@@ -95,6 +91,7 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
   ("C-M-r" . 'isearch-backward))
 
  :custom
+ (ido-mode t)
  (ido-enable-flex-matching t)
  (ido-big-directories '("node_modules" "\\.?venv"))
  (ido-cannot-complete-command 'ido-completion-help)
@@ -104,85 +101,31 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (ido-use-url-at-point t)
  (ido-use-virtual-buffers 'auto)
 
- (save-place-mode t)
- (show-paren-mode 1)
- (global-auto-revert-mode 1)
  (apropos-do-all t)
  ;; put file backups in single directory, not in same directory with '~' appended.
  (backup-directory-alist
   `(("." . ,(concat user-emacs-directory "backups"))))
- (column-number-mode t nil nil "displays current column in mode line")
- (default-frame-alist
-  '((horizontal-scroll-bars)
-    (vertical-scroll-bars)
-    (width . 180)
-    (height . 70))
-  nil nil
-  "set initial window size, and enable scroll bars") ;; see also early-init.el
- (mouse-yank-at-point t)
- (save-interprogram-paste-before-kill t)
- (save-place-file (concat user-emacs-directory "places"))
- (select-enable-clipboard
-  t nil nil "integrate emacs with system clipboard")
- (select-enable-primary t)
- (sentence-end-double-space nil)
- (uniquify-buffer-name-style 'post-forward-angle-brackets)
- (user-email-address "lloyd.flanagan@proton.me")
- (selection-coding-system 'utf-8))
-#+end_src
-
-** Customizing Emacs Itself
-
-We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
-
-#+begin_src emacs-lisp
-(use-package
- emacs
-
- :init (setq custom-file (locate-user-emacs-file "custom.el"))
-
- (load custom-file)
- (setq frame-title-format "%b")
- (setq-default indent-tabs-mode nil)
-
- :bind
- (("M-/" . 'hippie-expand)
-  ("C-x C-b" . 'ibuffer)
-  ("C-s" . 'isearch-forward-regexp)
-  ("C-r" . 'isearch-backward-regexp)
-  ("C-M-s" . 'isearch-forward)
-  ("C-M-r" . 'isearch-backward))
-
- :custom
- (ido-mode t)
- (ido-enable-flex-matching t)
- (save-place-mode t)
- (show-paren-mode 1)
- (global-auto-revert-mode 1)
- (apropos-do-all t)
- (backup-directory-alist
-  `(("." . ,(concat user-emacs-directory "backups"))))
  (column-number-mode t "displays current column in mode line")
- (custom-file
-  (concat user-emacs-directory "my_emacs/custom.el")
-  "moves file used by customize to my config subdir")
  (default-frame-alist
   '((horizontal-scroll-bars)
     (vertical-scroll-bars)
     (width . 180)
     (height . 70))
   "set initial window size, and enable scroll bars") ;; see also early-init.el
+ (global-auto-revert-mode 1)
  (mouse-yank-at-point t)
  (save-interprogram-paste-before-kill t)
+ (save-place-mode t)
  (save-place-file (concat user-emacs-directory "places"))
  (select-enable-clipboard t "integrate emacs with system clipboard")
  (select-enable-primary t)
+ (selection-coding-system 'utf-8)
  (sentence-end-double-space
   nil
   "don't automatically double space after sentence end -- obsolete style")
+ (show-paren-mode 1)
  (uniquify-buffer-name-style 'post-forward-angle-brackets)
- (user-email-address "lloyd.flanagan@proton.me")
- (selection-coding-system 'utf-8))
+ (user-email-address "lloyd.flanagan@proton.me"))
 #+end_src
 
 ** Packages
@@ -271,6 +214,12 @@ properly in place.
 #+end_src
 
 *** ELisp Programming
+
+**** Linting
+
+#+begin_src emacs-lisp
+(use-package elisp-lint :defer t)
+#+end_src
 
 **** Elisp-autofmt
 
