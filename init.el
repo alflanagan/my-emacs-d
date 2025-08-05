@@ -56,9 +56,23 @@
 
 ;;; (Try to) Ensure the latest org-mode is installed
 (condition-case nil
-    (use-package org)
+    (use-package
+     org
+     :pin "gnu"
+     :bind
+     (("C-c l" . org-store-link)
+      ("C-c a" . org-agenda)
+      ("C-c c" . org-capture))
+     :custom
+     (org-adapt-indentation 'headline-data)
+     (org-ctrl-k-protect-subtree t)
+     (org-special-ctrl-a/e t)
+     (org-return-follows-link t))
+
   (error
-   (display-warning 'init "Could not install latest org-mode. Falling back to bundled version.")))
+   (display-warning
+    'init
+    "Could not install latest org-mode. Falling back to bundled version.")))
 
 (require 'org)
 
