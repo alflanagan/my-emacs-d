@@ -196,7 +196,9 @@ the gory details.
  ("C-x t d" . treemacs-select-directory)
  ("C-x t B" . treemacs-bookmark)
  ("C-x t C-t" . treemacs-find-file)
- ("C-x t M-t" . treemacs-find-tag))
+ ("C-x t M-t" . treemacs-find-tag)
+
+ :hook (after-init-hook . treemacs))
 #+end_src
 
 **** Treemacs-icons-dired
@@ -244,6 +246,33 @@ properly in place.
  ((emacs-lisp-mode . elisp-autofmt-mode)
   (lisp-data-mode . elisp-autofmt-mode))
  :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
+#+end_src
+
+*** Language Server Protocol
+Not long ago, an editor had to have custom handling written for each
+language it "knew". This led to a lot of duplication of effort, and
+bad editor implementations.
+
+Now there are 2 major protocols that can be provided by language
+authors to communicate information about a language to an editor. The
+Language Server Protocol allows the editor to connect to an external
+server process, which provides information about the language.
+
+The Tree-Sitter protocol provides a set of shared libraries which the
+editor dynamically links to, and that run in the editor's process.
+
+Emacs now supports both methods.
+
+This sets up lsp-mode to integrate with the LSP, and then we use a
+package to integrate the information into the ~treemacs~ sidebar also.
+
+#+begin_src emacs-lisp
+;; lsp-mode enables integration with language server protocol
+;; TODO: investigate how this interacts w/tree-sitter; I think some tree-sitter libraries also
+;; use lsp
+(use-package lsp-mode :defer t :commands lsp :hook prog-mode)
+
+(use-package lsp-treemacs :after lsp-mode)
 #+end_src
 
 *** Org Mode
