@@ -133,6 +133,18 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 Eventual goal is to remove these from customization entirely, and use
 ~use-package~ for all.
 
+*** Better Mode Line
+[[https://github.com/Malabarba/smart-mode-line][Smart-mode-line]] is a sexy mode-line for Emacs. It aims to be easy to
+read from small to large monitors by using colors, a prefix feature,
+and smart truncation.
+
+#+begin_src emacs-lisp
+(use-package smart-mode-line :config (sml/setup))
+(use-package
+ smart-mode-line-powerline-theme
+ :config (sml/apply-theme 'powerline))
+#+end_src
+
 *** Ido and amx
 There are (at least) two major emacs packages to enable
 auto-completion: "ivy" and "ido". Ivy is full-featured and includes
