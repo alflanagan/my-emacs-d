@@ -78,10 +78,6 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 (use-package
  emacs
 
- :init
- (setq custom-file (locate-user-emacs-file "custom.el"))
- (load custom-file)
-
  :bind
  (("M-/" . 'hippie-expand)
   ("C-x C-b" . 'ibuffer)
@@ -283,9 +279,14 @@ load the newer version in order to process this file correctly.
 **** Beautify Theme
 
 #+begin_src emacs-lisp
-(use-package org-beautify-theme)
+(use-package org-beautify-theme :after org-mode)
 #+end_src
 
+**** Add Markdown as an Export Format
+
+#+begin_src emacs-lisp
+(use-package ox-gfm :after org-mode)
+#+end_src
 
 ** End of File
 
