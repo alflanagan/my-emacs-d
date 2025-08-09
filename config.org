@@ -263,12 +263,15 @@ This sets up lsp-mode to integrate with the LSP, and then we use a
 package to integrate the information into the ~treemacs~ sidebar also.
 
 #+begin_src emacs-lisp
-;; lsp-mode enables integration with language server protocol
-;; TODO: investigate how this interacts w/tree-sitter; I think some tree-sitter libraries also
-;; use lsp
 (use-package lsp-mode :defer t :commands lsp :hook prog-mode)
-
 (use-package lsp-treemacs :after lsp-mode)
+#+end_src
+
+Since we've hooked ~prog-mode~, it's common to get warnings about a
+language not having a matching server. Turn those off.
+
+#+begin_src emacs-lisp
+(setopt lsp-warn-no-matched-clients nil)
 #+end_src
 
 *** Org Mode
