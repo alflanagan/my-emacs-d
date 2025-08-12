@@ -129,6 +129,34 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 Eventual goal is to remove these from customization entirely, and use
 ~use-package~ for all.
 
+*** Programming Font
+Set up with my current programming font, Fira Code. You must have Fira
+Code installed on your system for this to work.
+
+#+begin_src emacs-lisp
+(set-face-attribute 'default nil
+                    :family "Fira Code"
+                    :height 160
+                    :weight 'normal
+                    :slant 'normal
+                    :width 'normal)
+#+end_src
+
+**** fira-code-mode
+This minor mode enables the use of Fira Code Symbol font to display
+various ligatures. It's a bit of eye candy.
+
+You need to have Fira Code Symbol installed, see [[ https://github.com/jming422/fira-code-mode][fira-code-mode]].
+
+#+begin_src emacs-lisp
+(use-package
+ fira-code-mode
+ :custom
+ (fira-code-mode-disabled-ligatures
+  '(";;" "[]" "===" "==" ":" "#{" "#(" "#_" "#_("))
+ :hook prog-mode)
+#+end_src
+
 *** Better Mode Line
 [[https://github.com/Malabarba/smart-mode-line][Smart-mode-line]] is a sexy mode-line for Emacs. It aims to be easy to
 read from small to large monitors by using colors, a prefix feature,
