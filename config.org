@@ -142,11 +142,11 @@ and smart truncation.
 #+end_src
 
 *** Ido and amx
-There are (at least) two major emacs packages to enable
-auto-completion: "ivy" and "ido". Ivy is full-featured and includes
-"counsel", which modifies emacs commands to use ivy. However, it looks
-not to be actively maintained, and I've come to prefer "ido". It's
-builtin to Emacs, which is convenient.
+There are (at least) three major emacs packages to enable
+auto-completion: "ivy", "company", and "ido". Ivy is full-featured and
+includes "counsel", which modifies emacs commands to use ivy. However,
+it looks not to be actively maintained, and I've come to prefer "ido".
+It's builtin to Emacs, which is convenient.
 
 The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" to add features to the Emacs
 ~execute-extended-command~ function (M-x).
