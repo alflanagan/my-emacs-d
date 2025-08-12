@@ -22,22 +22,6 @@
            "/opt/homebrew/Cellar/gcc/13.2.0/lib/gcc/current/gcc/aarch64-apple-darwin23/13")
          ":")))
 
-(if (equal system-type 'darwin)
-  (set-face-attribute
-     'default nil
-     :family "FiraCode Nerd Font Mono"
-     :height 160
-     :weight 'normal
-     :slant 'normal
-     :width 'normal)
-  (set-face-attribute
-     'default nil
-     :family "Fira Code"
-     :height 160
-     :weight 'normal
-     :slant 'normal
-     :width 'normal))
-
 (setopt initial-frame-alist
       '((horizontal-scroll-bars)
         (vertical-scroll-bars)

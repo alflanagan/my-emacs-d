@@ -70,30 +70,6 @@ out and seeing if it just works as-is.
            ":")))
 #+end_src
 
-** Set Up Default Fonts
-
-The Mac gets FiraCode Nerd, everybody else just Fira Code.  Someday I
-may get around to setting up nerd font for linux. You'll need to have the
-appropriate font installed on your system for this to work.
-
-#+begin_src emacs-lisp
-  (if (equal system-type 'darwin)
-    (set-face-attribute
-       'default nil
-       :family "FiraCode Nerd Font Mono"
-       :height 160
-       :weight 'normal
-       :slant 'normal
-       :width 'normal)
-    (set-face-attribute
-       'default nil
-       :family "Fira Code"
-       :height 160
-       :weight 'normal
-       :slant 'normal
-       :width 'normal))
-#+end_src
-
 ** Initial Frame Size
 
 We need to set this in early-init to set for intitial frame.
