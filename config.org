@@ -129,7 +129,7 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 Eventual goal is to remove these from customization entirely, and use
 ~use-package~ for all.
 
-*** Programming Font
+*** Default Font
 Set up with my current programming font, Fira Code. You must have Fira
 Code installed on your system for this to work.
 
