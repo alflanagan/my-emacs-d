@@ -252,6 +252,23 @@ properly in place.
 (treemacs-start-on-boot)
 #+end_src
 
+*** Treesit
+Set up to use tree-sitter modes automatically, where one exists. Not
+sure of the exact details of how treesit and LSP (next section) work
+together. As far as I can tell, they do.
+
+[[https://emacs-tree-sitter.github.io/][(External) Tree Sitter Docs]] (some docs here: [[info:elisp#Parsing Program Source][info "(elisp) Parsing
+ Program Source"]]).
+
+#+begin_src emacs-lisp
+(use-package
+ treesit-auto
+ :custom (treesit-auto-install 'prompt)
+ :config
+ (treesit-auto-add-to-auto-mode-alist 'all)
+ (global-treesit-auto-mode))
+#+end_src
+
 *** ELisp Programming
 
 **** Linting
