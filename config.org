@@ -107,12 +107,6 @@ is the same as mine (hey!), youll need to change it.
  (backup-directory-alist
   `(("." . ,(concat user-emacs-directory "backups"))))
  (column-number-mode t "displays current column in mode line")
- (default-frame-alist
-  '((horizontal-scroll-bars)
-    (vertical-scroll-bars)
-    (width . 180)
-    (height . 70))
-  "set initial window size, and enable scroll bars") ;; see also early-init.el
  (global-auto-revert-mode t)
  (global-display-line-numbers-mode t)
  (mouse-yank-at-point t)
