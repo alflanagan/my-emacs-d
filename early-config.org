@@ -84,6 +84,17 @@ We need to set this in early-init to set for intitial frame.
         (height . 40)))
 #+end_src
 
+** Default Frame Config
+
+The default-frame-alist list defines default values for creation of
+new frames. Values in initial-frame-alist override this for the first
+frame only.
+
+#+begin_src emacs-lisp
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+#+end_src
+
 ** Always Use .el File When Newer
 
 We set this here so it gets applied to load of init.el (we hope). IMHO

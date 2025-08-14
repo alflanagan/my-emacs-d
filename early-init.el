@@ -28,6 +28,9 @@
         (width . 150)
         (height . 40)))
 
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+
 (setopt load-prefer-newer t)
 
 ;;; early-init.el ends here
