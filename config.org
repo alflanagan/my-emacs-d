@@ -74,6 +74,10 @@ to this file.
 ** Customizing Emacs Itself
 We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 
+There's a message displayed in the echo area on startup. Disabling it
+requires setting a variable to your user name. Unless your user name
+is the same as mine (hey!), youll need to change it.
+
 #+begin_src emacs-lisp
 (use-package
  emacs
@@ -85,6 +89,8 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
   ("C-r" . 'isearch-backward-regexp)
   ("C-M-s" . 'isearch-forward)
   ("C-M-r" . 'isearch-backward))
+
+ :config (setq inhibit-startup-echo-area-message "adrianflanagan")
 
  :custom
  (ido-mode t)
