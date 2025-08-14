@@ -60,7 +60,7 @@ which should be loaded from local files.
 #+end_src
 
 ** Customization
-Set up seperate file for use by emacs customzation.
+Set up separate file for use by emacs customization.
 
 I prefer to set customization options in the ~use-package~ declaration
 for each package, but on-the-fly or local-only customizations will go
@@ -88,7 +88,6 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 
  :custom
  (ido-mode t)
- (ido-enable-flex-matching t)
  (ido-big-directories '("node_modules" "\\.?venv"))
  (ido-cannot-complete-command 'ido-completion-help)
  (ido-ignore-directories
