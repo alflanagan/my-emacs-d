@@ -121,7 +121,9 @@ is the same as mine (hey!), youll need to change it.
   "don't automatically double space after sentence end -- obsolete style")
  (show-paren-mode t)
  (uniquify-buffer-name-style 'post-forward-angle-brackets)
- (user-email-address "lloyd.flanagan@proton.me"))
+ (user-email-address "lloyd.flanagan@proton.me")
+ (use-file-dialog nil)
+ (initial-scratch-message nil))
 #+end_src
 
 ** Packages
