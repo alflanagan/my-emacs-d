@@ -147,7 +147,7 @@ Code installed on your system for this to work.
 This minor mode enables the use of Fira Code Symbol font to display
 various ligatures. It's a bit of eye candy.
 
-You need to have Fira Code Symbol installed, see [[ https://github.com/jming422/fira-code-mode][fira-code-mode]].
+You need to have Fira Code Symbol installed, see [[https://github.com/jming422/fira-code-mode][fira-code-mode]].
 
 #+begin_src emacs-lisp
 (use-package
@@ -257,8 +257,8 @@ Set up to use tree-sitter modes automatically, where one exists. Not
 sure of the exact details of how treesit and LSP (next section) work
 together. As far as I can tell, they do.
 
-[[https://emacs-tree-sitter.github.io/][(External) Tree Sitter Docs]] (some docs here: [[info:elisp#Parsing Program Source][info "(elisp) Parsing
- Program Source"]]).
+[[https://emacs-tree-sitter.github.io/][(External) Tree Sitter Docs]] (some docs here: [[info:elisp#Parsing
+ Program Source][info "(elisp) Parsing Program Source"]]).
 
 #+begin_src emacs-lisp
 (use-package
@@ -319,7 +319,12 @@ package to integrate the information into the ~treemacs~ sidebar also.
 [[https://emacs-lsp.github.io/lsp-mode/][LSP Mode Docs]]
 
 #+begin_src emacs-lisp
-(use-package lsp-mode :defer t :commands lsp :hook prog-mode)
+(use-package
+ lsp-mode
+ :defer t
+ :commands lsp
+ :hook prog-mode
+ :custom (lsp-enable-snippet nil))
 (use-package lsp-treemacs :after lsp-mode)
 #+end_src
 
