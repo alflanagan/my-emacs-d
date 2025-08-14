@@ -7,6 +7,8 @@ file. The technique is borrowed from Ryan Thomson's repo
 [dotemacs](https://github.com/DarwinAwardWinner/dotemacs). He uses different packages, so if you're interested I
 urge you to check it out also.
 
+(Another good source for configuration info: [Emacs From Scratch](https://arne.me/blog/emacs-from-scratch-part-one-foundations).)
+
 I strongly suggest you use this as a guide, and don't just replace
 your _init.el file_. I'm loading a number of packages that I find
 personally useful. It's unlikely you want them all.
