@@ -266,11 +266,19 @@ properly in place.
 (use-package
  elisp-autofmt
  :defer t
- :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+ :commands
+ (elisp-autofmt-mode elisp-autofmt-buffer elisp-autofmt-region)
+ :custom
+ (elisp-autofmt-format-quoted nil)
+ (elisp-autofmt-use-default-override-defs t)
  :hook
  ((emacs-lisp-mode . elisp-autofmt-mode)
   (lisp-data-mode . elisp-autofmt-mode))
- :bind (:map lisp-mode-shared-map (("C-c f" . elisp-autofmt-buffer))))
+ :bind
+ (:map
+  lisp-mode-shared-map
+  (("C-c f" . elisp-autofmt-buffer)
+   ("C-c r" . elisp-autofmt-region))))
 #+end_src
 
 *** Language Server Protocol
