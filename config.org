@@ -316,6 +316,8 @@ Emacs now supports both methods.
 This sets up lsp-mode to integrate with the LSP, and then we use a
 package to integrate the information into the ~treemacs~ sidebar also.
 
+[[https://emacs-lsp.github.io/lsp-mode/][LSP Mode Docs]]
+
 #+begin_src emacs-lisp
 (use-package lsp-mode :defer t :commands lsp :hook prog-mode)
 (use-package lsp-treemacs :after lsp-mode)
