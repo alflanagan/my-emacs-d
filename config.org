@@ -117,7 +117,9 @@ is the same as mine (hey!), youll need to change it.
   ("C-M-s" . 'isearch-forward)
   ("C-M-r" . 'isearch-backward))
 
- :config (setq inhibit-startup-echo-area-message "adrianflanagan")
+ :config
+ (setq inhibit-startup-echo-area-message "adrianflanagan")
+ (global-auto-revert-mode)
 
  :custom
  (ido-mode t)
@@ -134,7 +136,6 @@ is the same as mine (hey!), youll need to change it.
  (backup-directory-alist
   `(("." . ,(concat user-emacs-directory "backups"))))
  (column-number-mode t "displays current column in mode line")
- (global-auto-revert-mode t)
  (global-display-line-numbers-mode t)
  (mouse-yank-at-point t)
  (save-interprogram-paste-before-kill t)
