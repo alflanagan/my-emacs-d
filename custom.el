@@ -31,8 +31,6 @@
  '(devdocs-window-select nil)
  '(display-fill-column-indicator t)
  '(dockerfile-use-buildkit t)
- '(elisp-autofmt-format-quoted nil)
- '(elisp-autofmt-use-default-override-defs t)
  '(flycheck-checkers
    '(ada-gnat asciidoctor asciidoc awk-gawk bazel-build-buildifier
               bazel-module-buildifier bazel-starlark-buildifier
