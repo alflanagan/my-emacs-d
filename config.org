@@ -54,9 +54,8 @@ which should be loaded from local files.
     (normal-top-level-add-subdirs-to-load-path)))
 
 ;; (add-subdirs-to-load-path "/opt/homebrew/share/emacs/site-lisp")
-(add-subdirs-to-load-path
- (directory-file-name
-  (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
+
+(add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
 #+end_src
 
 ** Customization
@@ -131,16 +130,14 @@ change it.
  (ido-mode t)
  (ido-big-directories '("node_modules" "\\.?venv"))
  (ido-cannot-complete-command 'ido-completion-help)
- (ido-ignore-directories
-  '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
+ (ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
  (ido-use-filename-at-point nil)
  (ido-use-url-at-point t)
  (ido-use-virtual-buffers 'auto)
 
  (apropos-do-all t)
  ;; put file backups in single directory, not in same directory with '~' appended.
- (backup-directory-alist
-  `(("." . ,(concat user-emacs-directory "backups"))))
+ (backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
  (column-number-mode t "displays current column in mode line")
  (global-display-line-numbers-mode t)
  (mouse-yank-at-point t)
@@ -150,9 +147,7 @@ change it.
  (select-enable-clipboard t "integrate emacs with system clipboard")
  (select-enable-primary t)
  (selection-coding-system 'utf-8)
- (sentence-end-double-space
-  nil
-  "don't automatically double space after sentence end -- obsolete style")
+ (sentence-end-double-space nil "don't automatically double space after sentence end -- obsolete style")
  (show-paren-mode t)
  (user-email-address "lloyd.flanagan@proton.me")
  (use-file-dialog nil)
@@ -244,6 +239,7 @@ Set up treemacs, the directory tree sidebar. See [[https://github.com/Alexander-
 the gory details.
 
 #+begin_src emacs-lisp
+(require 'cua-base)
 (use-package
  treemacs
  :ensure t
@@ -368,6 +364,32 @@ together. As far as I can tell, they do.
   lisp-mode-shared-map
   (("C-c f" . elisp-autofmt-buffer)
    ("C-c r" . elisp-autofmt-region))))
+#+end_src
+
+*** Web Mode
+A number of different tools allow source code to be embedded in an
+HTML file. Package ~web-mode~ uses ~html-mode~ for the HTML parts, but
+enables a language-specific mode for the regions of progammming
+language.
+
+#+begin_src emacs-lisp
+(use-package
+ ; see https://web-mode.org/!!
+ web-mode
+ :defer t
+ :mode
+ (("\\.phtml\\'" . web-mode)
+  ("\\.php\\'" . web-mode)
+  ("\\.tpl\\'" . web-mode)
+  ("\\.[agj]sp\\'" . web-mode)
+  ("\\.as[cp]x\\'" . web-mode)
+  ("\\.mustache\\'" . web-mode)
+  ("\\.djhtml\\'" . web-mode))
+ :custom
+ (web-mode-enable-comment-interpolation t)
+ (web-mode-enable-engine-detection t)
+ ; this assumes we're always using django
+ (web-mode-engines-alist '(("django" . "\\.html\\'"))))
 #+end_src
 
 *** Language Server Protocol
