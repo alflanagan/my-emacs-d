@@ -229,6 +229,16 @@ just when printed.
 (use-package page-break-lines :config (global-page-break-lines-mode))
 #+end_src
 
+*** Clean up Whitespace
+This package automatically strips extra whitespace from the end of
+lines.
+
+#+begin_src emacs-lisp
+(use-package
+ whitespace-cleanup-mode
+ :config (global-whitespace-cleanup-mode 1))
+#+end_src
+
 *** Treemacs
 Set up treemacs, the directory tree sidebar. See [[https://github.com/Alexander-Miller/treemacs][treemacs repo]] for all
 the gory details.
