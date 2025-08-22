@@ -6,6 +6,7 @@
 ;; overwritten. Edit that file, then execute the `org-babel-tangle'
 ;; command.
 
+(require 'autorevert)
 (setopt gc-cons-threshold most-positive-fixnum)
 
 (add-hook 'emacs-startup-hook

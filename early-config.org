@@ -39,6 +39,7 @@ Temporarily increase GC threshold during startup. This saves about 1.8
 seconds on startup time in early testing. Your milage may vary.
 
 #+begin_src emacs-lisp
+(require 'autorevert)
 (setopt gc-cons-threshold most-positive-fixnum)
 #+end_src
 
