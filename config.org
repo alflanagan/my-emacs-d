@@ -58,7 +58,7 @@ which should be loaded from local files.
 (add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
 #+end_src
 
-** Customization
+** Easy Customization
 Set up separate file for use by emacs customization.
 
 I prefer to set customization options in the ~use-package~ declaration
@@ -157,11 +157,7 @@ change it.
  (indent-tabs-mode nil))
 #+end_src
 
-** Packages
-Eventual goal is to remove these from customization entirely, and use
-~use-package~ for all.
-
-*** Default Font
+** Default Font
 Set up with my current programming font, Fira Code. You must have Fira
 Code installed on your system for this to work.
 
@@ -174,20 +170,9 @@ Code installed on your system for this to work.
                     :width 'normal)
 #+end_src
 
-**** fira-code-mode
-This minor mode enables the use of Fira Code Symbol font to display
-various ligatures. It's a bit of eye candy.
-
-You need to have Fira Code Symbol installed, see [[https://github.com/jming422/fira-code-mode][fira-code-mode]].
-
-#+begin_src emacs-lisp
-(use-package
- fira-code-mode
- :custom
- (fira-code-mode-disabled-ligatures
-  '(";;" "[]" "===" "==" ":" "#{" "#(" "#_" "#_("))
- :hook prog-mode)
-#+end_src
+** Packages
+Eventual goal is to remove these from customization entirely, and use
+~use-package~ for all.
 
 *** Better Mode Line
 [[https://github.com/Malabarba/smart-mode-line][Smart-mode-line]] is a sexy mode-line for Emacs. It aims to be easy to
@@ -338,7 +323,6 @@ together. As far as I can tell, they do.
 #+end_src
 
 *** ELisp Programming
-
 **** Linting
 
 #+begin_src emacs-lisp
@@ -444,6 +428,18 @@ load the newer version in order to process this file correctly.
 
 #+begin_src emacs-lisp
 (use-package ox-gfm :after org-mode)
+#+end_src
+
+** Debugging
+This sets several variables to more useful values when emacs is called with ~--debug-init~.
+
+#+begin_src emacs-lisp
+(when init-file-debug
+  (setopt
+   use-package-verbose t
+   use-package-expand-minimally nil
+   use-package-compute-statistics t
+   debug-on-error t))
 #+end_src
 
 ** End of File
