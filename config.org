@@ -473,6 +473,17 @@ This sets several variables to more useful values when emacs is called with ~--d
   (add-hook 'terraform-mode-hook 'my-terraform-mode-init))
 #+end_src
 
+** AMX
+
+[[(https://github.com/DarwinAwardWinner/amx)][Alternate M-x Command]]. Creates more useful interface for ~execute-extended-command~.
+
+#+begin_src emacs_lisp
+(use-package amx
+    :ensure t
+    :custom (amx-mode 1))
+#+end_src
+
+
 ** End of File
 
 #+begin_src emacs-lisp
