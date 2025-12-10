@@ -135,11 +135,16 @@ change it.
  (ido-use-url-at-point t)
  (ido-use-virtual-buffers 'auto)
 
+ ;; auto-save options
+ (auto-save-visited-mode t)
+ (kill-buffer-delete-auto-save-files t)
+ (trash-directory "~/.Trash")
+
  (apropos-do-all t)
  ;; put file backups in single directory, not in same directory with '~' appended.
  (backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
  (column-number-mode t "displays current column in mode line")
- (global-display-line-numbers-mode t)
+ (prog-mode-hook '(display-line-numbers-mode t))
  (mouse-yank-at-point t)
  (save-interprogram-paste-before-kill t)
  (save-place-mode t)
@@ -173,6 +178,18 @@ Code installed on your system for this to work.
 ** Packages
 Eventual goal is to remove these from customization entirely, and use
 ~use-package~ for all.
+
+*** EditorConfig
+There is a standard file named .editorconfig that sets a few options for an
+editor, helping ensure everyone working on a project uses the same settings.
+This sets up Emacs to get config settings from that file.
+
+#+begin_src emacs_lisp
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+#+end_src
 
 *** Better Mode Line
 [[https://github.com/Malabarba/smart-mode-line][Smart-mode-line]] is a sexy mode-line for Emacs. It aims to be easy to
@@ -440,6 +457,20 @@ This sets several variables to more useful values when emacs is called with ~--d
    use-package-expand-minimally nil
    use-package-compute-statistics t
    debug-on-error t))
+#+end_src
+
+** Terraform Suport
+
+#+begin_src emacs-lisp
+(use-package terraform-mode
+  :ensure t
+  :custom (terraform-indent-level 4)
+  :config
+  (defun my-terraform-mode-init ()
+    (outline-minor-mode 1)
+    )
+
+  (add-hook 'terraform-mode-hook 'my-terraform-mode-init))
 #+end_src
 
 ** End of File
