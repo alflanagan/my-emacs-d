@@ -347,7 +347,6 @@ together. As far as I can tell, they do.
 #+end_src
 
 *** ELisp Programming
-
 **** Linting
 
 #+begin_src emacs-lisp
@@ -455,19 +454,7 @@ load the newer version in order to process this file correctly.
 (use-package ox-gfm :after org-mode)
 #+end_src
 
-** Debugging
-This sets several variables to more useful values when emacs is called with ~--debug-init~.
-
-#+begin_src emacs-lisp
-(when init-file-debug
-  (setopt
-   use-package-verbose t
-   use-package-expand-minimally nil
-   use-package-compute-statistics t
-   debug-on-error t))
-#+end_src
-
-** Terraform Suport
+*** Terraform Suport
 
 #+begin_src emacs-lisp
 (use-package terraform-mode
@@ -481,7 +468,7 @@ This sets several variables to more useful values when emacs is called with ~--d
   (add-hook 'terraform-mode-hook 'my-terraform-mode-init))
 #+end_src
 
-** XKCD
+*** XKCD
 
    The best web comic ever, available right in the editor.
 
@@ -489,9 +476,19 @@ This sets several variables to more useful values when emacs is called with ~--d
 (use-package xkcd)
 #+end_src
 
+** Debugging
+This sets several variables to more useful values when emacs is called with ~--debug-init~.
+
+#+begin_src emacs-lisp
+(when init-file-debug
+  (setopt
+   use-package-verbose t
+   use-package-expand-minimally nil
+   use-package-compute-statistics t
+   debug-on-error t))
+#+end_src
 
 ** End Of File
-
 #+begin_src emacs-lisp
 ;;; init.el ends here
 #+end_src
