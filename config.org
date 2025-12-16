@@ -184,7 +184,7 @@ There is a standard file named .editorconfig that sets a few options for an
 editor, helping ensure everyone working on a project uses the same settings.
 This sets up Emacs to get config settings from that file.
 
-#+begin_src emacs_lisp
+#+begin_src emacs-lisp
 (use-package editorconfig
   :ensure t
   :config
@@ -212,6 +212,13 @@ It's builtin to Emacs, which is convenient.
 
 The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" to add features to the Emacs
 ~execute-extended-command~ function (M-x).
+
+#+begin_src emacs-lisp
+(use-package amx
+    :ensure t
+    :custom (amx-mode 1))
+#+end_src
+
 
 #+begin_src emacs-lisp
 (use-package amx)
@@ -340,6 +347,7 @@ together. As far as I can tell, they do.
 #+end_src
 
 *** ELisp Programming
+
 **** Linting
 
 #+begin_src emacs-lisp
@@ -473,18 +481,16 @@ This sets several variables to more useful values when emacs is called with ~--d
   (add-hook 'terraform-mode-hook 'my-terraform-mode-init))
 #+end_src
 
-** AMX
+** XKCD
 
-[[(https://github.com/DarwinAwardWinner/amx)][Alternate M-x Command]]. Creates more useful interface for ~execute-extended-command~.
+   The best web comic ever, available right in the editor.
 
-#+begin_src emacs_lisp
-(use-package amx
-    :ensure t
-    :custom (amx-mode 1))
+#+begin_src emacs-lisp
+(use-package xkcd)
 #+end_src
 
 
-** End of File
+** End Of File
 
 #+begin_src emacs-lisp
 ;;; init.el ends here
