@@ -112,9 +112,9 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(amx elisp-autofmt elisp-lint fira-code-mode flycheck go-mode kirigami lsp-treemacs ob-ts-node org-beautify-theme
-         ox-gfm page-break-lines prettier rainbow-delimiters smart-mode-line-powerline-theme terraform-mode
-         treemacs-icons-dired treemacs-magit treesit-auto typescript-mode web-mode whitespace-cleanup-mode))
+   '(amx elisp-autofmt elisp-lint fira-code-mode flycheck kirigami lsp-treemacs ob-ts-node org-beautify-theme ox-gfm
+         page-break-lines prettier rainbow-delimiters smart-mode-line-powerline-theme terraform-mode
+         treemacs-icons-dired treemacs-magit treesit-auto web-mode whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(project-mode-line t)
  '(python-interpreter "uv run python")
