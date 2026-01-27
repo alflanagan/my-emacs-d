@@ -4,5 +4,5 @@
 # TODO: figure out way to handle use-package\n package-name
 for PKG in $(cat packages.txt )
 do
-  grep ${PKG} init.el
+  grep ${PKG} config.org
 done | grep use-package | grep -v '^ *;;' | sed -e "s/^ *//" | cut -d' ' -f2 | cut -d')' -f1 | sort -u
