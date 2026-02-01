@@ -110,13 +110,13 @@ change it.
  emacs
 
  :bind
- (("M-/" . 'hippie-expand)
-  ("C-x C-b" . 'ibuffer)
-  ("C-s" . 'isearch-forward-regexp)
-  ("C-r" . 'isearch-backward-regexp)
-  ("C-M-s" . 'isearch-forward)
-  ("C-M-r" . 'isearch-backward)
-  ("C-x M-r" . 'remember)
+ (("M-/" . #'hippie-expand)
+  ("C-x C-b" . #'ibuffer)
+  ("C-s" . #'isearch-forward-regexp)
+  ("C-r" . #'isearch-backward-regexp)
+  ("C-M-s" . #'isearch-forward)
+  ("C-M-r" . #'isearch-backward)
+  ("C-x M-r" . #'remember)
   ("C-x M-R" . "C-u C-x M-r")
   ("s-q" . nil)
   ;; runs save-buffers-kill-emacs by default, but too easy to hit by accident
@@ -125,11 +125,17 @@ change it.
  :config
  (setq inhibit-startup-echo-area-message "adrianflanagan")
  (global-auto-revert-mode)
+ (when window-system
+   (tool-bar-mode -1))
+ (blink-cursor-mode -1)
+ (set-terminal-coding-system 'utf-8)
+ (set-keyboard-coding-system 'utf-8)
+ (prefer-coding-system 'utf-8)
 
  :custom
  (ido-mode t)
  (ido-big-directories '("node_modules" "\\.?venv"))
- (ido-cannot-complete-command 'ido-completion-help)
+ (ido-cannot-complete-command #'ido-completion-help)
  (ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
  (ido-use-filename-at-point nil)
  (ido-use-url-at-point t)
@@ -139,27 +145,36 @@ change it.
  (auto-save-visited-mode t)
  (kill-buffer-delete-auto-save-files t)
  (trash-directory "~/.Trash")
+ (delete-by-moving-to-trash t) ;; use system trash can for deleted files
 
  (apropos-do-all t)
  ;; put file backups in single directory, not in same directory with '~' appended.
  (backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
+
+ (browse-url-browser-function 'browse-default-macosx-browser)
  (column-number-mode t "displays current column in mode line")
- (prog-mode-hook '(display-line-numbers-mode t))
+ (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
+ (fill-column 120)
+ (font-lock-maximum-decoration t) ;; use as much syntax highlighting as possible, by default
+ (indent-tabs-mode nil)
+ (inhibit-startup-message t) ;; turn off Emacs splash screen
+ (initial-scratch-message nil)
+ (load-prefer-newer t) ;; don't load .elc file if .el file is newer (well, duh)
  (mouse-yank-at-point t)
+ (prog-mode-hook '(display-line-numbers-mode t))
  (save-interprogram-paste-before-kill t)
- (save-place-mode t)
  (save-place-file (concat user-emacs-directory "places"))
+ (save-place-mode t)
  (select-enable-clipboard t "integrate emacs with system clipboard")
  (select-enable-primary t)
  (selection-coding-system 'utf-8)
  (sentence-end-double-space nil "don't automatically double space after sentence end -- obsolete style")
  (show-paren-mode t)
- (user-email-address "lloyd.flanagan@proton.me")
+ (transient-mark-mode t) ;; visually highlight selected region
+ (truncate-partial-width-windows nil) ;; use value of `truncate_lines' even in windows narrower than frame
  (use-file-dialog nil)
- (initial-scratch-message nil)
- (visible-bell (not (equal system-type 'darwin))) ;;bad on mac
- (fill-column 120)
- (indent-tabs-mode nil))
+ (user-email-address "lloyd.flanagan@proton.me")
+ (visible-bell (not (equal system-type 'darwin)))) ;;bad on mac
 #+end_src
 
 ** Default Font
@@ -274,7 +289,7 @@ the gory details.
  ("C-x t C-t" . treemacs-find-file)
  ("C-x t M-t" . treemacs-find-tag)
 
- :hook (after-init-hook . treemacs))
+ :hook (after-init . #'treemacs))
 #+end_src
 
 **** Treemacs-icons-dired
@@ -284,7 +299,7 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 (use-package
  treemacs-icons-dired
  :after (treemacs)
- :hook (dired-mode . treemacs-icons-dired-enable-once)
+ :hook (dired-mode . #'treemacs-icons-dired-enable-once)
  :ensure t)
 #+end_src
 
@@ -342,7 +357,7 @@ together. As far as I can tell, they do.
 #+begin_src emacs-lisp
 (use-package
  flycheck
- :hook ((after-init . global-flycheck-mode))
+ :hook (after-init . #'global-flycheck-mode)
  :pin "nongnu")
 #+end_src
 
@@ -365,8 +380,8 @@ together. As far as I can tell, they do.
  (elisp-autofmt-format-quoted nil)
  (elisp-autofmt-use-default-override-defs t)
  :hook
- ((emacs-lisp-mode . elisp-autofmt-mode)
-  (lisp-data-mode . elisp-autofmt-mode))
+ ((emacs-lisp-mode . #'elisp-autofmt-mode)
+  (lisp-data-mode . #'elisp-autofmt-mode))
  :bind
  (:map
   lisp-mode-shared-map
@@ -465,7 +480,7 @@ load the newer version in order to process this file correctly.
     (outline-minor-mode 1)
     )
 
-  (add-hook 'terraform-mode-hook 'my-terraform-mode-init))
+  hook: (terraform-mode . #'my-terraform-mode-init))
 #+end_src
 
 *** XKCD
