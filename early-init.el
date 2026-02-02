@@ -10,7 +10,7 @@
 (setopt gc-cons-threshold most-positive-fixnum)
 
 (add-hook 'emacs-startup-hook
-    (lambda () (setopt gc-cons-threshold (* 1 1024 1024))))
+    (lambda () (setopt gc-cons-threshold (* 10 1024 1024))))
 
 (setopt garbage-collection-messages t) ;; show GC messages for debugging
 
