@@ -15,7 +15,8 @@
  '(cua-enable-cua-keys nil)
  '(custom-enabled-themes '(smart-mode-line-dark wombat))
  '(custom-safe-themes
-   '("95ee4d370f4b66ff2287d8075f8fe5f58c4a9b9c1e65d663b15174f1a8c57717"
+   '("b2981f490579960b489803a8b874e570cf293fdf9065014ee1aaa0e6b523e8ae"
+     "95ee4d370f4b66ff2287d8075f8fe5f58c4a9b9c1e65d663b15174f1a8c57717"
      "36d4b9573ed57b3c53261cb517eef2353058b7cf95b957f691f5ad066933ae84"
      "17e0f989a947f8026eb7044c07c11a36c6c901ee370dd8ce58a1e08544c5cf9f"
      "9b21c848d09ba7df8af217438797336ac99cbbbc87a08dc879e9291673a6a631"
@@ -112,9 +113,10 @@
    '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(amx elisp-autofmt elisp-lint fira-code-mode flycheck kirigami lsp-treemacs ob-ts-node org-beautify-theme ox-gfm
-         page-break-lines prettier rainbow-delimiters smart-mode-line-powerline-theme terraform-mode
-         treemacs-icons-dired treemacs-magit treesit-auto web-mode whitespace-cleanup-mode xkcd))
+   '(ai-code amx elisp-autofmt elisp-lint fira-code-mode flycheck ido-completing-read+ kirigami lsp-treemacs
+             markdown-ts-mode ob-ts-node org-beautify-theme ox-gfm page-break-lines prettier rainbow-delimiters
+             smart-mode-line-powerline-theme terraform-mode treemacs-icons-dired treemacs-magit treesit-auto web-mode
+             whitespace-cleanup-mode xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(project-mode-line t)
  '(python-interpreter "uv run python")
@@ -124,7 +126,8 @@
  '(safe-local-variable-directories
    '("/Users/adrianflanagan/Devel/personal/people/" "~/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((eval let ((project-directory (car (dir-locals-find-file default-directory))))
+   '((flycheck-stylelintrc . stylelint.config.js)
+     (eval let ((project-directory (car (dir-locals-find-file default-directory))))
            (setq lsp-clients-typescript-server-args
                  `("--tsserver-path" ,(concat project-directory ".yarn/sdks/typescript/bin/tsserver") "--stdio")))
      (display-line-numbers) (elisp-lint-ignored-validators 'package-lint) (web-mode-indent-style . 2)
