@@ -289,7 +289,8 @@ the gory details.
  ("C-x t C-t" . treemacs-find-file)
  ("C-x t M-t" . treemacs-find-tag)
 
- :hook (after-init . #'treemacs))
+ ;; NOTE: functions in :hook keyword list should NOT be quoted
+ :hook (after-init-hook . treemacs))
 #+end_src
 
 **** Treemacs-icons-dired
@@ -299,7 +300,7 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 (use-package
  treemacs-icons-dired
  :after (treemacs)
- :hook (dired-mode . #'treemacs-icons-dired-enable-once)
+ :hook (dired-mode . treemacs-icons-dired-enable-once)
  :ensure t)
 #+end_src
 
@@ -357,7 +358,7 @@ together. As far as I can tell, they do.
 #+begin_src emacs-lisp
 (use-package
  flycheck
- :hook (after-init . #'global-flycheck-mode)
+ :hook (after-init . global-flycheck-mode)
  :pin "nongnu")
 #+end_src
 
@@ -380,8 +381,8 @@ together. As far as I can tell, they do.
  (elisp-autofmt-format-quoted nil)
  (elisp-autofmt-use-default-override-defs t)
  :hook
- ((emacs-lisp-mode . #'elisp-autofmt-mode)
-  (lisp-data-mode . #'elisp-autofmt-mode))
+ ((emacs-lisp-mode . elisp-autofmt-mode)
+  (lisp-data-mode . elisp-autofmt-mode))
  :bind
  (:map
   lisp-mode-shared-map
@@ -442,7 +443,7 @@ package to integrate the information into the ~treemacs~ sidebar also.
  :commands lsp
  :hook prog-mode
  :custom (lsp-enable-snippet nil))
-(use-package lsp-treemacs :after lsp-mode)
+(use-package lsp-treemacs :after (lsp-mode treemacs))
 #+end_src
 
 Since we've hooked ~prog-mode~, it's common to get warnings about a
@@ -479,8 +480,7 @@ load the newer version in order to process this file correctly.
   (defun my-terraform-mode-init ()
     (outline-minor-mode 1)
     )
-
-  hook: (terraform-mode . #'my-terraform-mode-init))
+  :hook (terraform-mode . my-terraform-mode-init))
 #+end_src
 
 *** XKCD
