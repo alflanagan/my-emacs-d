@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# TODO: call this 'get_unused_packages', edit package list, print diffs
-# TODO: figure out way to handle use-package\n package-name
+# TODO: What we need to do is extract only the use-package s-expressions
+#       from config.org
 for PKG in $(cat packages.txt )
 do
   grep ${PKG} config.org
