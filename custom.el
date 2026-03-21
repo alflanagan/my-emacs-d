@@ -109,14 +109,11 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-w3m org-mac-iCal))
  '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "ON HOLD" "DONE(!)")))
- '(package-archives
-   '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-     ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(ai-code amx elisp-autofmt elisp-lint fira-code-mode flycheck ido-completing-read+ kirigami lsp-treemacs
-             markdown-ts-mode ob-ts-node org-beautify-theme ox-gfm page-break-lines prettier rainbow-delimiters
-             smart-mode-line-powerline-theme terraform-mode treemacs-icons-dired treemacs-magit treesit-auto web-mode
-             whitespace-cleanup-mode xkcd))
+   '(amx elisp-autofmt elisp-lint elpy flycheck ido-completing-read+ jinja2-mode kirigami lsp-treemacs markdown-ts-mode
+         ob-ts-node org-beautify-theme ox-gfm page-break-lines prettier rainbow-delimiters shfmt
+         smart-mode-line-powerline-theme terraform-mode treemacs-icons-dired treemacs-magit treesit-auto vterm web-mode
+         which-key whitespace-cleanup-mode winpulse xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
  '(project-mode-line t)
  '(python-interpreter "uv run python")
