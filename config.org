@@ -1,3 +1,4 @@
+# -*- fill-column: 80; -*-
 * Emacs Configuration
 
 This is file config.org: Main emacs configuration.
@@ -70,6 +71,12 @@ to this file.
 (load custom-file)
 #+end_src
 
+#+begin_src emacs-lisp
+ (setopt package-archives
+   '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+   ("melpa" . "https://melpa.org/packages/")))
+#+end_src
+
 ** Secrets File
 This local file is for global variables with values which should not
 be checked in with source control, such as passwords and API keys.
@@ -106,6 +113,7 @@ name. Unless your user name is the same as mine (hey!), youll need to
 change it.
 
 #+begin_src emacs-lisp
+(defvar package-menu-hide-low-priority)
 (use-package
  emacs
 
@@ -134,6 +142,7 @@ change it.
 
  :custom
  (ido-mode t)
+ (ido-everywhere t)
  (ido-big-directories '("node_modules" "\\.?venv"))
  (ido-cannot-complete-command #'ido-completion-help)
  (ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
@@ -151,7 +160,6 @@ change it.
  ;; put file backups in single directory, not in same directory with '~' appended.
  (backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
 
- (browse-url-browser-function 'browse-default-macosx-browser)
  (column-number-mode t "displays current column in mode line")
  (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
  (fill-column 120)
@@ -159,7 +167,6 @@ change it.
  (indent-tabs-mode nil)
  (inhibit-startup-message t) ;; turn off Emacs splash screen
  (initial-scratch-message nil)
- (load-prefer-newer t) ;; don't load .elc file if .el file is newer (well, duh)
  (mouse-yank-at-point t)
  (prog-mode-hook '(display-line-numbers-mode t))
  (save-interprogram-paste-before-kill t)
@@ -168,13 +175,17 @@ change it.
  (select-enable-clipboard t "integrate emacs with system clipboard")
  (select-enable-primary t)
  (selection-coding-system 'utf-8)
- (sentence-end-double-space nil "don't automatically double space after sentence end -- obsolete style")
+ (sentence-end-double-space
+  nil "don't automatically double space after sentence end -- obsolete style")
  (show-paren-mode t)
  (transient-mark-mode t) ;; visually highlight selected region
  (truncate-partial-width-windows nil) ;; use value of `truncate_lines' even in windows narrower than frame
  (use-file-dialog nil)
  (user-email-address "lloyd.flanagan@proton.me")
- (visible-bell (not (equal system-type 'darwin)))) ;;bad on mac
+ (visible-bell (not (equal system-type 'darwin))) ;;bad on mac
+ ;; (package-archive-priorities `(melpa . 1))
+ (package-menu-hide-low-priority t) ;; don't show package in menu if higher-priority package is found
+ )
 #+end_src
 
 ** Default Font
@@ -234,9 +245,16 @@ The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" 
     :custom (amx-mode 1))
 #+end_src
 
+#+BEGIN_QUOTE
+This package replaces stock emacs completion with ido completion wherever it is
+possible to do so without breaking things (i.e. what you were probably hoping
+for when you set ido-everywhere to t).
+#+END_QUOTE
 
 #+begin_src emacs-lisp
-(use-package amx)
+(use-package ido-completing-read+
+  :config
+    (ido-ubiquitous-mode 1))
 #+end_src
 
 *** Page-break Lines
@@ -274,11 +292,12 @@ the gory details.
  :custom
  (treemacs-project-follow-mode t)
  (treemacs-filewatch-mode t)
- (treemacs-hide-gitignored-files-mode nil)
+ (treemacs-hide-gitignored-files-mode t)
  (when treemacs-python-executable
    (treemacs-git-commit-diff-mode t))
  (treemacs-is-never-other-window t)
- (treemacs-follow-after-init t)
+ ;; follow mode makes it difficult to find file that are not on-screen
+ (treemacs-follow-after-init nil)
 
  :bind
  ("M-0" . treemacs-select-window)
@@ -362,6 +381,28 @@ together. As far as I can tell, they do.
  :pin "nongnu")
 #+end_src
 
+*** Python Programming
+
+~python-ts-mode~ is built-in mode for python using tree-sitter. Add support for
+template languages used by Django and Flask frameworks.
+
+#+begin_src emacs-lisp
+  (use-package
+    jinja2-mode)
+#+end_src
+
+~elpy~ combines a selection of other utilities to create a complete python
+programming environment. Defer it so it doesn't load unless we edit a python
+file.
+
+#+begin_src emacs-lisp
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
+#+end_src
+
 *** ELisp Programming
 **** Linting
 
@@ -414,6 +455,21 @@ language.
  (web-mode-enable-engine-detection t)
  ; this assumes we're always using django
  (web-mode-engines-alist '(("django" . "\\.html\\'"))))
+#+end_src
+
+*** Shell Scripts
+
+#+begin_src emacs-lisp
+(use-package shfmt :bind (:map sh-mode-map ("C-c C-f" . shfmt)))
+#+end_src
+
+*** Visual Tweaks
+
+#+begin_src emacs-lisp
+(use-package
+ winpulse
+ :vc (:url "https://github.com/xenodium/winpulse" :rev :newest)
+ :config (winpulse-mode +1))
 #+end_src
 
 *** Language Server Protocol
@@ -505,5 +561,6 @@ This sets several variables to more useful values when emacs is called with ~--d
 
 ** End Of File
 #+begin_src emacs-lisp
+(message "config.org loaded.")
 ;;; init.el ends here
 #+end_src
