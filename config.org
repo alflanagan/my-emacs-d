@@ -1,0 +1,566 @@
+# -*- fill-column: 80; -*-
+* Emacs Configuration
+
+This is file config.org: Main emacs configuration.
+
+** File Setup
+*Must* be first line of the file.
+
+#+begin_src emacs-lisp
+;; -*- lexical-binding: t; -*-
+#+end_src
+
+** Legal Stuff
+Legal/copyright notice for the generated file. All terms are assumed to
+apply to this file also
+
+#+begin_src emacs-lisp
+;;; config.el -- Non-site-specific initialization -*- lexical-binding: t; -*-
+
+;; Copyright © 2025 A. Lloyd Flanagan
+;;
+;; Author: A. Lloyd Flanagan <lloyd.flanagan@proton.me>
+;; Maintainer: A. Lloyd Flanagan <lloyd.flanagan@proton.me>
+;; Created: 2014
+;; Version: ??
+
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 2, or (at your option)
+;; any later version.
+;;
+;; This file is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
+;;
+;; This file is not part of GNU Emacs.
+
+#+end_src
+
+** Load Path
+In my local /lisp subdirectory, I've got some third-party projects
+which should be loaded from local files.
+
+#+begin_src emacs-lisp
+(defun add-subdirs-to-load-path (parent-directory)
+  "Add PARENT-DIRECTORY and its immediate child directories to `load-path'."
+  (let ((default-directory parent-directory))
+    (add-to-list 'load-path default-directory)
+    (normal-top-level-add-subdirs-to-load-path)))
+
+;; (add-subdirs-to-load-path "/opt/homebrew/share/emacs/site-lisp")
+
+(add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
+#+end_src
+
+** Easy Customization
+Set up separate file for use by emacs customization.
+
+I prefer to set customization options in the ~use-package~ declaration
+for each package, but on-the-fly or local-only customizations will go
+to this file.
+
+#+begin_src emacs-lisp
+(setq custom-file "~/.config/emacs/my_emacs/custom.el")
+(load custom-file)
+#+end_src
+
+#+begin_src emacs-lisp
+ (setopt package-archives
+   '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+   ("melpa" . "https://melpa.org/packages/")))
+#+end_src
+
+** Secrets File
+This local file is for global variables with values which should not
+be checked in with source control, such as passwords and API keys.
+
+#+begin_src emacs-lisp
+(require 'secrets)
+#+end_src
+
+** Uniquify
+Uniquify is a part of emacs which is not loaded by default, but it can
+be ~require~d to change the way buffers are named when editing
+different files with the same name. From the source file:
+
+     #+BEGIN_QUOTE
+     ;; Emacs's traditional method for making buffer names unique adds <2>, <3>,
+     ;; etc. to the end of (all but one of) the buffers.  This file replaces
+     ;; that behavior, for buffers visiting files and Dired buffers, with a
+     ;; uniquification that adds parts of the file name until the buffer names
+     ;; are unique.
+     #+END_QUOTE
+
+#+begin_src emacs-lisp
+(require 'uniquify)
+(setopt uniquify-buffer-name-style 'post-forward-angle-brackets)
+#+end_src
+
+** Customizing Emacs Itself
+We can use ~use-package~ to configure emacs itself as a
+'pseudo-package'.
+
+There's a message displayed in the echo area on startup. Disabling it
+requires setting ~inhibit-startup-echo-area-message~ to your user
+name. Unless your user name is the same as mine (hey!), youll need to
+change it.
+
+#+begin_src emacs-lisp
+(defvar package-menu-hide-low-priority)
+(use-package
+ emacs
+
+ :bind
+ (("M-/" . #'hippie-expand)
+  ("C-x C-b" . #'ibuffer)
+  ("C-s" . #'isearch-forward-regexp)
+  ("C-r" . #'isearch-backward-regexp)
+  ("C-M-s" . #'isearch-forward)
+  ("C-M-r" . #'isearch-backward)
+  ("C-x M-r" . #'remember)
+  ("C-x M-R" . "C-u C-x M-r")
+  ("s-q" . nil)
+  ;; runs save-buffers-kill-emacs by default, but too easy to hit by accident
+  )
+
+ :config
+ (setq inhibit-startup-echo-area-message "adrianflanagan")
+ (global-auto-revert-mode)
+ (when window-system
+   (tool-bar-mode -1))
+ (blink-cursor-mode -1)
+ (set-terminal-coding-system 'utf-8)
+ (set-keyboard-coding-system 'utf-8)
+ (prefer-coding-system 'utf-8)
+
+ :custom
+ (ido-mode t)
+ (ido-everywhere t)
+ (ido-big-directories '("node_modules" "\\.?venv"))
+ (ido-cannot-complete-command #'ido-completion-help)
+ (ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
+ (ido-use-filename-at-point nil)
+ (ido-use-url-at-point t)
+ (ido-use-virtual-buffers 'auto)
+
+ ;; auto-save options
+ (auto-save-visited-mode t)
+ (kill-buffer-delete-auto-save-files t)
+ (trash-directory "~/.Trash")
+ (delete-by-moving-to-trash t) ;; use system trash can for deleted files
+
+ (apropos-do-all t)
+ ;; put file backups in single directory, not in same directory with '~' appended.
+ (backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
+
+ (column-number-mode t "displays current column in mode line")
+ (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
+ (fill-column 120)
+ (font-lock-maximum-decoration t) ;; use as much syntax highlighting as possible, by default
+ (indent-tabs-mode nil)
+ (inhibit-startup-message t) ;; turn off Emacs splash screen
+ (initial-scratch-message nil)
+ (mouse-yank-at-point t)
+ (prog-mode-hook '(display-line-numbers-mode t))
+ (save-interprogram-paste-before-kill t)
+ (save-place-file (concat user-emacs-directory "places"))
+ (save-place-mode t)
+ (select-enable-clipboard t "integrate emacs with system clipboard")
+ (select-enable-primary t)
+ (selection-coding-system 'utf-8)
+ (sentence-end-double-space
+  nil "don't automatically double space after sentence end -- obsolete style")
+ (show-paren-mode t)
+ (transient-mark-mode t) ;; visually highlight selected region
+ (truncate-partial-width-windows nil) ;; use value of `truncate_lines' even in windows narrower than frame
+ (use-file-dialog nil)
+ (user-email-address "lloyd.flanagan@proton.me")
+ (visible-bell (not (equal system-type 'darwin))) ;;bad on mac
+ ;; (package-archive-priorities `(melpa . 1))
+ (package-menu-hide-low-priority t) ;; don't show package in menu if higher-priority package is found
+ )
+#+end_src
+
+** Default Font
+Set up with my current programming font, Fira Code. You must have Fira
+Code installed on your system for this to work.
+
+#+begin_src emacs-lisp
+(set-face-attribute 'default nil
+                    :family "Fira Code"
+                    :height 160
+                    :weight 'normal
+                    :slant 'normal
+                    :width 'normal)
+#+end_src
+
+** Packages
+Eventual goal is to remove these from customization entirely, and use
+~use-package~ for all.
+
+*** EditorConfig
+There is a standard file named .editorconfig that sets a few options for an
+editor, helping ensure everyone working on a project uses the same settings.
+This sets up Emacs to get config settings from that file.
+
+#+begin_src emacs-lisp
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+#+end_src
+
+*** Better Mode Line
+[[https://github.com/Malabarba/smart-mode-line][Smart-mode-line]] is a sexy mode-line for Emacs. It aims to be easy to
+read from small to large monitors by using colors, a prefix feature,
+and smart truncation.
+
+#+begin_src emacs-lisp
+(use-package smart-mode-line :config (sml/setup))
+(use-package
+ smart-mode-line-powerline-theme
+ :config (sml/apply-theme 'powerline))
+#+end_src
+
+*** Ido and amx
+There are (at least) three major emacs packages to enable
+auto-completion: "ivy", "company", and "ido". Ivy is full-featured and
+includes "counsel", which modifies emacs commands to use ivy. However,
+it looks not to be actively maintained, and I've come to prefer "ido".
+It's builtin to Emacs, which is convenient.
+
+The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" to add features to the Emacs
+~execute-extended-command~ function (M-x).
+
+#+begin_src emacs-lisp
+(use-package amx
+    :ensure t
+    :custom (amx-mode 1))
+#+end_src
+
+#+BEGIN_QUOTE
+This package replaces stock emacs completion with ido completion wherever it is
+possible to do so without breaking things (i.e. what you were probably hoping
+for when you set ido-everywhere to t).
+#+END_QUOTE
+
+#+begin_src emacs-lisp
+(use-package ido-completing-read+
+  :config
+    (ido-ubiquitous-mode 1))
+#+end_src
+
+*** Page-break Lines
+This is a neat little package that displays embedded ctrl-L characters
+as horizontal lines. This helps break up the file on the screen, not
+just when printed.
+
+#+begin_src emacs-lisp
+(use-package page-break-lines :config (global-page-break-lines-mode))
+#+end_src
+
+*** Clean up Whitespace
+This package automatically strips extra whitespace from the end of
+lines.
+
+#+begin_src emacs-lisp
+(use-package
+ whitespace-cleanup-mode
+ :config (global-whitespace-cleanup-mode 1))
+#+end_src
+
+*** Treemacs
+Set up treemacs, the directory tree sidebar. See [[https://github.com/Alexander-Miller/treemacs][treemacs repo]] for all
+the gory details.
+
+#+begin_src emacs-lisp
+(require 'cua-base)
+(use-package
+ treemacs
+ :ensure t
+ :defer t
+ :init
+ (with-eval-after-load 'winum
+   (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+ :custom
+ (treemacs-project-follow-mode t)
+ (treemacs-filewatch-mode t)
+ (treemacs-hide-gitignored-files-mode t)
+ (when treemacs-python-executable
+   (treemacs-git-commit-diff-mode t))
+ (treemacs-is-never-other-window t)
+ ;; follow mode makes it difficult to find file that are not on-screen
+ (treemacs-follow-after-init nil)
+
+ :bind
+ ("M-0" . treemacs-select-window)
+ ("C-x t 1" . treemacs-delete-other-windows)
+ ("C-x t t" . treemacs)
+ ("C-x t d" . treemacs-select-directory)
+ ("C-x t B" . treemacs-bookmark)
+ ("C-x t C-t" . treemacs-find-file)
+ ("C-x t M-t" . treemacs-find-tag)
+
+ ;; NOTE: functions in :hook keyword list should NOT be quoted
+ :hook (after-init-hook . treemacs))
+#+end_src
+
+**** Treemacs-icons-dired
+Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
+
+#+begin_src emacs-lisp
+(use-package
+ treemacs-icons-dired
+ :after (treemacs)
+ :hook (dired-mode . treemacs-icons-dired-enable-once)
+ :ensure t)
+#+end_src
+
+**** Treemacs-magit -- integrate git with treemacs.
+
+#+begin_src emacs-lisp
+(use-package treemacs-magit :after (treemacs magit) :ensure t)
+#+end_src
+
+**** Treemacs start on boot.
+This function is recommended to ensure all elements of treemacs are
+properly in place.
+
+#+begin_src emacs-lisp
+(treemacs-start-on-boot)
+#+end_src
+
+*** Treesit
+Set up to use tree-sitter modes automatically, where one exists. Not
+sure of the exact details of how treesit and LSP (next section) work
+together. As far as I can tell, they do.
+
+[[https://emacs-tree-sitter.github.io/][(External) Tree Sitter Docs]] (some docs here: [[info:elisp#Parsing
+ Program Source][info "(elisp) Parsing Program Source"]]).
+
+#+begin_src emacs-lisp
+(use-package
+ treesit-auto
+ :custom (treesit-auto-install 'prompt)
+ :config
+ (treesit-auto-add-to-auto-mode-alist 'all)
+ (global-treesit-auto-mode))
+#+end_src
+
+*** Flycheck
+
+     #+BEGIN_QUOTE
+     Flycheck is a modern on-the-fly syntax checking extension for GNU
+     Emacs, intended as replacement for the older Flymake extension
+     which is part of GNU Emacs.
+
+     Flycheck automatically checks buffers for errors while you type,
+     and reports warnings and errors directly in the buffer and in an
+     optional IDE-like error list.
+
+     It comes with a rich interface for custom syntax checkers and
+     other extensions, and has already many 3rd party extensions
+     adding new features.
+
+     Please read the online manual at https://www.flycheck.org for
+     more information. You can open the manual directly from Emacs
+     with `M-x flycheck-manual'.
+     #+END_QUOTE
+
+#+begin_src emacs-lisp
+(use-package
+ flycheck
+ :hook (after-init . global-flycheck-mode)
+ :pin "nongnu")
+#+end_src
+
+*** Python Programming
+
+~python-ts-mode~ is built-in mode for python using tree-sitter. Add support for
+template languages used by Django and Flask frameworks.
+
+#+begin_src emacs-lisp
+  (use-package
+    jinja2-mode)
+#+end_src
+
+~elpy~ combines a selection of other utilities to create a complete python
+programming environment. Defer it so it doesn't load unless we edit a python
+file.
+
+#+begin_src emacs-lisp
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
+#+end_src
+
+*** ELisp Programming
+**** Linting
+
+#+begin_src emacs-lisp
+(use-package elisp-lint :defer t)
+#+end_src
+
+**** Elisp-autofmt
+
+#+begin_src emacs-lisp
+(use-package
+ elisp-autofmt
+ :defer t
+ :commands
+ (elisp-autofmt-mode elisp-autofmt-buffer elisp-autofmt-region)
+ :custom
+ (elisp-autofmt-format-quoted nil)
+ (elisp-autofmt-use-default-override-defs t)
+ :hook
+ ((emacs-lisp-mode . elisp-autofmt-mode)
+  (lisp-data-mode . elisp-autofmt-mode))
+ :bind
+ (:map
+  lisp-mode-shared-map
+  (("C-c f" . elisp-autofmt-buffer)
+   ("C-c r" . elisp-autofmt-region))))
+#+end_src
+
+*** Web Mode
+A number of different tools allow source code to be embedded in an
+HTML file. Package ~web-mode~ uses ~html-mode~ for the HTML parts, but
+enables a language-specific mode for the regions of progammming
+language.
+
+#+begin_src emacs-lisp
+(use-package
+ ; see https://web-mode.org/!!
+ web-mode
+ :defer t
+ :mode
+ (("\\.phtml\\'" . web-mode)
+  ("\\.php\\'" . web-mode)
+  ("\\.tpl\\'" . web-mode)
+  ("\\.[agj]sp\\'" . web-mode)
+  ("\\.as[cp]x\\'" . web-mode)
+  ("\\.mustache\\'" . web-mode)
+  ("\\.djhtml\\'" . web-mode))
+ :custom
+ (web-mode-enable-comment-interpolation t)
+ (web-mode-enable-engine-detection t)
+ ; this assumes we're always using django
+ (web-mode-engines-alist '(("django" . "\\.html\\'"))))
+#+end_src
+
+*** Shell Scripts
+
+#+begin_src emacs-lisp
+(use-package shfmt :bind (:map sh-mode-map ("C-c C-f" . shfmt)))
+#+end_src
+
+*** Visual Tweaks
+
+#+begin_src emacs-lisp
+(use-package
+ winpulse
+ :vc (:url "https://github.com/xenodium/winpulse" :rev :newest)
+ :config (winpulse-mode +1))
+#+end_src
+
+*** Language Server Protocol
+Not long ago, an editor had to have custom handling written for each
+language it "knew". This led to a lot of duplication of effort, and
+bad editor implementations.
+
+Now there are 2 major protocols that can be provided by language
+authors to communicate information about a language to an editor. The
+Language Server Protocol allows the editor to connect to an external
+server process, which provides information about the language.
+
+The Tree-Sitter protocol provides a set of shared libraries which the
+editor dynamically links to, and that run in the editor's process.
+
+Emacs now supports both methods.
+
+This sets up lsp-mode to integrate with the LSP, and then we use a
+package to integrate the information into the ~treemacs~ sidebar also.
+
+[[https://emacs-lsp.github.io/lsp-mode/][LSP Mode Docs]]
+
+#+begin_src emacs-lisp
+(use-package
+ lsp-mode
+ :defer t
+ :commands lsp
+ :hook prog-mode
+ :custom (lsp-enable-snippet nil))
+(use-package lsp-treemacs :after (lsp-mode treemacs))
+#+end_src
+
+Since we've hooked ~prog-mode~, it's common to get warnings about a
+language not having a matching server. Turn those off.
+
+#+begin_src emacs-lisp
+(setopt lsp-warn-no-matched-clients nil)
+#+end_src
+
+*** Org Mode
+
+Org mode itself is set up in the ~init.el~ file, because we need to
+load the newer version in order to process this file correctly.
+
+**** Beautify Theme
+
+#+begin_src emacs-lisp
+(use-package org-beautify-theme :after org-mode)
+#+end_src
+
+**** Add Markdown as an Export Format
+
+#+begin_src emacs-lisp
+(use-package ox-gfm :after org-mode)
+#+end_src
+
+*** Terraform Suport
+
+#+begin_src emacs-lisp
+(use-package terraform-mode
+  :ensure t
+  :custom (terraform-indent-level 4)
+  :config
+  (defun my-terraform-mode-init ()
+    (outline-minor-mode 1)
+    )
+  :hook (terraform-mode . my-terraform-mode-init))
+#+end_src
+
+*** XKCD
+
+   The best web comic ever, available right in the editor.
+
+#+begin_src emacs-lisp
+(use-package xkcd)
+#+end_src
+
+** Debugging
+This sets several variables to more useful values when emacs is called with ~--debug-init~.
+
+#+begin_src emacs-lisp
+(when init-file-debug
+  (setopt
+   use-package-verbose t
+   use-package-expand-minimally nil
+   use-package-compute-statistics t
+   debug-on-error t))
+#+end_src
+
+** End Of File
+#+begin_src emacs-lisp
+(message "config.org loaded.")
+;;; init.el ends here
+#+end_src

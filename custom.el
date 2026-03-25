@@ -1,18 +1,23 @@
+;; -*- lexical-binding: t -*-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-save-visited-mode t nil nil "Customized with use-package emacs")
  '(casual-info-use-unicode-symbols t)
  '(casual-lib-use-unicode t)
- '(completion-auto-select t)
+ '(completion-auto-select 'second-tab)
  '(copilot-idle-delay 1)
  '(copilot-max-char-warning-disable t)
  '(create-lockfiles nil)
+ '(css-indent-offset 2)
  '(cua-enable-cua-keys nil)
  '(custom-enabled-themes '(smart-mode-line-dark wombat))
  '(custom-safe-themes
-   '("36d4b9573ed57b3c53261cb517eef2353058b7cf95b957f691f5ad066933ae84"
+   '("b2981f490579960b489803a8b874e570cf293fdf9065014ee1aaa0e6b523e8ae"
+     "95ee4d370f4b66ff2287d8075f8fe5f58c4a9b9c1e65d663b15174f1a8c57717"
+     "36d4b9573ed57b3c53261cb517eef2353058b7cf95b957f691f5ad066933ae84"
      "17e0f989a947f8026eb7044c07c11a36c6c901ee370dd8ce58a1e08544c5cf9f"
      "9b21c848d09ba7df8af217438797336ac99cbbbc87a08dc879e9291673a6a631"
      "fc1275617f9c8d1c8351df9667d750a8e3da2658077cfdda2ca281a2ebc914e0"
@@ -27,20 +32,7 @@
      "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(devdocs-window-select nil)
  '(display-fill-column-indicator t)
- '(display-line-numbers nil)
- '(display-line-numbers-major-tick 0)
- '(display-line-numbers-minor-tick 0)
  '(dockerfile-use-buildkit t)
- '(ede-project-directories nil)
- '(elisp-autofmt-format-quoted nil)
- '(elisp-autofmt-use-default-override-defs t)
- '(elpy-disable-backend-error-display nil)
- '(elpy-formatter 'black)
- '(elpy-modules
-   '(elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-folding elpy-module-pyvenv
-                         elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django
-                         elpy-module-sane-defaults))
- '(fill-column 120)
  '(flycheck-checkers
    '(ada-gnat asciidoctor asciidoc awk-gawk bazel-build-buildifier bazel-module-buildifier bazel-starlark-buildifier
               bazel-workspace-buildifier c/c++-clang c/c++-gcc c/c++-cppcheck cfengine coffee coffee-coffeelint
@@ -80,18 +72,12 @@
                c-mode c-ts-mode blueprint-mode blueprint-ts-mode bibtex-mode bibtex-ts-mode sh-mode bash-ts-mode
                awk-mode awk-ts-mode))
  '(highlight-parentheses-colors '("#7ec98f" "#e5c06d" "#a4b5e6" "#834c98" "#8ac6f2"))
- '(ido-big-directories '("node_modules" "\\.?venv"))
- '(ido-cannot-complete-command 'ido-completion-help)
- '(ido-enable-flex-matching nil)
- '(ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
- '(ido-use-filename-at-point nil)
- '(ido-use-url-at-point t)
- '(ido-use-virtual-buffers 'auto)
- '(indent-tabs-mode nil)
+ '(indent-tabs-mode nil nil nil "Customized with use-package emacs")
  '(initial-buffer-choice t)
  '(js-chain-indent t)
  '(js-enabled-frameworks '(javascript extjs))
  '(js-indent-level 2)
+ '(kill-buffer-delete-auto-save-files t nil nil "Customized with use-package emacs")
  '(kill-do-not-save-duplicates t)
  '(kill-read-only-ok t)
  '(kill-ring-max 256)
@@ -106,6 +92,7 @@
  '(lsp-pylsp-plugins-ruff-format [])
  '(lsp-pylsp-plugins-ruff-ignore [])
  '(lsp-pylsp-plugins-ruff-select [])
+ '(lsp-pylsp-server-command '("uv run pylsp"))
  '(lsp-rubocop-use-bundler t)
  '(lsp-ruby-lsp-use-bundler t)
  '(lsp-typescript-format-enable nil)
@@ -122,35 +109,27 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-w3m org-mac-iCal))
  '(org-todo-keywords '((sequence "TODO" "IN PROGRESS" "ON HOLD" "DONE(!)")))
- '(package-archives
-   '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-     ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(all-the-icons amx casual-info chatgpt-shell chatu company-go company-terraform company-web copilot csv-mode
-                   cyberpunk-theme dashboard-hackernews devdocs djangonaut dockerfile-mode dogears easysession eldoc-box
-                   elisp-autofmt elisp-lint elpy emacsql emacsql-pg emmet-mode fira-code-mode flycheck go-dlv go-eldoc
-                   go-projectile gotest-ts haki-theme helpful highlight-parentheses iceberg-theme ivy
-                   jetbrains-darcula-theme kaolin-themes leuven-theme lisp-extra-font-lock lsp-sourcekit lsp-treemacs
-                   lsp-ui magit-todos ng2-mode nice-org-html nodejs-repl nushell-ts-mode org-beautify-theme org-chef
-                   org-contacts org-elisp-help org-mac-link org-recur org-special-block-extras org-superstar osx-lib
-                   ox-gfm page-break-lines prettier pyenv-mode rainbow-delimiters smart-mode-line-powerline-theme
-                   spider-man-theme sql-indent swift-ts-mode terraform-doc tree-sitter treemacs-magit
-                   treemacs-projectile treesit-auto treesit-fold unspecified-theme uv-mode web-mode which-key
-                   whitespace-cleanup-mode xkcd))
+   '(amx elisp-autofmt elisp-lint elpy flycheck ido-completing-read+ jinja2-mode kirigami lsp-treemacs markdown-ts-mode
+         ob-ts-node org-beautify-theme ox-gfm page-break-lines prettier rainbow-delimiters shfmt
+         smart-mode-line-powerline-theme terraform-mode treemacs-icons-dired treemacs-magit treesit-auto vterm web-mode
+         which-key whitespace-cleanup-mode winpulse xkcd))
  '(prettify-symbols-unprettify-at-point 'right-edge)
- '(projectile-globally-ignored-directories
-   '("^\\.idea$" "^\\.vscode$" "^\\.ensime_cache$" "^\\.eunit$" "^\\.git$" "^\\.hg$" "^\\.fslckout$" "^_FOSSIL_$"
-     "^\\.bzr$" "^_darcs$" "^\\.pijul$" "^\\.tox$" "^\\.svn$" "^\\.stack-work$" "^\\.ccls-cache$" "^\\.cache$"
-     "^\\.clangd$" "^\\.sl$" "^\\.jj$" "*^node-modules$" "*^\\.venv$"))
- '(projectile-mode t nil (projectile))
- '(projectile-project-search-path '("~/Devel" "~/org"))
+ '(project-mode-line t)
+ '(python-interpreter "uv run python")
+ '(python-shell-interpreter "uv run python")
  '(reddigg-subs '(emacs rust))
  '(ruby-flymake-use-rubocop-if-available t)
  '(safe-local-variable-directories
    '("/Users/adrianflanagan/Devel/personal/people/" "~/org/projects/Springbok/"))
  '(safe-local-variable-values
-   '((elisp-lint-ignored-validators 'package-lint) (web-mode-indent-style . 2) (web-mode-block-padding . 2)
-     (web-mode-script-padding . 2) (web-mode-style-padding . 2) (pyenv-workon . myogram) (hcl-indent-level . 2)
+   '((flycheck-stylelintrc . stylelint.config.js)
+     (eval let ((project-directory (car (dir-locals-find-file default-directory))))
+           (setq lsp-clients-typescript-server-args
+                 `("--tsserver-path" ,(concat project-directory ".yarn/sdks/typescript/bin/tsserver") "--stdio")))
+     (display-line-numbers) (elisp-lint-ignored-validators 'package-lint) (web-mode-indent-style . 2)
+     (web-mode-block-padding . 2) (web-mode-script-padding . 2) (web-mode-style-padding . 2) (pyenv-workon . myogram)
+     (hcl-indent-level . 2)
      (lsp-typescript-sdk . "/Users/adrianflanagan/Devel/mobelux/MMS/gatsby-source-mms/node_modules/typescript/bin")
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "CLIENT" "|" "DONE" "CANCELED")))
      (org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD" "NEEDS INPUT" "|" "DONE" "CANCELED")))
@@ -163,6 +142,7 @@
  '(sql-product 'postgres)
  '(tab-always-indent 'complete)
  '(track-eol t)
+ '(trash-directory "~/.Trash" nil nil "Customized with use-package emacs")
  '(tree-sitter-major-mode-language-alist
    '((actionscript-mode . actionscript) (ada-mode . ada) (agda-mode . agda) (agda2-mode . agda) (arduino-mode . arduino)
      (astro-mode . astro) (fish-mode . fish) (asm-mode . asm) (fasm-mode . asm) (masm-mode . asm) (nasm-mode . asm)

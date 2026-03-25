@@ -11,3 +11,4 @@ secrets.el
 
 lisp/site.el
 my_emacs-autoloads.el
+config.el
