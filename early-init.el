@@ -15,19 +15,21 @@
 (setopt garbage-collection-messages t) ;; show GC messages for debugging
 
 (if (equal system-type 'darwin)
-       (setenv
-        "LIBRARY_PATH"
-        (string-join
-         '("/opt/homebrew/opt/gcc/lib/gcc/13"
-           "/opt/homebrew/opt/libgccjit/lib/gcc/13"
-           "/opt/homebrew/Cellar/gcc/13.2.0/lib/gcc/current/gcc/aarch64-apple-darwin23/13")
-         ":")))
+    (setenv
+     "LIBRARY_PATH"
+     (string-join
+      '("/opt/homebrew/opt/gcc/lib/gcc/current"
+        "/opt/homebrew/opt/libgccjit/lib/gcc/current"
+        ;; this directory, alas, has no "current" symlink. You'll need to fix every time
+        ;; gcc is updated. Or we need code to find it dynamically.
+        "/opt/homebrew/Cellar/gcc/15.2.0_1/lib/gcc/current/gcc/aarch64-apple-darwin25/15/")
+      ":")))
 
 (setopt initial-frame-alist
-      '((horizontal-scroll-bars)
-        (vertical-scroll-bars)
-        (width . 150)
-        (height . 40)))
+        '((horizontal-scroll-bars)
+          (vertical-scroll-bars)
+          (width . 150)
+          (height . 40)))
 
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
