@@ -11,8 +11,9 @@ This is file config.org: Main emacs configuration.
 #+end_src
 
 ** Legal Stuff
-Legal/copyright notice for the generated file. All terms are assumed to
-apply to this file also
+
+Legal/copyright notice for the generated file. All terms are assumed to apply to
+this file also.
 
 #+begin_src emacs-lisp
 ;;; config.el -- Non-site-specific initialization -*- lexical-binding: t; -*-
@@ -44,8 +45,11 @@ apply to this file also
 #+end_src
 
 ** Load Path
+
 In my local /lisp subdirectory, I've got some third-party projects
 which should be loaded from local files.
+
+**** TODO do we still need this?
 
 #+begin_src emacs-lisp
 (defun add-subdirs-to-load-path (parent-directory)
@@ -60,6 +64,7 @@ which should be loaded from local files.
 #+end_src
 
 ** Easy Customization
+
 Set up separate file for use by emacs customization.
 
 I prefer to set customization options in the ~use-package~ declaration
@@ -72,12 +77,14 @@ to this file.
 #+end_src
 
 #+begin_src emacs-lisp
- (setopt package-archives
-   '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+(setopt
+ package-archives
+ '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
    ("melpa" . "https://melpa.org/packages/")))
 #+end_src
 
 ** Secrets File
+
 This local file is for global variables with values which should not
 be checked in with source control, such as passwords and API keys.
 
@@ -104,8 +111,8 @@ different files with the same name. From the source file:
 #+end_src
 
 ** Customizing Emacs Itself
-We can use ~use-package~ to configure emacs itself as a
-'pseudo-package'.
+
+We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 
 There's a message displayed in the echo area on startup. Disabling it
 requires setting ~inhibit-startup-echo-area-message~ to your user
@@ -185,7 +192,16 @@ change it.
  (visible-bell (not (equal system-type 'darwin))) ;;bad on mac
  ;; (package-archive-priorities `(melpa . 1))
  (package-menu-hide-low-priority t) ;; don't show package in menu if higher-priority package is found
- )
+
+ ;; Python setup options
+ ;; These assume that both "uv" and "mise" are present and always used.
+ ;; TODO: in :config section, check for existence of "uv" and "mise" and don't do this if not found.
+
+ (python-shell-exec-path '("./.venv/bin"))
+ (python-interpreter
+  "/Users/adrianflanagan/.local/share/mise/installs/uv run python")
+ (python-shell-interpreter
+  "/Users/adrianflanagan/.local/share/mise/installs/uv run python"))
 #+end_src
 
 ** Default Font
