@@ -50,17 +50,18 @@ In my local /lisp subdirectory, I've got some third-party projects
 which should be loaded from local files.
 
 **** TODO do we still need this?
+Removed for now; if we restore it, don't change global ~default-directory~.
 
 #+begin_src emacs-lisp
-(defun add-subdirs-to-load-path (parent-directory)
-  "Add PARENT-DIRECTORY and its immediate child directories to `load-path'."
-  (let ((default-directory parent-directory))
-    (add-to-list 'load-path default-directory)
-    (normal-top-level-add-subdirs-to-load-path)))
+  ;; (defun add-subdirs-to-load-path (parent-directory)
+  ;;   "Add PARENT-DIRECTORY and its immediate child directories to `load-path'."
+  ;;   (let ((default-directory parent-directory))
+  ;;     (add-to-list 'load-path default-directory)
+  ;;     (normal-top-level-add-subdirs-to-load-path)))
 
-;; (add-subdirs-to-load-path "/opt/homebrew/share/emacs/site-lisp")
+  ;; ;; (add-subdirs-to-load-path "/opt/homebrew/share/emacs/site-lisp")
 
-(add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
+  ;; (add-subdirs-to-load-path (directory-file-name (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
 #+end_src
 
 ** Easy Customization
@@ -132,6 +133,7 @@ change it.
   ("C-M-s" . #'isearch-forward)
   ("C-M-r" . #'isearch-backward)
   ("C-x M-r" . #'remember)
+
   ("C-x M-R" . "C-u C-x M-r")
   ("s-q" . nil)
   ;; runs save-buffers-kill-emacs by default, but too easy to hit by accident
@@ -143,55 +145,45 @@ change it.
  (when window-system
    (tool-bar-mode -1))
  (blink-cursor-mode -1)
+
+ ;; set coding systems used to Unicode standard
  (set-terminal-coding-system 'utf-8)
  (set-keyboard-coding-system 'utf-8)
  (prefer-coding-system 'utf-8)
 
- :custom
  (ido-mode t)
  (ido-everywhere t)
+
+ (auto-save-visited-mode t)
+
+ (column-number-mode t) ;; displays current column in mode line
+ (indent-tabs-mode nil)
+
+ (save-place-mode t)
+ (show-paren-mode t)
+ (transient-mark-mode t) ;; visually highlight selected region
+
+ :custom
  (ido-big-directories '("node_modules" "\\.?venv"))
  (ido-cannot-complete-command #'ido-completion-help)
  (ido-ignore-directories '("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/"))
  (ido-use-filename-at-point nil)
  (ido-use-url-at-point t)
  (ido-use-virtual-buffers 'auto)
-
  ;; auto-save options
- (auto-save-visited-mode t)
  (kill-buffer-delete-auto-save-files t)
  (trash-directory "~/.Trash")
  (delete-by-moving-to-trash t) ;; use system trash can for deleted files
-
  (apropos-do-all t)
  ;; put file backups in single directory, not in same directory with '~' appended.
  (backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
 
- (column-number-mode t "displays current column in mode line")
- (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
- (fill-column 120)
- (font-lock-maximum-decoration t) ;; use as much syntax highlighting as possible, by default
- (indent-tabs-mode nil)
- (inhibit-startup-message t) ;; turn off Emacs splash screen
- (initial-scratch-message nil)
- (mouse-yank-at-point t)
- (prog-mode-hook '(display-line-numbers-mode t))
- (save-interprogram-paste-before-kill t)
- (save-place-file (concat user-emacs-directory "places"))
- (save-place-mode t)
- (select-enable-clipboard t "integrate emacs with system clipboard")
- (select-enable-primary t)
- (selection-coding-system 'utf-8)
- (sentence-end-double-space
-  nil "don't automatically double space after sentence end -- obsolete style")
- (show-paren-mode t)
- (transient-mark-mode t) ;; visually highlight selected region
- (truncate-partial-width-windows nil) ;; use value of `truncate_lines' even in windows narrower than frame
+ ;; use value of `truncate_lines' even in windows narrower than frame
+ (truncate-partial-width-windows nil)
  (use-file-dialog nil)
- (user-email-address "lloyd.flanagan@proton.me")
  (visible-bell (not (equal system-type 'darwin))) ;;bad on mac
- ;; (package-archive-priorities `(melpa . 1))
- (package-menu-hide-low-priority t) ;; don't show package in menu if higher-priority package is found
+ ;; don't show package in menu if higher-priority package is found
+ (package-menu-hide-low-priority t)
 
  ;; Python setup options
  ;; These assume that both "uv" and "mise" are present and always used.
@@ -201,7 +193,24 @@ change it.
  (python-interpreter
   "/Users/adrianflanagan/.local/share/mise/installs/uv run python")
  (python-shell-interpreter
-  "/Users/adrianflanagan/.local/share/mise/installs/uv run python"))
+  "/Users/adrianflanagan/.local/share/mise/installs/uv run python")
+ (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
+ (fill-column 120)
+ (font-lock-maximum-decoration t) ;; use as much syntax highlighting as possible, by default
+ (inhibit-startup-message t) ;; turn off Emacs splash screen
+ (initial-scratch-message nil)
+ (mouse-yank-at-point t)
+ (save-interprogram-paste-before-kill t)
+ (save-place-file (concat user-emacs-directory "places"))
+ (select-enable-clipboard t) ;; integrate emacs with system clipboard
+ (select-enable-primary t)
+ (selection-coding-system 'utf-8)
+ ;; don't automatically double space after sentence end -- obsolete style
+ (sentence-end-double-space nil)
+
+ :hook (prog-mode . display-line-numbers-mode)
+ ;; Treat CamelCaseSubWords as separate words in every programming  mode.
+ (prog-mode . subword-mode))
 #+end_src
 
 ** Default Font
@@ -432,19 +441,16 @@ file.
 (use-package
  elisp-autofmt
  :defer t
- :commands
- (elisp-autofmt-mode elisp-autofmt-buffer elisp-autofmt-region)
+ :commands (elisp-autofmt-mode elisp-autofmt-buffer elisp-autofmt-region)
  :custom
  (elisp-autofmt-format-quoted nil)
  (elisp-autofmt-use-default-override-defs t)
  :hook
- ((emacs-lisp-mode . elisp-autofmt-mode)
-  (lisp-data-mode . elisp-autofmt-mode))
+ ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
  :bind
  (:map
   lisp-mode-shared-map
-  (("C-c f" . elisp-autofmt-buffer)
-   ("C-c r" . elisp-autofmt-region))))
+  (("C-c f" . elisp-autofmt-buffer) ("C-c r" . elisp-autofmt-region))))
 #+end_src
 
 *** Web Mode
