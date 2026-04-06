@@ -184,6 +184,7 @@ change it.
  ;; up *Warnings* a bit by silencing it
  (warning-suppress-log-types '((files missing-lexbind-cookie)))
 
+ (server-log t)
  ;; use value of `truncate_lines' even in windows narrower than frame
  (truncate-partial-width-windows nil)
  (use-file-dialog nil)
@@ -614,8 +615,8 @@ The best web comic ever, available right in the editor.
        (gptel-make-anthropic
         "Claude"
         :stream t
-        :key (getenv "ANTHROPIC_API_KEY")))
- :mode "\\.elc?\\'")
+        :key (getenv "ANTHROPIC_API_KEY"))))
+;; :mode "\\.elc?\\'")
 
 (use-package gptel-fn-complete :after gptel)
 
