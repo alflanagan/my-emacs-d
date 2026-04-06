@@ -1,9 +1,10 @@
-# -*- fill-column: 80; -*-
+ -*- fill-column: 80; -*-
 * Emacs Configuration
 
 This is file config.org: Main emacs configuration.
 
 ** File Setup
+
 *Must* be first line of the file.
 
 #+begin_src emacs-lisp
@@ -12,7 +13,7 @@ This is file config.org: Main emacs configuration.
 
 ** Legal Stuff
 
-Legal/copyright notice for the generated file. All terms are assumed to apply to
+Legal/copyright notice for the generated file. All terms are asserted to apply to
 this file also.
 
 #+begin_src emacs-lisp
@@ -94,6 +95,7 @@ be checked in with source control, such as passwords and API keys.
 #+end_src
 
 ** Uniquify
+
 Uniquify is a part of emacs which is not loaded by default, but it can
 be ~require~d to change the way buffers are named when editing
 different files with the same name. From the source file:
@@ -178,6 +180,10 @@ change it.
  ;; put file backups in single directory, not in same directory with '~' appended.
  (backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
 
+ ;; old libraries are creating temporary buffers without the lexical-binding tag. Since I don't need that warning, clean
+ ;; up *Warnings* a bit by silencing it
+ (warning-suppress-log-types '((files missing-lexbind-cookie)))
+
  ;; use value of `truncate_lines' even in windows narrower than frame
  (truncate-partial-width-windows nil)
  (use-file-dialog nil)
@@ -205,6 +211,7 @@ change it.
  (select-enable-clipboard t) ;; integrate emacs with system clipboard
  (select-enable-primary t)
  (selection-coding-system 'utf-8)
+
  ;; don't automatically double space after sentence end -- obsolete style
  (sentence-end-double-space nil)
 
@@ -214,6 +221,7 @@ change it.
 #+end_src
 
 ** Default Font
+
 Set up with my current programming font, Fira Code. You must have Fira
 Code installed on your system for this to work.
 
@@ -227,22 +235,24 @@ Code installed on your system for this to work.
 #+end_src
 
 ** Packages
+
 Eventual goal is to remove these from customization entirely, and use
 ~use-package~ for all.
 
+NOTE: ~use-package~ is installed by ~init.el~.
+
 *** EditorConfig
+
 There is a standard file named .editorconfig that sets a few options for an
 editor, helping ensure everyone working on a project uses the same settings.
 This sets up Emacs to get config settings from that file.
 
 #+begin_src emacs-lisp
-(use-package editorconfig
-  :ensure t
-  :config
-  (editorconfig-mode 1))
+(use-package editorconfig :ensure t :config (editorconfig-mode 1))
 #+end_src
 
 *** Better Mode Line
+
 [[https://github.com/Malabarba/smart-mode-line][Smart-mode-line]] is a sexy mode-line for Emacs. It aims to be easy to
 read from small to large monitors by using colors, a prefix feature,
 and smart truncation.
@@ -255,6 +265,7 @@ and smart truncation.
 #+end_src
 
 *** Ido and amx
+
 There are (at least) three major emacs packages to enable
 auto-completion: "ivy", "company", and "ido". Ivy is full-featured and
 includes "counsel", which modifies emacs commands to use ivy. However,
@@ -283,6 +294,7 @@ for when you set ido-everywhere to t).
 #+end_src
 
 *** Page-break Lines
+
 This is a neat little package that displays embedded ctrl-L characters
 as horizontal lines. This helps break up the file on the screen, not
 just when printed.
@@ -291,17 +303,23 @@ just when printed.
 (use-package page-break-lines :config (global-page-break-lines-mode))
 #+end_src
 
+*** Better folding: Kirigami
+
+#+begin_src emacs-lisp
+(use-package kirigami)
+#+end_src
+
 *** Clean up Whitespace
+
 This package automatically strips extra whitespace from the end of
 lines.
 
 #+begin_src emacs-lisp
-(use-package
- whitespace-cleanup-mode
- :config (global-whitespace-cleanup-mode 1))
+(use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 #+end_src
 
 *** Treemacs
+
 Set up treemacs, the directory tree sidebar. See [[https://github.com/Alexander-Miller/treemacs][treemacs repo]] for all
 the gory details.
 
@@ -338,6 +356,7 @@ the gory details.
 #+end_src
 
 **** Treemacs-icons-dired
+
 Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 
 #+begin_src emacs-lisp
@@ -355,6 +374,7 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 #+end_src
 
 **** Treemacs start on boot.
+
 This function is recommended to ensure all elements of treemacs are
 properly in place.
 
@@ -363,6 +383,7 @@ properly in place.
 #+end_src
 
 *** Treesit
+
 Set up to use tree-sitter modes automatically, where one exists. Not
 sure of the exact details of how treesit and LSP (next section) work
 together. As far as I can tell, they do.
@@ -377,6 +398,13 @@ together. As far as I can tell, they do.
  :config
  (treesit-auto-add-to-auto-mode-alist 'all)
  (global-treesit-auto-mode))
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package
+ treesit-fold
+ :vc
+ (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest))
 #+end_src
 
 *** Flycheck
@@ -412,8 +440,7 @@ together. As far as I can tell, they do.
 template languages used by Django and Flask frameworks.
 
 #+begin_src emacs-lisp
-  (use-package
-    jinja2-mode)
+(use-package jinja2-mode)
 #+end_src
 
 ~elpy~ combines a selection of other utilities to create a complete python
@@ -429,6 +456,7 @@ file.
 #+end_src
 
 *** ELisp Programming
+
 **** Linting
 
 #+begin_src emacs-lisp
@@ -436,6 +464,9 @@ file.
 #+end_src
 
 **** Elisp-autofmt
+
+This nicely formats emacs lisp code files, and the ~elisp-autofmt-region~
+command works great on code embedded in .org files.
 
 #+begin_src emacs-lisp
 (use-package
@@ -454,6 +485,7 @@ file.
 #+end_src
 
 *** Web Mode
+
 A number of different tools allow source code to be embedded in an
 HTML file. Package ~web-mode~ uses ~html-mode~ for the HTML parts, but
 enables a language-specific mode for the regions of progammming
@@ -495,6 +527,7 @@ language.
 #+end_src
 
 *** Language Server Protocol
+
 Not long ago, an editor had to have custom handling written for each
 language it "knew". This led to a lot of duplication of effort, and
 bad editor implementations.
@@ -533,8 +566,9 @@ language not having a matching server. Turn those off.
 
 *** Org Mode
 
-Org mode itself is set up in the ~init.el~ file, because we need to
-load the newer version in order to process this file correctly.
+Org mode itself is set up in the ~init.el~ file (NOT generated from an .org
+file), because we need to load the newer version in order to process this file
+correctly.
 
 **** Beautify Theme
 
@@ -563,22 +597,29 @@ load the newer version in order to process this file correctly.
 
 *** XKCD
 
-   The best web comic ever, available right in the editor.
+The best web comic ever, available right in the editor.
 
 #+begin_src emacs-lisp
 (use-package xkcd)
 #+end_src
 
-** Debugging
-This sets several variables to more useful values when emacs is called with ~--debug-init~.
+*** AI Integration
 
 #+begin_src emacs-lisp
-(when init-file-debug
-  (setopt
-   use-package-verbose t
-   use-package-expand-minimally nil
-   use-package-compute-statistics t
-   debug-on-error t))
+;; Install via MELPA
+(use-package
+ gptel
+ :config (setq gptel-model 'claude-sonnet-4-20250514)
+ (setq gptel-backend
+       (gptel-make-anthropic
+        "Claude"
+        :stream t
+        :key (getenv "ANTHROPIC_API_KEY")))
+ :mode "\\.elc?\\'")
+
+(use-package gptel-fn-complete :after gptel)
+
+(use-package gptel-agent :after gptel)
 #+end_src
 
 ** End Of File
