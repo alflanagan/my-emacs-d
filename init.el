@@ -3,9 +3,9 @@
 ;; based on https://github.com/DarwinAwardWinner/dotemacs,
 ;; which has a lot of useful things not included here.
 
-;; Copyright (C) 2025 A Lloyd Flanagan
+;; Copyright (C) 2026 A Lloyd Flanagan
 
-;; Filename: early-init.el
+;; Filename: init.el
 ;; Author: A Lloyd Flanagan
 
 ;; This file is NOT part of GNU Emacs.
@@ -55,24 +55,15 @@
 
 
 ;;; (Try to) Ensure the latest org-mode is installed
-(condition-case nil
-    (use-package
-     org
-     :pin "gnu"
-     :bind
-     (("C-c l" . org-store-link)
-      ("C-c a" . org-agenda)
-      ("C-c c" . org-capture))
-     :custom
-     (org-adapt-indentation 'headline-data)
-     (org-ctrl-k-protect-subtree t)
-     (org-special-ctrl-a/e t)
-     (org-return-follows-link t))
-
-  (error
-   (display-warning
-    'init
-    "Could not install latest org-mode. Falling back to bundled version.")))
+(use-package
+ org
+ :pin "gnu"
+ :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
+ :custom
+ (org-adapt-indentation 'headline-data)
+ (org-ctrl-k-protect-subtree t)
+ (org-special-ctrl-a/e t)
+ (org-return-follows-link t))
 
 (require 'org)
 
