@@ -1,4 +1,4 @@
-<!-- -*- fill-column:80; -*- -->
+ -*- fill-column:80; -*-
 * early-init.org: Emacs early configuration
 :PROPERTIES:
 :header-args: :tangle early-init.el
@@ -34,7 +34,7 @@ not performing unnecessary collections.
 
 See
 https://emacsredux.com/blog/2025/03/28/speed-up-emacs-startup-by-tweaking-the-gc-settings/
-for a good discussion
+for a good discussion.
 
 Temporarily increase GC threshold during startup. This saves about 1.8
 seconds on startup time in early testing. Your milage may vary.
@@ -49,8 +49,8 @@ startup default, which is probably much too low on modern machines. We
 need to try higher settings to see if they impove performance.
 
 #+begin_src emacs-lisp
-(add-hook 'emacs-startup-hook
-    (lambda () (setopt gc-cons-threshold (* 10 1024 1024))))
+(add-hook
+ 'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 10 1024 1024))))
 
 (setopt garbage-collection-messages t) ;; show GC messages for debugging
 #+end_src
