@@ -45,6 +45,15 @@ this file also.
 
 #+end_src
 
+** Helper Function
+
+Quick function to make refering to other config files easier.
+
+#+begin_src emacs-lisp
+(defun get-config-file (filename)
+  (concat user-emacs-directory filename))
+#+end_src
+
 ** Load Path
 
 In my local /lisp subdirectory, I've got some third-party projects
@@ -74,8 +83,7 @@ for each package, but on-the-fly or local-only customizations will go
 to this file.
 
 #+begin_src emacs-lisp
-(setq custom-file "~/.config/emacs/my_emacs/custom.el")
-(load custom-file)
+(load (get-config-file "custom.el"))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -202,7 +210,7 @@ change it.
  (python-shell-interpreter
   "/Users/adrianflanagan/.local/share/mise/installs/uv run python")
  (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
- (fill-column 120)
+ (fill-column 80)
  (font-lock-maximum-decoration t) ;; use as much syntax highlighting as possible, by default
  (inhibit-startup-message t) ;; turn off Emacs splash screen
  (initial-scratch-message nil)
@@ -234,6 +242,7 @@ Code installed on your system for this to work.
                     :slant 'normal
                     :width 'normal)
 #+end_src
+
 
 ** Packages
 
@@ -581,6 +590,12 @@ correctly.
 
 #+begin_src emacs-lisp
 (use-package ox-gfm :after org-mode)
+#+end_src
+
+*** Vulpea (Notes)
+
+#+begin_src emacs-lisp
+(use-package vulpea :custom vulpea-db-autosync-mode t)
 #+end_src
 
 *** Terraform Suport
