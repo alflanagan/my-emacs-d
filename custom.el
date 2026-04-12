@@ -28,79 +28,47 @@
      "87de2a48139167bfe19e314996ee0a8d081a6d8803954bafda08857684109b4e"
      "a04676d7b664d62cf8cd68eaddca902899f98985fff042d8d474a0d51e8c9236"
      "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279"
-     "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
-     default))
+     "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(devdocs-window-select nil)
  '(display-fill-column-indicator t)
  '(dockerfile-use-buildkit t)
  '(flycheck-checkers
-   '(ada-gnat asciidoctor asciidoc awk-gawk bazel-build-buildifier
-              bazel-module-buildifier bazel-starlark-buildifier
-              bazel-workspace-buildifier c/c++-clang c/c++-gcc
-              c/c++-cppcheck cfengine coffee coffee-coffeelint
-              css-csslint css-stylelint cuda-nvcc cwl d-dmd
-              dockerfile-hadolint elixir-credo emacs-lisp
-              emacs-lisp-checkdoc ember-template erlang-rebar3 erlang
-              eruby-erubis eruby-ruumba fortran-gfortran go-gofmt
-              go-vet go-build go-test go-errcheck go-unconvert
-              go-staticcheck groovy haml haml-lint handlebars
-              haskell-stack-ghc haskell-ghc haskell-hlint html-tidy
-              javascript-eslint javascript-jshint javascript-standard
-              json-jsonlint json-python-json json-jq jsonnet less
-              less-stylelint llvm-llc lua-luacheck lua
-              markdown-markdownlint-cli markdown-mdl
-              markdown-pymarkdown nix nix-linter opam perl
-              perl-perlcritic php php-phpmd php-phpcs
-              php-phpcs-changed processing proselint protobuf-protoc
-              protobuf-prototool pug puppet-parser puppet-lint
-              python-flake8 python-ruff python-pylint python-pycompile
-              python-pyright python-mypy r-lintr racket rpm-rpmlint
-              rst-sphinx rst ruby-rubocop ruby-chef-cookstyle
-              ruby-standard ruby-reek ruby ruby-jruby rust-cargo rust
-              rust-clippy scala scala-scalastyle scheme-chicken
-              scss-lint sass-stylelint scss-stylelint
-              sass/scss-sass-lint sass scss sh-bash sh-posix-dash
-              sh-posix-bash sh-zsh sh-shellcheck slim slim-lint
-              sql-sqlint statix systemd-analyze tcl-nagelfar terraform
-              terraform-tflint tex-chktex tex-lacheck texinfo textlint
-              typescript-tslint verilog-verilator vhdl-ghdl
-              xml-xmlstarlet xml-xmllint yaml-yamllint yaml-actionlint
-              yaml-jsyaml yaml-ruby))
+   '(ada-gnat asciidoctor asciidoc awk-gawk bazel-build-buildifier bazel-module-buildifier bazel-starlark-buildifier
+              bazel-workspace-buildifier c/c++-clang c/c++-gcc c/c++-cppcheck cfengine coffee coffee-coffeelint
+              css-csslint css-stylelint cuda-nvcc cwl d-dmd dockerfile-hadolint elixir-credo emacs-lisp
+              emacs-lisp-checkdoc ember-template erlang-rebar3 erlang eruby-erubis eruby-ruumba fortran-gfortran
+              go-gofmt go-vet go-build go-test go-errcheck go-unconvert go-staticcheck groovy haml haml-lint handlebars
+              haskell-stack-ghc haskell-ghc haskell-hlint html-tidy javascript-eslint javascript-jshint
+              javascript-standard json-jsonlint json-python-json json-jq jsonnet less less-stylelint llvm-llc
+              lua-luacheck lua markdown-markdownlint-cli markdown-mdl markdown-pymarkdown nix nix-linter opam perl
+              perl-perlcritic php php-phpmd php-phpcs php-phpcs-changed processing proselint protobuf-protoc
+              protobuf-prototool pug puppet-parser puppet-lint python-flake8 python-ruff python-pylint python-pycompile
+              python-pyright python-mypy r-lintr racket rpm-rpmlint rst-sphinx rst ruby-rubocop ruby-chef-cookstyle
+              ruby-standard ruby-reek ruby ruby-jruby rust-cargo rust rust-clippy scala scala-scalastyle scheme-chicken
+              scss-lint sass-stylelint scss-stylelint sass/scss-sass-lint sass scss sh-bash sh-posix-dash sh-posix-bash
+              sh-zsh sh-shellcheck slim slim-lint sql-sqlint statix systemd-analyze tcl-nagelfar terraform
+              terraform-tflint tex-chktex tex-lacheck texinfo textlint typescript-tslint verilog-verilator vhdl-ghdl
+              xml-xmlstarlet xml-xmllint yaml-yamllint yaml-actionlint yaml-jsyaml yaml-ruby))
  '(flycheck-markdown-markdownlint-cli-config
-   '(".markdownlint.json" ".markdownlint.jsonc" ".markdownlint.yaml"
-     ".markdownlint"))
+   '(".markdownlint.json" ".markdownlint.jsonc" ".markdownlint.yaml" ".markdownlint"))
  '(flycheck-rubocop-lint-only t)
  '(global-highlight-parentheses-mode t)
  '(global-tree-sitter-mode t)
  '(global-treesit-auto-modes
-   '(yaml-mode yaml-ts-mode wgsl-mode wgsl-ts-mode wat-mode wat-ts-mode
-               wat-mode wat-ts-wast-mode vue-mode vue-ts-mode
-               vhdl-mode vhdl-ts-mode verilog-mode verilog-ts-mode
-               typst-mode typst-ts-mode typescript-mode
-               typescript-ts-mode typescript-tsx-mode tsx-ts-mode
-               toml-mode conf-toml-mode toml-ts-mode surface-mode
-               surface-ts-mode sql-mode sql-ts-mode scala-mode
-               scala-ts-mode rust-mode rust-ts-mode ruby-mode
-               ruby-ts-mode ess-mode r-ts-mode python-mode
-               python-ts-mode protobuf-mode protobuf-ts-mode perl-mode
-               perl-ts-mode org-mode org-ts-mode nushell-mode
-               nushell-ts-mode nix-mode nix-ts-mode markdown-mode
-               poly-markdown-mode makefile-mode makefile-ts-mode
-               lua-mode lua-ts-mode kotlin-mode kotlin-ts-mode
-               julia-mode julia-ts-mode js-json-mode json-ts-mode
-               js2-mode javascript-mode js-mode js-ts-mode java-mode
-               java-ts-mode sgml-mode mhtml-mode html-ts-mode
-               heex-mode heex-ts-mode go-mod-mode go-mod-ts-mode
-               go-mode go-ts-mode glsl-mode glsl-ts-mode elixir-mode
-               elixir-ts-mode dockerfile-mode dockerfile-ts-mode
-               dart-mode dart-ts-mode css-mode css-ts-mode c++-mode
-               c++-ts-mode common-lisp-mode commonlisp-ts-mode
-               cmake-mode cmake-ts-mode clojurec-mode
-               clojurescript-mode clojure-mode clojure-ts-mode
-               csharp-mode csharp-ts-mode c-mode c-ts-mode
-               blueprint-mode blueprint-ts-mode bibtex-mode
-               bibtex-ts-mode sh-mode bash-ts-mode awk-mode
-               awk-ts-mode))
+   '(yaml-mode yaml-ts-mode wgsl-mode wgsl-ts-mode wat-mode wat-ts-mode wat-mode wat-ts-wast-mode vue-mode vue-ts-mode
+               vhdl-mode vhdl-ts-mode verilog-mode verilog-ts-mode typst-mode typst-ts-mode typescript-mode
+               typescript-ts-mode typescript-tsx-mode tsx-ts-mode toml-mode conf-toml-mode toml-ts-mode surface-mode
+               surface-ts-mode sql-mode sql-ts-mode scala-mode scala-ts-mode rust-mode rust-ts-mode ruby-mode
+               ruby-ts-mode ess-mode r-ts-mode python-mode python-ts-mode protobuf-mode protobuf-ts-mode perl-mode
+               perl-ts-mode org-mode org-ts-mode nushell-mode nushell-ts-mode nix-mode nix-ts-mode markdown-mode
+               poly-markdown-mode makefile-mode makefile-ts-mode lua-mode lua-ts-mode kotlin-mode kotlin-ts-mode
+               julia-mode julia-ts-mode js-json-mode json-ts-mode js2-mode javascript-mode js-mode js-ts-mode java-mode
+               java-ts-mode sgml-mode mhtml-mode html-ts-mode heex-mode heex-ts-mode go-mod-mode go-mod-ts-mode go-mode
+               go-ts-mode glsl-mode glsl-ts-mode elixir-mode elixir-ts-mode dockerfile-mode dockerfile-ts-mode dart-mode
+               dart-ts-mode css-mode css-ts-mode c++-mode c++-ts-mode common-lisp-mode commonlisp-ts-mode cmake-mode
+               cmake-ts-mode clojurec-mode clojurescript-mode clojure-mode clojure-ts-mode csharp-mode csharp-ts-mode
+               c-mode c-ts-mode blueprint-mode blueprint-ts-mode bibtex-mode bibtex-ts-mode sh-mode bash-ts-mode
+               awk-mode awk-ts-mode))
  '(highlight-parentheses-colors '("#7ec98f" "#e5c06d" "#a4b5e6" "#834c98" "#8ac6f2"))
  '(indent-tabs-mode nil nil nil "Customized with use-package emacs")
  '(initial-buffer-choice t)
@@ -128,10 +96,8 @@
  '(lsp-typescript-format-enable nil)
  '(lsp-typescript-tsserver-trace "messages")
  '(major-mode-remap-alist
-   '((css-mode . css-ts-mode) (js-json-mode . json-ts-mode)
-     (go-mode . go-ts-mode) (c-mode . c-ts-mode)
-     (c++-mode . c++-ts-mode) (rust . rust-ts-mode)
-     (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)
+   '((css-mode . css-ts-mode) (js-json-mode . json-ts-mode) (go-mode . go-ts-mode) (c-mode . c-ts-mode)
+     (c++-mode . c++-ts-mode) (rust . rust-ts-mode) (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)
      (ruby-mode . ruby-ts-mode)))
  '(markdown-asymmetric-header t)
  '(markdown-enable-highlighting-syntax t)
@@ -139,8 +105,14 @@
  '(markdown-special-ctrl-a/e t)
  '(mode-require-final-newline 'visit-save)
  '(org-modules
-   '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc
-             ol-mhe ol-rmail ol-w3m)))
+   '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe ol-rmail ol-w3m))
+ '(package-selected-packages
+   '(amx elisp-autofmt elisp-lint elpy flycheck gptel-agent gptel-fn-complete ido-completing-read+ jinja2-mode kirigami
+         lsp-treemacs markdown-ts-mode ob-ts-node org-beautify-theme ox-gfm page-break-lines prettier rainbow-delimiters
+         shfmt smart-mode-line-powerline-theme terraform-mode treemacs-icons-dired treemacs-magit treesit-auto
+         treesit-fold vterm vui vulpea vulpea-journal vulpea-ui web-mode which-key whitespace-cleanup-mode winpulse xkcd))
+ '(safe-local-variable-values
+   '((org-todo-keywords quote ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD" "NEEDS INPUT" "|" "DONE" "CANCELED"))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
