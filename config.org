@@ -598,14 +598,14 @@ correctly.
 *** Vulpea (Notes)
 
 #+begin_src emacs-lisp
-(use-package vulpea :custom vulpea-db-autosync-mode t)
+(use-package vulpea :custom (vulpea-db-autosync-mode t))
 (use-package vui)
-(use-package vulpea-ui)
+(use-package vulpea-ui :bind ("C-c v s" . #'vulpea-ui-sidebar-toggle))
 (use-package
  vulpea-journal
- :bind ("C-c v s" . #'vulpea-ui-sidebar-toggle)
  :after (vulpea vulpea-ui)
- :config (vulpea-journal-setup))
+ :config (vulpea-journal-setup)
+ :bind ("C-c j" . #'vulpea-journal))
 #+end_src
 
 *** Terraform Suport
