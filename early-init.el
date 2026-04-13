@@ -10,7 +10,7 @@
 (setopt gc-cons-threshold most-positive-fixnum)
 
 (add-hook
- 'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 10 1024 1024))))
+ 'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 5 1024 1024))))
 
 (setopt garbage-collection-messages t) ;; show GC messages for debugging
 
@@ -35,5 +35,11 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 
 (setopt load-prefer-newer t)
+
+;; Local Variables:
+;; no-byte-compile: t
+;; no-native-compile: t
+;; no-update-autoloads: t
+;; End:
 
 ;;; early-init.el ends here

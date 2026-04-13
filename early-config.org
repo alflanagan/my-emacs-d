@@ -44,13 +44,13 @@ seconds on startup time in early testing. Your milage may vary.
 (setopt gc-cons-threshold most-positive-fixnum)
 #+end_src
 
-Restore to a more normal value after startup. However, 800K is emacs'
+Restore to a more normal value after startup. However, 800K is Emacs'
 startup default, which is probably much too low on modern machines. We
 need to try higher settings to see if they impove performance.
 
 #+begin_src emacs-lisp
 (add-hook
- 'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 10 1024 1024))))
+ 'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 5 1024 1024))))
 
 (setopt garbage-collection-messages t) ;; show GC messages for debugging
 #+end_src
@@ -112,6 +112,18 @@ the default value of this being ~nil~ is nuts.
 
 Add a hook to this file to automatically tangle when saved. Not sure if that is
 possible.
+
+** Local Variables
+
+Tell emacs not do compilations or autoloads for the ~early-init.el~ file.
+
+#+begin_src emacs-lisp
+;; Local Variables:
+;; no-byte-compile: t
+;; no-native-compile: t
+;; no-update-autoloads: t
+;; End:
+#+end_src
 
 ** End
 
