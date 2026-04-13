@@ -305,7 +305,7 @@ just when printed.
 *** Better folding: Kirigami
 
 #+begin_src emacs-lisp
-(use-package kirigami)
+(use-package kirigami :defer)
 #+end_src
 
 *** Clean up Whitespace
@@ -314,7 +314,7 @@ This package automatically strips extra whitespace from the end of
 lines.
 
 #+begin_src emacs-lisp
-(use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
+(use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1) :defer)
 #+end_src
 
 *** Treemacs
@@ -391,19 +391,21 @@ together. As far as I can tell, they do.
  Program Source][info "(elisp) Parsing Program Source"]]).
 
 #+begin_src emacs-lisp
-(use-package
- treesit-auto
- :custom (treesit-auto-install 'prompt)
- :config
- (treesit-auto-add-to-auto-mode-alist 'all)
- (global-treesit-auto-mode))
+  (use-package
+   treesit-auto
+   :custom (treesit-auto-install 'prompt)
+   :config
+   (treesit-auto-add-to-auto-mode-alist 'all)
+   (global-treesit-auto-mode)
+   :defer)
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package
- treesit-fold
- :vc
- (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest))
+  (use-package
+   treesit-fold
+   :vc
+   (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest)
+   :after treesit-auto)
 #+end_src
 
 *** Flycheck
@@ -427,10 +429,16 @@ together. As far as I can tell, they do.
      #+END_QUOTE
 
 #+begin_src emacs-lisp
-(use-package
- flycheck
- :hook (after-init . global-flycheck-mode)
- :pin "nongnu")
+    (use-package
+     flycheck
+     :defer
+  ;;   :hook (after-init . global-flycheck-mode)
+     :pin "nongnu")
+
+(add-hook 'elpaca-after-init-hook
+          (lambda () (progn
+                       (require 'flycheck)
+                       (global-flycheck-mode t))) 90)
 #+end_src
 
 *** Python Programming
@@ -643,7 +651,8 @@ package, but on-the-fly or local-only customizations will go to this file. It
 needs to go after the use-package declarations.
 
 #+begin_src emacs-lisp
-(load (get-config-file "custom.el"))
+(add-hook 'elpaca-after-init-hook (lambda ()
+(load (get-config-file "custom.el"))))
 #+end_src
 
 #+begin_src emacs-lisp
