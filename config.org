@@ -77,25 +77,6 @@ Removed for now; if we restore it, don't change global ~default-directory~.
   (concat (expand-file-name user-emacs-directory) "my_emacs/lisp")))
 #+end_src
 
-** Easy Customization
-
-Set up separate file for use by emacs customization.
-
-I prefer to set customization options in the ~use-package~ declaration
-for each package, but on-the-fly or local-only customizations will go
-to this file.
-
-#+begin_src emacs-lisp
-(load (get-config-file "custom.el"))
-#+end_src
-
-#+begin_src emacs-lisp
-(setopt
- package-archives
- '(("gnu" . "https://elpa.gnu.org/packages/") ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-   ("melpa" . "https://melpa.org/packages/")))
-#+end_src
-
 ** Secrets File
 
 This local file is for global variables with values which should not
@@ -270,11 +251,15 @@ This sets up Emacs to get config settings from that file.
 read from small to large monitors by using colors, a prefix feature,
 and smart truncation.
 
+Because elpaca is loading packages asynchronously, we use the :defer
+keyword to delay loading until a package is used.
+
 #+begin_src emacs-lisp
-(use-package smart-mode-line :config (sml/setup))
+(use-package smart-mode-line :config (sml/setup) :defer)
 (use-package
- smart-mode-line-powerline-theme
- :config (sml/apply-theme 'powerline))
+  smart-mode-line-powerline-theme
+  :config (sml/apply-theme 'powerline)
+  :after smart-mode-line)
 #+end_src
 
 *** Ido and amx
@@ -301,9 +286,10 @@ for when you set ido-everywhere to t).
 #+END_QUOTE
 
 #+begin_src emacs-lisp
-(use-package ido-completing-read+
-  :config
-    (ido-ubiquitous-mode 1))
+  (use-package ido-completing-read+
+    :defer
+    :config
+      (ido-ubiquitous-mode 1))
 #+end_src
 
 *** Page-break Lines
@@ -313,7 +299,7 @@ as horizontal lines. This helps break up the file on the screen, not
 just when printed.
 
 #+begin_src emacs-lisp
-(use-package page-break-lines :config (global-page-break-lines-mode))
+(use-package page-break-lines :config (global-page-break-lines-mode) :defer)
 #+end_src
 
 *** Better folding: Kirigami
@@ -392,7 +378,7 @@ This function is recommended to ensure all elements of treemacs are
 properly in place.
 
 #+begin_src emacs-lisp
-(treemacs-start-on-boot)
+(add-hook 'elpaca-after-init-hook (lambda () (treemacs-start-on-boot)))
 #+end_src
 
 *** Treesit
@@ -647,6 +633,22 @@ The best web comic ever, available right in the editor.
 
 (use-package gptel-agent :after gptel)
 #+end_src
+
+** Easy Customization
+
+Set up separate file for use by emacs customization.
+
+I prefer to set customization options in the ~use-package~ declaration for each
+package, but on-the-fly or local-only customizations will go to this file. It
+needs to go after the use-package declarations.
+
+#+begin_src emacs-lisp
+(load (get-config-file "custom.el"))
+#+end_src
+
+#+begin_src emacs-lisp
+#+end_src
+
 
 ** End Of File
 #+begin_src emacs-lisp
