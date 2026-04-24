@@ -12,7 +12,7 @@
 (add-hook
  'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 5 1024 1024))))
 
-(setopt garbage-collection-messages t) ;; show GC messages for debugging
+;; (setopt garbage-collection-messages t) ;; show GC messages for debugging
 
 (if (equal system-type 'darwin)
     (setenv
