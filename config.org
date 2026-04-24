@@ -256,6 +256,15 @@ This sets up Emacs to get config settings from that file.
 (use-package editorconfig :ensure t :config (editorconfig-mode 1))
 #+end_src
 
+*** Themes
+
+#+begin_src emacs-lisp
+(use-package batppuccin
+  :vc (:url "https://github.com/bbatsov/batppuccin-emacs" :rev :newest)
+  :config
+  (load-theme 'batppuccin-latte t))
+#+end_src
+
 *** Better Mode Line
 
 [[https://github.com/Malabarba/smart-mode-line][Smart-mode-line]] is a sexy mode-line for Emacs. It aims to be easy to
