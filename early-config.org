@@ -113,6 +113,19 @@ the default value of this being ~nil~ is nuts.
 Add a hook to this file to automatically tangle when saved. Not sure if that is
 possible.
 
+** Set ~lisp~ Subdirectory as User Lisp Directory
+
+The user lisp directory is a new feature in Emacs 31, which automatically
+compiles and autoloads lisp files in the director ~user-lisp~ by default. This
+changes that to the ~lisp~ directory we already created.
+
+*NOTE*: If you already have a user-lisp directory, you'll need to modify this.
+
+#+begin_src emacs-lisp
+(if (boundp 'user-lisp-directory)
+    (setopt user-lisp-directory (concat user-emacs-directory "my_emacs/lisp")))
+#+end_src
+
 ** Local Variables
 
 Tell emacs not do compilations or autoloads for the ~early-init.el~ file.
