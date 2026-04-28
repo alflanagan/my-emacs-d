@@ -132,13 +132,14 @@
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe
              ol-rmail ol-w3m))
  '(package-selected-packages
-   '(amx elisp-autofmt elisp-lint elpy flycheck gptel-agent gptel-fn-complete
-         ido-completing-read+ jinja2-mode kirigami lsp-treemacs markdown-ts-mode
-         ob-ts-node org-beautify-theme ox-gfm page-break-lines prettier
-         rainbow-delimiters shfmt smart-mode-line-powerline-theme terraform-mode
-         treemacs-icons-dired treemacs-magit treesit-auto treesit-fold vterm vui
-         vulpea vulpea-journal vulpea-ui web-mode which-key
-         whitespace-cleanup-mode winpulse xkcd))
+   '(amx cmake-ide cmake-mode cmake-project elisp-autofmt elisp-lint elpy flycheck
+         gptel-agent gptel-fn-complete ido-completing-read+ jinja2-mode kirigami
+         lsp-treemacs markdown-ts-mode ob-ts-node org-beautify-theme ox-gfm
+         page-break-lines prettier rainbow-delimiters shfmt
+         smart-mode-line-powerline-theme terraform-mode treemacs-icons-dired
+         treemacs-magit treesit-auto treesit-fold vterm vui vulpea
+         vulpea-journal vulpea-ui web-mode which-key whitespace-cleanup-mode
+         winpulse xkcd))
  '(safe-local-variable-values
    '((org-todo-keywords quote
                         ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD"
