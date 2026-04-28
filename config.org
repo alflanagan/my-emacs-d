@@ -78,8 +78,12 @@ for each package, but on-the-fly or local-only customizations will go
 to this file.
 
 #+begin_src emacs-lisp
-(load (get-config-file "custom.el"))
+;; custom-file is global, need to change it or weird things happen
+(setq custom-file (get-config-file "custom.el"))
+(load custom-file)
 #+end_src
+
+We need to add the *melpa* package source to ~package-archives~.
 
 #+begin_src emacs-lisp
 (setopt
