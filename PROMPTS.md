@@ -17,3 +17,7 @@ write a commit message for the changes
 shorten the commit message to remove fine details.
 
 add recent prompts to PROMPTS.md
+
+check @config.org for errors
+
+fix the five definite bugs in config.org

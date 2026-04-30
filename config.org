@@ -168,7 +168,7 @@ change it.
  (auto-save-visited-mode t)
 
  (column-number-mode t) ;; displays current column in mode line
- (indent-tabs-mode nil)
+ (setq-default indent-tabs-mode nil)
 
  (save-place-mode t)
  (show-paren-mode t)
@@ -359,10 +359,12 @@ the gory details.
  :init
  (with-eval-after-load 'winum
    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+ :config
  (when treemacs-python-executable
    (treemacs-git-mode 'extended)
    (treemacs-git-commit-diff-mode t)
    (treemacs-hide-gitignored-files-mode t))
+ (treemacs-start-on-boot)
  :custom
  (treemacs-follow-mode t)
  (treemacs-project-follow-mode t)
@@ -402,14 +404,6 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 (use-package treemacs-magit :after (treemacs magit) :ensure t)
 #+end_src
 
-**** Treemacs start on boot.
-
-This function is recommended to ensure all elements of treemacs are
-properly in place.
-
-#+begin_src emacs-lisp
-(treemacs-start-on-boot)
-#+end_src
 
 *** Treesit
 
@@ -603,13 +597,13 @@ correctly.
 **** Beautify Theme
 
 #+begin_src emacs-lisp
-(use-package org-beautify-theme :after org-mode)
+(use-package org-beautify-theme :after org)
 #+end_src
 
 **** Add Markdown as an Export Format
 
 #+begin_src emacs-lisp
-(use-package ox-gfm :after org-mode)
+(use-package ox-gfm :after org)
 #+end_src
 
 *** Vulpea (Notes)
@@ -668,5 +662,5 @@ The best web comic ever, available right in the editor.
 ** End Of File
 #+begin_src emacs-lisp
 (message "config.org loaded.")
-;;; init.el ends here
+;;; config.el ends here
 #+end_src
