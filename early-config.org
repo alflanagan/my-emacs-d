@@ -40,7 +40,6 @@ Temporarily increase GC threshold during startup. This saves about 1.8
 seconds on startup time in early testing. Your milage may vary.
 
 #+begin_src emacs-lisp
-(require 'autorevert)
 (setopt gc-cons-threshold most-positive-fixnum)
 #+end_src
 
@@ -51,7 +50,6 @@ need to try higher settings to see if they impove performance.
 #+begin_src emacs-lisp
 (add-hook
  'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 5 1024 1024))))
-
 ;; (setopt garbage-collection-messages t) ;; show GC messages for debugging
 #+end_src
 
@@ -62,16 +60,16 @@ almost certainly wrong* for your machine. Customize, or try commenting
 out and seeing if it just works as-is.
 
 #+begin_src emacs-lisp
-(if (equal system-type 'darwin)
-    (setenv
-     "LIBRARY_PATH"
-     (string-join
-      '("/opt/homebrew/opt/gcc/lib/gcc/current"
-        "/opt/homebrew/opt/libgccjit/lib/gcc/current"
-        ;; this directory, alas, has no "current" symlink. You'll need to fix every time
-        ;; gcc is updated. Or we need code to find it dynamically.
-        "/opt/homebrew/Cellar/gcc/15.2.0_1/lib/gcc/current/gcc/aarch64-apple-darwin25/15/")
-      ":")))
+(when (equal system-type 'darwin)
+  (setenv
+   "LIBRARY_PATH"
+   (string-join
+    '("/opt/homebrew/opt/gcc/lib/gcc/current"
+      "/opt/homebrew/opt/libgccjit/lib/gcc/current"
+      ;; this directory, alas, has no "current" symlink. You'll need to fix every time
+      ;; gcc is updated. Or we need code to find it dynamically.
+      "/opt/homebrew/Cellar/gcc/15.2.0_1/lib/gcc/current/gcc/aarch64-apple-darwin25/15/")
+    ":")))
 #+end_src
 
 ** Initial Frame Size
@@ -122,8 +120,8 @@ changes that to the ~lisp~ directory we already created.
 *NOTE*: If you already have a user-lisp directory, you'll need to modify this.
 
 #+begin_src emacs-lisp
-(if (boundp 'user-lisp-directory)
-    (setopt user-lisp-directory (concat user-emacs-directory "my_emacs/lisp")))
+(when (boundp 'user-lisp-directory)
+  (setopt user-lisp-directory (concat user-emacs-directory "my_emacs/lisp")))
 #+end_src
 
 ** Local Variables
