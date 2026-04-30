@@ -385,8 +385,7 @@ the gory details.
  ("C-x t C-t" . treemacs-find-file)
  ("C-x t M-t" . treemacs-find-tag)
 
- ;; NOTE: functions in :hook keyword list should NOT be quoted
- :hook (after-init-hook . treemacs))
+)
 #+end_src
 
 **** Treemacs-icons-dired

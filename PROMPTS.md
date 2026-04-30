@@ -29,3 +29,5 @@ Implement a change to add the my_emacs/ directory to the load path, and configur
 Undo the change to treemacs, and add a configuration to omit .github/ directory from load-path.
 
 undo the change to ido
+
+Why does the treemacs sidebar disappear when emacs starts?
