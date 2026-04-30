@@ -31,3 +31,7 @@ Undo the change to treemacs, and add a configuration to omit .github/ directory 
 undo the change to ido
 
 Why does the treemacs sidebar disappear when emacs starts?
+
+yes
+
+Rewrite the get-config-file to properly expand to the my_emacs directory. Fix the the keybinding on line 148. add the :commands line to elpy use-package. Replace the :custom on line 308 with the correct :config clause. Update the gptel-model setting to use Claude Sonnet 4.6.

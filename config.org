@@ -51,7 +51,7 @@ Quick function to make refering to other config files easier.
 
 #+begin_src emacs-lisp
 (defun get-config-file (filename)
-  (concat user-emacs-directory filename))
+  (expand-file-name filename (concat user-emacs-directory "my_emacs/")))
 #+end_src
 
 ** Load Path
@@ -148,7 +148,7 @@ change it.
   ("C-M-r" . #'isearch-backward)
   ("C-x M-r" . #'remember)
 
-  ("C-x M-R" . "C-u C-x M-r")
+  ("C-x M-R" . (lambda () (interactive) (let ((current-prefix-arg '(4))) (call-interactively #'remember))))
   ("s-q" . nil)
   ;; runs save-buffers-kill-emacs by default, but too easy to hit by accident
   )
@@ -308,7 +308,7 @@ The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" 
 #+begin_src emacs-lisp
 (use-package amx
     :ensure t
-    :custom (amx-mode 1))
+    :config (amx-mode 1))
 #+end_src
 
 #+BEGIN_QUOTE
@@ -477,6 +477,7 @@ file.
 (use-package elpy
   :ensure t
   :defer t
+  :commands (elpy-enable)
   :init
   (advice-add 'python-mode :before 'elpy-enable))
 #+end_src
@@ -648,7 +649,7 @@ The best web comic ever, available right in the editor.
 ;; Install via MELPA
 (use-package
  gptel
- :config (setq gptel-model 'claude-sonnet-4-20250514)
+ :config (setq gptel-model 'claude-sonnet-4-6)
  (setq gptel-backend
        (gptel-make-anthropic
         "Claude"
