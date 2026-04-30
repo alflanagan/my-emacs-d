@@ -51,7 +51,7 @@ Quick function to make refering to other config files easier.
 
 #+begin_src emacs-lisp
 (defun get-config-file (filename)
-  (concat user-emacs-directory filename))
+  (expand-file-name filename (concat user-emacs-directory "my_emacs/")))
 #+end_src
 
 ** Load Path
@@ -60,13 +60,18 @@ In my local ~/lisp~ subdirectory, I've got some third-party projects
 which should be loaded from local files.
 
 #+begin_src emacs-lisp
+(add-to-list 'load-path (expand-file-name "my_emacs" user-emacs-directory))
+(setopt load-path-ignore-regexp "\\.github\\'")
+
 ;; (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp")
 
-(add-to-list
- 'load-path
- (directory-file-name
-  (concat
-   (expand-file-name user-emacs-directory) "my_emacs/lisp/org-contrib/lisp")))
+;; Temporarily commented out: need to add check for emacs version
+;; and only do this for versions without the user-lisp feature.
+;; (add-to-list
+;;  'load-path
+;;  (directory-file-name
+;;   (concat
+;;    (expand-file-name user-emacs-directory) "my_emacs/lisp/org-contrib/lisp")))
 #+end_src
 
 ** Easy Customization
@@ -143,7 +148,7 @@ change it.
   ("C-M-r" . #'isearch-backward)
   ("C-x M-r" . #'remember)
 
-  ("C-x M-R" . "C-u C-x M-r")
+  ("C-x M-R" . (lambda () (interactive) (let ((current-prefix-arg '(4))) (call-interactively #'remember))))
   ("s-q" . nil)
   ;; runs save-buffers-kill-emacs by default, but too easy to hit by accident
   )
@@ -166,7 +171,7 @@ change it.
  (auto-save-visited-mode t)
 
  (column-number-mode t) ;; displays current column in mode line
- (indent-tabs-mode nil)
+ (setq-default indent-tabs-mode nil)
 
  (save-place-mode t)
  (show-paren-mode t)
@@ -184,11 +189,14 @@ change it.
  (trash-directory "~/.Trash")
  (delete-by-moving-to-trash t) ;; use system trash can for deleted files
  (apropos-do-all t)
- ;; put file backups in single directory, not in same directory with '~' appended.
+ ;; put file backups in single directory, not in same directory with '~'
+ ;; appended.
  (backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
 
- ;; old libraries are creating temporary buffers without the lexical-binding tag. Since I don't need that warning, clean
- ;; up *Warnings* a bit by silencing it
+ ;; old libraries are creating temporary buffers without the lexical-binding
+ ;; tag. Since I don't need that warning, clean up *Warnings* a bit by silencing
+ ;; it
+
  (warning-suppress-log-types '((files missing-lexbind-cookie)))
 
  (server-log t)
@@ -201,7 +209,8 @@ change it.
 
  ;; Python setup options
  ;; These assume that both "uv" and "mise" are present and always used.
- ;; TODO: in :config section, check for existence of "uv" and "mise" and don't do this if not found.
+ ;; TODO: in :config section, check for existence of "uv" and "mise" and don't
+ ;; do this if not found.
 
  (python-shell-exec-path '("./.venv/bin"))
  (python-interpreter
@@ -222,6 +231,9 @@ change it.
 
  ;; don't automatically double space after sentence end -- obsolete style
  (sentence-end-double-space nil)
+
+ ;; emacs by default doesn't upgrade built-in packages -- causes magit to freak
+ (package-install-upgrade-built-in t)
 
  :hook (prog-mode . display-line-numbers-mode)
  ;; Treat CamelCaseSubWords as separate words in every programming  mode.
@@ -296,7 +308,7 @@ The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" 
 #+begin_src emacs-lisp
 (use-package amx
     :ensure t
-    :custom (amx-mode 1))
+    :config (amx-mode 1))
 #+end_src
 
 #+BEGIN_QUOTE
@@ -350,12 +362,16 @@ the gory details.
  :init
  (with-eval-after-load 'winum
    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+ :config
+ (when treemacs-python-executable
+   (treemacs-git-mode 'extended)
+   (treemacs-git-commit-diff-mode t)
+   (treemacs-hide-gitignored-files-mode t))
+ (treemacs-start-on-boot)
  :custom
+ (treemacs-follow-mode t)
  (treemacs-project-follow-mode t)
  (treemacs-filewatch-mode t)
- (treemacs-hide-gitignored-files-mode t)
- (when treemacs-python-executable
-   (treemacs-git-commit-diff-mode t))
  (treemacs-is-never-other-window t)
  ;; follow mode makes it difficult to find file that are not on-screen
  (treemacs-follow-after-init nil)
@@ -369,8 +385,7 @@ the gory details.
  ("C-x t C-t" . treemacs-find-file)
  ("C-x t M-t" . treemacs-find-tag)
 
- ;; NOTE: functions in :hook keyword list should NOT be quoted
- :hook (after-init-hook . treemacs))
+)
 #+end_src
 
 **** Treemacs-icons-dired
@@ -391,14 +406,6 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 (use-package treemacs-magit :after (treemacs magit) :ensure t)
 #+end_src
 
-**** Treemacs start on boot.
-
-This function is recommended to ensure all elements of treemacs are
-properly in place.
-
-#+begin_src emacs-lisp
-(treemacs-start-on-boot)
-#+end_src
 
 *** Treesit
 
@@ -470,6 +477,7 @@ file.
 (use-package elpy
   :ensure t
   :defer t
+  :commands (elpy-enable)
   :init
   (advice-add 'python-mode :before 'elpy-enable))
 #+end_src
@@ -592,13 +600,13 @@ correctly.
 **** Beautify Theme
 
 #+begin_src emacs-lisp
-(use-package org-beautify-theme :after org-mode)
+(use-package org-beautify-theme :after org)
 #+end_src
 
 **** Add Markdown as an Export Format
 
 #+begin_src emacs-lisp
-(use-package ox-gfm :after org-mode)
+(use-package ox-gfm :after org)
 #+end_src
 
 *** Vulpea (Notes)
@@ -641,7 +649,7 @@ The best web comic ever, available right in the editor.
 ;; Install via MELPA
 (use-package
  gptel
- :config (setq gptel-model 'claude-sonnet-4-20250514)
+ :config (setq gptel-model 'claude-sonnet-4-6)
  (setq gptel-backend
        (gptel-make-anthropic
         "Claude"
@@ -657,5 +665,5 @@ The best web comic ever, available right in the editor.
 ** End Of File
 #+begin_src emacs-lisp
 (message "config.org loaded.")
-;;; init.el ends here
+;;; config.el ends here
 #+end_src

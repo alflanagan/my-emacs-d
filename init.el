@@ -21,7 +21,7 @@
 ;;
 ;;; Code:
 
-
+
 ;;; Set up `use-package' package manager.
 
 ;; first we add melpa archive (use with caution!)
@@ -35,10 +35,9 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(eval-when-compile
-  (require 'use-package)
-  ;; so I don't have to specify :ensure t on every call
-  (require 'use-package-ensure))
+(require 'use-package)
+;; so I don't have to specify :ensure t on every call
+(require 'use-package-ensure)
 
 (setopt use-package-always-ensure t)
 
@@ -49,10 +48,6 @@
    use-package-expand-minimally nil
    use-package-compute-statistics t
    debug-on-error t))
-
-(package-initialize)
-
-
 
 ;;; (Try to) Ensure the latest org-mode is installed
 (use-package

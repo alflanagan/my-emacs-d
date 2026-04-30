@@ -6,24 +6,22 @@
 ;; overwritten. Edit that file, then execute the `org-babel-tangle'
 ;; command.
 
-(require 'autorevert)
 (setopt gc-cons-threshold most-positive-fixnum)
 
 (add-hook
  'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 5 1024 1024))))
-
 ;; (setopt garbage-collection-messages t) ;; show GC messages for debugging
 
-(if (equal system-type 'darwin)
-    (setenv
-     "LIBRARY_PATH"
-     (string-join
-      '("/opt/homebrew/opt/gcc/lib/gcc/current"
-        "/opt/homebrew/opt/libgccjit/lib/gcc/current"
-        ;; this directory, alas, has no "current" symlink. You'll need to fix every time
-        ;; gcc is updated. Or we need code to find it dynamically.
-        "/opt/homebrew/Cellar/gcc/15.2.0_1/lib/gcc/current/gcc/aarch64-apple-darwin25/15/")
-      ":")))
+(when (equal system-type 'darwin)
+  (setenv
+   "LIBRARY_PATH"
+   (string-join
+    '("/opt/homebrew/opt/gcc/lib/gcc/current"
+      "/opt/homebrew/opt/libgccjit/lib/gcc/current"
+      ;; this directory, alas, has no "current" symlink. You'll need to fix every time
+      ;; gcc is updated. Or we need code to find it dynamically.
+      "/opt/homebrew/Cellar/gcc/15.2.0_1/lib/gcc/current/gcc/aarch64-apple-darwin25/15/")
+    ":")))
 
 (setopt initial-frame-alist
         '((horizontal-scroll-bars)
@@ -36,8 +34,8 @@
 
 (setopt load-prefer-newer t)
 
-(if (boundp 'user-lisp-directory)
-    (setopt user-lisp-directory (concat user-emacs-directory "my_emacs/lisp")))
+(when (boundp 'user-lisp-directory)
+  (setopt user-lisp-directory (concat user-emacs-directory "my_emacs/lisp")))
 
 ;; Local Variables:
 ;; no-byte-compile: t
