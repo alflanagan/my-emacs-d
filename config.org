@@ -380,6 +380,16 @@ the gory details.
    (treemacs-git-mode 'extended)
    (treemacs-git-commit-diff-mode t)
    (treemacs-hide-gitignored-files-mode t))
+ ;; treemacs-git-commit-diff fires async callbacks for all workspace projects,
+ ;; including ones not currently visible in the buffer.  When the callback
+ ;; tries to annotate a path whose project node doesn't exist in the buffer,
+ ;; treemacs-project->position receives nil and crashes.  Guard against that.
+ (with-eval-after-load 'treemacs-git-commit-diff
+   (advice-add
+    'treemacs-apply-single-annotation
+    :before-while
+    (lambda (path)
+      (treemacs-is-path path :in-workspace))))
  (treemacs-start-on-boot)
  :custom
  (treemacs-follow-mode t)
