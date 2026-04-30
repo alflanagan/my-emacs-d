@@ -400,10 +400,13 @@ the gory details.
  (treemacs-follow-after-init nil)
 
  :bind
- ("M-0" . treemacs-select-window)
- ("C-x t 1" . treemacs-delete-other-windows)
+ ;; M-0 intentionally omitted here; scoped to winum-keymap in :init above
+ ;; to avoid shadowing digit-argument globally.
+ ;; C-x t 1 → tab-close-other (Emacs 27+); use C-x t o instead.
+ ;; C-x t d → dired-other-tab  (Emacs 28+); use C-x t D instead.
+ ("C-x t o" . treemacs-delete-other-windows)
  ("C-x t t" . treemacs)
- ("C-x t d" . treemacs-select-directory)
+ ("C-x t D" . treemacs-select-directory)
  ("C-x t B" . treemacs-bookmark)
  ("C-x t C-t" . treemacs-find-file)
  ("C-x t M-t" . treemacs-find-tag)

@@ -41,3 +41,5 @@ check @early-init.org for errors.
 yes, and update the one-armed if calls.
 
 check for installed emacs packages that don't have use-package declarations, and add the equivalent use-package calls to config.org
+
+evaluate all the keybindings in my config files and report conflicts with each other or with emacs built-ins
