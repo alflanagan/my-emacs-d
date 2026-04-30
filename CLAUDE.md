@@ -65,9 +65,12 @@ my_emacs/
   -*- lexical-binding: t -*-` as the first line. Maintain this.
 - **`use-package`** is used for every third-party package declaration.
   `use-package-always-ensure t` is set, so `:ensure t` is implicit.
+- **`:vc` keyword** is used to install packages directly from GitHub when they
+  are not on ELPA/MELPA (e.g. `batppuccin`, `winpulse`, `treesit-fold`).
 - **`setopt`** (Emacs 29+) is preferred over `setq` for user options.
 - **Indentation**: spaces only, no tabs (`indent-tabs-mode nil`).
 - **Fill column**: 80 characters.
+- **Font**: Fira Code, height 160. Must be installed on the system.
 - **Formatting**: `elisp-autofmt` is configured and hooked into
   `emacs-lisp-mode`. Run `C-c f` (buffer) or `C-c r` (region) to format.
   The config file `.elisp-autoformat` controls its settings.
@@ -103,21 +106,48 @@ These files are not auto-loaded; they must be explicitly required where needed.
 | Package | Purpose |
 |---------|---------|
 | `org` (pinned gnu) | Org mode; drives literate config loading |
-| `treemacs` | File-tree sidebar; starts on boot |
+| `treemacs` | File-tree sidebar; starts on boot via `treemacs-start-on-boot` |
+| `treemacs-icons-dired` | Treemacs icons in Dired buffers |
+| `treemacs-magit` | Integrates Magit with Treemacs sidebar |
 | `lsp-mode` | Language Server Protocol client; hooked to `prog-mode` |
+| `lsp-treemacs` | Shows LSP info (errors, symbols) in Treemacs sidebar |
 | `treesit-auto` | Auto-install and enable Tree-sitter grammars |
-| `flycheck` | On-the-fly syntax checking; global mode |
+| `treesit-fold` | Code folding using Tree-sitter (installed via `:vc`) |
+| `flycheck` | On-the-fly syntax checking; global mode; pinned to `nongnu` |
 | `elpy` | Python IDE features; deferred until a Python file opens |
-| `gptel` | LLM/AI integration; configured for Claude via `ANTHROPIC_API_KEY` |
+| `jinja2-mode` | Jinja2/Django template editing |
+| `gptel` | LLM/AI integration; model `claude-sonnet-4-20250514`; reads `ANTHROPIC_API_KEY` from env |
+| `gptel-fn-complete` | Function completion via gptel |
+| `gptel-agent` | Agent-mode support for gptel |
 | `vulpea` | Notes / knowledge base; auto-syncs DB |
+| `vulpea-ui` + `vui` | Sidebar UI for vulpea (`C-c v s` to toggle) |
+| `vulpea-journal` | Journal integration (`C-c j`) |
 | `magit` | Git interface |
 | `elisp-autofmt` | Auto-format Emacs Lisp code |
+| `elisp-lint` | Lint Emacs Lisp files (deferred) |
 | `smart-mode-line` | Enhanced mode line with powerline theme |
 | `amx` + `ido-completing-read+` | M-x and minibuffer completion via ido |
 | `editorconfig` | Read `.editorconfig` files |
 | `whitespace-cleanup-mode` | Strip trailing whitespace on save |
-| `terraform-mode` | Terraform/HCL editing |
-| `web-mode` | Multi-language HTML templates |
+| `page-break-lines` | Render `^L` (ctrl-L) as horizontal lines |
+| `kirigami` | Enhanced code folding |
+| `winpulse` | Pulse/highlight active window (installed via `:vc`) |
+| `batppuccin` | Catppuccin-based color theme (installed via `:vc`); latte variant active |
+| `terraform-mode` | Terraform/HCL editing; indent level 4 |
+| `web-mode` | Multi-language HTML templates; Django engine default |
+| `shfmt` | Shell script formatter (`C-c C-f` in `sh-mode`) |
+| `org-beautify-theme` | Visual enhancements for Org mode |
+| `ox-gfm` | Export Org files to GitHub-Flavored Markdown |
+| `xkcd` | Browse xkcd comics inside Emacs |
+
+---
+
+## Python Tooling
+
+The config assumes `uv` and `mise` are installed and in use. `python-shell-exec-path`
+is set to `./.venv/bin`, and the interpreter path points into mise's install tree.
+If Python features misbehave on a new machine, check that both tools are present and
+that `mise` has provisioned an interpreter.
 
 ---
 
