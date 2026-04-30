@@ -21,3 +21,11 @@ add recent prompts to PROMPTS.md
 check @config.org for errors
 
 fix the five definite bugs in config.org
+
+re-check @config.org
+
+Implement a change to add the my_emacs/ directory to the load path, and configure emacs to omit the .github directory and its descendants.
+
+Undo the change to treemacs, and add a configuration to omit .github/ directory from load-path.
+
+undo the change to ido

@@ -60,6 +60,9 @@ In my local ~/lisp~ subdirectory, I've got some third-party projects
 which should be loaded from local files.
 
 #+begin_src emacs-lisp
+(add-to-list 'load-path (expand-file-name "my_emacs" user-emacs-directory))
+(setopt load-path-ignore-regexp "\\.github\\'")
+
 ;; (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp")
 
 ;; Temporarily commented out: need to add check for emacs version
