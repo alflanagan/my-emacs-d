@@ -63,8 +63,6 @@ which should be loaded from local files.
 (add-to-list 'load-path (expand-file-name "my_emacs" user-emacs-directory))
 (setopt load-path-ignore-regexp "\\.github\\'")
 
-;; (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp")
-
 ;; Temporarily commented out: need to add check for emacs version
 ;; and only do this for versions without the user-lisp feature.
 ;; (add-to-list
@@ -350,14 +348,12 @@ lines.
 
 *** Which-key
 
-Displays available key bindings in a popup after pressing a prefix key.
-Built-in as of Emacs 30; ~:ensure nil~ defers to the bundled copy in the
-~lisp/emacs-which-key~ submodule (or the built-in on Emacs 30+).
+Displays available key bindings in a popup after pressing a prefix key. Built-in
+as of Emacs 30; ~:ensure nil~ defers to the built-in on Emacs 30+.
 
 #+begin_src emacs-lisp
 (use-package which-key
   :ensure nil
-  :load-path "my_emacs/lisp/emacs-which-key"
   :config (which-key-mode))
 #+end_src
 
