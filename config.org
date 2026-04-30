@@ -348,6 +348,19 @@ lines.
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
 #+end_src
 
+*** Which-key
+
+Displays available key bindings in a popup after pressing a prefix key.
+Built-in as of Emacs 30; ~:ensure nil~ defers to the bundled copy in the
+~lisp/emacs-which-key~ submodule (or the built-in on Emacs 30+).
+
+#+begin_src emacs-lisp
+(use-package which-key
+  :ensure nil
+  :load-path "my_emacs/lisp/emacs-which-key"
+  :config (which-key-mode))
+#+end_src
+
 *** Treemacs
 
 Set up treemacs, the directory tree sidebar. See [[https://github.com/Alexander-Miller/treemacs][treemacs repo]] for all
@@ -431,6 +444,10 @@ together. As far as I can tell, they do.
  treesit-fold
  :vc
  (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest))
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package markdown-ts-mode :defer t)
 #+end_src
 
 *** Flycheck
@@ -544,6 +561,26 @@ language.
 (use-package shfmt :bind (:map sh-mode-map ("C-c C-f" . shfmt)))
 #+end_src
 
+*** Code Formatters
+
+Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
+
+#+begin_src emacs-lisp
+(use-package prettier
+  :hook
+  ((js-mode . prettier-mode)
+   (typescript-ts-mode . prettier-mode)
+   (css-mode . prettier-mode)))
+#+end_src
+
+*** Terminal
+
+#+begin_src emacs-lisp
+(use-package vterm
+  :commands vterm
+  :custom (vterm-max-scrollback 10000))
+#+end_src
+
 *** Visual Tweaks
 
 #+begin_src emacs-lisp
@@ -551,6 +588,10 @@ language.
  winpulse
  :vc (:url "https://github.com/xenodium/winpulse" :rev :newest)
  :config (winpulse-mode +1))
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
 *** Language Server Protocol
@@ -607,6 +648,20 @@ correctly.
 
 #+begin_src emacs-lisp
 (use-package ox-gfm :after org)
+#+end_src
+
+**** Org Babel TypeScript
+
+Enables evaluation of ~typescript~ source blocks in Org via [[https://github.com/nicholasgasior/ob-ts-node][ob-ts-node]].
+Requires ~ts-node~ to be available on ~exec-path~.
+
+#+begin_src emacs-lisp
+(use-package ob-ts-node
+  :after org
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (append org-babel-load-languages '((ts-node . t)))))
 #+end_src
 
 *** Vulpea (Notes)

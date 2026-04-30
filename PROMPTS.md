@@ -39,3 +39,5 @@ Rewrite the get-config-file to properly expand to the my_emacs directory. Fix th
 check @early-init.org for errors.
 
 yes, and update the one-armed if calls.
+
+check for installed emacs packages that don't have use-package declarations, and add the equivalent use-package calls to config.org
