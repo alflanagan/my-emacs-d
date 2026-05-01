@@ -439,8 +439,11 @@ together. As far as I can tell, they do.
  :custom (treesit-auto-install 'prompt)
  :config
  (treesit-auto-add-to-auto-mode-alist 'all)
- (push '("\\.md\\'" . markdown-mode) auto-mode-alist)
- (global-treesit-auto-mode))
+ (global-treesit-auto-mode)
+ ;; treesit-auto adds a markdown-mode → markdown-ts-mode remap via
+ ;; major-mode-remap-alist.  Remove it so markdown-mode stays active.
+ (setq major-mode-remap-alist
+       (assoc-delete-all 'markdown-mode major-mode-remap-alist)))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -451,7 +454,11 @@ together. As far as I can tell, they do.
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package markdown-ts-mode :defer t)
+(use-package markdown-mode
+  :mode
+  (("README\\.md\\'" . gfm-mode)
+   ("\\.md\\'" . markdown-mode)
+   ("\\.markdown\\'" . markdown-mode)))
 #+end_src
 
 *** Flycheck

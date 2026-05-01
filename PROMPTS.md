@@ -49,3 +49,9 @@ update CLAUDE.md to reflect current project state, including external changes to
 update CLAUDE.md to remove references to removed files lisp/site.macos.el and lisp/site.linux.el.
 
 clean up configuration for python to always use mise and uv for environment setup.
+
+update the configuration to use markdown-mode for markdown files, not markdown-ts-mode
+
+Fix the cause of the error message I received opening a markdown file: "redisplay--pre-redisplay-functions: (treesit-query-error "Node type error at" 2 "(inline) @markdown-inline" "Debug the query with `treesit-query-validate'")
+Error during redisplay: (jit-lock-function 1) signaled (treesit-query-error "Node type error at" 2 "(inline) @markdown-inline" "Debug the query with `treesit-query-validate'")
+"

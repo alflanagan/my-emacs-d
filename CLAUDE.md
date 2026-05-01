@@ -110,7 +110,7 @@ ELPA archives in priority order:
 | `lsp-treemacs` | Shows LSP info (errors, symbols) in Treemacs sidebar |
 | `treesit-auto` | Auto-install and enable Tree-sitter grammars |
 | `treesit-fold` | Code folding using Tree-sitter (installed via `:vc`) |
-| `markdown-ts-mode` | Tree-sitter markdown mode (deferred) |
+| `markdown-mode` | Markdown editing; `gfm-mode` for README files |
 | `flycheck` | On-the-fly syntax checking; global mode; pinned to `nongnu` |
 | `elpy` | Python IDE features; deferred until a Python file opens |
 | `jinja2-mode` | Jinja2/Django template editing |
