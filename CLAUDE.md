@@ -147,9 +147,9 @@ ELPA archives in priority order:
 
 ## Python Tooling
 
-`config.org` sets `python-shell-exec-path` to `./.venv/bin` and points the
-interpreter at mise's install tree. If Python features misbehave, verify that
-the mise-managed `uv` environment is correctly set up for the current machine.
+mise manages uv; uv creates `.venv` in each project. `python-shell-exec-path`
+is set to `./.venv/bin` so Emacs resolves `python3` from the project venv.
+If Python features misbehave, ensure `uv sync` has been run in the project root.
 
 ---
 

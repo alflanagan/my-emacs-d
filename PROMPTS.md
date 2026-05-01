@@ -47,3 +47,5 @@ evaluate all the keybindings in my config files and report conflicts with each o
 update CLAUDE.md to reflect current project state, including external changes to files
 
 update CLAUDE.md to remove references to removed files lisp/site.macos.el and lisp/site.linux.el.
+
+clean up configuration for python to always use mise and uv for environment setup.

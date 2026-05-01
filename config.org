@@ -205,16 +205,11 @@ change it.
  ;; don't show package in menu if higher-priority package is found
  (package-menu-hide-low-priority t)
 
- ;; Python setup options
- ;; These assume that both "uv" and "mise" are present and always used.
- ;; TODO: in :config section, check for existence of "uv" and "mise" and don't
- ;; do this if not found.
-
+ ;; Python setup: assume mise manages uv, and uv creates .venv in each project.
+ ;; Prepend .venv/bin to exec-path so python3 resolves to the project venv.
  (python-shell-exec-path '("./.venv/bin"))
- (python-interpreter
-  "/Users/adrianflanagan/.local/share/mise/installs/uv run python")
- (python-shell-interpreter
-  "/Users/adrianflanagan/.local/share/mise/installs/uv run python")
+ (python-interpreter "python3")
+ (python-shell-interpreter "python3")
  (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
  (fill-column 80)
  (font-lock-maximum-decoration t) ;; use as much syntax highlighting as possible, by default
