@@ -52,6 +52,6 @@ clean up configuration for python to always use mise and uv for environment setu
 
 update the configuration to use markdown-mode for markdown files, not markdown-ts-mode
 
-Fix the cause of the error message I received opening a markdown file: "redisplay--pre-redisplay-functions: (treesit-query-error "Node type error at" 2 "(inline) @markdown-inline" "Debug the query with `treesit-query-validate'")
-Error during redisplay: (jit-lock-function 1) signaled (treesit-query-error "Node type error at" 2 "(inline) @markdown-inline" "Debug the query with `treesit-query-validate'")
-"
+Fix the cause of the error message I received opening a markdown file: "redisplay--pre-redisplay-functions: (treesit-query-error "Node type error at" 2 "(inline) @markdown-inline" "Debug the query with `treesit-query-validate'") ..."
+
+evaluate the following error and determine why it still occurs: [backtrace showing markdown-ts-mode still active via treesit-auto recipe list]

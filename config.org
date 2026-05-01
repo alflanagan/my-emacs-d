@@ -438,12 +438,15 @@ together. As far as I can tell, they do.
  treesit-auto
  :custom (treesit-auto-install 'prompt)
  :config
+ ;; Remove the markdown recipe before treesit-auto registers any mappings,
+ ;; so neither auto-mode-alist nor major-mode-remap-alist ever get a
+ ;; markdown entry.  We use markdown-mode instead of markdown-ts-mode.
+ (setq treesit-auto-recipe-list
+       (seq-remove
+        (lambda (r) (eq (treesit-auto-recipe-lang r) 'markdown))
+        treesit-auto-recipe-list))
  (treesit-auto-add-to-auto-mode-alist 'all)
- (global-treesit-auto-mode)
- ;; treesit-auto adds a markdown-mode → markdown-ts-mode remap via
- ;; major-mode-remap-alist.  Remove it so markdown-mode stays active.
- (setq major-mode-remap-alist
-       (assoc-delete-all 'markdown-mode major-mode-remap-alist)))
+ (global-treesit-auto-mode))
 #+end_src
 
 #+begin_src emacs-lisp
