@@ -22,10 +22,12 @@ and load `config.org` at startup.
 
 ### Boot sequence
 
-1. `early-init.el` — GC tuning, frame geometry, gcc library path (macOS), sets
-   `user-lisp-directory` to `lisp/` (Emacs 31+).
-2. `init.el` — bootstraps `use-package`, pins `org` to GNU ELPA, then calls
-   `org-babel-load-file` on `config.org`.
+1. `early-init.el` — GC tuning (`most-positive-fixnum` during startup, restored
+   to 5 MiB after), frame geometry, gcc library path (macOS), sets
+   `user-lisp-directory` to `<user-emacs-directory>/my_emacs/lisp` (Emacs 31+).
+2. `init.el` — bootstraps `use-package` (`use-package-always-ensure t`), pins
+   `org` to GNU ELPA, then calls `org-babel-load-file` on
+   `<user-emacs-directory>/my_emacs/config.org`.
 3. `config.org` (tangled to `config.el`) — all package declarations and
    settings.
 
@@ -35,26 +37,30 @@ and load `config.org` at startup.
 
 ```
 my_emacs/
-├── early-config.org      # Source for early-init.el
-├── early-init.el         # GENERATED — do not edit
-├── init.el               # Hand-written bootstrap (not tangled)
-├── config.org            # Source for config.el — main config
-├── config.el             # GENERATED — do not edit
-├── custom.el             # Written by M-x customize; not tangled
-├── secrets.el            # Local secrets (not in VCS); required by config
-├── tssetup.el            # TypeScript / tree-sitter helpers
-├── Makefile              # `make clean` removes *.elc files
-├── todo.org              # Project TODO list
+├── early-config.org         # Source for early-init.el
+├── early-init.el            # GENERATED — do not edit
+├── init.el                  # Hand-written bootstrap (not tangled)
+├── config.org               # Source for config.el — main config
+├── config.el                # GENERATED — do not edit
+├── custom.el                # Written by M-x customize; not tangled
+├── secrets.el               # Local secrets (not in VCS); required by config
+├── my_emacs-autoloads.el    # GENERATED — autoloads for the my_emacs directory
+├── Makefile                 # `make clean` removes *.elc files
+├── todo.org                 # Project TODO list
+├── packages.txt             # Snapshot of installed packages (output of helper script)
+├── find_missing.sh          # Helper: find packages missing use-package declarations
+├── get_used_packages.sh     # Helper: list packages referenced in config
+├── find_gcc.el.bkp          # Backup of old dynamic gcc-path finder (not loaded)
+├── CODE_OF_CONDUCT.md
+├── LICENSE
+├── README.md
 ├── lisp/
-│   ├── misc.el           # Small utility functions
-│   ├── site.linux.el     # Linux-specific overrides
-│   ├── site.macos.el     # macOS-specific overrides
-│   ├── hideshowvis.el    # Third-party: hide/show visualization
-│   ├── emacs-which-key/  # Git submodule: which-key package
-│   ├── no-littering/     # Git submodule: keep ~/.emacs.d clean
-│   └── org-contrib/      # Git submodule: extra org-mode contrib packages
+│   ├── misc.el              # Small utility functions
+│   ├── hideshowvis.el       # Third-party: hide/show visualization
+│   ├── .user-lisp-autoloads.el  # GENERATED — Emacs 31+ user-lisp autoloads
+│   └── org-contrib/         # Git submodule: extra org-mode contrib packages
 └── lisp/scripts/
-    └── hello.lsp         # Scratch Lisp script
+    └── hello.lsp            # Scratch Lisp script
 ```
 
 ---
@@ -64,7 +70,8 @@ my_emacs/
 - **Lexical binding** is enabled in every `.el` file via `;;
   -*- lexical-binding: t -*-` as the first line. Maintain this.
 - **`use-package`** is used for every third-party package declaration.
-  `use-package-always-ensure t` is set, so `:ensure t` is implicit.
+  `use-package-always-ensure t` is set globally in `init.el`, so `:ensure t` is
+  implicit everywhere. Use `:ensure nil` explicitly for built-in packages.
 - **`:vc` keyword** is used to install packages directly from GitHub when they
   are not on ELPA/MELPA (e.g. `batppuccin`, `winpulse`, `treesit-fold`).
 - **`setopt`** (Emacs 29+) is preferred over `setq` for user options.
@@ -72,8 +79,8 @@ my_emacs/
 - **Fill column**: 80 characters.
 - **Font**: Fira Code, height 160. Must be installed on the system.
 - **Formatting**: `elisp-autofmt` is configured and hooked into
-  `emacs-lisp-mode`. Run `C-c f` (buffer) or `C-c r` (region) to format.
-  The config file `.elisp-autoformat` controls its settings.
+  `emacs-lisp-mode` and `lisp-data-mode`. Run `C-c f` (buffer) or `C-c r`
+  (region) to format. The config file `.elisp-autoformat` controls its settings.
 
 ---
 
@@ -89,16 +96,6 @@ ELPA archives in priority order:
 
 ---
 
-## Platform Support
-
-Two site-specific files provide platform overrides loaded after the main config:
-
-- `lisp/site.macos.el` — macOS paths (Homebrew, pyenv, nvm, cargo, Go).
-  Sets `exec-path` and `projectile-project-search-path`.
-- `lisp/site.linux.el` — Linux paths (pyenv shims).
-
-These files are not auto-loaded; they must be explicitly required where needed.
-
 ---
 
 ## Notable Packages & Their Roles
@@ -108,29 +105,35 @@ These files are not auto-loaded; they must be explicitly required where needed.
 | `org` (pinned gnu) | Org mode; drives literate config loading |
 | `treemacs` | File-tree sidebar; starts on boot via `treemacs-start-on-boot` |
 | `treemacs-icons-dired` | Treemacs icons in Dired buffers |
-| `treemacs-magit` | Integrates Magit with Treemacs sidebar |
-| `lsp-mode` | Language Server Protocol client; hooked to `prog-mode` |
+| `treemacs-magit` | Integrates Magit with Treemacs sidebar; pulls in `magit` as a dep |
+| `lsp-mode` | Language Server Protocol client; hooked to `prog-mode` globally; `lsp-warn-no-matched-clients nil` |
 | `lsp-treemacs` | Shows LSP info (errors, symbols) in Treemacs sidebar |
 | `treesit-auto` | Auto-install and enable Tree-sitter grammars |
 | `treesit-fold` | Code folding using Tree-sitter (installed via `:vc`) |
+| `markdown-ts-mode` | Tree-sitter markdown mode (deferred) |
 | `flycheck` | On-the-fly syntax checking; global mode; pinned to `nongnu` |
 | `elpy` | Python IDE features; deferred until a Python file opens |
 | `jinja2-mode` | Jinja2/Django template editing |
-| `gptel` | LLM/AI integration; model `claude-sonnet-4-20250514`; reads `ANTHROPIC_API_KEY` from env |
+| `ob-ts-node` | Org Babel support for TypeScript via `ts-node` |
+| `vterm` | Full-featured terminal emulator; scrollback 10 000 lines |
+| `prettier` | Auto-format JS/TS/CSS buffers on save |
+| `gptel` | LLM/AI integration; model `claude-sonnet-4-6`; reads `ANTHROPIC_API_KEY` from env |
 | `gptel-fn-complete` | Function completion via gptel |
 | `gptel-agent` | Agent-mode support for gptel |
 | `vulpea` | Notes / knowledge base; auto-syncs DB |
 | `vulpea-ui` + `vui` | Sidebar UI for vulpea (`C-c v s` to toggle) |
 | `vulpea-journal` | Journal integration (`C-c j`) |
-| `magit` | Git interface |
-| `elisp-autofmt` | Auto-format Emacs Lisp code |
+| `elisp-autofmt` | Auto-format Emacs Lisp code; hooked to `emacs-lisp-mode` and `lisp-data-mode` |
 | `elisp-lint` | Lint Emacs Lisp files (deferred) |
-| `smart-mode-line` | Enhanced mode line with powerline theme |
-| `amx` + `ido-completing-read+` | M-x and minibuffer completion via ido |
+| `smart-mode-line` + `smart-mode-line-powerline-theme` | Enhanced mode line with powerline theme |
+| `amx` | Enhanced M-x history and completion (via ido) |
+| `ido-completing-read+` | Extends ido completion to all `completing-read` calls |
+| `which-key` | Displays available key bindings; built-in Emacs 30, `:ensure nil` |
 | `editorconfig` | Read `.editorconfig` files |
 | `whitespace-cleanup-mode` | Strip trailing whitespace on save |
 | `page-break-lines` | Render `^L` (ctrl-L) as horizontal lines |
 | `kirigami` | Enhanced code folding |
+| `rainbow-delimiters` | Color-coded matching delimiters in `prog-mode` |
 | `winpulse` | Pulse/highlight active window (installed via `:vc`) |
 | `batppuccin` | Catppuccin-based color theme (installed via `:vc`); latte variant active |
 | `terraform-mode` | Terraform/HCL editing; indent level 4 |
@@ -144,10 +147,9 @@ These files are not auto-loaded; they must be explicitly required where needed.
 
 ## Python Tooling
 
-The config assumes `uv` and `mise` are installed and in use. `python-shell-exec-path`
-is set to `./.venv/bin`, and the interpreter path points into mise's install tree.
-If Python features misbehave on a new machine, check that both tools are present and
-that `mise` has provisioned an interpreter.
+`config.org` sets `python-shell-exec-path` to `./.venv/bin` and points the
+interpreter at mise's install tree. If Python features misbehave, verify that
+the mise-managed `uv` environment is correctly set up for the current machine.
 
 ---
 

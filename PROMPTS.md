@@ -43,3 +43,7 @@ yes, and update the one-armed if calls.
 check for installed emacs packages that don't have use-package declarations, and add the equivalent use-package calls to config.org
 
 evaluate all the keybindings in my config files and report conflicts with each other or with emacs built-ins
+
+update CLAUDE.md to reflect current project state, including external changes to files
+
+update CLAUDE.md to remove references to removed files lisp/site.macos.el and lisp/site.linux.el.
