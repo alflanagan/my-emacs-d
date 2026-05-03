@@ -126,13 +126,16 @@ changes that to the ~lisp~ directory we already created.
 
 ** Local Variables
 
-Tell emacs not do compilations or autoloads for the ~early-init.el~ file.
+Tell emacs to not do compilations or autoloads for the ~early-init.el~ file.
+Note that the ~eval:~ value actually only applies to this file, but it's
+harmless because we never edit ~early-init.el~.
 
 #+begin_src emacs-lisp
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; no-native-compile: t
 ;; no-update-autoloads: t
+;; eval: (add-hook 'after-save-hook #'org-babel-tangle nil t)
 ;; End:
 #+end_src
 

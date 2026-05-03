@@ -141,7 +141,8 @@
          vulpea-journal vulpea-ui web-mode which-key whitespace-cleanup-mode
          winpulse xkcd))
  '(safe-local-variable-values
-   '((org-todo-keywords quote
+   '((eval add-hook 'after-save-hook #'org-babel-tangle nil t)
+     (org-todo-keywords quote
                         ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD"
                                    "NEEDS INPUT" "|" "DONE" "CANCELED"))))))
 (custom-set-faces
