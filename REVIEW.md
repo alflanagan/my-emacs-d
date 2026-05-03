@@ -23,20 +23,20 @@ definite), correctness/robustness issues, and stylistic improvements.
   (You may also be thinking of how `package` filters subdirs; that's
   `package-load-list`/`package-quickstart-refresh`.)
 
-- [ ] **4. `elpy-enable` is wired only to `python-mode`, not `python-ts-mode`**
+- [x] **4. `elpy-enable` is wired only to `python-mode`, not `python-ts-mode`**
   (`config.org:511-513`). With `treesit-auto` enabled and a Tree-sitter
   grammar present, opening a `.py` file lands in `python-ts-mode` and the
   `:before` advice on `python-mode` never fires — elpy never enables.
   Either advise both, or use
   `:hook ((python-mode python-ts-mode) . elpy-enable)`.
 
-- [ ] **5. `lsp-warn-no-matched-clients` is set outside any package config**
+- [x] **5. `lsp-warn-no-matched-clients` is set outside any package config**
   (`config.org:646`). It's at top level after the `lsp-mode` `use-package`,
   so it sets the variable before `lsp-mode` is loaded. That works in
   practice, but belongs inside the `:custom` block of `lsp-mode` for
   cohesion (and so a deferred load doesn't reset it via defcustom default).
 
-- [ ] **6. `treemacs-start-on-boot` is called inside `:config` of a `:defer t`
+- [x] **6. `treemacs-start-on-boot` is called inside `:config` of a `:defer t`
   block** (`config.org:384`). With `:defer t`, `:config` only runs when
   something triggers `treemacs`, so the "start on boot" call never
   executes at startup. Move the `(treemacs-start-on-boot)` call to
@@ -54,7 +54,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   :key (lambda () (getenv "ANTHROPIC_API_KEY"))
   ```
 
-- [ ] **8. `magit` is undeclared but depended on** (`config.org:423`).
+- [x] **8. `magit` is undeclared but depended on** (`config.org:423`).
   `treemacs-magit :after (treemacs magit)` — `magit` is pulled in
   transitively by `treemacs-magit`, but you have no `(use-package magit
   ...)` to pin/configure it. If you use magit you should declare it
@@ -132,7 +132,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   inhibit-startup-echo-area-message` (must be `setq` for that one, in
   fact, due to the literal-string magic).
 
-- [ ] **19. `which-key` `:ensure nil` always.** If you ever drop back to Emacs
+- [x] **19. `which-key` `:ensure nil` always.** If you ever drop back to Emacs
   29, the package isn't installed. Gate on version: `:ensure (<
   emacs-major-version 30)`.
 

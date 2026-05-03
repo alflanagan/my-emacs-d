@@ -343,12 +343,21 @@ lines.
 *** Which-key
 
 Displays available key bindings in a popup after pressing a prefix key. Built-in
-as of Emacs 30; ~:ensure nil~ defers to the built-in on Emacs 30+.
+as of Emacs 30.
 
 #+begin_src emacs-lisp
-(use-package which-key
-  :ensure nil
-  :config (which-key-mode))
+(use-package
+ which-key
+ :ensure (< emacs-major-version 30)
+ :config (which-key-mode))
+#+end_src
+
+*** Magit
+
+Magit is a package to provide a git interface inside of Emacs.
+
+#+begin_src emacs-lisp
+(use-package magit)
 #+end_src
 
 *** Treemacs
@@ -361,7 +370,6 @@ the gory details.
 (use-package
  treemacs
  :ensure t
- :defer t
  :init
  (with-eval-after-load 'winum
    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
@@ -511,12 +519,12 @@ programming environment. Defer it so it doesn't load unless we edit a python
 file.
 
 #+begin_src emacs-lisp
-(use-package elpy
-  :ensure t
-  :defer t
-  :commands (elpy-enable)
-  :init
-  (advice-add 'python-mode :before 'elpy-enable))
+(use-package
+ elpy
+ :ensure t
+ :defer t
+ :commands (elpy-enable)
+ :hook ((python-mode python-ts-mode) . elpy-enable))
 #+end_src
 
 *** ELisp Programming
@@ -641,15 +649,8 @@ package to integrate the information into the ~treemacs~ sidebar also.
  :defer t
  :commands lsp
  :hook prog-mode
- :custom (lsp-enable-snippet nil))
+ :custom (lsp-enable-snippet nil) (lsp-warn-no-matched-clients nil))
 (use-package lsp-treemacs :after (lsp-mode treemacs))
-#+end_src
-
-Since we've hooked ~prog-mode~, it's common to get warnings about a
-language not having a matching server. Turn those off.
-
-#+begin_src emacs-lisp
-(setopt lsp-warn-no-matched-clients nil)
 #+end_src
 
 *** Org Mode
