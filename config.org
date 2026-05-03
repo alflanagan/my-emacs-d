@@ -456,11 +456,18 @@ together. As far as I can tell, they do.
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package markdown-mode
-  :mode
-  (("README\\.md\\'" . gfm-mode)
-   ("\\.md\\'" . markdown-mode)
-   ("\\.markdown\\'" . markdown-mode)))
+(use-package
+ markdown-mode
+ :custom
+ (markdown-command
+  "cmark-gfm -e footnotes -e table -e strikethrough -e autolink -e tagfilter -e tasklist --smart")
+ (markdown-asymmetric-header t)
+ (markdown-enable-highlighting-syntax t)
+ (markdown-special-ctrl-a/e t)
+ :mode
+ (("README\\.md\\'" . gfm-mode)
+  ("\\.md\\'" . markdown-mode)
+  ("\\.markdown\\'" . markdown-mode)))
 #+end_src
 
 *** Flycheck

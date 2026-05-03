@@ -1,5 +1,3 @@
-[//]: # (this is a comment) -*- mode: gfm -*-
-
 # Code Review: `early-config.org` and `config.org`
 
 Below is a prioritized review. Findings are grouped as bugs (likely or
@@ -7,18 +5,18 @@ definite), correctness/robustness issues, and stylistic improvements.
 
 ## Bugs & correctness issues
 
-- [ ] **1. `(load custom-file)` is unguarded — fatal if `custom.el` is absent**
+- [x] **1. `(load custom-file)` is unguarded — fatal if `custom.el` is absent**
   (`config.org:86`). On a fresh checkout this throws and aborts init. Use
   `(load custom-file 'noerror 'nomessage)` or wrap in `file-exists-p`.
 
-- [ ] **2. `secrets` is the name of a built-in Emacs library** (`config.org:104`).
+- [x] **2. `secrets` is the name of a built-in Emacs library** (`config.org:104`).
   `(require 'secrets)` resolves whichever copy `load-path` finds first. Your
   `my_emacs/` directory is on the front of `load-path` so it currently works,
   but it's a footgun: any future reordering and you load the freedesktop
   SecretService client instead. Rename your local file (e.g.
   `my-secrets.el` → `(require 'my-secrets)`).
 
-- [ ] **3. `load-path-ignore-regexp` is not a real variable** (`config.org:64`).
+- [x] **3. `load-path-ignore-regexp` is not a real variable** (`config.org:64`).
   The intended one is `load-path-filter-function` (Emacs 30+), or you can
   filter by mutating `load-path` directly. As written, this `setopt`
   silently does nothing — the `.github` directory is still being scanned.
@@ -203,11 +201,11 @@ definite), correctness/robustness issues, and stylistic improvements.
 
 The top five I'd fix today:
 
-- [ ] Wrap `(load custom-file 'noerror 'nomessage)` — prevents fresh-clone
+- [x] Wrap `(load custom-file 'noerror 'nomessage)` — prevents fresh-clone
   init failure. (→ item 1)
-- [ ] Rename `secrets.el` to avoid collision with built-in. (→ item 2)
+- [x] Rename `secrets.el` to avoid collision with built-in. (→ item 2)
 - [ ] Fix the `gptel` API-key resolution (lambda). (→ item 7)
 - [ ] Move `(treemacs-start-on-boot)` to `:init` so the sidebar actually
   appears. (→ item 6)
-- [ ] Drop or fix `load-path-ignore-regexp` — it currently does nothing.
+- [x] Drop or fix `load-path-ignore-regexp` — it currently does nothing.
   (→ item 3)

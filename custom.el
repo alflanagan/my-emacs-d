@@ -123,10 +123,6 @@
      (c-mode . c-ts-mode) (c++-mode . c++-ts-mode) (rust . rust-ts-mode)
      (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)
      (ruby-mode . ruby-ts-mode)))
- '(markdown-asymmetric-header t)
- '(markdown-enable-highlighting-syntax t)
- '(markdown-hide-urls t)
- '(markdown-special-ctrl-a/e t)
  '(mode-require-final-newline 'visit-save)
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe

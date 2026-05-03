@@ -66,3 +66,6 @@ save this response to file REVIEW.md
 
 modify the list of items in REVIEW.md so that each item has a checkbox
    which can be checked when that item is implemented.
+
+write a .dir-locals.el file to require the use of gfm-mode when editing
+   REVIEW.md
