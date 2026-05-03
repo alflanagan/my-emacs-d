@@ -61,7 +61,6 @@ which should be loaded from local files.
 
 #+begin_src emacs-lisp
 (add-to-list 'load-path (expand-file-name "my_emacs" user-emacs-directory))
-(setopt load-path-ignore-regexp "\\.github\\'")
 
 ;; Temporarily commented out: need to add check for emacs version
 ;; and only do this for versions without the user-lisp feature.
@@ -83,7 +82,7 @@ to this file.
 #+begin_src emacs-lisp
 ;; custom-file is global, need to change it or weird things happen
 (setq custom-file (get-config-file "custom.el"))
-(load custom-file)
+(load custom-file 'no-error 'no-message)
 #+end_src
 
 We need to add the *melpa* package source to ~package-archives~.
@@ -101,7 +100,7 @@ This local file is for global variables with values which should not
 be checked in with source control, such as passwords and API keys.
 
 #+begin_src emacs-lisp
-(require 'secrets)
+(require 'my-secrets)
 #+end_src
 
 ** Uniquify
