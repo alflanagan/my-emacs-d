@@ -63,3 +63,6 @@ perform code review on @/Users/adrianflanagan/.config/emacs/my_emacs/early-confi
    fixes and improvements.
 
 save this response to file REVIEW.md
+
+modify the list of items in REVIEW.md so that each item has a checkbox
+   which can be checked when that item is implemented.
