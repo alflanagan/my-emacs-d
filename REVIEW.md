@@ -204,7 +204,7 @@ The top five I'd fix today:
 - [x] Wrap `(load custom-file 'noerror 'nomessage)` — prevents fresh-clone
   init failure. (→ item 1)
 - [x] Rename `secrets.el` to avoid collision with built-in. (→ item 2)
-- [ ] Fix the `gptel` API-key resolution (lambda). (→ item 7)
+- [x] Fix the `gptel` API-key resolution (lambda). (→ item 7)
 - [ ] Move `(treemacs-start-on-boot)` to `:init` so the sidebar actually
   appears. (→ item 6)
 - [x] Drop or fix `load-path-ignore-regexp` — it currently does nothing.

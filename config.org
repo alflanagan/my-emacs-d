@@ -346,10 +346,12 @@ Displays available key bindings in a popup after pressing a prefix key. Built-in
 as of Emacs 30.
 
 #+begin_src emacs-lisp
-(use-package
- which-key
- :ensure (< emacs-major-version 30)
- :config (which-key-mode))
+(if (< emacs-major-version 30)
+    (use-package
+     which-key
+     :ensure nil ;; defer to built-in
+     :config (which-key-mode))
+  (use-package which-key :ensure t :config (which-key-mode)))
 #+end_src
 
 *** Magit
