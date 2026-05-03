@@ -44,7 +44,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   eager. (This matches your earlier complaint about the sidebar not
   appearing on start.)
 
-- [ ] **7. `gptel` reads `ANTHROPIC_API_KEY` at load time, not request time**
+- [x] **7. `gptel` reads `ANTHROPIC_API_KEY` at load time, not request time**
   (`config.org:726`). `(getenv ...)` is evaluated when the `:config` block
   runs. If the env var isn't in Emacs's environment at startup (common on
   macOS GUI Emacs launched from Finder/Dock), the key is `nil` forever.

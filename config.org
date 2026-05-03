@@ -722,16 +722,13 @@ The best web comic ever, available right in the editor.
 *** AI Integration
 
 #+begin_src emacs-lisp
-;; Install via MELPA
 (use-package
  gptel
- :config (setq gptel-model 'claude-sonnet-4-6)
- (setq gptel-backend
-       (gptel-make-anthropic
-        "Claude"
-        :stream t
-        :key (getenv "ANTHROPIC_API_KEY"))))
-;; :mode "\\.elc?\\'")
+ :custom (gptel-model 'claude-sonnet-4-6)
+ (gptel-backend
+  '(gptel-anthropic "Claude" :stream t
+                    :key
+                    (lambda () (getenv "ANTHROPIC_API_KEY")))))
 
 (use-package gptel-fn-complete :after gptel)
 
