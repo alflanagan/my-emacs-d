@@ -55,3 +55,11 @@ update the configuration to use markdown-mode for markdown files, not markdown-t
 Fix the cause of the error message I received opening a markdown file: "redisplay--pre-redisplay-functions: (treesit-query-error "Node type error at" 2 "(inline) @markdown-inline" "Debug the query with `treesit-query-validate'") ..."
 
 evaluate the following error and determine why it still occurs: [backtrace showing markdown-ts-mode still active via treesit-auto recipe list]
+
+## 2026-05-03
+
+perform code review on @/Users/adrianflanagan/.config/emacs/my_emacs/early-config.org
+   and @/Users/adrianflanagan/.config/emacs/my_emacs/config.org and recommend
+   fixes and improvements.
+
+save this response to file REVIEW.md
