@@ -132,10 +132,10 @@
          gptel-agent gptel-fn-complete ido-completing-read+ jinja2-mode kirigami
          lsp-treemacs markdown-ts-mode org-beautify-theme ox-gfm
          page-break-lines prettier rainbow-delimiters shfmt
-         smart-mode-line-powerline-theme terraform-mode treemacs-icons-dired
-         treemacs-magit treesit-auto treesit-fold vterm vui vulpea
-         vulpea-journal vulpea-ui web-mode which-key whitespace-cleanup-mode
-         winpulse xkcd))
+         smart-mode-line-powerline-theme terraform-mode transient
+         treemacs-icons-dired treemacs-magit treesit-auto treesit-fold vterm vui
+         vulpea vulpea-journal vulpea-ui web-mode which-key
+         whitespace-cleanup-mode winpulse xkcd))
  '(safe-local-variable-values
    '((eval add-hook 'after-save-hook #'org-babel-tangle nil t)
      (org-todo-keywords quote

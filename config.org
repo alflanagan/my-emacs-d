@@ -222,9 +222,6 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  ;; don't automatically double space after sentence end -- obsolete style
  (sentence-end-double-space nil)
 
- ;; emacs by default doesn't upgrade built-in packages -- causes magit to freak
- (package-install-upgrade-built-in t)
-
  :hook (prog-mode . display-line-numbers-mode)
  ;; Treat CamelCaseSubWords as separate words in every programming  mode.
  (prog-mode . subword-mode))
@@ -354,10 +351,14 @@ as of Emacs 30.
 
 *** Magit
 
-Magit is a package to provide a git interface inside of Emacs.
+Magit is a package to provide a git interface inside of Emacs. It relies on
+a version of ~transient~ more recent than the built-in one, so we add an explicit
+~use-package~ call for it.
 
 #+begin_src emacs-lisp
-(use-package magit)
+(use-package transient :pin "melpa" :ensure t)
+
+(use-package magit :defer t)
 #+end_src
 
 *** Treemacs

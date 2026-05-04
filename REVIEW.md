@@ -136,7 +136,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   29, the package isn't installed. Gate on version: `:ensure (<
   emacs-major-version 30)`.
 
-- [ ] **20. `package-install-upgrade-built-in t` is global and aggressive.** It
+- [x] **20. `package-install-upgrade-built-in t` is global and aggressive.** It
   will silently upgrade every built-in package on `M-x
   package-list-packages`. The comment notes magit needs this — better to
   set it per-package via `package-pinned-packages` or the use-package
