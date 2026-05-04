@@ -731,17 +731,20 @@ The best web comic ever, available right in the editor.
 *** AI Integration
 
 #+begin_src emacs-lisp
-(use-package
- gptel
- :custom (gptel-model 'claude-sonnet-4-6)
- (gptel-backend
-  '(gptel-anthropic "Claude" :stream t
-                    :key
-                    (lambda () (getenv "ANTHROPIC_API_KEY")))))
+  ;; disabling this until gptel gets fixe;; d
+    ;; (use-package
+    ;;  gptel
+    ;;  :defer t
+    ;;  :pin "nongnu"
+    ;;  :custom gptel-model 'claude-sonnet-4-6)
+    ;;  (gptel-backend
+    ;;   '(gptel-anthropic "Claude" :stream t
+    ;;                     :key
+    ;;                     (lambda () (getenv "ANTHROPIC_API_KEY"))))
 
-(use-package gptel-fn-complete :after gptel)
+    ;; (use-package gptel-fn-complete :after gptel)
 
-(use-package gptel-agent :after gptel)
+    ;; (use-package gptel-agent :after gptel)
 #+end_src
 
 ** End Of File
