@@ -49,8 +49,8 @@ need to try higher settings to see if they impove performance.
 
 #+begin_src emacs-lisp
 (add-hook
- 'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 5 1024 1024))))
-;; (setopt garbage-collection-messages t) ;; show GC messages for debugging
+ 'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 50 1024 1024))))
+(setopt garbage-collection-messages t) ;; show GC messages for debugging
 #+end_src
 
 ** Mac-Specific Setups

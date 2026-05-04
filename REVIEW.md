@@ -126,7 +126,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   referring to it before `package` is loaded — but `package` is loaded by
   the time `early-init`/`init` finishes. Drop it.
 
-- [ ] **18. `:custom` not used for `gptel`** (`config.org:721-725`). Two `setq`
+- [x] **18. `:custom` not used for `gptel`** (`config.org:721-725`). Two `setq`
   calls in `:config` should be `:custom (gptel-model 'claude-sonnet-4-6)
   (gptel-backend ...)` — same applies to the `setq
   inhibit-startup-echo-area-message` (must be `setq` for that one, in
@@ -142,7 +142,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   set it per-package via `package-pinned-packages` or the use-package
   `:pin` mechanism, leaving the default off for everything else.
 
-- [ ] **21. GC threshold restored to 5 MiB** (`early-config.org:52`). Modern
+- [x] **21. GC threshold restored to 5 MiB** (`early-config.org:52`). Modern
   setups commonly run 50–100 MiB to avoid pause stutter. Worth
   experimenting with `(* 50 1024 1024)` and watching `M-x gcs-done` over
   time.
@@ -170,7 +170,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   inconsistent with the rest of the file (most others use bare symbols or
   `#'` mixed). Pick one and stick with it.
 
-- [ ] **26. TODOs that have lingered** (`early-config.org:79`, `109`). The
+- [x] **26. TODOs that have lingered** (`early-config.org:79`, `109`). The
   auto-tangle-on-save TODO is straightforward — add
   `add-file-local-variable` or a per-file hook:
 
@@ -183,11 +183,11 @@ definite), correctness/robustness issues, and stylistic improvements.
 - [ ] **27. `kirigami` declared with no config** (`config.org:332`). Either
   configure it (you have `treesit-fold` doing similar work) or remove it.
 
-- [ ] **28. Commented-out load-path block** (`config.org:67-72`) and
+- [x] **28. Commented-out load-path block** (`config.org:67-72`) and
   `find_gcc.el.bkp` reference dead code. If the version-gated logic is
   needed, implement it; otherwise delete.
 
-- [ ] **29. `treemacs` `:custom` has `treemacs-follow-after-init nil`**
+- [x] **29. `treemacs` `:custom` has `treemacs-follow-after-init nil`**
   (`config.org:391`) but you also enable `treemacs-follow-mode t`. The
   comment "follow mode makes it difficult to find files that are not
   on-screen" suggests you actually don't want follow-mode. Reconcile.
@@ -205,7 +205,7 @@ The top five I'd fix today:
   init failure. (→ item 1)
 - [x] Rename `secrets.el` to avoid collision with built-in. (→ item 2)
 - [x] Fix the `gptel` API-key resolution (lambda). (→ item 7)
-- [ ] Move `(treemacs-start-on-boot)` to `:init` so the sidebar actually
+- [x] Move `(treemacs-start-on-boot)` to `:init` so the sidebar actually
   appears. (→ item 6)
 - [x] Drop or fix `load-path-ignore-regexp` — it currently does nothing.
   (→ item 3)

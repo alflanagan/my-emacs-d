@@ -62,13 +62,12 @@ which should be loaded from local files.
 #+begin_src emacs-lisp
 (add-to-list 'load-path (expand-file-name "my_emacs" user-emacs-directory))
 
-;; Temporarily commented out: need to add check for emacs version
-;; and only do this for versions without the user-lisp feature.
-;; (add-to-list
-;;  'load-path
-;;  (directory-file-name
-;;   (concat
-;;    (expand-file-name user-emacs-directory) "my_emacs/lisp/org-contrib/lisp")))
+;; user-lisp-directory is a new feature, fallback when it's not present
+(unless (boundp 'user-lisp-directory)
+  (add-to-list
+   'load-path
+   (directory-file-name
+    (expand-file-name "my_emacs/lisp/org-contrib/lisp" user-emacs-directory))))
 #+end_src
 
 ** Easy Customization
@@ -371,6 +370,7 @@ the gory details.
 (use-package
  treemacs
  :ensure t
+ :defer nil
  :init
  (with-eval-after-load 'winum
    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
@@ -386,16 +386,14 @@ the gory details.
  (with-eval-after-load 'treemacs-git-commit-diff
    (advice-add
     'treemacs-apply-single-annotation
-    :before-while
-    (lambda (path)
-      (treemacs-is-path path :in-workspace))))
+    :before-while (lambda (path) (treemacs-is-path path :in-workspace))))
  (treemacs-start-on-boot)
  :custom
- (treemacs-follow-mode t)
  (treemacs-project-follow-mode t)
  (treemacs-filewatch-mode t)
  (treemacs-is-never-other-window t)
  ;; follow mode makes it difficult to find file that are not on-screen
+ (treemacs-follow-mode nil)
  (treemacs-follow-after-init nil)
 
  :bind
@@ -408,9 +406,7 @@ the gory details.
  ("C-x t D" . treemacs-select-directory)
  ("C-x t B" . treemacs-bookmark)
  ("C-x t C-t" . treemacs-find-file)
- ("C-x t M-t" . treemacs-find-tag)
-
-)
+ ("C-x t M-t" . treemacs-find-tag))
 #+end_src
 
 **** Treemacs-icons-dired

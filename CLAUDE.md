@@ -23,7 +23,7 @@ and load `config.org` at startup.
 ### Boot sequence
 
 1. `early-init.el` — GC tuning (`most-positive-fixnum` during startup, restored
-   to 5 MiB after), frame geometry, gcc library path (macOS), sets
+   to 50 MiB after), frame geometry, gcc library path (macOS), sets
    `user-lisp-directory` to `<user-emacs-directory>/my_emacs/lisp` (Emacs 31+).
 2. `init.el` — bootstraps `use-package` (`use-package-always-ensure t`), pins
    `org` to GNU ELPA, then calls `org-babel-load-file` on
