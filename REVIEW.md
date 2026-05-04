@@ -60,25 +60,25 @@ definite), correctness/robustness issues, and stylistic improvements.
   ...)` to pin/configure it. If you use magit you should declare it
   explicitly; if you don't, drop `treemacs-magit`.
 
-- [ ] **9. `web-mode` has no entry for `.html`** (`config.org:558-569`) but
+- [x] **9. `web-mode` has no entry for `.html`** (`config.org:558-569`) but
   `web-mode-engines-alist` maps `\\.html\\'` to django. Django template
   `.html` files therefore never open in web-mode at all —
   html-mode/mhtml-mode handle them. Either add
   `("\\.html\\'" . web-mode)` or accept that engine-detection is dead code.
 
-- [ ] **10. `markdown-mode` `:mode` ordering is fragile** (`config.org:460-464`).
+- [x] **10. `markdown-mode` `:mode` ordering is fragile** (`config.org:460-464`).
   `:mode` prepends to `auto-mode-alist`; the last entry added wins for any
   matching pattern. With `("README\\.md\\'" . gfm-mode)` listed first and
   `("\\.md\\'" . markdown-mode)` last, the broader `\\.md\\'` ends up in
   front and shadows the README rule. Reverse the order so the more
   specific `README\\.md\\'` pattern is registered last.
 
-- [ ] **11. `trash-directory` is hardcoded to `~/.Trash`** (`config.org:187`).
+- [x] **11. `trash-directory` is hardcoded to `~/.Trash`** (`config.org:187`).
   Mac-only. On Linux, `delete-by-moving-to-trash` already speaks XDG; the
   explicit setting breaks that. Gate on `system-type`, or just unset it on
   non-darwin.
 
-- [ ] **12. Hard-coded gcc cellar path** (`early-config.org:71`). You already
+- [x] **12. Hard-coded gcc cellar path** (`early-config.org:71`). You already
   note this in the comment. The `15.2.0_1` version string will break on
   every brew gcc upgrade. Resurrect or rewrite `find_gcc.el.bkp` and use a
   dynamic discovery function — something like:

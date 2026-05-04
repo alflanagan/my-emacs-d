@@ -145,7 +145,11 @@ change it.
   ("C-M-r" . #'isearch-backward)
   ("C-x M-r" . #'remember)
 
-  ("C-x M-R" . (lambda () (interactive) (let ((current-prefix-arg '(4))) (call-interactively #'remember))))
+  ("C-x M-R" .
+   (lambda ()
+     (interactive)
+     (let ((current-prefix-arg '(4)))
+       (call-interactively #'remember))))
   ("s-q" . nil)
   ;; runs save-buffers-kill-emacs by default, but too easy to hit by accident
   )
@@ -156,6 +160,8 @@ change it.
  (when window-system
    (tool-bar-mode -1))
  (blink-cursor-mode -1)
+ (when (equal system-type 'darwin)
+   (setopt trash-directory "~/.Trash"))
 
  ;; set coding systems used to Unicode standard
  (set-terminal-coding-system 'utf-8)
@@ -183,7 +189,6 @@ change it.
  (ido-use-virtual-buffers 'auto)
  ;; auto-save options
  (kill-buffer-delete-auto-save-files t)
- (trash-directory "~/.Trash")
  (delete-by-moving-to-trash t) ;; use system trash can for deleted files
  (apropos-do-all t)
  ;; put file backups in single directory, not in same directory with '~'
@@ -475,9 +480,8 @@ together. As far as I can tell, they do.
  (markdown-enable-highlighting-syntax t)
  (markdown-special-ctrl-a/e t)
  :mode
- (("README\\.md\\'" . gfm-mode)
-  ("\\.md\\'" . markdown-mode)
-  ("\\.markdown\\'" . markdown-mode)))
+ ("\\.md\\'" . gfm-mode)
+ ("\\.markdown\\'" . gfm-mode))
 #+end_src
 
 *** Flycheck
@@ -550,8 +554,10 @@ command works great on code embedded in .org files.
  :custom
  (elisp-autofmt-format-quoted nil)
  (elisp-autofmt-use-default-override-defs t)
- :hook
- ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
+ ;; system python is 3.9, but elisp-autofmt needs more recent version
+ (elisp-autofmt-python-bin "/opt/homebrew/bin/python3")
+ (elisp-autofmt-format-quoted t)
+ :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
  :bind
  (:map
   lisp-mode-shared-map
@@ -577,6 +583,7 @@ language.
   ("\\.[agj]sp\\'" . web-mode)
   ("\\.as[cp]x\\'" . web-mode)
   ("\\.mustache\\'" . web-mode)
+  ("\\.html\\'" . web-mode)
   ("\\.djhtml\\'" . web-mode))
  :custom
  (web-mode-enable-comment-interpolation t)

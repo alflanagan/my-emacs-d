@@ -55,21 +55,20 @@ need to try higher settings to see if they impove performance.
 
 ** Mac-Specific Setups
 
-First we need to fix the library path for gcc compilation. *This is
-almost certainly wrong* for your machine. Customize, or try commenting
-out and seeing if it just works as-is.
+We need to fix the library path for gcc compilation. This assumes gcc was
+installed with `brew`, if not you'll need to customize, or try commenting this
+code out and seeing if it just works as-is.
 
 #+begin_src emacs-lisp
 (when (equal system-type 'darwin)
-  (setenv
-   "LIBRARY_PATH"
-   (string-join
-    '("/opt/homebrew/opt/gcc/lib/gcc/current"
-      "/opt/homebrew/opt/libgccjit/lib/gcc/current"
-      ;; this directory, alas, has no "current" symlink. You'll need to fix every time
-      ;; gcc is updated. Or we need code to find it dynamically.
-      "/opt/homebrew/Cellar/gcc/15.2.0_1/lib/gcc/current/gcc/aarch64-apple-darwin25/15/")
-    ":")))
+  (setenv "LIBRARY_PATH"
+          (string-join
+           `("/opt/homebrew/opt/gcc/lib/gcc/current"
+             "/opt/homebrew/opt/libgccjit/lib/gcc/current"
+             ,(car
+               (file-expand-wildcards
+                "/opt/homebrew/Cellar/gcc/*/lib/gcc/current/gcc/*/*")))
+           ":")))
 #+end_src
 
 ** Initial Frame Size
