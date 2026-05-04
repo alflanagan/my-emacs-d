@@ -51,7 +51,7 @@ Quick function to make refering to other config files easier.
 
 #+begin_src emacs-lisp
 (defun get-config-file (filename)
-  (expand-file-name filename (concat user-emacs-directory "my_emacs/")))
+  (expand-file-name filename (expand-file-name user-emacs-directory "my_emacs/")))
 #+end_src
 
 ** Load Path
@@ -215,7 +215,7 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (initial-scratch-message nil)
  (mouse-yank-at-point t)
  (save-interprogram-paste-before-kill t)
- (save-place-file (concat user-emacs-directory "places"))
+ (save-place-file (expand-file-name "places" user-emacs-directory))
  (select-enable-clipboard t) ;; integrate emacs with system clipboard
  (select-enable-primary t)
  (selection-coding-system 'utf-8)

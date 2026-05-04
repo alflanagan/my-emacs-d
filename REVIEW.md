@@ -106,7 +106,7 @@ definite), correctness/robustness issues, and stylistic improvements.
 
 ## Robustness improvements
 
-- [ ] **15. Path construction.** Both files use `(concat user-emacs-directory
+- [x] **15. Path construction.** Both files use `(concat user-emacs-directory
   "...")`. `user-emacs-directory` is documented to end in `/` but
   `expand-file-name` is the safe form:
 

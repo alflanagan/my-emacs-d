@@ -34,7 +34,8 @@
 (setopt load-prefer-newer t)
 
 (when (boundp 'user-lisp-directory)
-  (setopt user-lisp-directory (concat user-emacs-directory "my_emacs/lisp")))
+  (setopt user-lisp-directory
+          (expand-file-name "my_emacs/lisp" user-emacs-directory)))
 
 ;; Local Variables:
 ;; no-byte-compile: t

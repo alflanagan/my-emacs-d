@@ -120,7 +120,8 @@ changes that to the ~lisp~ directory we already created.
 
 #+begin_src emacs-lisp
 (when (boundp 'user-lisp-directory)
-  (setopt user-lisp-directory (concat user-emacs-directory "my_emacs/lisp")))
+  (setopt user-lisp-directory
+          (expand-file-name "my_emacs/lisp" user-emacs-directory)))
 #+end_src
 
 ** Local Variables
