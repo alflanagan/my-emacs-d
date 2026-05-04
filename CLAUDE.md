@@ -106,15 +106,14 @@ ELPA archives in priority order:
 | `treemacs` | File-tree sidebar; starts on boot via `treemacs-start-on-boot` |
 | `treemacs-icons-dired` | Treemacs icons in Dired buffers |
 | `treemacs-magit` | Integrates Magit with Treemacs sidebar; pulls in `magit` as a dep |
-| `lsp-mode` | Language Server Protocol client; hooked to `prog-mode` globally; `lsp-warn-no-matched-clients nil` |
+| `lsp-mode` | Language Server Protocol client; hooked to `sh-mode`, `dockerfile-ts-mode`, `sql-mode`, `typescript-ts-mode`; `lsp-warn-no-matched-clients nil` |
 | `lsp-treemacs` | Shows LSP info (errors, symbols) in Treemacs sidebar |
 | `treesit-auto` | Auto-install and enable Tree-sitter grammars |
 | `treesit-fold` | Code folding using Tree-sitter (installed via `:vc`) |
-| `markdown-mode` | Markdown editing; `gfm-mode` for README files |
+| `markdown-mode` | Markdown editing; `gfm-mode` for all `.md` and `.markdown` files |
 | `flycheck` | On-the-fly syntax checking; global mode; pinned to `nongnu` |
 | `elpy` | Python IDE features; deferred until a Python file opens |
 | `jinja2-mode` | Jinja2/Django template editing |
-| `ob-ts-node` | Org Babel support for TypeScript via `ts-node` |
 | `vterm` | Full-featured terminal emulator; scrollback 10 000 lines |
 | `prettier` | Auto-format JS/TS/CSS buffers on save |
 | `gptel` | LLM/AI integration; model `claude-sonnet-4-6`; reads `ANTHROPIC_API_KEY` from env |
@@ -137,7 +136,7 @@ ELPA archives in priority order:
 | `winpulse` | Pulse/highlight active window (installed via `:vc`) |
 | `batppuccin` | Catppuccin-based color theme (installed via `:vc`); latte variant active |
 | `terraform-mode` | Terraform/HCL editing; indent level 4 |
-| `web-mode` | Multi-language HTML templates; Django engine default |
+| `web-mode` | Multi-language HTML templates; Django engine default; handles `.html` |
 | `shfmt` | Shell script formatter (`C-c C-f` in `sh-mode`) |
 | `org-beautify-theme` | Visual enhancements for Org mode |
 | `ox-gfm` | Export Org files to GitHub-Flavored Markdown |

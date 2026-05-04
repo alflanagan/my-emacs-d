@@ -88,7 +88,7 @@ definite), correctness/robustness issues, and stylistic improvements.
         "/opt/homebrew/Cellar/gcc/*/lib/gcc/current/gcc/*/*"))
   ```
 
-- [ ] **13. `inhibit-startup-echo-area-message` is hardcoded to a username
+- [x] **13. `inhibit-startup-echo-area-message` is hardcoded to a username
   string** (`config.org:155`). This is a known Emacs quirk (the value
   must be a literal so it can't be programmatically set), but consider
   `(setq inhibit-startup-echo-area-message (user-login-name))` — that
@@ -96,7 +96,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   conditionalize on the current user, or just drop it (the message is
   harmless).
 
-- [ ] **14. `lsp-mode :hook prog-mode` is too broad.** It tries to start LSP in
+- [x] **14. `lsp-mode :hook prog-mode` is too broad.** It tries to start LSP in
   `emacs-lisp-mode`, `lisp-data-mode`, `sh-mode`, etc.
   `lsp-warn-no-matched-clients nil` mutes the noise but you still pay the
   lookup cost on every prog buffer. Hook only the languages where you

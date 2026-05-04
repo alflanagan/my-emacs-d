@@ -126,11 +126,6 @@ different files with the same name. From the source file:
 
 We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 
-There's a message displayed in the echo area on startup. Disabling it
-requires setting ~inhibit-startup-echo-area-message~ to your user
-name. Unless your user name is the same as mine (hey!), youll need to
-change it.
-
 #+begin_src emacs-lisp
 (defvar package-menu-hide-low-priority)
 (use-package
@@ -155,7 +150,6 @@ change it.
   )
 
  :config
- (setq inhibit-startup-echo-area-message "adrianflanagan")
  (global-auto-revert-mode)
  (when window-system
    (tool-bar-mode -1))
@@ -657,8 +651,10 @@ package to integrate the information into the ~treemacs~ sidebar also.
  lsp-mode
  :defer t
  :commands lsp
- :hook prog-mode
+ ;; these are the LSP servers I have right now. Customize this for your setup!
+ :hook ((sh-mode dockerfile-ts-mode sql-mode typescript-ts-mode) . 'lsp-deferred)
  :custom (lsp-enable-snippet nil) (lsp-warn-no-matched-clients nil))
+
 (use-package lsp-treemacs :after (lsp-mode treemacs))
 #+end_src
 
@@ -678,20 +674,6 @@ correctly.
 
 #+begin_src emacs-lisp
 (use-package ox-gfm :after org)
-#+end_src
-
-**** Org Babel TypeScript
-
-Enables evaluation of ~typescript~ source blocks in Org via [[https://github.com/nicholasgasior/ob-ts-node][ob-ts-node]].
-Requires ~ts-node~ to be available on ~exec-path~.
-
-#+begin_src emacs-lisp
-(use-package ob-ts-node
-  :after org
-  :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   (append org-babel-load-languages '((ts-node . t)))))
 #+end_src
 
 *** Vulpea (Notes)

@@ -130,7 +130,7 @@
  '(package-selected-packages
    '(amx cmake-ide cmake-mode cmake-project elisp-autofmt elisp-lint elpy flycheck
          gptel-agent gptel-fn-complete ido-completing-read+ jinja2-mode kirigami
-         lsp-treemacs markdown-ts-mode ob-ts-node org-beautify-theme ox-gfm
+         lsp-treemacs markdown-ts-mode org-beautify-theme ox-gfm
          page-break-lines prettier rainbow-delimiters shfmt
          smart-mode-line-powerline-theme terraform-mode treemacs-icons-dired
          treemacs-magit treesit-auto treesit-fold vterm vui vulpea
