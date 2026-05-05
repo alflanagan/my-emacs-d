@@ -10,11 +10,8 @@ Re-analyze changed file config.org and update CLAUDE.md if needed.
 
 check file init.el for errors
 
-implement the fix to remove the eval-when-compile and package-initialize calls.
-
-write a commit message for the changes
-
-shorten the commit message to remove fine details.
+implement the fix to remove the eval-when-compile and package-initialize
+calls.
 
 add recent prompts to PROMPTS.md
 
@@ -24,9 +21,11 @@ fix the five definite bugs in config.org
 
 re-check @config.org
 
-Implement a change to add the my_emacs/ directory to the load path, and configure emacs to omit the .github directory and its descendants.
+Implement a change to add the my_emacs/ directory to the load path, and
+configure emacs to omit the .github directory and its descendants.
 
-Undo the change to treemacs, and add a configuration to omit .github/ directory from load-path.
+Undo the change to treemacs, and add a configuration to omit .github/
+directory from load-path.
 
 undo the change to ido
 
@@ -34,24 +33,86 @@ Why does the treemacs sidebar disappear when emacs starts?
 
 yes
 
-Rewrite the get-config-file to properly expand to the my_emacs directory. Fix the the keybinding on line 148. add the :commands line to elpy use-package. Replace the :custom on line 308 with the correct :config clause. Update the gptel-model setting to use Claude Sonnet 4.6.
+Rewrite the get-config-file to properly expand to the my_emacs directory.
+Fix the the keybinding on line 148. add the :commands line to elpy
+use-package. Replace the :custom on line 308 with the correct :config
+clause. Update the gptel-model setting to use Claude Sonnet 4.6.
 
 check @early-init.org for errors.
 
 yes, and update the one-armed if calls.
 
-check for installed emacs packages that don't have use-package declarations, and add the equivalent use-package calls to config.org
+check for installed emacs packages that don't have use-package
+declarations, and add the equivalent use-package calls to config.org
 
-evaluate all the keybindings in my config files and report conflicts with each other or with emacs built-ins
+evaluate all the keybindings in my config files and report conflicts with
+each other or with emacs built-ins
 
-update CLAUDE.md to reflect current project state, including external changes to files
+update CLAUDE.md to reflect current project state, including external
+changes to files
 
-update CLAUDE.md to remove references to removed files lisp/site.macos.el and lisp/site.linux.el.
+update CLAUDE.md to remove references to removed files
+lisp/site.macos.el and lisp/site.linux.el.
 
-clean up configuration for python to always use mise and uv for environment setup.
+clean up configuration for python to always use mise and uv for
+environment setup.
 
-update the configuration to use markdown-mode for markdown files, not markdown-ts-mode
+update the configuration to use markdown-mode for markdown files, not
+markdown-ts-mode
 
-Fix the cause of the error message I received opening a markdown file: "redisplay--pre-redisplay-functions: (treesit-query-error "Node type error at" 2 "(inline) @markdown-inline" "Debug the query with `treesit-query-validate'")
-Error during redisplay: (jit-lock-function 1) signaled (treesit-query-error "Node type error at" 2 "(inline) @markdown-inline" "Debug the query with `treesit-query-validate'")
-"
+Fix the cause of the error message I received opening a markdown file:
+"redisplay--pre-redisplay-functions: (treesit-query-error "Node type
+error at" 2 "(inline) @markdown-inline" "Debug the query with
+`treesit-query-validate'") ..."
+
+evaluate the following error and determine why it still occurs: [backtrace
+showing markdown-ts-mode still active via treesit-auto recipe list]
+
+## 2026-05-03
+
+perform code review on
+@/Users/adrianflanagan/.config/emacs/my_emacs/early-config.org and
+@/Users/adrianflanagan/.config/emacs/my_emacs/config.org and recommend
+fixes and improvements.
+
+save this response to file REVIEW.md
+
+modify the list of items in REVIEW.md so that each item has a checkbox
+which can be checked when that item is implemented.
+
+write a .dir-locals.el file to require the use of gfm-mode when editing
+REVIEW.md
+
+## 2026-05-05
+
+write a new file REVIEW_LEFT.md containing the items from @REVIEW.md
+which do not have an "x" in the checkbox at the beginning of the item.
+
+Redo the search for mixed setq/setopt options (review item #24), then
+update @REVIEW.md and @REVIEW_LEFT.md with the new line numbers.
+
+Revert changes to the two files. Instead, mark review item 24 as done,
+by checking the box.
+
+review file @REVIEW.md; insure the prompts are in proper date order, and
+rearrange date sections if they are not.
+
+remove the numbers from the list items in the last date section in
+@PROMPTS.md
+
+rewrite the last section of @PROMPTS.md and combine the two -- i.e. write
+the first prompt with filenames corrected, and remove the final prompt.
+
+summarize the contents of project memory
+
+remember also to wrap commit message lines at 80 characters, and save the
+instructions for @PROMPTS.md to my global Claude configuration.
+
+re-read ~/.claude/CLAUDE.md, and use the instructions there to reformat
+the project @PROMPTS.md for readability.
+
+remember that ordered lists in @PROMPTS.md should not be numbered, and
+remove the numbering from the file.
+
+write a configuration for kirigami such that it only effects buffers
+which do not have tree-sitter parsers in use.

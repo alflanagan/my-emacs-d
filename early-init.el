@@ -9,19 +9,18 @@
 (setopt gc-cons-threshold most-positive-fixnum)
 
 (add-hook
- 'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 5 1024 1024))))
-;; (setopt garbage-collection-messages t) ;; show GC messages for debugging
+ 'emacs-startup-hook (lambda () (setopt gc-cons-threshold (* 50 1024 1024))))
+(setopt garbage-collection-messages t) ;; show GC messages for debugging
 
 (when (equal system-type 'darwin)
-  (setenv
-   "LIBRARY_PATH"
-   (string-join
-    '("/opt/homebrew/opt/gcc/lib/gcc/current"
-      "/opt/homebrew/opt/libgccjit/lib/gcc/current"
-      ;; this directory, alas, has no "current" symlink. You'll need to fix every time
-      ;; gcc is updated. Or we need code to find it dynamically.
-      "/opt/homebrew/Cellar/gcc/15.2.0_1/lib/gcc/current/gcc/aarch64-apple-darwin25/15/")
-    ":")))
+  (setenv "LIBRARY_PATH"
+          (string-join
+           `("/opt/homebrew/opt/gcc/lib/gcc/current"
+             "/opt/homebrew/opt/libgccjit/lib/gcc/current"
+             ,(car
+               (file-expand-wildcards
+                "/opt/homebrew/Cellar/gcc/*/lib/gcc/current/gcc/*/*")))
+           ":")))
 
 (setopt initial-frame-alist
         '((horizontal-scroll-bars)
@@ -35,12 +34,14 @@
 (setopt load-prefer-newer t)
 
 (when (boundp 'user-lisp-directory)
-  (setopt user-lisp-directory (concat user-emacs-directory "my_emacs/lisp")))
+  (setopt user-lisp-directory
+          (expand-file-name "my_emacs/lisp" user-emacs-directory)))
 
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; no-native-compile: t
 ;; no-update-autoloads: t
+;; eval: (add-hook 'after-save-hook #'org-babel-tangle nil t)
 ;; End:
 
 ;;; early-init.el ends here

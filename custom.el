@@ -123,10 +123,6 @@
      (c-mode . c-ts-mode) (c++-mode . c++-ts-mode) (rust . rust-ts-mode)
      (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)
      (ruby-mode . ruby-ts-mode)))
- '(markdown-asymmetric-header t)
- '(markdown-enable-highlighting-syntax t)
- '(markdown-hide-urls t)
- '(markdown-special-ctrl-a/e t)
  '(mode-require-final-newline 'visit-save)
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe
@@ -134,14 +130,15 @@
  '(package-selected-packages
    '(amx cmake-ide cmake-mode cmake-project elisp-autofmt elisp-lint elpy flycheck
          gptel-agent gptel-fn-complete ido-completing-read+ jinja2-mode kirigami
-         lsp-treemacs markdown-ts-mode ob-ts-node org-beautify-theme ox-gfm
+         lsp-treemacs markdown-ts-mode org-beautify-theme ox-gfm
          page-break-lines prettier rainbow-delimiters shfmt
-         smart-mode-line-powerline-theme terraform-mode treemacs-icons-dired
-         treemacs-magit treesit-auto treesit-fold vterm vui vulpea
-         vulpea-journal vulpea-ui web-mode which-key whitespace-cleanup-mode
-         winpulse xkcd))
+         smart-mode-line-powerline-theme terraform-mode transient
+         treemacs-icons-dired treemacs-magit treesit-auto treesit-fold vterm vui
+         vulpea vulpea-journal vulpea-ui web-mode which-key
+         whitespace-cleanup-mode winpulse xkcd))
  '(safe-local-variable-values
-   '((org-todo-keywords quote
+   '((eval add-hook 'after-save-hook #'org-babel-tangle nil t)
+     (org-todo-keywords quote
                         ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD"
                                    "NEEDS INPUT" "|" "DONE" "CANCELED"))))))
 (custom-set-faces

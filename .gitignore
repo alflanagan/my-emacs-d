@@ -7,7 +7,7 @@
 .\#*
 
 # secrets should NEVER be checked in
-secrets.el
+my-secrets.el
 
 lisp/site.el
 my_emacs-autoloads.el

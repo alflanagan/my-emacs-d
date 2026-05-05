@@ -51,7 +51,7 @@ Quick function to make refering to other config files easier.
 
 #+begin_src emacs-lisp
 (defun get-config-file (filename)
-  (expand-file-name filename (concat user-emacs-directory "my_emacs/")))
+  (expand-file-name filename (expand-file-name user-emacs-directory "my_emacs/")))
 #+end_src
 
 ** Load Path
@@ -61,15 +61,13 @@ which should be loaded from local files.
 
 #+begin_src emacs-lisp
 (add-to-list 'load-path (expand-file-name "my_emacs" user-emacs-directory))
-(setopt load-path-ignore-regexp "\\.github\\'")
 
-;; Temporarily commented out: need to add check for emacs version
-;; and only do this for versions without the user-lisp feature.
-;; (add-to-list
-;;  'load-path
-;;  (directory-file-name
-;;   (concat
-;;    (expand-file-name user-emacs-directory) "my_emacs/lisp/org-contrib/lisp")))
+;; user-lisp-directory is a new feature, fallback when it's not present
+(unless (boundp 'user-lisp-directory)
+  (add-to-list
+   'load-path
+   (directory-file-name
+    (expand-file-name "my_emacs/lisp/org-contrib/lisp" user-emacs-directory))))
 #+end_src
 
 ** Easy Customization
@@ -83,7 +81,7 @@ to this file.
 #+begin_src emacs-lisp
 ;; custom-file is global, need to change it or weird things happen
 (setq custom-file (get-config-file "custom.el"))
-(load custom-file)
+(load custom-file 'no-error 'no-message)
 #+end_src
 
 We need to add the *melpa* package source to ~package-archives~.
@@ -101,7 +99,7 @@ This local file is for global variables with values which should not
 be checked in with source control, such as passwords and API keys.
 
 #+begin_src emacs-lisp
-(require 'secrets)
+(require 'my-secrets)
 #+end_src
 
 ** Uniquify
@@ -127,13 +125,7 @@ different files with the same name. From the source file:
 
 We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 
-There's a message displayed in the echo area on startup. Disabling it
-requires setting ~inhibit-startup-echo-area-message~ to your user
-name. Unless your user name is the same as mine (hey!), youll need to
-change it.
-
 #+begin_src emacs-lisp
-(defvar package-menu-hide-low-priority)
 (use-package
  emacs
 
@@ -146,17 +138,22 @@ change it.
   ("C-M-r" . #'isearch-backward)
   ("C-x M-r" . #'remember)
 
-  ("C-x M-R" . (lambda () (interactive) (let ((current-prefix-arg '(4))) (call-interactively #'remember))))
+  ("C-x M-R" .
+   (lambda ()
+     (interactive)
+     (let ((current-prefix-arg '(4)))
+       (call-interactively #'remember))))
   ("s-q" . nil)
   ;; runs save-buffers-kill-emacs by default, but too easy to hit by accident
   )
 
  :config
- (setq inhibit-startup-echo-area-message "adrianflanagan")
  (global-auto-revert-mode)
  (when window-system
    (tool-bar-mode -1))
  (blink-cursor-mode -1)
+ (when (equal system-type 'darwin)
+   (setopt trash-directory "~/.Trash"))
 
  ;; set coding systems used to Unicode standard
  (set-terminal-coding-system 'utf-8)
@@ -166,6 +163,8 @@ change it.
  (ido-mode t)
  (ido-everywhere t)
 
+ ;; be careful with this: it can conflict with version control hooks such as
+ ;; precommit (see alse ~kill-buffer-delete-auto-save-files~
  (auto-save-visited-mode t)
 
  (column-number-mode t) ;; displays current column in mode line
@@ -184,7 +183,6 @@ change it.
  (ido-use-virtual-buffers 'auto)
  ;; auto-save options
  (kill-buffer-delete-auto-save-files t)
- (trash-directory "~/.Trash")
  (delete-by-moving-to-trash t) ;; use system trash can for deleted files
  (apropos-do-all t)
  ;; put file backups in single directory, not in same directory with '~'
@@ -195,7 +193,7 @@ change it.
  ;; tag. Since I don't need that warning, clean up *Warnings* a bit by silencing
  ;; it
 
- (warning-suppress-log-types '((files missing-lexbind-cookie)))
+ (warning-suppress-types '((files missing-lexbind-cookie)))
 
  (server-log t)
  ;; use value of `truncate_lines' even in windows narrower than frame
@@ -212,12 +210,13 @@ change it.
  (python-shell-interpreter "python3")
  (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
  (fill-column 80)
- (font-lock-maximum-decoration t) ;; use as much syntax highlighting as possible, by default
+ ;; use as much syntax highlighting as possible, by default
+ (font-lock-maximum-decoration t)
  (inhibit-startup-message t) ;; turn off Emacs splash screen
  (initial-scratch-message nil)
  (mouse-yank-at-point t)
  (save-interprogram-paste-before-kill t)
- (save-place-file (concat user-emacs-directory "places"))
+ (save-place-file (expand-file-name "places" user-emacs-directory))
  (select-enable-clipboard t) ;; integrate emacs with system clipboard
  (select-enable-primary t)
  (selection-coding-system 'utf-8)
@@ -225,11 +224,8 @@ change it.
  ;; don't automatically double space after sentence end -- obsolete style
  (sentence-end-double-space nil)
 
- ;; emacs by default doesn't upgrade built-in packages -- causes magit to freak
- (package-install-upgrade-built-in t)
-
  :hook (prog-mode . display-line-numbers-mode)
- ;; Treat CamelCaseSubWords as separate words in every programming  mode.
+ ;; Treat CamelCaseSubWords as separate words in every programming mode.
  (prog-mode . subword-mode))
 #+end_src
 
@@ -328,8 +324,19 @@ just when printed.
 
 *** Better folding: Kirigami
 
+Kirigami provides code folding for buffers that don't use tree-sitter
+(where ~treesit-fold~ already handles folding).
+
 #+begin_src emacs-lisp
-(use-package kirigami)
+(use-package
+ kirigami
+ :commands kirigami-mode
+ :init
+ (defun my/kirigami-enable-if-no-treesit ()
+   "Enable `kirigami-mode' in buffers without active tree-sitter parsers."
+   (unless (treesit-parser-list)
+     (kirigami-mode 1)))
+ (add-hook 'prog-mode-hook #'my/kirigami-enable-if-no-treesit))
 #+end_src
 
 *** Clean up Whitespace
@@ -344,12 +351,27 @@ lines.
 *** Which-key
 
 Displays available key bindings in a popup after pressing a prefix key. Built-in
-as of Emacs 30; ~:ensure nil~ defers to the built-in on Emacs 30+.
+as of Emacs 30.
 
 #+begin_src emacs-lisp
-(use-package which-key
-  :ensure nil
-  :config (which-key-mode))
+(if (< emacs-major-version 30)
+    (use-package
+     which-key
+     :ensure nil ;; defer to built-in
+     :config (which-key-mode))
+  (use-package which-key :ensure t :config (which-key-mode)))
+#+end_src
+
+*** Magit
+
+Magit is a package to provide a git interface inside of Emacs. It relies on
+a version of ~transient~ more recent than the built-in one, so we add an explicit
+~use-package~ call for it.
+
+#+begin_src emacs-lisp
+(use-package transient :pin "melpa" :ensure t)
+
+(use-package magit :defer t)
 #+end_src
 
 *** Treemacs
@@ -362,10 +384,11 @@ the gory details.
 (use-package
  treemacs
  :ensure t
- :defer t
+ :defer nil
  :init
  (with-eval-after-load 'winum
    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+ (treemacs-start-on-boot)
  :config
  (when treemacs-python-executable
    (treemacs-git-mode 'extended)
@@ -378,16 +401,13 @@ the gory details.
  (with-eval-after-load 'treemacs-git-commit-diff
    (advice-add
     'treemacs-apply-single-annotation
-    :before-while
-    (lambda (path)
-      (treemacs-is-path path :in-workspace))))
- (treemacs-start-on-boot)
+    :before-while (lambda (path) (treemacs-is-path path :in-workspace))))
  :custom
- (treemacs-follow-mode t)
  (treemacs-project-follow-mode t)
  (treemacs-filewatch-mode t)
  (treemacs-is-never-other-window t)
  ;; follow mode makes it difficult to find file that are not on-screen
+ (treemacs-follow-mode nil)
  (treemacs-follow-after-init nil)
 
  :bind
@@ -400,9 +420,7 @@ the gory details.
  ("C-x t D" . treemacs-select-directory)
  ("C-x t B" . treemacs-bookmark)
  ("C-x t C-t" . treemacs-find-file)
- ("C-x t M-t" . treemacs-find-tag)
-
-)
+ ("C-x t M-t" . treemacs-find-tag))
 #+end_src
 
 **** Treemacs-icons-dired
@@ -438,27 +456,37 @@ together. As far as I can tell, they do.
  treesit-auto
  :custom (treesit-auto-install 'prompt)
  :config
+ ;; Remove the markdown recipe before treesit-auto registers any mappings,
+ ;; so neither auto-mode-alist nor major-mode-remap-alist ever get a
+ ;; markdown entry.  We use markdown-mode instead of markdown-ts-mode.
+ (setq treesit-auto-recipe-list
+       (seq-remove
+        (lambda (r) (eq (treesit-auto-recipe-lang r) 'markdown))
+        treesit-auto-recipe-list))
  (treesit-auto-add-to-auto-mode-alist 'all)
- (global-treesit-auto-mode)
- ;; treesit-auto adds a markdown-mode → markdown-ts-mode remap via
- ;; major-mode-remap-alist.  Remove it so markdown-mode stays active.
- (setq major-mode-remap-alist
-       (assoc-delete-all 'markdown-mode major-mode-remap-alist)))
+ (global-treesit-auto-mode))
 #+end_src
 
 #+begin_src emacs-lisp
 (use-package
  treesit-fold
  :vc
- (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest))
+ (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest)
+ :custom (global-treesit-fold-indicators-mode t))
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package markdown-mode
-  :mode
-  (("README\\.md\\'" . gfm-mode)
-   ("\\.md\\'" . markdown-mode)
-   ("\\.markdown\\'" . markdown-mode)))
+(use-package
+ markdown-mode
+ :custom
+ (markdown-command
+  "cmark-gfm -e footnotes -e table -e strikethrough -e autolink -e tagfilter -e tasklist --smart")
+ (markdown-asymmetric-header t)
+ (markdown-enable-highlighting-syntax t)
+ (markdown-special-ctrl-a/e t)
+ :mode
+ ("\\.md\\'" . gfm-mode)
+ ("\\.markdown\\'" . gfm-mode))
 #+end_src
 
 *** Flycheck
@@ -502,12 +530,12 @@ programming environment. Defer it so it doesn't load unless we edit a python
 file.
 
 #+begin_src emacs-lisp
-(use-package elpy
-  :ensure t
-  :defer t
-  :commands (elpy-enable)
-  :init
-  (advice-add 'python-mode :before 'elpy-enable))
+(use-package
+ elpy
+ :ensure t
+ :defer t
+ :commands (elpy-enable)
+ :hook ((python-mode python-ts-mode) . elpy-enable))
 #+end_src
 
 *** ELisp Programming
@@ -531,8 +559,10 @@ command works great on code embedded in .org files.
  :custom
  (elisp-autofmt-format-quoted nil)
  (elisp-autofmt-use-default-override-defs t)
- :hook
- ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
+ ;; system python is 3.9, but elisp-autofmt needs more recent version
+ (elisp-autofmt-python-bin "/opt/homebrew/bin/python3")
+ (elisp-autofmt-format-quoted t)
+ :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
  :bind
  (:map
   lisp-mode-shared-map
@@ -558,6 +588,7 @@ language.
   ("\\.[agj]sp\\'" . web-mode)
   ("\\.as[cp]x\\'" . web-mode)
   ("\\.mustache\\'" . web-mode)
+  ("\\.html\\'" . web-mode)
   ("\\.djhtml\\'" . web-mode))
  :custom
  (web-mode-enable-comment-interpolation t)
@@ -631,16 +662,11 @@ package to integrate the information into the ~treemacs~ sidebar also.
  lsp-mode
  :defer t
  :commands lsp
- :hook prog-mode
- :custom (lsp-enable-snippet nil))
+ ;; these are the LSP servers I have right now. Customize this for your setup!
+ :hook ((sh-mode dockerfile-ts-mode sql-mode typescript-ts-mode) . 'lsp-deferred)
+ :custom (lsp-enable-snippet nil) (lsp-warn-no-matched-clients nil))
+
 (use-package lsp-treemacs :after (lsp-mode treemacs))
-#+end_src
-
-Since we've hooked ~prog-mode~, it's common to get warnings about a
-language not having a matching server. Turn those off.
-
-#+begin_src emacs-lisp
-(setopt lsp-warn-no-matched-clients nil)
 #+end_src
 
 *** Org Mode
@@ -661,31 +687,17 @@ correctly.
 (use-package ox-gfm :after org)
 #+end_src
 
-**** Org Babel TypeScript
-
-Enables evaluation of ~typescript~ source blocks in Org via [[https://github.com/nicholasgasior/ob-ts-node][ob-ts-node]].
-Requires ~ts-node~ to be available on ~exec-path~.
-
-#+begin_src emacs-lisp
-(use-package ob-ts-node
-  :after org
-  :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   (append org-babel-load-languages '((ts-node . t)))))
-#+end_src
-
 *** Vulpea (Notes)
 
 #+begin_src emacs-lisp
 (use-package vulpea :custom (vulpea-db-autosync-mode t))
 (use-package vui)
-(use-package vulpea-ui :bind ("C-c v s" . #'vulpea-ui-sidebar-toggle))
+(use-package vulpea-ui :bind ("C-c v s" . 'vulpea-ui-sidebar-toggle))
 (use-package
  vulpea-journal
  :after (vulpea vulpea-ui)
  :config (vulpea-journal-setup)
- :bind ("C-c j" . #'vulpea-journal))
+ :bind ("C-c j" . 'vulpea-journal))
 #+end_src
 
 *** Terraform Suport
@@ -695,10 +707,10 @@ Requires ~ts-node~ to be available on ~exec-path~.
   :ensure t
   :custom (terraform-indent-level 4)
   :config
-  (defun my-terraform-mode-init ()
+  (defun my/terraform-mode-init ()
     (outline-minor-mode 1)
     )
-  :hook (terraform-mode . my-terraform-mode-init))
+  :hook (terraform-mode . my/terraform-mode-init))
 #+end_src
 
 *** XKCD
@@ -712,20 +724,20 @@ The best web comic ever, available right in the editor.
 *** AI Integration
 
 #+begin_src emacs-lisp
-;; Install via MELPA
-(use-package
- gptel
- :config (setq gptel-model 'claude-sonnet-4-6)
- (setq gptel-backend
-       (gptel-make-anthropic
-        "Claude"
-        :stream t
-        :key (getenv "ANTHROPIC_API_KEY"))))
-;; :mode "\\.elc?\\'")
+  ;; disabling this until gptel gets fixe;; d
+    ;; (use-package
+    ;;  gptel
+    ;;  :defer t
+    ;;  :pin "nongnu"
+    ;;  :custom gptel-model 'claude-sonnet-4-6)
+    ;;  (gptel-backend
+    ;;   '(gptel-anthropic "Claude" :stream t
+    ;;                     :key
+    ;;                     (lambda () (getenv "ANTHROPIC_API_KEY"))))
 
-(use-package gptel-fn-complete :after gptel)
+    ;; (use-package gptel-fn-complete :after gptel)
 
-(use-package gptel-agent :after gptel)
+    ;; (use-package gptel-agent :after gptel)
 #+end_src
 
 ** End Of File
