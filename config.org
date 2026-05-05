@@ -126,7 +126,6 @@ different files with the same name. From the source file:
 We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 
 #+begin_src emacs-lisp
-(defvar package-menu-hide-low-priority)
 (use-package
  emacs
 
@@ -164,6 +163,8 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (ido-mode t)
  (ido-everywhere t)
 
+ ;; be careful with this: it can conflict with version control hooks such as
+ ;; precommit (see alse ~kill-buffer-delete-auto-save-files~
  (auto-save-visited-mode t)
 
  (column-number-mode t) ;; displays current column in mode line
@@ -192,7 +193,7 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  ;; tag. Since I don't need that warning, clean up *Warnings* a bit by silencing
  ;; it
 
- (warning-suppress-log-types '((files missing-lexbind-cookie)))
+ (warning-suppress-types '((files missing-lexbind-cookie)))
 
  (server-log t)
  ;; use value of `truncate_lines' even in windows narrower than frame

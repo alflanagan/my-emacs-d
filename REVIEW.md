@@ -116,11 +116,11 @@ definite), correctness/robustness issues, and stylistic improvements.
 
   Apply at `early-config.org:124`, `config.org:54`, and `config.org:63`.
 
-- [ ] **16. `warning-suppress-log-types` only silences the log buffer.** If you
+- [x] **16. `warning-suppress-log-types` only silences the log buffer.** If you
   also want to stop the popup, set `warning-suppress-types` (without
   `-log`).
 
-- [ ] **17. Spurious `defvar` for `package-menu-hide-low-priority`**
+- [x] **17. Spurious `defvar` for `package-menu-hide-low-priority`**
   (`config.org:136`). It's already a defcustom in `package.el`. The
   `defvar` is redundant; the byte-compiler warning, if any, comes from
   referring to it before `package` is loaded — but `package` is loaded by
@@ -147,7 +147,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   experimenting with `(* 50 1024 1024)` and watching `M-x gcs-done` over
   time.
 
-- [ ] **22. `auto-save-visited-mode` is on globally** (`config.org:169`).
+- [x] **22. `auto-save-visited-mode` is on globally** (`config.org:169`).
   Combined with `kill-buffer-delete-auto-save-files t`, this means every
   buffer gets a real on-disk save at intervals. That can fight with
   version control hooks (pre-commit formatters running on save, etc.).
@@ -159,7 +159,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   `early-config.org:77` "intitial" → "initial"; `config.org:232`
   "programming  mode." (double space).
 
-- [ ] **24. Mixed `setq`/`setopt`.** Per your CLAUDE.md you prefer `setopt`, but
+- [x] **24. Mixed `setq`/`setopt`.** Per your CLAUDE.md you prefer `setopt`, but
   several call sites still use `setq` for defcustoms (`config.org:155`,
   `444`, `646`, `721`, `722`). Where the variable is a defcustom and you
   don't need the literal-string trick, switch to `setopt` or move into a

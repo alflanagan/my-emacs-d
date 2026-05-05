@@ -76,3 +76,8 @@ reanalyze changed files and write a brief commit message for them
 
 reanalyze project, update context document, and write a commit message
    for changes
+
+## 2026-05-05
+
+write a new file REVIEW_LEFT.md containing the items from @REVIEW.md
+which do not have an "x" in the checkbox at the beginning of the item.
