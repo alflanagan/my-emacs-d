@@ -155,7 +155,7 @@ definite), correctness/robustness issues, and stylistic improvements.
 
 ## Style & consistency
 
-- [ ] **23. Typos.** `early-config.org:47` "impove" → "improve";
+- [x] **23. Typos.** `early-config.org:47` "impove" → "improve";
   `early-config.org:77` "intitial" → "initial"; `config.org:232`
   "programming  mode." (double space).
 

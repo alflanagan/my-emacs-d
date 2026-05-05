@@ -209,7 +209,8 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (python-shell-interpreter "python3")
  (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
  (fill-column 80)
- (font-lock-maximum-decoration t) ;; use as much syntax highlighting as possible, by default
+ ;; use as much syntax highlighting as possible, by default
+ (font-lock-maximum-decoration t)
  (inhibit-startup-message t) ;; turn off Emacs splash screen
  (initial-scratch-message nil)
  (mouse-yank-at-point t)
@@ -223,7 +224,7 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (sentence-end-double-space nil)
 
  :hook (prog-mode . display-line-numbers-mode)
- ;; Treat CamelCaseSubWords as separate words in every programming  mode.
+ ;; Treat CamelCaseSubWords as separate words in every programming mode.
  (prog-mode . subword-mode))
 #+end_src
 

@@ -45,7 +45,7 @@ seconds on startup time in early testing. Your milage may vary.
 
 Restore to a more normal value after startup. However, 800K is Emacs'
 startup default, which is probably much too low on modern machines. We
-need to try higher settings to see if they impove performance.
+need to try higher settings to see if they improve performance.
 
 #+begin_src emacs-lisp
 (add-hook
@@ -73,7 +73,7 @@ code out and seeing if it just works as-is.
 
 ** Initial Frame Size
 
-We need to set this in early-init to set for intitial frame.
+We need to set this in early-init to set for initial frame.
 
 **** TODO determine initial values from screen size.
 
