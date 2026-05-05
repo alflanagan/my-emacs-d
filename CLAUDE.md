@@ -43,7 +43,7 @@ my_emacs/
 ├── config.org               # Source for config.el — main config
 ├── config.el                # GENERATED — do not edit
 ├── custom.el                # Written by M-x customize; not tangled
-├── secrets.el               # Local secrets (not in VCS); required by config
+├── my-secrets.el            # Local secrets (not in VCS); required by config
 ├── my_emacs-autoloads.el    # GENERATED — autoloads for the my_emacs directory
 ├── Makefile                 # `make clean` removes *.elc files
 ├── todo.org                 # Project TODO list
@@ -74,6 +74,7 @@ my_emacs/
   implicit everywhere. Use `:ensure nil` explicitly for built-in packages.
 - **`:vc` keyword** is used to install packages directly from GitHub when they
   are not on ELPA/MELPA (e.g. `batppuccin`, `winpulse`, `treesit-fold`).
+- **`:bind` values** use plain quoted symbols (`'my-fn`), not `#'my-fn`.
 - **`setopt`** (Emacs 29+) is preferred over `setq` for user options.
 - **Indentation**: spaces only, no tabs (`indent-tabs-mode nil`).
 - **Fill column**: 80 characters.
@@ -96,8 +97,6 @@ ELPA archives in priority order:
 
 ---
 
----
-
 ## Notable Packages & Their Roles
 
 | Package | Purpose |
@@ -116,9 +115,9 @@ ELPA archives in priority order:
 | `jinja2-mode` | Jinja2/Django template editing |
 | `vterm` | Full-featured terminal emulator; scrollback 10 000 lines |
 | `prettier` | Auto-format JS/TS/CSS buffers on save |
-| `gptel` | LLM/AI integration; model `claude-sonnet-4-6`; reads `ANTHROPIC_API_KEY` from env |
-| `gptel-fn-complete` | Function completion via gptel |
-| `gptel-agent` | Agent-mode support for gptel |
+| `gptel` | LLM/AI integration (currently disabled/commented out pending fixes) |
+| `gptel-fn-complete` | Function completion via gptel (currently disabled) |
+| `gptel-agent` | Agent-mode support for gptel (currently disabled) |
 | `vulpea` | Notes / knowledge base; auto-syncs DB |
 | `vulpea-ui` + `vui` | Sidebar UI for vulpea (`C-c v s` to toggle) |
 | `vulpea-journal` | Journal integration (`C-c j`) |
@@ -131,7 +130,7 @@ ELPA archives in priority order:
 | `editorconfig` | Read `.editorconfig` files |
 | `whitespace-cleanup-mode` | Strip trailing whitespace on save |
 | `page-break-lines` | Render `^L` (ctrl-L) as horizontal lines |
-| `kirigami` | Enhanced code folding |
+| `kirigami` | Code folding for buffers without active tree-sitter parsers; hooked to `prog-mode` via `my/kirigami-enable-if-no-treesit` |
 | `rainbow-delimiters` | Color-coded matching delimiters in `prog-mode` |
 | `winpulse` | Pulse/highlight active window (installed via `:vc`) |
 | `batppuccin` | Catppuccin-based color theme (installed via `:vc`); latte variant active |
@@ -154,18 +153,19 @@ If Python features misbehave, ensure `uv sync` has been run in the project root.
 
 ## Secrets
 
-`secrets.el` is required by `config.org` and must exist locally. It holds
-variables that must not be committed (API keys, passwords, etc.). It is
-intentionally absent from VCS. Create it with at minimum:
+`my-secrets.el` is required by `config.org` and must exist locally. It
+holds variables that must not be committed (API keys, passwords, etc.). It
+is intentionally absent from VCS. Create it with at minimum:
 
 ```emacs-lisp
 ;; -*- lexical-binding: t -*-
-;;; secrets.el --- local secrets
-(provide 'secrets)
-;;; secrets.el ends here
+;;; my-secrets.el --- local secrets
+(provide 'my-secrets)
+;;; my-secrets.el ends here
 ```
 
-The `gptel` package reads `ANTHROPIC_API_KEY` from the environment.
+The `gptel` package reads `ANTHROPIC_API_KEY` from the environment
+(currently disabled — see Notable Packages).
 
 ---
 
