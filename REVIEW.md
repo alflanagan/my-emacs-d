@@ -165,7 +165,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   don't need the literal-string trick, switch to `setopt` or move into a
   `:custom` block.
 
-- [ ] **25. `:bind` with `#'`.** `:bind ("C-c v s" . #'vulpea-ui-sidebar-toggle)`
+- [x] **25. `:bind` with `#'`.** `:bind ("C-c v s" . #'vulpea-ui-sidebar-toggle)`
   (`config.org:686`) — `:bind` expects a symbol; `#'` is harmless but
   inconsistent with the rest of the file (most others use bare symbols or
   `#'` mixed). Pick one and stick with it.
@@ -180,7 +180,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   ;; End:
   ```
 
-- [ ] **27. `kirigami` declared with no config** (`config.org:332`). Either
+- [x] **27. `kirigami` declared with no config** (`config.org:332`). Either
   configure it (you have `treesit-fold` doing similar work) or remove it.
 
 - [x] **28. Commented-out load-path block** (`config.org:67-72`) and
@@ -192,7 +192,7 @@ definite), correctness/robustness issues, and stylistic improvements.
   comment "follow mode makes it difficult to find files that are not
   on-screen" suggests you actually don't want follow-mode. Reconcile.
 
-- [ ] **30. `terraform-mode` defines `my-terraform-mode-init` in `:config` and
+- [x] **30. `terraform-mode` defines `my-terraform-mode-init` in `:config` and
   hooks it** (`config.org:701-704`). This is fine but the function is
   global; prefix the name (`my/terraform-mode-init`) per Elisp convention
   to avoid conflicts.

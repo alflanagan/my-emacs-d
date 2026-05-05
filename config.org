@@ -324,8 +324,19 @@ just when printed.
 
 *** Better folding: Kirigami
 
+Kirigami provides code folding for buffers that don't use tree-sitter
+(where ~treesit-fold~ already handles folding).
+
 #+begin_src emacs-lisp
-(use-package kirigami)
+(use-package
+ kirigami
+ :commands kirigami-mode
+ :init
+ (defun my/kirigami-enable-if-no-treesit ()
+   "Enable `kirigami-mode' in buffers without active tree-sitter parsers."
+   (unless (treesit-parser-list)
+     (kirigami-mode 1)))
+ (add-hook 'prog-mode-hook #'my/kirigami-enable-if-no-treesit))
 #+end_src
 
 *** Clean up Whitespace
@@ -460,7 +471,8 @@ together. As far as I can tell, they do.
 (use-package
  treesit-fold
  :vc
- (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest))
+ (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest)
+ :custom (global-treesit-fold-indicators-mode t))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -680,12 +692,12 @@ correctly.
 #+begin_src emacs-lisp
 (use-package vulpea :custom (vulpea-db-autosync-mode t))
 (use-package vui)
-(use-package vulpea-ui :bind ("C-c v s" . #'vulpea-ui-sidebar-toggle))
+(use-package vulpea-ui :bind ("C-c v s" . 'vulpea-ui-sidebar-toggle))
 (use-package
  vulpea-journal
  :after (vulpea vulpea-ui)
  :config (vulpea-journal-setup)
- :bind ("C-c j" . #'vulpea-journal))
+ :bind ("C-c j" . 'vulpea-journal))
 #+end_src
 
 *** Terraform Suport
@@ -695,10 +707,10 @@ correctly.
   :ensure t
   :custom (terraform-indent-level 4)
   :config
-  (defun my-terraform-mode-init ()
+  (defun my/terraform-mode-init ()
     (outline-minor-mode 1)
     )
-  :hook (terraform-mode . my-terraform-mode-init))
+  :hook (terraform-mode . my/terraform-mode-init))
 #+end_src
 
 *** XKCD

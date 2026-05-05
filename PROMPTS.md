@@ -113,3 +113,6 @@ the project @PROMPTS.md for readability.
 
 remember that ordered lists in @PROMPTS.md should not be numbered, and
 remove the numbering from the file.
+
+write a configuration for kirigami such that it only effects buffers
+which do not have tree-sitter parsers in use.
