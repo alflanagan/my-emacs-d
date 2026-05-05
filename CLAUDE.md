@@ -55,7 +55,7 @@ my_emacs/
 ├── LICENSE
 ├── README.md
 ├── lisp/
-│   ├── misc.el              # Small utility functions
+│   ├── my_misc.el           # Small utility functions
 │   ├── hideshowvis.el       # Third-party: hide/show visualization
 │   ├── .user-lisp-autoloads.el  # GENERATED — Emacs 31+ user-lisp autoloads
 │   └── org-contrib/         # Git submodule: extra org-mode contrib packages

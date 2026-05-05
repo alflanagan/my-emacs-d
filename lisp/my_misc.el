@@ -1,4 +1,4 @@
-;;; misc.el -- some generally-useful functions   -*- lexical-binding: t -*-
+;;; my_misc.el -- some generally-useful functions   -*- lexical-binding: t -*-
 
 ;; Copyright 2024 A. Lloyd Flanagan
 ;;
@@ -45,5 +45,5 @@
   "Return the list created by prepending DIRECTORY to each member FILE-LIST."
   (mapcar (lambda (it) (expand-file-name it directory)) file-list))
 
-(provide 'misc)
-;;; misc.el ends here
+(provide 'my_misc)
+;;; my_misc.el ends here

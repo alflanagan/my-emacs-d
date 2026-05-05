@@ -12,3 +12,6 @@ my-secrets.el
 lisp/site.el
 my_emacs-autoloads.el
 config.el
+
+# local permissions, etc. for Claude Code.
+settings.local.json
