@@ -376,6 +376,7 @@ the gory details.
  :init
  (with-eval-after-load 'winum
    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+ (treemacs-start-on-boot)
  :config
  (when treemacs-python-executable
    (treemacs-git-mode 'extended)
@@ -389,7 +390,6 @@ the gory details.
    (advice-add
     'treemacs-apply-single-annotation
     :before-while (lambda (path) (treemacs-is-path path :in-workspace))))
- (treemacs-start-on-boot)
  :custom
  (treemacs-project-follow-mode t)
  (treemacs-filewatch-mode t)
