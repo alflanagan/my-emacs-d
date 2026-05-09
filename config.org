@@ -331,7 +331,7 @@ Kirigami provides code folding for buffers that don't use tree-sitter
 (use-package
  kirigami
  :commands kirigami-mode
- :init
+ :config
  (defun my/kirigami-enable-if-no-treesit ()
    "Enable `kirigami-mode' in buffers without active tree-sitter parsers."
    (unless (treesit-parser-list)
@@ -518,8 +518,11 @@ together. As far as I can tell, they do.
 
 *** Python Programming
 
-~python-ts-mode~ is built-in mode for python using tree-sitter. Add support for
-template languages used by Django and Flask frameworks.
+~python-ts-mode~ is a built-in mode for python using tree-sitter. Add support
+for template languages used by Django and Flask frameworks.
+
+Not hooked because templates and non-template files both end in .html. I can
+manually invoke the mode, or add it with local variables.
 
 #+begin_src emacs-lisp
 (use-package jinja2-mode)
@@ -608,11 +611,10 @@ language.
 Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
 
 #+begin_src emacs-lisp
-(use-package prettier
-  :hook
-  ((js-mode . prettier-mode)
-   (typescript-ts-mode . prettier-mode)
-   (css-mode . prettier-mode)))
+(use-package
+ prettier
+ :hook ((js-mode typescript-ts-mode css-mode web-mode html-mode))
+ :custom (prettier-js-command "prettier"))
 #+end_src
 
 *** Terminal
@@ -711,6 +713,56 @@ correctly.
     (outline-minor-mode 1)
     )
   :hook (terraform-mode . my/terraform-mode-init))
+#+end_src
+
+
+*** CMake
+
+Support for CMake build files and CMake-based C/C++ projects.
+
+~cmake-mode~ provides syntax highlighting and indentation for
+~CMakeLists.txt~ and ~.cmake~ files.
+
+#+begin_src emacs-lisp
+(use-package cmake-mode)
+#+end_src
+
+~cmake-project~ integrates CMake projects with Emacs's built-in
+~project.el~, enabling project-aware compilation and other commands.
+
+#+begin_src emacs-lisp
+(use-package cmake-project :after cmake-mode)
+#+end_src
+
+~cmake-ide~ wires CMake compile commands into IDE features (flycheck,
+auto-complete, company) by reading the project's
+~compile_commands.json~.
+
+#+begin_src emacs-lisp
+(use-package cmake-ide :after cmake-mode :config (cmake-ide-setup))
+#+end_src
+
+*** Exec-path-from-shell
+
+Gets path (and other variables) from shell and updates Emacs configuration.
+Without this, on MacOS, ~load-path~ gets set from the system default, *not* the
+user's environment.
+
+#+BEGIN_QUOTE
+This sets $MANPATH, $PATH and exec-path from your shell, but only when executed
+in a GUI frame on OS X and Linux.
+#+END_QUOTE
+
+See also function ~exec-path-from-shell-setenv~ to import other shell variables.
+
+#+begin_src emacs-lisp
+(use-package
+ exec-path-from-shell
+ :config
+ (when (memq window-system '(mac ns x))
+   (exec-path-from-shell-initialize)
+   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "LANG" "LC_CTYPE"))
+     (add-to-list 'exec-path-from-shell-variables var))))
 #+end_src
 
 *** XKCD

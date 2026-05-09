@@ -51,9 +51,11 @@ my_emacs/
 ├── find_missing.sh          # Helper: find packages missing use-package declarations
 ├── get_used_packages.sh     # Helper: list packages referenced in config
 ├── find_gcc.el.bkp          # Backup of old dynamic gcc-path finder (not loaded)
+├── .dir-locals.el           # Directory-local variables (e.g. gfm-mode for .md)
 ├── CODE_OF_CONDUCT.md
 ├── LICENSE
 ├── README.md
+├── REVIEW.md                # Ongoing code-review checklist
 ├── lisp/
 │   ├── my_misc.el           # Small utility functions
 │   ├── hideshowvis.el       # Third-party: hide/show visualization
@@ -104,6 +106,7 @@ ELPA archives in priority order:
 | `org` (pinned gnu) | Org mode; drives literate config loading |
 | `treemacs` | File-tree sidebar; starts on boot via `treemacs-start-on-boot` |
 | `treemacs-icons-dired` | Treemacs icons in Dired buffers |
+| `transient` | Pinned to MELPA; explicit dep to satisfy magit's version requirement |
 | `treemacs-magit` | Integrates Magit with Treemacs sidebar; pulls in `magit` as a dep |
 | `lsp-mode` | Language Server Protocol client; hooked to `sh-mode`, `dockerfile-ts-mode`, `sql-mode`, `typescript-ts-mode`; `lsp-warn-no-matched-clients nil` |
 | `lsp-treemacs` | Shows LSP info (errors, symbols) in Treemacs sidebar |
@@ -114,7 +117,7 @@ ELPA archives in priority order:
 | `elpy` | Python IDE features; deferred until a Python file opens |
 | `jinja2-mode` | Jinja2/Django template editing |
 | `vterm` | Full-featured terminal emulator; scrollback 10 000 lines |
-| `prettier` | Auto-format JS/TS/CSS buffers on save |
+| `prettier` | Auto-format JS/TS/CSS/HTML buffers on save (hook-based) |
 | `gptel` | LLM/AI integration (currently disabled/commented out pending fixes) |
 | `gptel-fn-complete` | Function completion via gptel (currently disabled) |
 | `gptel-agent` | Agent-mode support for gptel (currently disabled) |
@@ -126,7 +129,7 @@ ELPA archives in priority order:
 | `smart-mode-line` + `smart-mode-line-powerline-theme` | Enhanced mode line with powerline theme |
 | `amx` | Enhanced M-x history and completion (via ido) |
 | `ido-completing-read+` | Extends ido completion to all `completing-read` calls |
-| `which-key` | Displays available key bindings; built-in Emacs 30, `:ensure nil` |
+| `which-key` | Displays available key bindings; `:ensure nil` on Emacs < 30, `:ensure t` on Emacs 30+ |
 | `editorconfig` | Read `.editorconfig` files |
 | `whitespace-cleanup-mode` | Strip trailing whitespace on save |
 | `page-break-lines` | Render `^L` (ctrl-L) as horizontal lines |
@@ -134,11 +137,15 @@ ELPA archives in priority order:
 | `rainbow-delimiters` | Color-coded matching delimiters in `prog-mode` |
 | `winpulse` | Pulse/highlight active window (installed via `:vc`) |
 | `batppuccin` | Catppuccin-based color theme (installed via `:vc`); latte variant active |
+| `cmake-mode` | Major mode for `CMakeLists.txt` and `.cmake` files |
+| `cmake-project` | Integrates CMake projects with `project.el` |
+| `cmake-ide` | Wires `compile_commands.json` into IDE features (flycheck, completion); activated via `cmake-ide-setup` |
 | `terraform-mode` | Terraform/HCL editing; indent level 4 |
 | `web-mode` | Multi-language HTML templates; Django engine default; handles `.html` |
 | `shfmt` | Shell script formatter (`C-c C-f` in `sh-mode`) |
 | `org-beautify-theme` | Visual enhancements for Org mode |
 | `ox-gfm` | Export Org files to GitHub-Flavored Markdown |
+| `exec-path-from-shell` | Imports `$PATH` and env vars from the login shell into GUI Emacs (macOS/Linux only) |
 | `xkcd` | Browse xkcd comics inside Emacs |
 
 ---
@@ -176,8 +183,9 @@ make clean        # delete all *.elc byte-compiled files (preserves source)
 make list-targets # list available Makefile targets
 ```
 
-To regenerate `early-init.el` after editing `early-config.org`, open the `.org`
-file in Emacs and run `M-x org-babel-tangle`. `config.el` is regenerated
+`early-init.el` is re-tangled automatically when you save `early-config.org`,
+via an `after-save-hook` set in that file's local variables. If needed, you can
+also run `M-x org-babel-tangle` manually. `config.el` is regenerated
 automatically on each Emacs startup via `org-babel-load-file` in `init.el`.
 
 ---

@@ -116,3 +116,18 @@ remove the numbering from the file.
 
 write a configuration for kirigami such that it only effects buffers
 which do not have tree-sitter parsers in use.
+
+## 2026-05-09
+
+Analyze code and update CLAUDE.md as needed.
+
+update @CLAUDE.md to reflect removal of prettier-js
+
+cross-reference @custom.el and @config.org and list any installed
+   packages that don't have use-package declarations in @config.org
+
+add a section called "CMake" to the @config.org file and write
+   use-package statements for all three cmake packages. Include any
+   custom settings defined in the use-package statements.
+
+update @CLAUDE.md

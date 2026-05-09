@@ -128,16 +128,18 @@
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe
              ol-rmail ol-w3m))
  '(package-selected-packages
-   '(amx cmake-ide cmake-mode cmake-project elisp-autofmt elisp-lint elpy flycheck
-         gptel-agent gptel-fn-complete ido-completing-read+ jinja2-mode kirigami
-         lsp-treemacs markdown-ts-mode org-beautify-theme ox-gfm
-         page-break-lines prettier rainbow-delimiters shfmt
-         smart-mode-line-powerline-theme terraform-mode transient
+   '(amx cmake-ide cmake-mode cmake-project elisp-autofmt elisp-lint elpy
+         exec-path-from-shell flycheck gptel-agent gptel-fn-complete
+         ido-completing-read+ jinja2-mode lsp-treemacs
+         org-beautify-theme ox-gfm page-break-lines prettier rainbow-delimiters
+         shfmt smart-mode-line-powerline-theme terraform-mode transient
          treemacs-icons-dired treemacs-magit treesit-auto treesit-fold vterm vui
          vulpea vulpea-journal vulpea-ui web-mode which-key
          whitespace-cleanup-mode winpulse xkcd))
  '(safe-local-variable-values
-   '((eval add-hook 'after-save-hook #'org-babel-tangle nil t)
+   '((web-mode-indent-style . 2) (web-mode-block-padding . 2)
+     (web-mode-script-padding . 2) (web-mode-style-padding . 2)
+     (eval add-hook 'after-save-hook #'org-babel-tangle nil t)
      (org-todo-keywords quote
                         ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD"
                                    "NEEDS INPUT" "|" "DONE" "CANCELED"))))))
