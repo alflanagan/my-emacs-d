@@ -84,6 +84,18 @@ my_emacs/
 - **Formatting**: `elisp-autofmt` is configured and hooked into
   `emacs-lisp-mode` and `lisp-data-mode`. Run `C-c f` (buffer) or `C-c r`
   (region) to format. The config file `.elisp-autoformat` controls its settings.
+- **Auto-chmod**: `executable-make-buffer-file-executable-if-script-p` is
+  hooked into `after-save-hook`, so saving a file with a shebang line
+  automatically runs `chmod +x` on it.
+- **LSP I/O**: `read-process-output-max` is set to 4 MB (from 64 KB default)
+  to reduce read-call overhead with verbose LSP servers like clangd.
+- **Bidi**: `bidi-display-reordering` and `bidi-paragraph-direction` are
+  forced to `left-to-right` and `bidi-inhibit-bpa` is `t`. Do not change
+  these if RTL language support is ever needed.
+- **Regexp builder**: `reb-re-syntax` is `'string`, so `re-builder` (`M-x
+  re-builder`) uses string (non-escaped) regexp syntax.
+- **ffap**: `ffap-machine-p-known` is `'reject` so `find-file-at-point`
+  never interprets filenames as URLs.
 
 ---
 
@@ -114,6 +126,7 @@ ELPA archives in priority order:
 | `treesit-fold` | Code folding using Tree-sitter (installed via `:vc`) |
 | `markdown-mode` | Markdown editing; `gfm-mode` for all `.md` and `.markdown` files |
 | `flycheck` | On-the-fly syntax checking; global mode; pinned to `nongnu` |
+| `flycheck-aspell` | Spell-checking via aspell in flycheck |
 | `elpy` | Python IDE features; deferred until a Python file opens |
 | `jinja2-mode` | Jinja2/Django template editing |
 | `vterm` | Full-featured terminal emulator; scrollback 10 000 lines |

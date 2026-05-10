@@ -609,25 +609,19 @@ together. As far as I can tell, they do.
      Flycheck is a modern on-the-fly syntax checking extension for GNU
      Emacs, intended as replacement for the older Flymake extension
      which is part of GNU Emacs.
-
-     Flycheck automatically checks buffers for errors while you type,
-     and reports warnings and errors directly in the buffer and in an
-     optional IDE-like error list.
-
-     It comes with a rich interface for custom syntax checkers and
-     other extensions, and has already many 3rd party extensions
-     adding new features.
-
-     Please read the online manual at https://www.flycheck.org for
-     more information. You can open the manual directly from Emacs
-     with `M-x flycheck-manual'.
      #+END_QUOTE
 
 #+begin_src emacs-lisp
+(use-package flycheck :hook (after-init . global-flycheck-mode) :pin "nongnu")
 (use-package
- flycheck
- :hook (after-init . global-flycheck-mode)
- :pin "nongnu")
+ flycheck-aspell
+ :after flycheck
+ :config
+ (add-to-list 'flycheck-checkers 'markdown-aspell-dynamic)
+ (add-to-list 'flycheck-checkers 'html-aspell-dynamic)
+ (add-to-list 'flycheck-checkers 'xml-aspell-dynamic)
+ (add-to-list 'flycheck-checkers 'c-aspell-dynamic)
+ (add-to-list 'flycheck-checkers 'mail-aspell-dynamic))
 #+end_src
 
 *** Python Programming
