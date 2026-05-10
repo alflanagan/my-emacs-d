@@ -612,7 +612,11 @@ together. As far as I can tell, they do.
      #+END_QUOTE
 
 #+begin_src emacs-lisp
-(use-package flycheck :hook (after-init . global-flycheck-mode) :pin "nongnu")
+(use-package
+ flycheck
+ :hook (after-init . global-flycheck-mode)
+ :pin "nongnu"
+ :config (add-to-list 'flycheck-checkers 'org-lint))
 (use-package
  flycheck-aspell
  :after flycheck
