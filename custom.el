@@ -32,7 +32,6 @@
      "a04676d7b664d62cf8cd68eaddca902899f98985fff042d8d474a0d51e8c9236"
      "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279"
      "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
- '(devdocs-window-select nil)
  '(display-fill-column-indicator t)
  '(dockerfile-use-buildkit t)
  '(flycheck-checkers
@@ -128,9 +127,9 @@
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe
              ol-rmail ol-w3m))
  '(package-selected-packages
-   '(amx cmake-ide cmake-mode cmake-project elisp-autofmt elisp-lint elpy
-         exec-path-from-shell flycheck gptel-agent gptel-fn-complete
-         ido-completing-read+ jinja2-mode lsp-treemacs
+   '(amx cmake-ide cmake-mode cmake-project devdocs elisp-autofmt elisp-lint elpy
+         exec-path-from-shell flycheck gptel-agent gptel-fn-complete htmlize
+         ido-completing-read+ jinja2-mode lsp-treemacs markdown-ts-mode
          org-beautify-theme ox-gfm page-break-lines prettier rainbow-delimiters
          shfmt smart-mode-line-powerline-theme terraform-mode transient
          treemacs-icons-dired treemacs-magit treesit-auto treesit-fold vterm vui

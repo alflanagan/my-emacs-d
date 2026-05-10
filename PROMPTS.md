@@ -131,3 +131,11 @@ add a section called "CMake" to the @config.org file and write
    custom settings defined in the use-package statements.
 
 update @CLAUDE.md
+
+remember markdown-ts-mode is a built-in package for emacs.
+
+Remove packages copilot, highlight-parantheses, casual-info, and
+   casual-lib settings from files.
+
+update the context, modify CLAUDE.md as needed, and write a commit
+   message for staged files

@@ -145,6 +145,8 @@ ELPA archives in priority order:
 | `shfmt` | Shell script formatter (`C-c C-f` in `sh-mode`) |
 | `org-beautify-theme` | Visual enhancements for Org mode |
 | `ox-gfm` | Export Org files to GitHub-Flavored Markdown |
+| `htmlize` | Syntax-highlighted source blocks in org HTML/LaTeX export |
+| `devdocs` | Browse devdocs.io API documentation inside Emacs |
 | `exec-path-from-shell` | Imports `$PATH` and env vars from the login shell into GUI Emacs (macOS/Linux only) |
 | `xkcd` | Browse xkcd comics inside Emacs |
 
