@@ -1,4 +1,4 @@
- -*- fill-column: 80; -*-
+# -*- fill-column: 80; -*-
 * Emacs Configuration
 
 This is file config.org: Main emacs configuration.
@@ -70,16 +70,130 @@ which should be loaded from local files.
     (expand-file-name "my_emacs/lisp/org-contrib/lisp" user-emacs-directory))))
 #+end_src
 
+** Miscellaneous Optimizations
+
+A grab-bag of configuration options from various startup frameworks, collected
+together by [[https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/][Bozhidar Batsov]].
+
+*** Drop Left-to-Right Text
+
+Turn off the bidirectional algorithm. This optimizes text display and editing by
+telling emacs to assume text is left-to-right. Obviously, if you frequently work
+with right-to-left text, don't do this.
+
+#+begin_src emacs-lisp
+(setq-default
+ bidi-display-reordering 'left-to-right
+ bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
+#+end_src
+
+*** Smooth Input Experience
+
+Tell emacs not to do fontification (syntax highlighting) during input, which can
+make input slower. Emacs will wait for idle time to do fontification.
+
+#+begin_src emacs-lisp
+(setq redisplay-skip-fontification-on-input t)
+#+end_src
+
+*** Better Communicate With External Processes
+
+From the blog entry:
+
+#+BEGIN_QUOTE
+The default *~read-process-output-max~* is 64KB, which is still quite
+conservative. Modern LSP servers like rust-analyzer or clangd routinely send
+multi-megabyte responses. Bumping this reduces the number of read calls Emacs
+has to make:
+#+END_QUOTE
+
+#+begin_src emacs-lisp
+(setq read-process-output-max (* 4 1024 1024)) ; 4MB
+#+end_src
+
+#+BEGIN_QUOTE
+If you have several windows visible, Emacs draws a cursor in each of them – even
+the ones you’re not working in. It also highlights selections in non-focused
+windows.
+#+END_QUOTE
+
+This behavior has miniscule performance impact, but some people find the phantom
+cursors annoying. I'm one of them.
+
+#+begin_src emacs-lisp
+(setq-default cursor-in-non-selected-windows nil)
+(setopt highlight-nonselected-windows nil)
+#+end_src
+
+*** Make Shell Scripts Executable
+
+Save a file with a shebang (*~#!~*), and Emacs *~chmod +x~*​es it for you. One of
+those things that should arguably be a default.
+
+#+begin_src emacs-lisp
+(add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
+#+end_src
+
+** Clipboard Tweaks
+
+More optimizations from the blog post by [[https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/][Bozhidar Batsov]].
+
+*** Keep Clipbard Contents
+
+#+BEGIN_QUOTE
+Here’s a scenario: you copy a URL from your browser, switch to Emacs, kill a
+line with C-k, and then try to yank the URL you copied earlier with C-y. Gone.
+The kill replaced it on the clipboard.
+
+This setting makes Emacs save the existing clipboard content into the kill ring
+before overwriting it:
+#+END_QUOTE
+
+#+begin_src emacs-lisp
+(setopt save-interprogram-paste-before-kill t)
+#+end_src
+
+*** De-Duplicate Kill Ring
+
+#+begin_src emacs-lisp
+(setopt kill-do-not-save-duplicates t)
+#+end_src
+
+*** Save Kill Ring
+
+#+begin_src emacs-lisp
+(setopt savehist-additional-variables '(search-ring regexp-search-rhig kill-ring))
+#+end_src
+
+*** Sane Syntax in re-builder (Multiple Configs)
+
+Use reasonable syntax (instead of having to escape everything) for re-builder
+(M-x re-builder), an interactive tool for developing regular expressions.
+
+#+begin_src emacs-lisp
+(setopt reb-re-syntax 'string)
+#+end_src
+
+*** Fix find-file-at-point
+
+The *~ffap~* function is a.k.a. *~find-file-at-point~*, and I only use it for
+files. So it's a real problem when it tries to interpret the filenama as a URL,
+so I turn it off.
+
+#+begin_src emacs-lisp
+(setq ffap-machine-p-known 'reject)
+#+end_src
+
 ** Easy Customization
 
 Set up separate file for use by emacs customization.
 
-I prefer to set customization options in the ~use-package~ declaration
-for each package, but on-the-fly or local-only customizations will go
-to this file.
+I prefer to set customization options in the ~use-package~ declaration for each
+package, but on-the-fly or local-only customizations will go to this file.
 
 #+begin_src emacs-lisp
-;; custom-file is global, need to change it or weird things happen
+;; custom-file is built-in global variable.
 (setq custom-file (get-config-file "custom.el"))
 (load custom-file 'no-error 'no-message)
 #+end_src
@@ -172,6 +286,8 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (save-place-mode t)
  (show-paren-mode t)
  (transient-mark-mode t) ;; visually highlight selected region
+
+ (minibuffer-regexp-mode 1) ;; syntax highlighting for writing regexps
 
  :custom
  (ido-big-directories '("node_modules" "\\.?venv"))

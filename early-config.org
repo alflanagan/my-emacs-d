@@ -1,8 +1,12 @@
- -*- fill-column:80; -*-
+# -*- fill-column:80; -*-
 * early-init.org: Emacs early configuration
 :PROPERTIES:
 :header-args: :tangle early-init.el
 :END:
+
+#+BEGIN_COMMENT
+This is how to do a block comment in org-mode.
+#+END_COMMENT
 
 ** Enable Lexical Binding
 In order to enable lexical binding in the config, this must be the
@@ -104,11 +108,6 @@ the default value of this being ~nil~ is nuts.
 #+begin_src emacs-lisp
 (setopt load-prefer-newer t)
 #+end_src
-
-** TODO
-
-Add a hook to this file to automatically tangle when saved. Not sure if that is
-possible.
 
 ** Set ~lisp~ Subdirectory as User Lisp Directory
 
