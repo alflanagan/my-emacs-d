@@ -41,7 +41,6 @@
 ;; no-byte-compile: t
 ;; no-native-compile: t
 ;; no-update-autoloads: t
-;; eval: (add-hook 'after-save-hook #'org-babel-tangle nil t)
 ;; End:
 
 ;;; early-init.el ends here
