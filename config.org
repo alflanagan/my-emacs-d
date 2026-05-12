@@ -131,6 +131,8 @@ cursors annoying. I'm one of them.
 Save a file with a shebang (*~#!~*), and Emacs *~chmod +x~*​es it for you. One of
 those things that should arguably be a default.
 
+**** TODO: for python mode, set exec if 'if __name__ === "main"' is present.
+
 #+begin_src emacs-lisp
 (add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
 #+end_src
@@ -185,6 +187,27 @@ so I turn it off.
 (setq ffap-machine-p-known 'reject)
 #+end_src
 
+*** Filter Completion Suggestions
+
+The default filter for M-x completion shows all commands, whether they apply to
+the current buffer or not. This setting tells it to filter out commands that
+have been delared to not apply to this buffer.
+
+- command-completion-default-include-p: filters commands declared to only apply
+  to modes that aren't enabled in the current buffer.
+
+- transient-command-completion-not-suffix-only-p: filters commands that have
+  been declared to only act as [[info:Transient][transient]] suffixes.
+
+#+begin_src emacs-lisp
+  (defun my-completion-predicate (symbol buffer)
+    "Combines command completion predicates to make completion list shorter."
+    (and (command-completion-default-include-p symbol buffer)
+         (transient-command-completion-not-suffix-only-p symbol buffer)))
+
+  (setopt read-extended-command-predicate #'my-completion-predicate)
+#+end_src
+
 ** Easy Customization
 
 Set up separate file for use by emacs customization.
@@ -233,6 +256,10 @@ of the file name until the buffer names are unique.
 (require 'uniquify)
 (setopt uniquify-buffer-name-style 'post-forward-angle-brackets)
 #+end_src
+
+** Server
+
+(server-start)
 
 ** Customizing Emacs Itself
 
@@ -494,15 +521,14 @@ Set up treemacs, the directory tree sidebar. See [[https://github.com/Alexander-
 the gory details.
 
 #+begin_src emacs-lisp
-(require 'cua-base)
 (use-package
  treemacs
  :ensure t
  :defer nil
  :init
+ (require 'cua-base)
  (with-eval-after-load 'winum
    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
- (treemacs-start-on-boot)
  :config
  (when treemacs-python-executable
    (treemacs-git-mode 'extended)
@@ -516,6 +542,7 @@ the gory details.
    (advice-add
     'treemacs-apply-single-annotation
     :before-while (lambda (path) (treemacs-is-path path :in-workspace))))
+ (treemacs-start-on-boot)
  :custom
  (treemacs-project-follow-mode t)
  (treemacs-filewatch-mode t)
@@ -860,20 +887,6 @@ auto-complete, company) by reading the project's
 (use-package cmake-ide :after cmake-mode :config (cmake-ide-setup))
 #+end_src
 
-*** Devdocs
-
-[[https://devdocs.io][Devdocs]] is a website that provides multiple technical
-documents such as user guides and reference manuals.
-
-#+BEGIN_QUOTE
-DevDocs combines multiple API documentations in a fast, organized, and
-searchable interface.
-#+END_QUOTE
-
-#+begin_src emacs-lisp
-(use-package devdoc :custom (devdocs-use-mathjax t) (devdocs-window-select nil))
-#+end_src
-
 *** Exec-path-from-shell
 
 Gets path (and other variables) from shell and updates Emacs configuration.
@@ -908,7 +921,7 @@ The best web comic ever, available right in the editor.
 *** AI Integration
 
 #+begin_src emacs-lisp
-  ;; disabling this until gptel gets fixe;; d
+  ;; disabling this until gptel gets fixed
     ;; (use-package
     ;;  gptel
     ;;  :defer t
