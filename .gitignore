@@ -15,3 +15,6 @@ config.el
 
 # local permissions, etc. for Claude Code.
 settings.local.json
+
+# I use this file for experiments, message composition, etc.
+my-temp.sh

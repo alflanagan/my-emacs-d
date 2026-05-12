@@ -126,15 +126,7 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe
              ol-rmail ol-w3m))
- '(package-selected-packages
-   '(amx cmake-ide cmake-mode cmake-project devdocs elisp-autofmt elisp-lint elpy
-         exec-path-from-shell flycheck gptel-agent gptel-fn-complete htmlize
-         ido-completing-read+ jinja2-mode lsp-treemacs markdown-ts-mode
-         org-beautify-theme ox-gfm page-break-lines prettier rainbow-delimiters
-         shfmt smart-mode-line-powerline-theme terraform-mode transient
-         treemacs-icons-dired treemacs-magit treesit-auto treesit-fold vterm vui
-         vulpea vulpea-journal vulpea-ui web-mode which-key
-         whitespace-cleanup-mode winpulse xkcd))
+ '(package-selected-packages nil)
  '(safe-local-variable-values
    '((web-mode-indent-style . 2) (web-mode-block-padding . 2)
      (web-mode-script-padding . 2) (web-mode-style-padding . 2)
