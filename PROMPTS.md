@@ -143,3 +143,6 @@ Write an emacs lisp function to read the file
 @/Users/adrianflanagan/.config/emacs/my_emacs/config.org, and print
 out a list of packages installed via the (use-package) calls in the
 file.
+
+Update function my/list-use-packages in @lisp/my-misc.el to ignore
+any line beginning with (optional) whitespace and a semicolon.

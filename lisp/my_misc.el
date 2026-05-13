@@ -61,7 +61,11 @@ sorted package list."
       (while (re-search-forward "(use-package[[:space:]]+\\([^[:space:]\n)]+\\)"
                                 nil
                                 t)
-        (push (match-string-no-properties 1) packages)))
+        (save-excursion
+          (goto-char (match-beginning 0))
+          (beginning-of-line)
+          (unless (looking-at "[[:space:]]*;")
+            (push (match-string-no-properties 1) packages)))))
     (setq packages (sort (delete-dups packages) #'string<))
     (with-output-to-temp-buffer "*use-package list*"
       (princ
