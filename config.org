@@ -679,8 +679,8 @@ file.
  elpy
  :ensure t
  :defer t
- :commands (elpy-enable)
- :hook ((python-mode python-ts-mode) . elpy-enable))
+ :commands (elpy-enable elpy-test-at-point elpy-test-run elpy-project-root)
+ :hook ((python-mode python-ts-mode django-html-mode) . elpy-enable))
 #+end_src
 
 *** ELisp Programming
@@ -840,7 +840,7 @@ correctly.
 *** Vulpea (Notes)
 
 #+begin_src emacs-lisp
-(use-package vulpea :custom (vulpea-db-autosync-mode t))
+(use-package vulpea :commands vulpea-visit :custom (vulpea-db-autosync-mode t))
 (use-package vui)
 (use-package vulpea-ui :bind ("C-c v s" . 'vulpea-ui-sidebar-toggle))
 (use-package
