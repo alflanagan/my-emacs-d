@@ -2,7 +2,7 @@
 
 As is apparently tradition, I'm sharing my configuration of Emacs.
 
-I've gone a step further and used emacs' **org-mode** to document the
+I've gone a step further and used Emacs' **org-mode** to document the
 file. The technique is borrowed from Ryan Thomson's repo
 [dotemacs](https://github.com/DarwinAwardWinner/dotemacs). He uses different packages, so if you're interested I
 urge you to check it out also.
@@ -10,22 +10,22 @@ urge you to check it out also.
 (Another good source for configuration info: [Emacs From Scratch](https://arne.me/blog/emacs-from-scratch-part-one-foundations).)
 
 I strongly suggest you use this as a guide, and don't just replace
-your _init.el file_. I'm loading a number of packages that I find
+your _init.el_ file. I'm loading a number of packages that I find
 personally useful. It's unlikely you want them all.
 
 If you're an Emacs beginner I especially recommend starting with
 "stock" Emacs and adding packages, if you want, one at a time. I hope
 this repository helps you solve some of the issues you'll run into as
-you start addding them.
+you start adding them.
 
 Inclusion of a package in the configuration does *not* mean it's
 bug-free, of course, but it does mean I find the package useful.
 
 ## (Semi-)Literate Programming In Emacs
 
-Rather than put startup code directly into emacs startup files
+Rather than put startup code directly into Emacs startup files
 _init.el_ and _early-init.el_, I've set up files with **org-mode**,
-which has a subsytem called **babel**. This allows me to intermix
+which has a subsystem called **babel**. This allows me to intermix
 text, with formatting and editor support, and source code, also with
 formatting and editor support.
 
@@ -54,7 +54,7 @@ The code in the _early-init.el_ file gets executed before packages are
 loaded, including org-mode. So to write it in **org-mode** format, it
 would have to use the built-in version of **org-mode**, which is not
 what we want. So, the process for that file is distinctly old-school:
-you write code in the _early-config.org_ file, then execute the emacs
+you write code in the _early-config.org_ file, then execute the Emacs
 command *org-babel-tangle* to produce an _early-init.el_ file with
 only the elisp code, which runs normally.
 
@@ -69,7 +69,7 @@ As you add packages to Emacs, your Emacs config directory ends up with
 a lot of extra directories and files.
 
 To keep this repository clean, it's designed to be added as a
-subdirectory of the emacs config directory, named "my\_emacs". My
+sub-directory of the Emacs config directory, named "my\_emacs". My
 actual _init.el_ and _early-init.el_ files in my emacs home directory
 are just links to the same filename in the my\_emacs/ directory.
 (Windows users will probably need to create a separate file, which
