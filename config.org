@@ -652,7 +652,10 @@ together. As far as I can tell, they do.
  (add-to-list 'flycheck-checkers 'html-aspell-dynamic)
  (add-to-list 'flycheck-checkers 'xml-aspell-dynamic)
  (add-to-list 'flycheck-checkers 'c-aspell-dynamic)
- (add-to-list 'flycheck-checkers 'mail-aspell-dynamic))
+ (add-to-list 'flycheck-checkers 'mail-aspell-dynamic)
+ (add-to-list 'flycheck-checkers 'nroff-aspell-dynamic)
+ (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
+ (add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic))
 #+end_src
 
 *** Python Programming
@@ -719,8 +722,8 @@ enables a language-specific mode for the regions of progammming
 language.
 
 #+begin_src emacs-lisp
+;; see https://web-mode.org/!!
 (use-package
- ; see https://web-mode.org/!!
  web-mode
  :defer t
  :mode
