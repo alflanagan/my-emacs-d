@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+rm -r ~/.config/emacs/elpa/*
+rm -r ~/.config/emacs/eln-cache/*
