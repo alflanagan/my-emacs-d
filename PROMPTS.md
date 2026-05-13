@@ -136,3 +136,10 @@ remember markdown-ts-mode is a built-in package for emacs.
 
 Remove packages copilot, highlight-parantheses, casual-info, and
    casual-lib settings from files.
+
+## 2026-05-13
+
+Write an emacs lisp function to read the file
+@/Users/adrianflanagan/.config/emacs/my_emacs/config.org, and print
+out a list of packages installed via the (use-package) calls in the
+file.

@@ -45,5 +45,31 @@
   "Return the list created by prepending DIRECTORY to each member FILE-LIST."
   (mapcar (lambda (it) (expand-file-name it directory)) file-list))
 
+(defun my/list-use-packages (&optional file)
+  "List all packages declared with `use-package' in FILE.
+FILE defaults to config.org under `user-emacs-directory'/my_emacs/.
+Displays results in a '*use-package list*' buffer and returns the
+sorted package list."
+  (interactive)
+  (let* ((config-file
+          (or file
+              (expand-file-name "my_emacs/config.org" user-emacs-directory)))
+         (packages '()))
+    (with-temp-buffer
+      (insert-file-contents config-file)
+      (goto-char (point-min))
+      (while (re-search-forward "(use-package[[:space:]]+\\([^[:space:]\n)]+\\)"
+                                nil
+                                t)
+        (push (match-string-no-properties 1) packages)))
+    (setq packages (sort (delete-dups packages) #'string<))
+    (with-output-to-temp-buffer "*use-package list*"
+      (princ
+       (format "Packages declared with use-package in %s:\n\n"
+               (file-name-nondirectory config-file)))
+      (dolist (pkg packages)
+        (princ (format "  %s\n" pkg))))
+    packages))
+
 (provide 'my_misc)
 ;;; my_misc.el ends here
