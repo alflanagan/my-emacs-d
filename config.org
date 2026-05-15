@@ -670,17 +670,32 @@ manually invoke the mode, or add it with local variables.
 (use-package jinja2-mode)
 #+end_src
 
-~elpy~ combines a selection of other utilities to create a complete python
-programming environment. Defer it so it doesn't load unless we edit a python
-file.
+~elpy~ has traditionally been the package you install to set up python tools,
+however it has not been updated to work with more recent versions of python
+nor recognize the `pyproject.toml` project configuration (see
+https://github.com/jorgenschaefer/elpy/issues/2052). This is true as of the
+20260515.230 build.
+
+So, I'm not installing elpy but using [[https://github.com/z80dev/uv-mode][uv-mode]]. It means setting up each python
+package individually, but what's a programmer to do?
 
 #+begin_src emacs-lisp
 (use-package
- elpy
- :ensure t
- :defer t
- :commands (elpy-enable elpy-test-at-point elpy-test-run elpy-project-root)
- :hook ((python-mode python-ts-mode django-html-mode) . elpy-enable))
+ uv-mode
+ :hook
+ (python-mode . uv-mode-auto-activate-hook)
+ (python-ts-mode . uv-mode-auto-activate-hook)
+ (django-html-mode . uv-mode-auto-activate-hook))
+#+end_src
+
+*** Zap Up To Char
+
+In Emac's standard keybindings, the command `zap-to-char` is bound to key M-z
+(alt-Z on PC, option-Z on Mac). However I find the `zap-up-to-char` command to
+be more useful, so I'm rebinding the key.
+
+#+begin_src emacs-lisp
+(bind-key "M-z" #'zap-up-to-char)
 #+end_src
 
 *** ELisp Programming
