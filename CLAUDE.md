@@ -146,8 +146,8 @@ ELPA archives in priority order:
 | `editorconfig` | Read `.editorconfig` files |
 | `whitespace-cleanup-mode` | Strip trailing whitespace on save |
 | `page-break-lines` | Render `^L` (ctrl-L) as horizontal lines |
-| `kirigami` | Code folding for buffers without active tree-sitter parsers; hooked to `prog-mode` via `my/kirigami-enable-if-no-treesit` |
 | `rainbow-delimiters` | Color-coded matching delimiters in `prog-mode` |
+| ~~`kirigami` | Code folding for buffers without active tree-sitter parsers; hooked to `prog-mode` via `my/kirigami-enable-if-no-treesit`~~ |
 | `winpulse` | Pulse/highlight active window (installed via `:vc`) |
 | `batppuccin` | Catppuccin-based color theme (installed via `:vc`); latte variant active |
 | `cmake-mode` | Major mode for `CMakeLists.txt` and `.cmake` files |
