@@ -465,10 +465,12 @@ just when printed.
 
 *** Better folding: Kirigami
 
-Kirigami provides code folding for buffers that don't use tree-sitter
-(where ~treesit-fold~ already handles folding).
++Kirigami provides code folding for buffers that don't use tree-sitter
+(where ~treesit-fold~ already handles folding).+
 
-#+begin_src emacs-lisp
+Well, having errors with kirigami (again?). So I'm commenting this out.
+
+#+begin_comment
 (use-package
  kirigami
  :commands kirigami-mode
@@ -478,7 +480,7 @@ Kirigami provides code folding for buffers that don't use tree-sitter
    (unless (treesit-parser-list)
      (kirigami-mode 1)))
  (add-hook 'prog-mode-hook #'my/kirigami-enable-if-no-treesit))
-#+end_src
+#+end_comment
 
 *** Clean up Whitespace
 
@@ -621,7 +623,9 @@ together. As far as I can tell, they do.
  markdown-mode
  :custom
  (markdown-command
-  "cmark-gfm -e footnotes -e table -e strikethrough -e autolink -e tagfilter -e tasklist --smart")
+  (concat
+   "cmark-gfm -e footnotes -e table -e strikethrough -e autolink "
+   "-e tagfilter -e tasklist --smart --strikethrough-double-tilde"))
  (markdown-asymmetric-header t)
  (markdown-enable-highlighting-syntax t)
  (markdown-special-ctrl-a/e t)
@@ -663,11 +667,11 @@ together. As far as I can tell, they do.
 ~python-ts-mode~ is a built-in mode for python using tree-sitter. Add support
 for template languages used by Django and Flask frameworks.
 
-Not hooked because templates and non-template files both end in .html. I can
-manually invoke the mode, or add it with local variables.
-
 #+begin_src emacs-lisp
-(use-package jinja2-mode)
+(use-package
+ jinja2-mode
+ :vc (:url "https://github.com/alflanagan/jinja2-mode.git" :rev :newest)
+ :hook html-mode)
 #+end_src
 
 ~elpy~ has traditionally been the package you install to set up python tools,
@@ -685,7 +689,7 @@ package individually, but what's a programmer to do?
  :hook
  (python-mode . uv-mode-auto-activate-hook)
  (python-ts-mode . uv-mode-auto-activate-hook)
- (django-html-mode . uv-mode-auto-activate-hook))
+ (jinja2-mode . uv-mode-auto-activate-hook))
 #+end_src
 
 *** Zap Up To Char

@@ -18,3 +18,5 @@ settings.local.json
 
 # I use this file for experiments, message composition, etc.
 my-temp.sh
+# Apple data storage of some sort.
+.DS_Store
