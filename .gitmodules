@@ -1,6 +1,3 @@
 [submodule "lisp/org-contrib"]
 	path = lisp/org-contrib
 	url = https://git.sr.ht/~bzg/org-contrib
-[submodule "lisp/jinja2-mode"]
-	path = lisp/jinja2-mode
-	url = git@github.com:alflanagan/jinja2-mode.git
