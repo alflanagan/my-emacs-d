@@ -1,5 +1,9 @@
 # -*- fill-column: 80; -*-
+ #+auto_export: html
+ #+auto_tangle: t
+
 * Emacs Configuration
+
 
 This is file config.org: Main emacs configuration.
 
@@ -270,7 +274,9 @@ of the file name until the buffer names are unique.
 
 ** Server
 
+#+begin_src emacs-lisp
 (server-start)
+#+end_src
 
 ** Customizing Emacs Itself
 
@@ -595,7 +601,6 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 (use-package treemacs-magit :after (treemacs magit) :ensure t)
 #+end_src
 
-
 *** Treesit
 
 Set up to use tree-sitter modes automatically, where one exists. Not
@@ -694,7 +699,6 @@ be more useful, so I'm rebinding the key.
 #+end_src
 
 *** ELisp Programming
-
 **** Linting
 
 #+begin_src emacs-lisp
@@ -717,11 +721,28 @@ command works great on code embedded in .org files.
  ;; system python is 3.9, but elisp-autofmt needs more recent version
  (elisp-autofmt-python-bin "/opt/homebrew/bin/python3")
  (elisp-autofmt-format-quoted t)
- :hook ((emacs-lisp-mode . elisp-autofmt-mode) (lisp-data-mode . elisp-autofmt-mode))
+ :hook (emacs-lisp-mode lisp-data-mode)
  :bind
  (:map
   lisp-mode-shared-map
   (("C-c f" . elisp-autofmt-buffer) ("C-c r" . elisp-autofmt-region))))
+#+end_src
+
+**** Testing
+
+#+begin_src emacs-lisp
+(use-package buttercup)
+#+end_src
+
+**** Emacs Packages
+
+These are some tools for use in developing Emacs packages. Unless you're doing
+that, you don't need them.
+
+#+begin_src emacs-lisp
+(use-package eask-mode)
+(use-package eldoc-eask)
+(use-package flycheck-eask)
 #+end_src
 
 *** Web Mode
@@ -765,7 +786,7 @@ Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
 #+begin_src emacs-lisp
 (use-package
  prettier
- :hook ((js-mode typescript-ts-mode css-mode web-mode html-mode))
+ :hook (js-mode typescript-ts-mode css-mode web-mode html-mode)
  :custom (prettier-js-command "prettier"))
 #+end_src
 
@@ -787,7 +808,7 @@ Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
+(use-package rainbow-delimiters :hook prog-mode)
 #+end_src
 
 *** Language Server Protocol
@@ -829,12 +850,6 @@ Org mode itself is set up in the ~init.el~ file (NOT generated from an .org
 file), because we need to load the newer version in order to process this file
 correctly.
 
-**** Beautify Theme
-
-#+begin_src emacs-lisp
-(use-package org-beautify-theme :after org)
-#+end_src
-
 **** Add Markdown as an Export Format
 
 #+begin_src emacs-lisp
@@ -845,6 +860,41 @@ correctly.
 
 #+begin_src emacs-lisp
 (use-package htmlize :after org)
+#+end_src
+
+**** Add option for auto-tangling org-babel files like this one
+
+#+begin_src emacs-lisp
+(use-package org-auto-tangle :defer t :hook org-moode)
+#+end_src
+
+**** Automatically Tangle Org Files on Save
+
+#+begin_src emacs-lisp
+(use-package org-autoexport
+  :defer t
+  :hook (org-mode . org-autoexport-mode))
+#+end_src
+
+**** Modern Theme
+
+A much more visually appealing mode for editing .org files.
+
+#+begin_src emacs-lisp
+(use-package org-modern :config (global-org-modern-mode))
+#+end_src
+
+And setup org indentation to work nicely with ~org-modern-mode~.
+
+#+begin_src emacs-lisp
+(use-package
+ org-modern-indent
+ :vc (:url "https://github.com/jdtsmith/org-modern-indent" :rev :newest)
+ :hook org-mode
+ :config
+ (add-hook 'org-mode-hook #'org-modern-indent-mode 90) ; add late to hook
+ (add-to-list 'org-indent-post-buffer-init-functions #'org-modern-indent-init)
+ :after org-modern)
 #+end_src
 
 *** Vulpea (Notes)
