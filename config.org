@@ -8,7 +8,7 @@ This is file config.org: Main emacs configuration.
 *Must* be first line of the file.
 
 #+begin_src emacs-lisp
-;; -*- lexical-binding: t; -*-
+;;; config.el -- Non-site-specific initialization -*- lexical-binding: t; -*-
 #+end_src
 
 ** Legal Stuff
@@ -17,9 +17,8 @@ Legal/copyright notice for the generated file. All terms are asserted to apply t
 this file also.
 
 #+begin_src emacs-lisp
-;;; config.el -- Non-site-specific initialization -*- lexical-binding: t; -*-
 
-;; Copyright © 2025 A. Lloyd Flanagan
+;; Copyright © 2026 A. Lloyd Flanagan
 ;;
 ;; Author: A. Lloyd Flanagan <lloyd.flanagan@proton.me>
 ;; Maintainer: A. Lloyd Flanagan <lloyd.flanagan@proton.me>
@@ -43,6 +42,11 @@ this file also.
 ;;
 ;; This file is not part of GNU Emacs.
 
+;;; Commentary:
+;; See config.org for documentation.
+;;
+;;; Code:
+
 #+end_src
 
 ** Helper Function
@@ -51,7 +55,9 @@ Quick function to make refering to other config files easier.
 
 #+begin_src emacs-lisp
 (defun get-config-file (filename)
-  (expand-file-name filename (expand-file-name user-emacs-directory "my_emacs/")))
+  "Returns FILENAME absolute path in the user's my_emacs directory."
+  (expand-file-name filename
+                    (expand-file-name user-emacs-directory "my_emacs/")))
 #+end_src
 
 ** Load Path
@@ -184,7 +190,7 @@ files. So it's a real problem when it tries to interpret the filenama as a URL,
 so I turn it off.
 
 #+begin_src emacs-lisp
-(setq ffap-machine-p-known 'reject)
+(setopt ffap-machine-p-known 'reject)
 #+end_src
 
 *** Filter Completion Suggestions
@@ -200,12 +206,13 @@ have been delared to not apply to this buffer.
   been declared to only act as [[info:Transient][transient]] suffixes.
 
 #+begin_src emacs-lisp
-  (defun my-completion-predicate (symbol buffer)
-    "Combines command completion predicates to make completion list shorter."
-    (and (command-completion-default-include-p symbol buffer)
-         (transient-command-completion-not-suffix-only-p symbol buffer)))
+(defun my-completion-predicate (symbol buffer)
+  "Determine whether SYMBOL should be offered as a completion in BUFFER.
+This version filters out commands that don't apply to BUFFER or are transient suffixes."
+  (and (command-completion-default-include-p symbol buffer)
+       (transient-command-completion-not-suffix-only-p symbol buffer)))
 
-  (setopt read-extended-command-predicate #'my-completion-predicate)
+(setopt read-extended-command-predicate #'my-completion-predicate)
 #+end_src
 
 ** Easy Customization
@@ -232,11 +239,15 @@ We need to add the *melpa* package source to ~package-archives~.
 
 ** Secrets File
 
-This local file is for global variables with values which should not
-be checked in with source control, such as passwords and API keys.
+This local file is for global variables with values which should not be checked
+in with source control, such as passwords and API keys.
+
+Mine defines a function `define-secret-customizations` which calls `setopt` to
+set customization options that should be secret.
 
 #+begin_src emacs-lisp
 (require 'my-secrets)
+(define-secret-customizations)
 #+end_src
 
 ** Uniquify
