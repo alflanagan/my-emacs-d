@@ -126,8 +126,6 @@ changes that to the ~lisp~ directory we already created.
 ** Local Variables
 
 Tell emacs to not do compilations or autoloads for the ~early-init.el~ file.
-Note that the ~eval:~ value actually only applies to this file, but it's
-harmless because we never edit ~early-init.el~.
 
 #+begin_src emacs-lisp
 ;; Local Variables:
