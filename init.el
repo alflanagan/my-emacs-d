@@ -1,4 +1,4 @@
-;; -*- lexical-binding: t -*-
+;; init.el -- Bootstrap file for my emacs config -*- lexical-binding: t -*-
 
 ;; based on https://github.com/DarwinAwardWinner/dotemacs,
 ;; which has a lot of useful things not included here.
@@ -53,17 +53,24 @@
 (use-package
  org
  :pin "gnu"
- :bind (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
+ :bind
+ (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
  :custom
  (org-adapt-indentation 'headline-data)
  (org-ctrl-k-protect-subtree t)
  (org-special-ctrl-a/e t)
- (org-return-follows-link t))
+ (org-return-follows-link t)
+ (org-startup-indented t))
 
 (require 'org)
 
 ;;; build rest of init code dynamically.
+;; For an alternative, check out literate-elisp package
+;;  https://github.com/jingtaozf/literate-elisp
 (save-window-excursion
-  (org-babel-load-file (expand-file-name "config.org" (concat user-emacs-directory "my_emacs/")) nil))
+  (org-babel-load-file
+   (expand-file-name "config.org"
+                     (concat user-emacs-directory "my_emacs/"))
+   nil))
 
 ;;; init.el ends here
