@@ -655,10 +655,13 @@ together. As far as I can tell, they do.
 ~python-ts-mode~ is a built-in mode for python using tree-sitter. Add support
 for template languages used by Django and Flask frameworks.
 
+~jinja3-mode~ is my own update to Melpa's ~jinja2-mode~. It started as an attempt
+to conform to the latest Jinja version but may get rewritten as a minor mode.
+
 #+begin_src emacs-lisp
 (use-package
- jinja2-mode
- :vc (:url "https://github.com/alflanagan/jinja2-mode.git" :rev :newest)
+ jinja3-mode
+ :vc (:url "https://github.com/alflanagan/jinja3-mode.git" :rev :newest)
  :hook html-mode)
 #+end_src
 
