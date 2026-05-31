@@ -75,7 +75,8 @@ my_emacs/
   `use-package-always-ensure t` is set globally in `init.el`, so `:ensure t` is
   implicit everywhere. Use `:ensure nil` explicitly for built-in packages.
 - **`:vc` keyword** is used to install packages directly from GitHub when they
-  are not on ELPA/MELPA (e.g. `batppuccin`, `winpulse`, `treesit-fold`).
+  are not on ELPA/MELPA (e.g. `batppuccin`, `winpulse`, `treesit-fold`,
+  `mermaid-ts-mode`).
 - **`:bind` values** use plain quoted symbols (`'my-fn`), not `#'my-fn`.
 - **`setopt`** (Emacs 29+) is preferred over `setq` for user options.
 - **Indentation**: spaces only, no tabs (`indent-tabs-mode nil`).
@@ -155,6 +156,11 @@ ELPA archives in priority order:
 | `cmake-ide`                                           | Wires `compile_commands.json` into IDE features.                      |
 | `terraform-mode`                                      | Terraform/HCL editing; indent level 4                                 |
 | `web-mode`                                            | Multi-language HTML templates; Django engine default; handles `.html` |
+| `mermaid-ts-mode`                                     | Mermaid diagram editing via Tree-sitter (`:vc` from GitHub); note:    |
+|                                                       | the treesitter parser is incomplete and seeking a new maintainer       |
+| `ob-mermaid`                                          | Org Babel support for Mermaid diagram blocks; loaded `:after org`     |
+| `jinja3-mode`                                         | Jinja3 template editing (`:vc` from alflanagan/jinja3-mode.git)       |
+| `org-modern-indent`                                   | Improved indentation display in `org-modern-mode` (`:vc` from GitHub) |
 | `shfmt`                                               | Shell script formatter (`C-c C-f` in `sh-mode`)                       |
 | `org-beautify-theme`                                  | Visual enhancements for Org mode                                      |
 | `ox-gfm`                                              | Export Org files to GitHub-Flavored Markdown                          |

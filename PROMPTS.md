@@ -146,3 +146,12 @@ file.
 
 Update function my/list-use-packages in @lisp/my-misc.el to ignore
 any line beginning with (optional) whitespace and a semicolon.
+
+## 2026-05-31
+
+Re-read changed files and update CLAUDE.md to reflect changes. Keep
+   the level of detail about the same as the current file.
+
+remember to order prompts in @PROMPTS.md in ascending order by date.
+   Then update the file so that all prompts are listed in the correct
+   order.
