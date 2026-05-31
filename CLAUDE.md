@@ -128,18 +128,23 @@ ELPA archives in priority order:
 | `markdown-mode`                                       | Markdown editing; `gfm-mode` for all `.md` and `.markdown` files      |
 | `flycheck`                                            | On-the-fly syntax checking; global mode; pinned to `nongnu`           |
 | `flycheck-aspell`                                     | Spell-checking via aspell in flycheck                                 |
-| `elpy`                                                | Python IDE features; deferred until a Python file opens               |
-| `jinja2-mode`                                         | Jinja2/Django template editing                                        |
+| `uv-mode`                                             | Activates uv virtualenv in python-mode / python-ts-mode buffers       |
 | `vterm`                                               | Full-featured terminal emulator; scrollback 10 000 lines              |
 | `prettier`                                            | Auto-format JS/TS/CSS/HTML buffers on save (hook-based)               |
 | `gptel`                                               | LLM/AI integration (currently disabled/commented out pending fixes)   |
 | `gptel-fn-complete`                                   | Function completion via gptel (currently disabled)                    |
 | `gptel-agent`                                         | Agent-mode support for gptel (currently disabled)                     |
+| `magit`                                               | Git interface; loaded deferred                                         |
 | `vulpea`                                              | Notes / knowledge base; auto-syncs DB                                 |
-| `vulpea-ui` + `vui`                                   | Sidebar UI for vulpea (`C-c v s` to toggle)                           |
+| `vui`                                                 | Low-level UI primitives used by `vulpea-ui`                           |
+| `vulpea-ui`                                           | Sidebar UI for vulpea (`C-c v s` to toggle)                           |
 | `vulpea-journal`                                      | Journal integration (`C-c j`)                                         |
 | `elisp-autofmt`                                       | Auto-format Emacs Lisp code.                                          |
 | `elisp-lint`                                          | Lint Emacs Lisp files (deferred)                                      |
+| `buttercup`                                           | BDD-style testing framework for Emacs Lisp                            |
+| `eask-mode`                                           | Major mode for Eask package build files                               |
+| `eldoc-eask`                                          | Eldoc support for Eask files                                          |
+| `flycheck-eask`                                       | Flycheck checker for Eask files                                       |
 | `smart-mode-line` + `smart-mode-line-powerline-theme` | Enhanced mode line with powerline theme                               |
 | `amx`                                                 | Enhanced M-x history and completion (via ido)                         |
 | `ido-completing-read+`                                | Extends ido completion to all `completing-read` calls                 |
@@ -160,12 +165,13 @@ ELPA archives in priority order:
 |                                                       | the treesitter parser is incomplete and seeking a new maintainer       |
 | `ob-mermaid`                                          | Org Babel support for Mermaid diagram blocks; loaded `:after org`     |
 | `jinja3-mode`                                         | Jinja3 template editing (`:vc` from alflanagan/jinja3-mode.git)       |
+| `org-auto-tangle`                                     | Auto-tangle org-babel source blocks on save                           |
+| `org-autoexport`                                      | Auto-export org files on save (e.g. to HTML)                          |
+| `org-modern`                                          | Modern Org mode styling; enables `global-org-modern-mode`             |
 | `org-modern-indent`                                   | Improved indentation display in `org-modern-mode` (`:vc` from GitHub) |
 | `shfmt`                                               | Shell script formatter (`C-c C-f` in `sh-mode`)                       |
-| `org-beautify-theme`                                  | Visual enhancements for Org mode                                      |
 | `ox-gfm`                                              | Export Org files to GitHub-Flavored Markdown                          |
 | `htmlize`                                             | Syntax-highlighted source blocks in org HTML/LaTeX export             |
-| `devdocs`                                             | Browse devdocs.io API documentation inside Emacs                      |
 | `exec-path-from-shell`                                | Imports `$PATH` and env vars from the login shell.                    |
 | `xkcd`                                                | Browse xkcd comics inside Emacs                                       |
 

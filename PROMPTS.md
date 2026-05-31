@@ -155,3 +155,11 @@ Re-read changed files and update CLAUDE.md to reflect changes. Keep
 remember to order prompts in @PROMPTS.md in ascending order by date.
    Then update the file so that all prompts are listed in the correct
    order.
+
+why doesn't @/Users/adrianflanagan/.config/emacs/my_emacs/CLAUDE.md
+   reference package org-modern-mode?
+
+Compare @/Users/adrianflanagan/.config/emacs/my_emacs/config.org and
+   @/Users/adrianflanagan/.config/emacs/my_emacs/CLAUDE.md and add any
+   packages which are missing from
+   @/Users/adrianflanagan/.config/emacs/my_emacs/CLAUDE.md to that file.
