@@ -1,6 +1,6 @@
 # -*- fill-column: 80; -*-
- #+auto_export: html
- #+auto_tangle: t
+#+auto_export: html
+#+auto_tangle: t
 
 * Emacs Configuration
 
@@ -779,6 +779,37 @@ language.
 (use-package shfmt :bind (:map sh-mode-map ("C-c C-f" . shfmt)))
 #+end_src
 
+*** Mermaid Diagrams
+
+**** TODO: clone mermaid-mode repo locally and fix outstanding problems
+
+For now I'm using the tree-sitter mode, but the treesitter parser is incomplete
+and looking for a new maintainer:
+https://github.com/monaqa/tree-sitter-mermaid/issues/13#issuecomment-3569113794.
+
+There's also a plain ~mermaid-mode~, but it overrides ob-mermaid poorly:
+see https://github.com/abrochard/mermaid-mode/issues/17.
+
+#+begin_src emacs-lisp
+(use-package
+ mermaid-ts-mode
+ :defer t
+ :vc
+ (:url
+  "https://github.com/JonathanHope/mermaid-ts-mode.git"
+  :branch "main"
+  :rev
+  :newest
+  :main-file "mermaid-ts-mode.el"))
+
+(use-package
+ ob-mermaid
+ ;; website includes add-to-list command, but org-babel shoud handle
+ ;; automatically
+ ;; :config (add-to-list 'org-babel-load-languages '(mermaid . t))
+ :after org)
+#+end_src
+
 *** Code Formatters
 
 Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
@@ -922,7 +953,6 @@ And setup org indentation to work nicely with ~org-modern-mode~.
     )
   :hook (terraform-mode . my/terraform-mode-init))
 #+end_src
-
 
 *** CMake
 
