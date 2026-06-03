@@ -530,7 +530,7 @@ a version of ~transient~ more recent than the built-in one, so we add an explici
 ~use-package~ call for it.
 
 #+begin_src emacs-lisp
-(use-package transient :pin "melpa")
+(use-package transient :pin "melpa" :defer t)
 
 (use-package magit :defer t)
 #+end_src
@@ -602,9 +602,7 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 
 *** Treesit
 
-Set up to use tree-sitter modes automatically, where one exists. Not
-sure of the exact details of how treesit and LSP (next section) work
-together. As far as I can tell, they do.
+Set up to use tree-sitter modes automatically, where one exists.
 
 [[https://emacs-tree-sitter.github.io/][(External) Tree Sitter Docs]] (some docs here: [[info:elisp#Parsing
  Program Source][info "(elisp) Parsing Program Source"]]).
@@ -621,6 +619,7 @@ together. As far as I can tell, they do.
 #+begin_src emacs-lisp
 (use-package
  treesit-fold
+ :defer t
  :vc
  (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest)
  :custom (global-treesit-fold-indicators-mode t))
@@ -659,16 +658,6 @@ together. As far as I can tell, they do.
 ~python-ts-mode~ is a built-in mode for python using tree-sitter. Add support
 for template languages used by Django and Flask frameworks.
 
-~jinja3-mode~ is my own update to Melpa's ~jinja2-mode~. It started as an attempt
-to conform to the latest Jinja version but may get rewritten as a minor mode.
-
-#+begin_src emacs-lisp
-(use-package
- jinja3-mode
- :vc (:url "https://github.com/alflanagan/jinja3-mode.git" :rev :newest)
- :hook html-mode)
-#+end_src
-
 ~elpy~ has traditionally been the package you install to set up python tools,
 however it has not been updated to work with more recent versions of python
 nor recognize the `pyproject.toml` project configuration (see
@@ -681,10 +670,10 @@ package individually, but what's a programmer to do?
 #+begin_src emacs-lisp
 (use-package
  uv-mode
+ :defer t
  :hook
  (python-mode . uv-mode-auto-activate-hook)
- (python-ts-mode . uv-mode-auto-activate-hook)
- (jinja2-mode . uv-mode-auto-activate-hook))
+ (python-ts-mode . uv-mode-auto-activate-hook))
 #+end_src
 
 *** Zap Up To Char
@@ -724,13 +713,16 @@ command works great on code embedded in .org files.
  :bind
  (:map
   lisp-mode-shared-map
-  (("C-c f" . elisp-autofmt-buffer) ("C-c r" . elisp-autofmt-region))))
+  (("C-c f" . elisp-autofmt-buffer) ("C-c r" . elisp-autofmt-region))
+  :map
+  org-mode-map
+  (("C-c r" . elisp-autofmt-region))))
 #+end_src
 
 **** Testing
 
 #+begin_src emacs-lisp
-(use-package buttercup)
+(use-package buttercup :defer t)
 #+end_src
 
 **** Emacs Packages
@@ -739,17 +731,17 @@ These are some tools for use in developing Emacs packages. Unless you're doing
 that, you don't need them.
 
 #+begin_src emacs-lisp
-(use-package eask-mode)
-(use-package eldoc-eask)
-(use-package flycheck-eask)
+(use-package eask-mode :defer t)
+(use-package eldoc-eask :defer t)
+(use-package flycheck-eask :defer t)
 #+end_src
 
 *** Web Mode
 
-A number of different tools allow source code to be embedded in an
-HTML file. Package ~web-mode~ uses ~html-mode~ for the HTML parts, but
-enables a language-specific mode for the regions of progammming
-language.
+~web-mode~ adds support for templating languages to ~html-mode~. It supports
+over 20 templating languages, including Jinja. There's also a mode called
+~jinja2-mode~, however it is not up-to-date with the latest Jinja versions.
+~web-mode~ is much better.
 
 #+begin_src emacs-lisp
 ;; see https://web-mode.org/!!
@@ -775,7 +767,7 @@ language.
 *** Shell Scripts
 
 #+begin_src emacs-lisp
-(use-package shfmt :bind (:map sh-mode-map ("C-c C-f" . shfmt)))
+(use-package shfmt :bind (:map sh-mode-map ("C-c C-f" . shfmt)) :defer t)
 #+end_src
 
 *** Mermaid Diagrams
@@ -803,9 +795,7 @@ see https://github.com/abrochard/mermaid-mode/issues/17.
 
 (use-package
  ob-mermaid
- ;; website includes add-to-list command, but org-babel shoud handle
- ;; automatically
- ;; :config (add-to-list 'org-babel-load-languages '(mermaid . t))
+ :config (add-to-list 'org-babel-load-languages '(mermaid . t))
  :after org)
 #+end_src
 
@@ -816,6 +806,7 @@ Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
 #+begin_src emacs-lisp
 (use-package
  prettier
+ :defer t
  :hook (js-mode typescript-ts-mode css-mode web-mode html-mode)
  :custom (prettier-js-command "prettier"))
 #+end_src
@@ -823,12 +814,16 @@ Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
 *** Terminal
 
 #+begin_src emacs-lisp
-(use-package vterm
-  :commands vterm
-  :custom (vterm-max-scrollback 10000))
+(use-package
+ vterm
+ :defer t
+ :commands vterm
+ :custom (vterm-max-scrollback 10000))
 #+end_src
 
 *** Visual Tweaks
+
+Briefly highlights the new window when you switch windows.
 
 #+begin_src emacs-lisp
 (use-package
@@ -836,6 +831,10 @@ Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
  :vc (:url "https://github.com/xenodium/winpulse" :rev :newest)
  :config (winpulse-mode +1))
 #+end_src
+
+This is a nifty package that colors nested delimiters according to their nesting
+level, to provide a visual cue for matching delimiters. Especially helpful in
+lisp modes.
 
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters :hook prog-mode)
@@ -883,13 +882,13 @@ correctly.
 **** Add Markdown as an Export Format
 
 #+begin_src emacs-lisp
-(use-package ox-gfm :after org)
+(use-package ox-gfm :defer t :after org)
 #+end_src
 
 **** Support Syntax Highlighting in Export
 
 #+begin_src emacs-lisp
-(use-package htmlize :after org)
+(use-package htmlize :defer t:after org)
 #+end_src
 
 **** Add option for auto-tangling org-babel files like this one
@@ -935,6 +934,7 @@ And setup org indentation to work nicely with ~org-modern-mode~.
 (use-package vulpea-ui :bind ("C-c v s" . 'vulpea-ui-sidebar-toggle))
 (use-package
  vulpea-journal
+ :commands vulpea-visit
  :after (vulpea vulpea-ui)
  :config (vulpea-journal-setup)
  :bind ("C-c j" . 'vulpea-journal))
@@ -1006,7 +1006,7 @@ See also function ~exec-path-from-shell-setenv~ to import other shell variables.
 The best web comic ever, available right in the editor.
 
 #+begin_src emacs-lisp
-(use-package xkcd)
+(use-package xkcd :defer t)
 #+end_src
 
 *** AI Integration
