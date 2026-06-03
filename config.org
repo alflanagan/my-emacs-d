@@ -655,16 +655,13 @@ Set up to use tree-sitter modes automatically, where one exists.
 
 *** Python Programming
 
-~python-ts-mode~ is a built-in mode for python using tree-sitter. Add support
-for template languages used by Django and Flask frameworks.
-
 ~elpy~ has traditionally been the package you install to set up python tools,
 however it has not been updated to work with more recent versions of python
 nor recognize the `pyproject.toml` project configuration (see
 https://github.com/jorgenschaefer/elpy/issues/2052). This is true as of the
 20260515.230 build.
 
-So, I'm not installing elpy but using [[https://github.com/z80dev/uv-mode][uv-mode]]. It means setting up each python
+So, I'm not installing ~elpy~ but using [[https://github.com/z80dev/uv-mode][uv-mode]]. It means setting up each python
 package individually, but what's a programmer to do?
 
 #+begin_src emacs-lisp
