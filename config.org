@@ -1,6 +1,5 @@
 # -*- fill-column: 80; -*-
 #+auto_export: html
-#+auto_tangle: t
 
 * Emacs Configuration
 
@@ -409,6 +408,9 @@ Eventual goal is to remove these from customization entirely, and use
 
 NOTE: ~use-package~ is installed by ~init.el~.
 
+NOTE: The config variable ~use-package-always-ensure~ is set, so declarations
+without an ~:ensure~ keyword behave as those they had the value ~:ensure t~.
+
 *** EditorConfig
 
 There is a standard file named .editorconfig that sets a few options for an
@@ -416,7 +418,7 @@ editor, helping ensure everyone working on a project uses the same settings.
 This sets up Emacs to get config settings from that file.
 
 #+begin_src emacs-lisp
-(use-package editorconfig :ensure t :config (editorconfig-mode 1))
+(use-package editorconfig :config (editorconfig-mode 1))
 #+end_src
 
 *** Themes
@@ -454,7 +456,6 @@ The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" 
 
 #+begin_src emacs-lisp
 (use-package amx
-    :ensure t
     :config (amx-mode 1))
 #+end_src
 
@@ -519,7 +520,7 @@ as of Emacs 30.
      which-key
      :ensure nil ;; defer to built-in
      :config (which-key-mode))
-  (use-package which-key :ensure t :config (which-key-mode)))
+  (use-package which-key :config (which-key-mode)))
 #+end_src
 
 *** Magit
@@ -529,7 +530,7 @@ a version of ~transient~ more recent than the built-in one, so we add an explici
 ~use-package~ call for it.
 
 #+begin_src emacs-lisp
-(use-package transient :pin "melpa" :ensure t)
+(use-package transient :pin "melpa")
 
 (use-package magit :defer t)
 #+end_src
@@ -542,7 +543,6 @@ the gory details.
 #+begin_src emacs-lisp
 (use-package
  treemacs
- :ensure t
  :defer nil
  :init
  (require 'cua-base)
@@ -591,14 +591,13 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 (use-package
  treemacs-icons-dired
  :after (treemacs)
- :hook (dired-mode . treemacs-icons-dired-enable-once)
- :ensure t)
+ :hook (dired-mode . treemacs-icons-dired-enable-once))
 #+end_src
 
 **** Treemacs-magit -- integrate git with treemacs.
 
 #+begin_src emacs-lisp
-(use-package treemacs-magit :after (treemacs magit) :ensure t)
+(use-package treemacs-magit :after (treemacs magit))
 #+end_src
 
 *** Treesit
@@ -945,7 +944,6 @@ And setup org indentation to work nicely with ~org-modern-mode~.
 
 #+begin_src emacs-lisp
 (use-package terraform-mode
-  :ensure t
   :custom (terraform-indent-level 4)
   :config
   (defun my/terraform-mode-init ()
