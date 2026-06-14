@@ -885,7 +885,7 @@ correctly.
 **** Support Syntax Highlighting in Export
 
 #+begin_src emacs-lisp
-(use-package htmlize :defer t:after org)
+(use-package htmlize :defer t :after org)
 #+end_src
 
 **** Add option for auto-tangling org-babel files like this one
@@ -1023,6 +1023,33 @@ The best web comic ever, available right in the editor.
     ;; (use-package gptel-fn-complete :after gptel)
 
     ;; (use-package gptel-agent :after gptel)
+#+end_src
+
+
+*** GitHub CoPilot
+
+Integrate GitHub CoPilot AI.
+
+#+begin_src emacs-lisp
+(use-package
+ copilot
+ :ensure t
+ :hook (prog-mode . copilot-mode)
+ :vc
+ (:url
+  "https://github.com/copilot-emacs/copilot.el"
+  :rev
+  :newest
+  :branch "main")
+ :bind
+ (:map
+  copilot-completion-map
+  ("<tab>" . copilot-accept-completion)
+  ("TAB" . copilot-accept-completion)
+  ("C-<tab>" . copilot-accept-completion-by-word)
+  ("C-TAB" . copilot-accept-completion-by-word)
+  ("C-n" . copilot-next-completion)
+  ("C-p" . copilot-previous-completion)))
 #+end_src
 
 ** End Of File
