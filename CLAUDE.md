@@ -164,7 +164,6 @@ ELPA archives in priority order:
 | `mermaid-ts-mode`                                     | Mermaid diagram editing via Tree-sitter (`:vc` from GitHub); note:    |
 |                                                       | the treesitter parser is incomplete and seeking a new maintainer       |
 | `ob-mermaid`                                          | Org Babel support for Mermaid diagram blocks; loaded `:after org`     |
-| `jinja3-mode`                                         | Jinja3 template editing (`:vc` from alflanagan/jinja3-mode.git)       |
 | `org-auto-tangle`                                     | Auto-tangle org-babel source blocks on save                           |
 | `org-autoexport`                                      | Auto-export org files on save (e.g. to HTML)                          |
 | `org-modern`                                          | Modern Org mode styling; enables `global-org-modern-mode`             |
