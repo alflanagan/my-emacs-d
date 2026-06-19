@@ -106,7 +106,7 @@ make input slower. Emacs will wait for idle time to do fontification.
 (setq redisplay-skip-fontification-on-input t)
 #+end_src
 
-*** Better Communicate With External Processes
+*** Better Communication With External Processes
 
 From the blog entry:
 
@@ -532,7 +532,7 @@ a version of ~transient~ more recent than the built-in one, so we add an explici
 #+begin_src emacs-lisp
 (use-package transient :pin "melpa" :defer t)
 
-(use-package magit :defer t)
+(use-package magit :defines magit-auto-revert-mode :defer t)
 #+end_src
 
 *** Treemacs
@@ -592,12 +592,6 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
  treemacs-icons-dired
  :after (treemacs)
  :hook (dired-mode . treemacs-icons-dired-enable-once))
-#+end_src
-
-**** Treemacs-magit -- integrate git with treemacs.
-
-#+begin_src emacs-lisp
-(use-package treemacs-magit :after (treemacs magit))
 #+end_src
 
 *** Treesit
