@@ -2,12 +2,13 @@
 
 As is apparently tradition, I'm sharing my configuration of Emacs.
 
-I've gone a step further and used Emacs' **org-mode** to document the
-file. The technique is borrowed from Ryan Thomson's repo
-[dotemacs](https://github.com/DarwinAwardWinner/dotemacs). He uses different packages, so if you're interested I
-urge you to check it out also.
+I've gone a step further and used Emacs' **org-mode** to document the file. The
+technique is borrowed from Ryan Thomson's repo
+[dotemacs](https://github.com/DarwinAwardWinner/dotemacs). He uses different
+packages, so if you're interested I urge you to check it out also.
 
-(Another good source for configuration info: [Emacs From Scratch](https://arne.me/blog/emacs-from-scratch-part-one-foundations).)
+(Another good source for configuration info: [Emacs From
+Scratch](https://arne.me/blog/emacs-from-scratch-part-one-foundations).)
 
 I strongly suggest you use this as a guide, and don't just replace
 your _init.el_ file. I'm loading a number of packages that I find
@@ -42,7 +43,7 @@ I'm finding this to be a great way to set the code up for several reasons:
 
 As mentioned above, this system takes advantage of Emacs' Org mode.
 This is a complete personal information manager that works directly
-with text files &emdash; no back-end database, no online system to
+with text files &mdash; no back-end database, no online system to
 keep your information locked in its system.
 
 Org mode is built into Emacs. However, there's usually a more recent
