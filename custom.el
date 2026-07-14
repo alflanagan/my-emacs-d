@@ -4,6 +4,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(amx-backend 'ido)
  '(casual-info-use-unicode-symbols t)
  '(casual-lib-use-unicode t)
  '(completion-auto-select 'second-tab)
@@ -96,6 +97,10 @@
                blueprint-ts-mode bibtex-mode bibtex-ts-mode sh-mode bash-ts-mode
                awk-mode awk-ts-mode))
  '(highlight-parentheses-colors '("#7ec98f" "#e5c06d" "#a4b5e6" "#834c98" "#8ac6f2"))
+ '(ido-buffer-disable-smart-matches nil)
+ '(ido-create-new-buffer 'always)
+ '(ido-enable-dot-prefix t)
+ '(ido-show-dot-for-dired t)
  '(indent-tabs-mode nil nil nil "Customized with use-package emacs")
  '(initial-buffer-choice t)
  '(js-chain-indent t)
@@ -136,14 +141,13 @@
                  cmake-ide cmake-mode cmake-project copilot docker
                  docker-compose-mode dockerfile-mode eask-mode eldoc-eask
                  elisp-autofmt elisp-lint exec-path-from-shell flycheck-aspell
-                 flycheck-eask folio-theme gptel-agent gptel-fn-complete
-                 ido-completing-read+ kirigami lsp-treemacs magit
-                 mermaid-ts-mode mise-tasks nerd-icons nice-org-html ob-mermaid
-                 org-auto-tangle org-autoexport org-modern org-modern-indent
-                 ox-gfm page-break-lines prettier rainbow-delimiters shfmt
-                 smart-mode-line-powerline-theme terraform-mode
-                 treemacs-icons-dired treesit-auto treesit-fold uv-mode vterm
-                 web-mode whitespace-cleanup-mode winpulse xkcd))
+                 flycheck-eask folio-theme ido-completing-read+ kirigami
+                 lsp-treemacs magit mermaid-ts-mode mise-tasks nerd-icons
+                 nice-org-html ob-mermaid org-auto-tangle org-autoexport
+                 org-modern org-modern-indent ox-gfm page-break-lines prettier
+                 rainbow-delimiters shfmt smart-mode-line-powerline-theme
+                 terraform-mode treemacs-icons-dired treesit-auto treesit-fold
+                 uv-mode vterm web-mode whitespace-cleanup-mode winpulse xkcd))
  '(safe-local-variable-values
    '((web-mode-indent-style . 2) (web-mode-block-padding . 2)
      (web-mode-script-padding . 2) (web-mode-style-padding . 2)
