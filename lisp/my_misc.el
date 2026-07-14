@@ -33,23 +33,27 @@
 ;;
 ;;EXPR should be an expression with a variable named "it".
 
-(defun members-with-suffix (source-list suffix-string)
-  "Return a list composed of every member of SOURCE-LIST for which `string-suffix-p' detects suffix SUFFIX-STRING."
+(defun my/members-with-suffix (source-list suffix-string)
+  "Filter SOURCE-LIST to only members with suffix SUFFIX-STRING.
+
+Suffix test is `string-suffix-p'."
   (if (null source-list)
       nil
     (if (string-suffix-p suffix-string (car source-list))
-        (cons (car source-list) (members-with-suffix (cdr source-list) suffix-string))
-      (members-with-suffix (cdr source-list) suffix-string))))
+        (cons (car source-list) (my/members-with-suffix (cdr source-list) suffix-string))
+      (my/members-with-suffix (cdr source-list) suffix-string))))
 
-(defun file-name-paths (directory file-list)
+(defun my/file-name-paths (directory file-list)
   "Return the list created by prepending DIRECTORY to each member FILE-LIST."
   (mapcar (lambda (it) (expand-file-name it directory)) file-list))
 
 (defun my/list-use-packages (&optional file)
   "List all packages declared with `use-package' in FILE.
+
 FILE defaults to config.org under `user-emacs-directory'/my_emacs/.
-Displays results in a '*use-package list*' buffer and returns the
-sorted package list."
+Displays results in a '*`use-package' list*' buffer and returns the sorted
+package list."
+
   (interactive)
   (let* ((config-file
           (or file
@@ -107,7 +111,7 @@ and display that buffer."
       (dolist (pkg package-selected-packages)
         (unless (member (symbol-name pkg) declared)
           (push pkg missing)))
-      (with-current-buffer (get-buffer-create "missing use-package")
+      (with-current-buffer (get-buffer-create "*missing use-package*")
         (erase-buffer)
         (if missing
             (dolist (pkg (nreverse missing))
