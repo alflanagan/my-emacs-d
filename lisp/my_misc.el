@@ -75,5 +75,45 @@ sorted package list."
         (princ (format "  %s\n" pkg))))
     packages))
 
+(defun my/missing-use-package (&optional file)
+  "Check `package-selected-packages' against `use-package' forms in FILE.
+FILE defaults to config.org under `user-emacs-directory'/my_emacs/.
+If `package-selected-packages' is empty, report that in a new buffer.
+Otherwise, for each selected package with no matching `use-package'
+form in FILE, write its name to a buffer named \"missing use-package\"
+and display that buffer."
+  (interactive)
+  (if (null package-selected-packages)
+      (with-current-buffer (get-buffer-create "*package-selected-packages*")
+        (erase-buffer)
+        (insert "package-selected-packages is empty.")
+        (display-buffer (current-buffer)))
+    (let* ((config-file
+            (or file
+                (expand-file-name "my_emacs/config.org" user-emacs-directory)))
+           (declared '())
+           (missing '()))
+      (with-temp-buffer
+        (insert-file-contents config-file)
+        (goto-char (point-min))
+        (while (re-search-forward "(use-package[[:space:]]+\\([^[:space:]\n)]+\\)"
+                                  nil
+                                  t)
+          (save-excursion
+            (goto-char (match-beginning 0))
+            (beginning-of-line)
+            (unless (looking-at "[[:space:]]*;")
+              (push (match-string-no-properties 1) declared)))))
+      (dolist (pkg package-selected-packages)
+        (unless (member (symbol-name pkg) declared)
+          (push pkg missing)))
+      (with-current-buffer (get-buffer-create "missing use-package")
+        (erase-buffer)
+        (if missing
+            (dolist (pkg (nreverse missing))
+              (insert (symbol-name pkg) "\n"))
+          (insert "No missing use-package declarations."))
+        (display-buffer (current-buffer))))))
+
 (provide 'my_misc)
 ;;; my_misc.el ends here

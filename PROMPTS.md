@@ -165,3 +165,13 @@
     @/Users/adrianflanagan/.config/emacs/my_emacs/PROMPTS.md, for example 1st
     paragraph should have "1.  " and the third paragraph should have "3. " --
     don't restart numbering for each date.
+
+## 2026-07-14
+
+54. write a script in emacs list to check the variable
+    package-selected-packages and print a message to a new buffer it is
+    empty. if the variable is not empty, for each package in the list,
+    check the file config.org for a use-package statement to load that
+    package. if the use-package statement is not found, write the name of
+    the package to a new buffer name "missing use-package", and display
+    that buffer.
