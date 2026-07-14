@@ -135,10 +135,7 @@ ELPA archives in priority order:
 | `gptel-fn-complete`                                   | Function completion via gptel (currently disabled)                    |
 | `gptel-agent`                                         | Agent-mode support for gptel (currently disabled)                     |
 | `magit`                                               | Git interface; loaded deferred                                         |
-| `vulpea`                                              | Notes / knowledge base; auto-syncs DB                                 |
-| `vui`                                                 | Low-level UI primitives used by `vulpea-ui`                           |
-| `vulpea-ui`                                           | Sidebar UI for vulpea (`C-c v s` to toggle)                           |
-| `vulpea-journal`                                      | Journal integration (`C-c j`)                                         |
+| `nerd-icons`                                          | Icon font used with Fira Code Nerd Font Mono                          |
 | `elisp-autofmt`                                       | Auto-format Emacs Lisp code.                                          |
 | `elisp-lint`                                          | Lint Emacs Lisp files (deferred)                                      |
 | `buttercup`                                           | BDD-style testing framework for Emacs Lisp                            |
@@ -147,13 +144,12 @@ ELPA archives in priority order:
 | `flycheck-eask`                                       | Flycheck checker for Eask files                                       |
 | `smart-mode-line` + `smart-mode-line-powerline-theme` | Enhanced mode line with powerline theme                               |
 | `amx`                                                 | Enhanced M-x history and completion (via ido)                         |
-| `ido-completing-read+`                                | Extends ido completion to all `completing-read` calls                 |
 | `which-key`                                           | Displays available key bindings.                                      |
 | `editorconfig`                                        | Read `.editorconfig` files                                            |
 | `whitespace-cleanup-mode`                             | Strip trailing whitespace on save                                     |
 | `page-break-lines`                                    | Render `^L` (ctrl-L) as horizontal lines                              |
 | `rainbow-delimiters`                                  | Color-coded matching delimiters in `prog-mode`                        |
-| ~~`kirigami`                                          | Code folding for buffers without active tree-sitter parsers.~~        |
+| `kirigami`                                            | Code folding for buffers without active tree-sitter parsers.          |
 | `winpulse`                                            | Pulse/highlight active window (installed via `:vc`)                   |
 | `batppuccin`                                          | Catppuccin-based color theme; latte variant active.                   |
 | `cmake-mode`                                          | Major mode for `CMakeLists.txt` and `.cmake` files                    |
