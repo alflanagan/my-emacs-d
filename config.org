@@ -84,6 +84,10 @@ which should be loaded from local files.
 A grab-bag of configuration options from various startup frameworks, collected
 together by [[https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/][Bozhidar Batsov]].
 
+Also see [Using use-package the Right
+Way](https://batsov.com/articles/2025/04/17/using-use-package-the-right-way/)
+for advice on setting up `use-package` to minimize startup time.
+
 *** Drop Left-to-Right Text
 
 Turn off the bidirectional algorithm. This optimizes text display and editing by
@@ -245,7 +249,7 @@ We need to add the *melpa* package source to ~package-archives~.
 This local file is for global variables with values which should not be checked
 in with source control, such as passwords and API keys.
 
-Mine defines a function `define-secret-customizations` which calls `setopt` to
+Mine defines a function ~define-secret-customizations~ which calls ~setopt~ to
 set customization options that should be secret.
 
 #+begin_src emacs-lisp
@@ -269,12 +273,6 @@ of the file name until the buffer names are unique.
 #+begin_src emacs-lisp
 (require 'uniquify)
 (setopt uniquify-buffer-name-style 'post-forward-angle-brackets)
-#+end_src
-
-** Server
-
-#+begin_src emacs-lisp
-(server-start)
 #+end_src
 
 ** Customizing Emacs Itself
@@ -346,6 +344,7 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  ;; put file backups in single directory, not in same directory with '~'
  ;; appended.
  (backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
+ (use-package-compute-statistics t) ;; get useful startup timings with M-x use-package-report
 
  ;; old libraries are creating temporary buffers without the lexical-binding
  ;; tag. Since I don't need that warning, clean up *Warnings* a bit by silencing
@@ -391,6 +390,15 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
 
 Set up with my current programming font, Fira Code. You must have Fira
 Code installed on your system for this to work.
+
+#+begin_src emacs-lisp
+(use-package
+ nerd-icons
+ :custom
+ ;; "Symbols Nerd Font Mono" is the default and is recommended
+ ;; me? Accept a recommendation?
+ (nerd-icons-font-family "FiraCode Nerd Font Mono"))
+#+end_src
 
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
@@ -459,18 +467,6 @@ The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" 
     :config (amx-mode 1))
 #+end_src
 
-#+BEGIN_QUOTE
-This package replaces stock emacs completion with ido completion wherever it is
-possible to do so without breaking things (i.e. what you were probably hoping
-for when you set ido-everywhere to t).
-#+END_QUOTE
-
-#+begin_src emacs-lisp
-(use-package ido-completing-read+
-  :config
-    (ido-ubiquitous-mode 1))
-#+end_src
-
 *** Page-break Lines
 
 This is a neat little package that displays embedded ctrl-L characters
@@ -483,22 +479,15 @@ just when printed.
 
 *** Better folding: Kirigami
 
-+Kirigami provides code folding for buffers that don't use tree-sitter
-(where ~treesit-fold~ already handles folding).+
+Kirigami provides code folding for buffers that don't use tree-sitter
+(where ~treesit-fold~ already handles folding).
 
-Well, having errors with kirigami (again?). So I'm commenting this out.
-
-#+begin_comment
-(use-package
- kirigami
- :commands kirigami-mode
- :config
- (defun my/kirigami-enable-if-no-treesit ()
-   "Enable `kirigami-mode' in buffers without active tree-sitter parsers."
-   (unless (treesit-parser-list)
-     (kirigami-mode 1)))
- (add-hook 'prog-mode-hook #'my/kirigami-enable-if-no-treesit))
-#+end_comment
+(use-package kirigami
+  :custom
+  ;; Add Kirigami to the menu bar and context menu (`context-menu-mode').
+  (kirigami-show-menu-bar t)
+  (kirigami-show-context-menu t)
+  :hook (after-init . (lambda () (kirigami-global-mode t))))
 
 *** Clean up Whitespace
 
@@ -727,6 +716,23 @@ that, you don't need them.
 (use-package flycheck-eask :defer t)
 #+end_src
 
+**** Elisp Debugging
+
+Add some advice to the ~display-buffer~ function so that unexpected popups of
+messages or warning buffer will generate a backtrace for debugging.
+
+#+begin_src emacs-lisp
+  ;;  Assisted-By: Claude Sonnet 4.6.
+  (advice-add
+   'display-buffer
+   :before
+   (lambda (buf &rest _)
+     (let ((buff-name (buffer-name (get-buffer buf))))
+       (when (or (equal buff-name "*Messages*") (equal buff-name "*Warnings*"))
+         (message "display-buffer called for *Messages* from:")
+         (backtrace)))))
+#+end_src
+
 *** Web Mode
 
 ~web-mode~ adds support for templating languages to ~html-mode~. It supports
@@ -919,17 +925,8 @@ And setup org indentation to work nicely with ~org-modern-mode~.
 
 *** Vulpea (Notes)
 
-#+begin_src emacs-lisp
-(use-package vulpea :commands vulpea-visit :custom (vulpea-db-autosync-mode t))
-(use-package vui)
-(use-package vulpea-ui :bind ("C-c v s" . 'vulpea-ui-sidebar-toggle))
-(use-package
- vulpea-journal
- :commands vulpea-visit
- :after (vulpea vulpea-ui)
- :config (vulpea-journal-setup)
- :bind ("C-c j" . 'vulpea-journal))
-#+end_src
+This section _was_ used to set up vulpea, a notes/journaling system. I wasn't
+using and it wass causing bugs in unrelated modules.
 
 *** Terraform Suport
 
@@ -1027,7 +1024,6 @@ Integrate GitHub CoPilot AI.
 #+begin_src emacs-lisp
 (use-package
  copilot
- :ensure t
  :hook (prog-mode . copilot-mode)
  :vc
  (:url
@@ -1043,7 +1039,8 @@ Integrate GitHub CoPilot AI.
   ("C-<tab>" . copilot-accept-completion-by-word)
   ("C-TAB" . copilot-accept-completion-by-word)
   ("C-n" . copilot-next-completion)
-  ("C-p" . copilot-previous-completion)))
+  ("C-p" . copilot-previous-completion))
+ :custom (copilot-indent-offset-warning-disable t))
 #+end_src
 
 ** End Of File

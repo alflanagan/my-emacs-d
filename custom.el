@@ -14,7 +14,10 @@
  '(cua-enable-cua-keys nil)
  '(custom-enabled-themes '(smart-mode-line-dark wombat))
  '(custom-safe-themes
-   '("cbe7f2b12e2739b720225769cdc3a69dfb8a31544d5f86960a3fbdae4c58c0b8"
+   '("b0cedf3c6d8fbbf65934e2045dddacff0a031992f2f389215adcb0ca741347c3"
+     "95cda51cb6a3fdf667a7710cf85cd67726440e556b91a316ebc5197f077903bb"
+     "967c23e9ba179b80560774419f081df22e7674aac23c5c550b817e4a1ce7d058"
+     "cbe7f2b12e2739b720225769cdc3a69dfb8a31544d5f86960a3fbdae4c58c0b8"
      "68a0201c7bb9dba9c9b6fd6662d1f3daf8865860ba8fc56d0201be859da535fc"
      "45631691477ddee3df12013e718689dafa607771e7fd37ebc6c6eb9529a8ede5"
      "b2981f490579960b489803a8b874e570cf293fdf9065014ee1aaa0e6b523e8ae"
@@ -64,6 +67,7 @@
  '(flycheck-markdown-markdownlint-cli-config
    '(".markdownlint.json" ".markdownlint.jsonc" ".markdownlint.yaml"
      ".markdownlint"))
+ '(flycheck-python-ruff-executable "/opt/homebrew/bin/ruff")
  '(flycheck-rubocop-lint-only t)
  '(global-highlight-parentheses-mode t)
  '(global-tree-sitter-mode t)
@@ -122,11 +126,24 @@
      (c-mode . c-ts-mode) (c++-mode . c++-ts-mode) (rust . rust-ts-mode)
      (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)
      (ruby-mode . ruby-ts-mode)))
+ '(markdown-ts-inline-images t)
  '(mode-require-final-newline 'visit-save)
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe
              ol-rmail ol-w3m))
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(agent-shell ai-code amx batppuccin buttercup claude-code claude-code-context
+                 cmake-ide cmake-mode cmake-project copilot docker
+                 docker-compose-mode dockerfile-mode eask-mode eldoc-eask
+                 elisp-autofmt elisp-lint exec-path-from-shell flycheck-aspell
+                 flycheck-eask folio-theme gptel-agent gptel-fn-complete
+                 ido-completing-read+ kirigami lsp-treemacs magit
+                 mermaid-ts-mode mise-tasks nerd-icons nice-org-html ob-mermaid
+                 org-auto-tangle org-autoexport org-modern org-modern-indent
+                 ox-gfm page-break-lines prettier rainbow-delimiters shfmt
+                 smart-mode-line-powerline-theme terraform-mode
+                 treemacs-icons-dired treesit-auto treesit-fold uv-mode vterm
+                 web-mode whitespace-cleanup-mode winpulse xkcd))
  '(safe-local-variable-values
    '((web-mode-indent-style . 2) (web-mode-block-padding . 2)
      (web-mode-script-padding . 2) (web-mode-style-padding . 2)
