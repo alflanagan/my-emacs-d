@@ -432,10 +432,15 @@ This sets up Emacs to get config settings from that file.
 *** Themes
 
 #+begin_src emacs-lisp
-(use-package batppuccin
-  :vc (:url "https://github.com/bbatsov/batppuccin-emacs" :rev :newest)
-  :config
-  (load-theme 'batppuccin-latte t))
+(use-package
+ batppuccin
+ :vc (:url "https://github.com/bbatsov/batppuccin-emacs" :rev :newest)
+ :config (load-theme 'batppuccin-latte t))
+
+(use-package
+ folio-theme
+ :vc (:url "https://github.com/kn66/folio-theme.el" :rev :newest)
+ :config (load-theme 'folio t))
 #+end_src
 
 *** Better Mode Line
@@ -999,27 +1004,49 @@ The best web comic ever, available right in the editor.
 
 *** AI Integration
 
-#+begin_src emacs-lisp
-  ;; disabling this until gptel gets fixed
-    ;; (use-package
-    ;;  gptel
-    ;;  :defer t
-    ;;  :pin "nongnu"
-    ;;  :custom gptel-model 'claude-sonnet-4-6)
-    ;;  (gptel-backend
-    ;;   '(gptel-anthropic "Claude" :stream t
-    ;;                     :key
-    ;;                     (lambda () (getenv "ANTHROPIC_API_KEY"))))
+These packages integrate AI agents generally, and Claude in particular, with
+emacs. Note: the package *~gptel~* looks promising, but in my tests I ran into
+problems.
 
-    ;; (use-package gptel-fn-complete :after gptel)
+To use *~agent-shell~* with Claude requires the claude-agent-acp package from
+npm, install it with:
 
-    ;; (use-package gptel-agent :after gptel)
+#+begin_src shell
+  npm install -g @agentclientprotocol/claude-agent-acp
 #+end_src
 
+Similarly, for OpenAI’s Codex
+
+#+begin_src shell
+  npm install -g @agentclientprotocol/codex-acp
+#+end_src
+
+and ensure the codex-acp executable is in PATH.
+
+There are a *lot* of other ACP implementations, so for any other agent check
+https://github.com/xenodium/agent-shell to find the right one for your agent.
+
+#+begin_src emacs-lisp
+(use-package
+ agent-shell
+ ;; got this from docs: but agent-shell-make-environment-variables does not exist. Arrggg.
+ ;; :config
+ ;; (agent-shell-anthropic-claude-environment
+ ;;  (agent-shell-make-environment-variables :inherit-env t)))
+ )
+
+(use-package
+ ai-code
+ :config (ai-code-set-backend 'claude-code)
+ :bind
+ ;; the suggested default, "C-c a", is used by org-agenda.
+ ("C-c i" . #'ai-code-menu))
+#+end_src
 
 *** GitHub CoPilot
 
-Integrate GitHub CoPilot AI.
+Integrate GitHub CoPilot AI. This doesn't use *~agent-shell~* but installs
+itself for code completion, etc.
 
 #+begin_src emacs-lisp
 (use-package
