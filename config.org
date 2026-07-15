@@ -1,5 +1,6 @@
 # -*- fill-column: 80; -*-
 #+auto_export: html
+#+OPTIONS: toc:2
 
 * Emacs Configuration
 
@@ -13,8 +14,6 @@ This is file config.org: Main emacs configuration.
 #+begin_src emacs-lisp
 ;;; config.el -- Non-site-specific initialization -*- lexical-binding: t; -*-
 #+end_src
-
-** Legal Stuff
 
 Legal/copyright notice for the generated file. All terms are asserted to apply to
 this file also.
@@ -52,17 +51,6 @@ this file also.
 
 #+end_src
 
-** Helper Function
-
-Quick function to make refering to other config files easier.
-
-#+begin_src emacs-lisp
-(defun get-config-file (filename)
-  "Returns FILENAME absolute path in the user's my_emacs directory."
-  (expand-file-name filename
-                    (expand-file-name user-emacs-directory "my_emacs/")))
-#+end_src
-
 ** Load Path
 
 In my local ~/lisp~ subdirectory, I've got some third-party projects
@@ -77,6 +65,11 @@ which should be loaded from local files.
    'load-path
    (directory-file-name
     (expand-file-name "my_emacs/lisp/org-contrib/lisp" user-emacs-directory))))
+
+;; I expected this to happen when I execute a function from the file, but it's
+;; not doing that?
+
+(require 'my-misc)
 #+end_src
 
 ** Miscellaneous Optimizations
@@ -230,6 +223,12 @@ I prefer to set customization options in the ~use-package~ declaration for each
 package, but on-the-fly or local-only customizations will go to this file.
 
 #+begin_src emacs-lisp
+#+begin_(defun get-config-file (filename)
+          "Returns FILENAME absolute path in the user's my_emacs directory."
+          (expand-file-name filename
+                            (expand-file-name user-emacs-directory
+                                              "my_emacs/")))
+
 ;; custom-file is built-in global variable.
 (setq custom-file (get-config-file "custom.el"))
 (load custom-file 'no-error 'no-message)
@@ -927,6 +926,19 @@ And setup org indentation to work nicely with ~org-modern-mode~.
  (add-to-list 'org-indent-post-buffer-init-functions #'org-modern-indent-init)
  :after org-modern)
 #+end_src
+
+And a nicer setup for exporting .org files to HTML.
+
+#+begin_src emacs-lisp
+(use-package
+ nice-org-html
+ :hook (org-mode . nice-org-html-mode)
+ :custom
+ (nice-org-html-theme-alist
+  '((light . solo-jazz) (dark . tomorrow-night-eighties)))
+ (nice-org-html-default-mode 'dark) (nice-org-html-headline-bullets nil))
+#+end_src
+
 
 *** Vulpea (Notes)
 
