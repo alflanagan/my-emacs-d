@@ -1,4 +1,4 @@
-;;; my_misc.el -- some generally-useful functions   -*- lexical-binding: t -*-
+;;; my-misc.el -- some generally-useful functions   -*- lexical-binding: t -*-
 
 ;; Copyright 2024 A. Lloyd Flanagan
 ;;
@@ -119,5 +119,5 @@ and display that buffer."
           (insert "No missing use-package declarations."))
         (display-buffer (current-buffer))))))
 
-(provide 'my_misc)
-;;; my_misc.el ends here
+(provide 'my-misc)
+;;; my-misc.el ends here

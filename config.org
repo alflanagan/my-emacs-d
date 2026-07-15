@@ -223,7 +223,7 @@ I prefer to set customization options in the ~use-package~ declaration for each
 package, but on-the-fly or local-only customizations will go to this file.
 
 #+begin_src emacs-lisp
-#+begin_(defun get-config-file (filename)
+(defun get-config-file (filename)
           "Returns FILENAME absolute path in the user's my_emacs directory."
           (expand-file-name filename
                             (expand-file-name user-emacs-directory
@@ -376,6 +376,9 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (select-enable-clipboard t) ;; integrate emacs with system clipboard
  (select-enable-primary t)
  (selection-coding-system 'utf-8)
+
+ ;; projects configuration
+ (project-mode-line t) ;; show clickable project name in mode line
 
  ;; don't automatically double space after sentence end -- obsolete style
  (sentence-end-double-space nil)

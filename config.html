@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-07-15 Wed 13:17 -->
+<!-- 2026-07-15 Wed 17:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -201,33 +201,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org83a1fde">1. Emacs Configuration</a>
+<li><a href="#orgc354679">1. Emacs Configuration</a>
 <ul>
-<li><a href="#orgfa22cc6">1.1. File Setup</a></li>
-<li><a href="#org057e104">1.2. Load Path</a></li>
-<li><a href="#orgfc17ae6">1.3. Miscellaneous Optimizations</a></li>
-<li><a href="#orgdb7d230">1.4. Clipboard Tweaks</a></li>
-<li><a href="#org6fb69bc">1.5. Easy Customization</a></li>
-<li><a href="#org4499327">1.6. Secrets File</a></li>
-<li><a href="#orga878800">1.7. Uniquify</a></li>
-<li><a href="#org249e9e5">1.8. Customizing Emacs Itself</a></li>
-<li><a href="#org22ad198">1.9. Default Font</a></li>
-<li><a href="#org5301944">1.10. Packages</a></li>
-<li><a href="#orgc9ecddc">1.11. End Of File</a></li>
+<li><a href="#orged35da7">1.1. File Setup</a></li>
+<li><a href="#orge06ed03">1.2. Load Path</a></li>
+<li><a href="#org715c84d">1.3. Miscellaneous Optimizations</a></li>
+<li><a href="#org1ebac08">1.4. Clipboard Tweaks</a></li>
+<li><a href="#org791c5d8">1.5. Easy Customization</a></li>
+<li><a href="#org1e9e6fa">1.6. Secrets File</a></li>
+<li><a href="#orgd7d3433">1.7. Uniquify</a></li>
+<li><a href="#org5478da9">1.8. Customizing Emacs Itself</a></li>
+<li><a href="#org5777993">1.9. Default Font</a></li>
+<li><a href="#orgc017b67">1.10. Packages</a></li>
+<li><a href="#orgd85497e">1.11. End Of File</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org83a1fde" class="outline-2">
-<h2 id="org83a1fde"><span class="section-number-2">1.</span> Emacs Configuration</h2>
+<div id="outline-container-orgc354679" class="outline-2">
+<h2 id="orgc354679"><span class="section-number-2">1.</span> Emacs Configuration</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This is file config.org: Main emacs configuration.
 </p>
 </div>
-<div id="outline-container-orgfa22cc6" class="outline-3">
-<h3 id="orgfa22cc6"><span class="section-number-3">1.1.</span> File Setup</h3>
+<div id="outline-container-orged35da7" class="outline-3">
+<h3 id="orged35da7"><span class="section-number-3">1.1.</span> File Setup</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 <b>Must</b> be first line of the file.
@@ -278,8 +278,8 @@ this file also.
 </div>
 </div>
 </div>
-<div id="outline-container-org057e104" class="outline-3">
-<h3 id="org057e104"><span class="section-number-3">1.2.</span> Load Path</h3>
+<div id="outline-container-orge06ed03" class="outline-3">
+<h3 id="orge06ed03"><span class="section-number-3">1.2.</span> Load Path</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 In my local <code>/lisp</code> subdirectory, I've got some third-party projects
@@ -304,8 +304,8 @@ which should be loaded from local files.
 </div>
 </div>
 </div>
-<div id="outline-container-orgfc17ae6" class="outline-3">
-<h3 id="orgfc17ae6"><span class="section-number-3">1.3.</span> Miscellaneous Optimizations</h3>
+<div id="outline-container-org715c84d" class="outline-3">
+<h3 id="org715c84d"><span class="section-number-3">1.3.</span> Miscellaneous Optimizations</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 A grab-bag of configuration options from various startup frameworks, collected
@@ -318,8 +318,8 @@ Way](<a href="https://batsov.com/articles/2025/04/17/using-use-package-the-right
 for advice on setting up `use-package` to minimize startup time.
 </p>
 </div>
-<div id="outline-container-orgaff3eef" class="outline-4">
-<h4 id="orgaff3eef"><span class="section-number-4">1.3.1.</span> Drop Left-to-Right Text</h4>
+<div id="outline-container-orgc143cad" class="outline-4">
+<h4 id="orgc143cad"><span class="section-number-4">1.3.1.</span> Drop Left-to-Right Text</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <p>
 Turn off the bidirectional algorithm. This optimizes text display and editing by
@@ -336,8 +336,8 @@ with right-to-left text, don't do this.
 </div>
 </div>
 </div>
-<div id="outline-container-org92fe513" class="outline-4">
-<h4 id="org92fe513"><span class="section-number-4">1.3.2.</span> Smooth Input Experience</h4>
+<div id="outline-container-orgf21b483" class="outline-4">
+<h4 id="orgf21b483"><span class="section-number-4">1.3.2.</span> Smooth Input Experience</h4>
 <div class="outline-text-4" id="text-1-3-2">
 <p>
 Tell emacs not to do fontification (syntax highlighting) during input, which can
@@ -350,8 +350,8 @@ make input slower. Emacs will wait for idle time to do fontification.
 </div>
 </div>
 </div>
-<div id="outline-container-org30db598" class="outline-4">
-<h4 id="org30db598"><span class="section-number-4">1.3.3.</span> Better Communication With External Processes</h4>
+<div id="outline-container-orgec5c758" class="outline-4">
+<h4 id="orgec5c758"><span class="section-number-4">1.3.3.</span> Better Communication With External Processes</h4>
 <div class="outline-text-4" id="text-1-3-3">
 <p>
 From the blog entry:
@@ -391,8 +391,8 @@ cursors annoying. I'm one of them.
 </div>
 </div>
 </div>
-<div id="outline-container-orgfac80a3" class="outline-4">
-<h4 id="orgfac80a3"><span class="section-number-4">1.3.4.</span> Make Shell Scripts Executable</h4>
+<div id="outline-container-orga7f8c69" class="outline-4">
+<h4 id="orga7f8c69"><span class="section-number-4">1.3.4.</span> Make Shell Scripts Executable</h4>
 <div class="outline-text-4" id="text-1-3-4">
 <p>
 Save a file with a shebang (<b><code>#!</code></b>), and Emacs <b><code>chmod +x</code></b>​es it for you. One of
@@ -400,7 +400,7 @@ those things that should arguably be a default.
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="org8d996d8"></a>TODO: for python mode, set exec if 'if <span class="underline"><span class="underline">name</span></span> <code>=</code> "main"' is present.<br />
+<li><a id="org40afb62"></a>TODO: for python mode, set exec if 'if <span class="underline"><span class="underline">name</span></span> <code>=</code> "main"' is present.<br />
 <div class="outline-text-5" id="text-1-3-4-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span>add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p<span style="color: #274C77;">)</span>
@@ -411,15 +411,15 @@ those things that should arguably be a default.
 </ol>
 </div>
 </div>
-<div id="outline-container-orgdb7d230" class="outline-3">
-<h3 id="orgdb7d230"><span class="section-number-3">1.4.</span> Clipboard Tweaks</h3>
+<div id="outline-container-org1ebac08" class="outline-3">
+<h3 id="org1ebac08"><span class="section-number-3">1.4.</span> Clipboard Tweaks</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 More optimizations from the blog post by <a href="https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/">Bozhidar Batsov</a>.
 </p>
 </div>
-<div id="outline-container-org682edbd" class="outline-4">
-<h4 id="org682edbd"><span class="section-number-4">1.4.1.</span> Keep Clipbard Contents</h4>
+<div id="outline-container-orga6bccc9" class="outline-4">
+<h4 id="orga6bccc9"><span class="section-number-4">1.4.1.</span> Keep Clipbard Contents</h4>
 <div class="outline-text-4" id="text-1-4-1">
 <blockquote>
 <p>
@@ -440,8 +440,8 @@ before overwriting it:
 </div>
 </div>
 </div>
-<div id="outline-container-org50b0042" class="outline-4">
-<h4 id="org50b0042"><span class="section-number-4">1.4.2.</span> De-Duplicate Kill Ring</h4>
+<div id="outline-container-org0429af3" class="outline-4">
+<h4 id="org0429af3"><span class="section-number-4">1.4.2.</span> De-Duplicate Kill Ring</h4>
 <div class="outline-text-4" id="text-1-4-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">setopt</span> kill-do-not-save-duplicates t<span style="color: #274C77;">)</span>
@@ -449,8 +449,8 @@ before overwriting it:
 </div>
 </div>
 </div>
-<div id="outline-container-orgf2aa527" class="outline-4">
-<h4 id="orgf2aa527"><span class="section-number-4">1.4.3.</span> Save Kill Ring</h4>
+<div id="outline-container-orgbe535bf" class="outline-4">
+<h4 id="orgbe535bf"><span class="section-number-4">1.4.3.</span> Save Kill Ring</h4>
 <div class="outline-text-4" id="text-1-4-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">setopt</span> savehist-additional-variables '<span style="color: #4A6A91;">(</span>search-ring regexp-search-rhig kill-ring<span style="color: #4A6A91;">)</span><span style="color: #274C77;">)</span>
@@ -458,8 +458,8 @@ before overwriting it:
 </div>
 </div>
 </div>
-<div id="outline-container-org65de9a7" class="outline-4">
-<h4 id="org65de9a7"><span class="section-number-4">1.4.4.</span> Sane Syntax in re-builder (Multiple Configs)</h4>
+<div id="outline-container-orgb3b4fd5" class="outline-4">
+<h4 id="orgb3b4fd5"><span class="section-number-4">1.4.4.</span> Sane Syntax in re-builder (Multiple Configs)</h4>
 <div class="outline-text-4" id="text-1-4-4">
 <p>
 Use reasonable syntax (instead of having to escape everything) for re-builder
@@ -472,8 +472,8 @@ Use reasonable syntax (instead of having to escape everything) for re-builder
 </div>
 </div>
 </div>
-<div id="outline-container-org85f984a" class="outline-4">
-<h4 id="org85f984a"><span class="section-number-4">1.4.5.</span> Fix find-file-at-point</h4>
+<div id="outline-container-org21e95a4" class="outline-4">
+<h4 id="org21e95a4"><span class="section-number-4">1.4.5.</span> Fix find-file-at-point</h4>
 <div class="outline-text-4" id="text-1-4-5">
 <p>
 The <b><code>ffap</code></b> function is a.k.a. <b><code>find-file-at-point</code></b>, and I only use it for
@@ -487,8 +487,8 @@ so I turn it off.
 </div>
 </div>
 </div>
-<div id="outline-container-org8d9c897" class="outline-4">
-<h4 id="org8d9c897"><span class="section-number-4">1.4.6.</span> Filter Completion Suggestions</h4>
+<div id="outline-container-org4455ab2" class="outline-4">
+<h4 id="org4455ab2"><span class="section-number-4">1.4.6.</span> Filter Completion Suggestions</h4>
 <div class="outline-text-4" id="text-1-4-6">
 <p>
 The default filter for M-x completion shows all commands, whether they apply to
@@ -517,8 +517,8 @@ This version filters out commands that don't apply to BUFFER or are transient su
 </div>
 </div>
 </div>
-<div id="outline-container-org6fb69bc" class="outline-3">
-<h3 id="org6fb69bc"><span class="section-number-3">1.5.</span> Easy Customization</h3>
+<div id="outline-container-org791c5d8" class="outline-3">
+<h3 id="org791c5d8"><span class="section-number-3">1.5.</span> Easy Customization</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 Set up separate file for use by emacs customization.
@@ -555,8 +555,8 @@ We need to add the <b>melpa</b> package source to <code>package-archives</code>.
 </div>
 </div>
 </div>
-<div id="outline-container-org4499327" class="outline-3">
-<h3 id="org4499327"><span class="section-number-3">1.6.</span> Secrets File</h3>
+<div id="outline-container-org1e9e6fa" class="outline-3">
+<h3 id="org1e9e6fa"><span class="section-number-3">1.6.</span> Secrets File</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 This local file is for global variables with values which should not be checked
@@ -575,8 +575,8 @@ set customization options that should be secret.
 </div>
 </div>
 </div>
-<div id="outline-container-orga878800" class="outline-3">
-<h3 id="orga878800"><span class="section-number-3">1.7.</span> Uniquify</h3>
+<div id="outline-container-orgd7d3433" class="outline-3">
+<h3 id="orgd7d3433"><span class="section-number-3">1.7.</span> Uniquify</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 Uniquify is a part of emacs which is not loaded by default, but it can
@@ -600,8 +600,8 @@ of the file name until the buffer names are unique.
 </div>
 </div>
 </div>
-<div id="outline-container-org249e9e5" class="outline-3">
-<h3 id="org249e9e5"><span class="section-number-3">1.8.</span> Customizing Emacs Itself</h3>
+<div id="outline-container-org5478da9" class="outline-3">
+<h3 id="org5478da9"><span class="section-number-3">1.8.</span> Customizing Emacs Itself</h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
 We can use <code>use-package</code> to configure emacs itself as a 'pseudo-package'.
@@ -706,6 +706,9 @@ We can use <code>use-package</code> to configure emacs itself as a 'pseudo-packa
 </span> <span style="color: #4A6A91;">(</span>select-enable-primary t<span style="color: #4A6A91;">)</span>
  <span style="color: #4A6A91;">(</span>selection-coding-system 'utf-8<span style="color: #4A6A91;">)</span>
 
+ <span style="color: #7A7165; font-style: italic;">;; </span><span style="color: #7A7165; font-style: italic;">projects configuration
+</span> <span style="color: #4A6A91;">(</span>project-mode-line t<span style="color: #4A6A91;">)</span> <span style="color: #7A7165; font-style: italic;">;; </span><span style="color: #7A7165; font-style: italic;">show clickable project name in mode line
+</span>
  <span style="color: #7A7165; font-style: italic;">;; </span><span style="color: #7A7165; font-style: italic;">don't automatically double space after sentence end -- obsolete style
 </span> <span style="color: #4A6A91;">(</span>sentence-end-double-space nil<span style="color: #4A6A91;">)</span>
 
@@ -716,8 +719,8 @@ We can use <code>use-package</code> to configure emacs itself as a 'pseudo-packa
 </div>
 </div>
 </div>
-<div id="outline-container-org22ad198" class="outline-3">
-<h3 id="org22ad198"><span class="section-number-3">1.9.</span> Default Font</h3>
+<div id="outline-container-org5777993" class="outline-3">
+<h3 id="org5777993"><span class="section-number-3">1.9.</span> Default Font</h3>
 <div class="outline-text-3" id="text-1-9">
 <p>
 Set up with my current programming font, Fira Code. You must have Fira
@@ -745,8 +748,8 @@ Code installed on your system for this to work.
 </div>
 </div>
 </div>
-<div id="outline-container-org5301944" class="outline-3">
-<h3 id="org5301944"><span class="section-number-3">1.10.</span> Packages</h3>
+<div id="outline-container-orgc017b67" class="outline-3">
+<h3 id="orgc017b67"><span class="section-number-3">1.10.</span> Packages</h3>
 <div class="outline-text-3" id="text-1-10">
 <p>
 Eventual goal is to remove these from customization entirely, and use
@@ -762,8 +765,8 @@ NOTE: The config variable <code>use-package-always-ensure</code> is set, so decl
 without an <code>:ensure</code> keyword behave as those they had the value <code>:ensure t</code>.
 </p>
 </div>
-<div id="outline-container-org85b72b9" class="outline-4">
-<h4 id="org85b72b9"><span class="section-number-4">1.10.1.</span> EditorConfig</h4>
+<div id="outline-container-org9c8bfa8" class="outline-4">
+<h4 id="org9c8bfa8"><span class="section-number-4">1.10.1.</span> EditorConfig</h4>
 <div class="outline-text-4" id="text-1-10-1">
 <p>
 There is a standard file named .editorconfig that sets a few options for an
@@ -777,8 +780,8 @@ This sets up Emacs to get config settings from that file.
 </div>
 </div>
 </div>
-<div id="outline-container-orge2a2b52" class="outline-4">
-<h4 id="orge2a2b52"><span class="section-number-4">1.10.2.</span> Themes</h4>
+<div id="outline-container-org60dad2e" class="outline-4">
+<h4 id="org60dad2e"><span class="section-number-4">1.10.2.</span> Themes</h4>
 <div class="outline-text-4" id="text-1-10-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span>
@@ -794,8 +797,8 @@ This sets up Emacs to get config settings from that file.
 </div>
 </div>
 </div>
-<div id="outline-container-orga1c8ead" class="outline-4">
-<h4 id="orga1c8ead"><span class="section-number-4">1.10.3.</span> Better Mode Line</h4>
+<div id="outline-container-org288c0f9" class="outline-4">
+<h4 id="org288c0f9"><span class="section-number-4">1.10.3.</span> Better Mode Line</h4>
 <div class="outline-text-4" id="text-1-10-3">
 <p>
 <a href="https://github.com/Malabarba/smart-mode-line">Smart-mode-line</a> is a sexy mode-line for Emacs. It aims to be easy to
@@ -812,8 +815,8 @@ and smart truncation.
 </div>
 </div>
 </div>
-<div id="outline-container-org9d11a4a" class="outline-4">
-<h4 id="org9d11a4a"><span class="section-number-4">1.10.4.</span> Ido and amx</h4>
+<div id="outline-container-orgf9cf962" class="outline-4">
+<h4 id="orgf9cf962"><span class="section-number-4">1.10.4.</span> Ido and amx</h4>
 <div class="outline-text-4" id="text-1-10-4">
 <p>
 There are (at least) three major emacs packages to enable
@@ -835,8 +838,8 @@ The <a href="https://github.com/DarwinAwardWinner/amx">"amx" package</a> leverag
 </div>
 </div>
 </div>
-<div id="outline-container-org62a08fa" class="outline-4">
-<h4 id="org62a08fa"><span class="section-number-4">1.10.5.</span> Page-break Lines</h4>
+<div id="outline-container-orgd415ee9" class="outline-4">
+<h4 id="orgd415ee9"><span class="section-number-4">1.10.5.</span> Page-break Lines</h4>
 <div class="outline-text-4" id="text-1-10-5">
 <p>
 This is a neat little package that displays embedded ctrl-L characters
@@ -850,8 +853,8 @@ just when printed.
 </div>
 </div>
 </div>
-<div id="outline-container-org37cfaa1" class="outline-4">
-<h4 id="org37cfaa1"><span class="section-number-4">1.10.6.</span> Better folding: Kirigami</h4>
+<div id="outline-container-org1f5521e" class="outline-4">
+<h4 id="org1f5521e"><span class="section-number-4">1.10.6.</span> Better folding: Kirigami</h4>
 <div class="outline-text-4" id="text-1-10-6">
 <p>
 Kirigami provides code folding for buffers that don't use tree-sitter
@@ -868,8 +871,8 @@ Kirigami provides code folding for buffers that don't use tree-sitter
 </p>
 </div>
 </div>
-<div id="outline-container-org72b99b4" class="outline-4">
-<h4 id="org72b99b4"><span class="section-number-4">1.10.7.</span> Clean up Whitespace</h4>
+<div id="outline-container-orga6baa79" class="outline-4">
+<h4 id="orga6baa79"><span class="section-number-4">1.10.7.</span> Clean up Whitespace</h4>
 <div class="outline-text-4" id="text-1-10-7">
 <p>
 This package automatically strips extra whitespace from the end of
@@ -882,8 +885,8 @@ lines.
 </div>
 </div>
 </div>
-<div id="outline-container-orga76606a" class="outline-4">
-<h4 id="orga76606a"><span class="section-number-4">1.10.8.</span> Which-key</h4>
+<div id="outline-container-orgdeafa28" class="outline-4">
+<h4 id="orgdeafa28"><span class="section-number-4">1.10.8.</span> Which-key</h4>
 <div class="outline-text-4" id="text-1-10-8">
 <p>
 Displays available key bindings in a popup after pressing a prefix key. Built-in
@@ -901,8 +904,8 @@ as of Emacs 30.
 </div>
 </div>
 </div>
-<div id="outline-container-org960cbed" class="outline-4">
-<h4 id="org960cbed"><span class="section-number-4">1.10.9.</span> Magit</h4>
+<div id="outline-container-orgdc16cb1" class="outline-4">
+<h4 id="orgdc16cb1"><span class="section-number-4">1.10.9.</span> Magit</h4>
 <div class="outline-text-4" id="text-1-10-9">
 <p>
 Magit is a package to provide a git interface inside of Emacs. It relies on
@@ -918,8 +921,8 @@ a version of <code>transient</code> more recent than the built-in one, so we add
 </div>
 </div>
 </div>
-<div id="outline-container-org88668cb" class="outline-4">
-<h4 id="org88668cb"><span class="section-number-4">1.10.10.</span> Treemacs</h4>
+<div id="outline-container-org2d0a53d" class="outline-4">
+<h4 id="org2d0a53d"><span class="section-number-4">1.10.10.</span> Treemacs</h4>
 <div class="outline-text-4" id="text-1-10-10">
 <p>
 Set up treemacs, the directory tree sidebar. See <a href="https://github.com/Alexander-Miller/treemacs">treemacs repo</a> for all
@@ -971,7 +974,7 @@ the gory details.
 </div>
 </div>
 <ol class="org-ol">
-<li><a id="org5d45e7b"></a>Treemacs-icons-dired<br />
+<li><a id="org3a34eae"></a>Treemacs-icons-dired<br />
 <div class="outline-text-5" id="text-1-10-10-1">
 <p>
 Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
@@ -988,8 +991,8 @@ Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
 </li>
 </ol>
 </div>
-<div id="outline-container-org8572fd8" class="outline-4">
-<h4 id="org8572fd8"><span class="section-number-4">1.10.11.</span> Treesit</h4>
+<div id="outline-container-orgcf34042" class="outline-4">
+<h4 id="orgcf34042"><span class="section-number-4">1.10.11.</span> Treesit</h4>
 <div class="outline-text-4" id="text-1-10-11">
 <p>
 Set up to use tree-sitter modes automatically, where one exists.
@@ -1020,8 +1023,8 @@ Set up to use tree-sitter modes automatically, where one exists.
 </div>
 </div>
 </div>
-<div id="outline-container-orgedfc661" class="outline-4">
-<h4 id="orgedfc661"><span class="section-number-4">1.10.12.</span> Flycheck</h4>
+<div id="outline-container-orgd553cca" class="outline-4">
+<h4 id="orgd553cca"><span class="section-number-4">1.10.12.</span> Flycheck</h4>
 <div class="outline-text-4" id="text-1-10-12">
 <blockquote>
 <p>
@@ -1053,8 +1056,8 @@ which is part of GNU Emacs.
 </div>
 </div>
 </div>
-<div id="outline-container-org7877276" class="outline-4">
-<h4 id="org7877276"><span class="section-number-4">1.10.13.</span> Python Programming</h4>
+<div id="outline-container-orgb7dfb59" class="outline-4">
+<h4 id="orgb7dfb59"><span class="section-number-4">1.10.13.</span> Python Programming</h4>
 <div class="outline-text-4" id="text-1-10-13">
 <p>
 <code>elpy</code> has traditionally been the package you install to set up python tools,
@@ -1080,8 +1083,8 @@ package individually, but what's a programmer to do?
 </div>
 </div>
 </div>
-<div id="outline-container-orga53c73c" class="outline-4">
-<h4 id="orga53c73c"><span class="section-number-4">1.10.14.</span> Zap Up To Char</h4>
+<div id="outline-container-orgfc8856a" class="outline-4">
+<h4 id="orgfc8856a"><span class="section-number-4">1.10.14.</span> Zap Up To Char</h4>
 <div class="outline-text-4" id="text-1-10-14">
 <p>
 In Emac's standard keybindings, the command `zap-to-char` is bound to key M-z
@@ -1095,12 +1098,12 @@ be more useful, so I'm rebinding the key.
 </div>
 </div>
 </div>
-<div id="outline-container-org02ad918" class="outline-4">
-<h4 id="org02ad918"><span class="section-number-4">1.10.15.</span> ELisp Programming</h4>
+<div id="outline-container-orgefc64b4" class="outline-4">
+<h4 id="orgefc64b4"><span class="section-number-4">1.10.15.</span> ELisp Programming</h4>
 <div class="outline-text-4" id="text-1-10-15">
 </div>
 <ol class="org-ol">
-<li><a id="org91ae28d"></a>Linting<br />
+<li><a id="org8d2ee3f"></a>Linting<br />
 <div class="outline-text-5" id="text-1-10-15-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span> elisp-lint <span style="color: #557499;">:defer</span> t<span style="color: #274C77;">)</span>
@@ -1108,7 +1111,7 @@ be more useful, so I'm rebinding the key.
 </div>
 </div>
 </li>
-<li><a id="orgf1e2596"></a>Elisp-autofmt<br />
+<li><a id="org1171951"></a>Elisp-autofmt<br />
 <div class="outline-text-5" id="text-1-10-15-2">
 <p>
 This nicely formats emacs lisp code files, and the <code>elisp-autofmt-region</code>
@@ -1138,7 +1141,7 @@ command works great on code embedded in .org files.
 </div>
 </div>
 </li>
-<li><a id="orgda7bf84"></a>Testing<br />
+<li><a id="orgc4669cd"></a>Testing<br />
 <div class="outline-text-5" id="text-1-10-15-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span> buttercup <span style="color: #557499;">:defer</span> t<span style="color: #274C77;">)</span>
@@ -1146,7 +1149,7 @@ command works great on code embedded in .org files.
 </div>
 </div>
 </li>
-<li><a id="org015e2c1"></a>Emacs Packages<br />
+<li><a id="org0c81caf"></a>Emacs Packages<br />
 <div class="outline-text-5" id="text-1-10-15-4">
 <p>
 These are some tools for use in developing Emacs packages. Unless you're doing
@@ -1161,7 +1164,7 @@ that, you don't need them.
 </div>
 </div>
 </li>
-<li><a id="orgc904672"></a>Elisp Debugging<br />
+<li><a id="orgdfba91b"></a>Elisp Debugging<br />
 <div class="outline-text-5" id="text-1-10-15-5">
 <p>
 Add some advice to the <code>display-buffer</code> function so that unexpected popups of
@@ -1184,8 +1187,8 @@ messages or warning buffer will generate a backtrace for debugging.
 </li>
 </ol>
 </div>
-<div id="outline-container-org96bc6eb" class="outline-4">
-<h4 id="org96bc6eb"><span class="section-number-4">1.10.16.</span> Web Mode</h4>
+<div id="outline-container-org069a011" class="outline-4">
+<h4 id="org069a011"><span class="section-number-4">1.10.16.</span> Web Mode</h4>
 <div class="outline-text-4" id="text-1-10-16">
 <p>
 <code>web-mode</code> adds support for templating languages to <code>html-mode</code>. It supports
@@ -1217,8 +1220,8 @@ over 20 templating languages, including Jinja. There's also a mode called
 </div>
 </div>
 </div>
-<div id="outline-container-orge945070" class="outline-4">
-<h4 id="orge945070"><span class="section-number-4">1.10.17.</span> Shell Scripts</h4>
+<div id="outline-container-orgb8f4898" class="outline-4">
+<h4 id="orgb8f4898"><span class="section-number-4">1.10.17.</span> Shell Scripts</h4>
 <div class="outline-text-4" id="text-1-10-17">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span> shfmt <span style="color: #557499;">:bind</span> <span style="color: #4A6A91;">(</span><span style="color: #557499;">:map</span> sh-mode-map <span style="color: #8F6D0E;">(</span><span style="color: #8F6D0E;">"C-c C-f"</span> . shfmt<span style="color: #8F6D0E;">)</span><span style="color: #4A6A91;">)</span> <span style="color: #557499;">:defer</span> t<span style="color: #274C77;">)</span>
@@ -1226,12 +1229,12 @@ over 20 templating languages, including Jinja. There's also a mode called
 </div>
 </div>
 </div>
-<div id="outline-container-org44ceed3" class="outline-4">
-<h4 id="org44ceed3"><span class="section-number-4">1.10.18.</span> Mermaid Diagrams</h4>
+<div id="outline-container-org2847bee" class="outline-4">
+<h4 id="org2847bee"><span class="section-number-4">1.10.18.</span> Mermaid Diagrams</h4>
 <div class="outline-text-4" id="text-1-10-18">
 </div>
 <ol class="org-ol">
-<li><a id="orge4fbed2"></a>TODO: clone mermaid-mode repo locally and fix outstanding problems<br />
+<li><a id="orgdfbb5e9"></a>TODO: clone mermaid-mode repo locally and fix outstanding problems<br />
 <div class="outline-text-5" id="text-1-10-18-1">
 <p>
 For now I'm using the tree-sitter mode, but the treesitter parser is incomplete
@@ -1266,8 +1269,8 @@ see <a href="https://github.com/abrochard/mermaid-mode/issues/17">https://github
 </li>
 </ol>
 </div>
-<div id="outline-container-org23314a7" class="outline-4">
-<h4 id="org23314a7"><span class="section-number-4">1.10.19.</span> Code Formatters</h4>
+<div id="outline-container-org5e9d6f5" class="outline-4">
+<h4 id="org5e9d6f5"><span class="section-number-4">1.10.19.</span> Code Formatters</h4>
 <div class="outline-text-4" id="text-1-10-19">
 <p>
 Run <a href="https://prettier.io/">Prettier</a> on web-related buffers on save.
@@ -1283,8 +1286,8 @@ Run <a href="https://prettier.io/">Prettier</a> on web-related buffers on save.
 </div>
 </div>
 </div>
-<div id="outline-container-org41b1bad" class="outline-4">
-<h4 id="org41b1bad"><span class="section-number-4">1.10.20.</span> Terminal</h4>
+<div id="outline-container-org0a1678e" class="outline-4">
+<h4 id="org0a1678e"><span class="section-number-4">1.10.20.</span> Terminal</h4>
 <div class="outline-text-4" id="text-1-10-20">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span>
@@ -1296,8 +1299,8 @@ Run <a href="https://prettier.io/">Prettier</a> on web-related buffers on save.
 </div>
 </div>
 </div>
-<div id="outline-container-org99d2c45" class="outline-4">
-<h4 id="org99d2c45"><span class="section-number-4">1.10.21.</span> Visual Tweaks</h4>
+<div id="outline-container-org3b2f7f6" class="outline-4">
+<h4 id="org3b2f7f6"><span class="section-number-4">1.10.21.</span> Visual Tweaks</h4>
 <div class="outline-text-4" id="text-1-10-21">
 <p>
 Briefly highlights the new window when you switch windows.
@@ -1323,8 +1326,8 @@ lisp modes.
 </div>
 </div>
 </div>
-<div id="outline-container-orga450763" class="outline-4">
-<h4 id="orga450763"><span class="section-number-4">1.10.22.</span> Language Server Protocol</h4>
+<div id="outline-container-org0fdbfa2" class="outline-4">
+<h4 id="org0fdbfa2"><span class="section-number-4">1.10.22.</span> Language Server Protocol</h4>
 <div class="outline-text-4" id="text-1-10-22">
 <p>
 Not long ago, an editor had to have custom handling written for each
@@ -1371,8 +1374,8 @@ package to integrate the information into the <code>treemacs</code> sidebar also
 </div>
 </div>
 </div>
-<div id="outline-container-orgd33050a" class="outline-4">
-<h4 id="orgd33050a"><span class="section-number-4">1.10.23.</span> Org Mode</h4>
+<div id="outline-container-org2785fee" class="outline-4">
+<h4 id="org2785fee"><span class="section-number-4">1.10.23.</span> Org Mode</h4>
 <div class="outline-text-4" id="text-1-10-23">
 <p>
 Org mode itself is set up in the <code>init.el</code> file (NOT generated from an .org
@@ -1381,7 +1384,7 @@ correctly.
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="orgb18b9ce"></a>Add Markdown as an Export Format<br />
+<li><a id="orgab0b4cb"></a>Add Markdown as an Export Format<br />
 <div class="outline-text-5" id="text-1-10-23-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span> ox-gfm <span style="color: #557499;">:defer</span> t <span style="color: #557499;">:after</span> org<span style="color: #274C77;">)</span>
@@ -1389,7 +1392,7 @@ correctly.
 </div>
 </div>
 </li>
-<li><a id="org4510b00"></a>Support Syntax Highlighting in Export<br />
+<li><a id="orge219b7d"></a>Support Syntax Highlighting in Export<br />
 <div class="outline-text-5" id="text-1-10-23-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span> htmlize <span style="color: #557499;">:defer</span> t <span style="color: #557499;">:after</span> org<span style="color: #274C77;">)</span>
@@ -1397,7 +1400,7 @@ correctly.
 </div>
 </div>
 </li>
-<li><a id="org22df0b0"></a>Add option for auto-tangling org-babel files like this one<br />
+<li><a id="orgf5e0c3b"></a>Add option for auto-tangling org-babel files like this one<br />
 <div class="outline-text-5" id="text-1-10-23-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span> org-auto-tangle <span style="color: #557499;">:defer</span> t <span style="color: #557499;">:hook</span> org-moode<span style="color: #274C77;">)</span>
@@ -1405,7 +1408,7 @@ correctly.
 </div>
 </div>
 </li>
-<li><a id="orgecafef2"></a>Automatically Tangle Org Files on Save<br />
+<li><a id="org9f3161e"></a>Automatically Tangle Org Files on Save<br />
 <div class="outline-text-5" id="text-1-10-23-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span> org-autoexport
@@ -1415,7 +1418,7 @@ correctly.
 </div>
 </div>
 </li>
-<li><a id="org58072b7"></a>Modern Theme<br />
+<li><a id="org8eaa55c"></a>Modern Theme<br />
 <div class="outline-text-5" id="text-1-10-23-5">
 <p>
 A much more visually appealing mode for editing .org files.
@@ -1460,8 +1463,8 @@ And a nicer setup for exporting .org files to HTML.
 </li>
 </ol>
 </div>
-<div id="outline-container-orge95f5a6" class="outline-4">
-<h4 id="orge95f5a6"><span class="section-number-4">1.10.24.</span> Vulpea (Notes)</h4>
+<div id="outline-container-org0f0e2e7" class="outline-4">
+<h4 id="org0f0e2e7"><span class="section-number-4">1.10.24.</span> Vulpea (Notes)</h4>
 <div class="outline-text-4" id="text-1-10-24">
 <p>
 This section <span class="underline">was</span> used to set up vulpea, a notes/journaling system. I wasn't
@@ -1469,8 +1472,8 @@ using and it wass causing bugs in unrelated modules.
 </p>
 </div>
 </div>
-<div id="outline-container-org0e4de69" class="outline-4">
-<h4 id="org0e4de69"><span class="section-number-4">1.10.25.</span> Terraform Suport</h4>
+<div id="outline-container-org302f91e" class="outline-4">
+<h4 id="org302f91e"><span class="section-number-4">1.10.25.</span> Terraform Suport</h4>
 <div class="outline-text-4" id="text-1-10-25">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span><span style="color: #557499; font-weight: bold;">use-package</span> terraform-mode
@@ -1484,8 +1487,8 @@ using and it wass causing bugs in unrelated modules.
 </div>
 </div>
 </div>
-<div id="outline-container-org05b6cd7" class="outline-4">
-<h4 id="org05b6cd7"><span class="section-number-4">1.10.26.</span> CMake</h4>
+<div id="outline-container-org1662da8" class="outline-4">
+<h4 id="org1662da8"><span class="section-number-4">1.10.26.</span> CMake</h4>
 <div class="outline-text-4" id="text-1-10-26">
 <p>
 Support for CMake build files and CMake-based C/C++ projects.
@@ -1523,8 +1526,8 @@ auto-complete, company) by reading the project's
 </div>
 </div>
 </div>
-<div id="outline-container-orgc0a163a" class="outline-4">
-<h4 id="orgc0a163a"><span class="section-number-4">1.10.27.</span> Exec-path-from-shell</h4>
+<div id="outline-container-org5ff8d6a" class="outline-4">
+<h4 id="org5ff8d6a"><span class="section-number-4">1.10.27.</span> Exec-path-from-shell</h4>
 <div class="outline-text-4" id="text-1-10-27">
 <p>
 Gets path (and other variables) from shell and updates Emacs configuration.
@@ -1555,8 +1558,8 @@ See also function <code>exec-path-from-shell-setenv</code> to import other shell
 </div>
 </div>
 </div>
-<div id="outline-container-org86f18bd" class="outline-4">
-<h4 id="org86f18bd"><span class="section-number-4">1.10.28.</span> XKCD</h4>
+<div id="outline-container-orgde2967c" class="outline-4">
+<h4 id="orgde2967c"><span class="section-number-4">1.10.28.</span> XKCD</h4>
 <div class="outline-text-4" id="text-1-10-28">
 <p>
 The best web comic ever, available right in the editor.
@@ -1568,8 +1571,8 @@ The best web comic ever, available right in the editor.
 </div>
 </div>
 </div>
-<div id="outline-container-org8184be4" class="outline-4">
-<h4 id="org8184be4"><span class="section-number-4">1.10.29.</span> AI Integration</h4>
+<div id="outline-container-org43cd50e" class="outline-4">
+<h4 id="org43cd50e"><span class="section-number-4">1.10.29.</span> AI Integration</h4>
 <div class="outline-text-4" id="text-1-10-29">
 <p>
 These packages integrate AI agents generally, and Claude in particular, with
@@ -1624,8 +1627,8 @@ There are a <b>lot</b> of other ACP implementations, so for any other agent chec
 </div>
 </div>
 </div>
-<div id="outline-container-org36b7a15" class="outline-4">
-<h4 id="org36b7a15"><span class="section-number-4">1.10.30.</span> GitHub CoPilot</h4>
+<div id="outline-container-org08cc839" class="outline-4">
+<h4 id="org08cc839"><span class="section-number-4">1.10.30.</span> GitHub CoPilot</h4>
 <div class="outline-text-4" id="text-1-10-30">
 <p>
 Integrate GitHub CoPilot AI. This doesn't use <b><code>agent-shell</code></b> but installs
@@ -1657,8 +1660,8 @@ itself for code completion, etc.
 </div>
 </div>
 </div>
-<div id="outline-container-orgc9ecddc" class="outline-3">
-<h3 id="orgc9ecddc"><span class="section-number-3">1.11.</span> End Of File</h3>
+<div id="outline-container-orgd85497e" class="outline-3">
+<h3 id="orgd85497e"><span class="section-number-3">1.11.</span> End Of File</h3>
 <div class="outline-text-3" id="text-1-11">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code><span style="color: #274C77;">(</span>message <span style="color: #8F6D0E;">"config.org loaded."</span><span style="color: #274C77;">)</span>
@@ -1671,7 +1674,7 @@ itself for code completion, etc.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Adrian Flanagan</p>
-<p class="date">Created: 2026-07-15 Wed 13:17</p>
+<p class="date">Created: 2026-07-15 Wed 17:39</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
