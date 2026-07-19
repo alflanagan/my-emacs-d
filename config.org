@@ -398,7 +398,6 @@ Code installed on your system for this to work.
  nerd-icons
  :custom
  ;; "Symbols Nerd Font Mono" is the default and is recommended
- ;; me? Accept a recommendation?
  (nerd-icons-font-family "FiraCode Nerd Font Mono"))
 #+end_src
 
@@ -641,9 +640,11 @@ Set up to use tree-sitter modes automatically, where one exists.
  (add-to-list 'flycheck-checkers 'nroff-aspell-dynamic)
  (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
  (add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic))
+
 #+end_src
 
-*** Python Programming
+*** Programming Languages
+**** Python
 
 ~elpy~ has traditionally been the package you install to set up python tools,
 however it has not been updated to work with more recent versions of python
@@ -663,24 +664,14 @@ package individually, but what's a programmer to do?
  (python-ts-mode . uv-mode-auto-activate-hook))
 #+end_src
 
-*** Zap Up To Char
-
-In Emac's standard keybindings, the command `zap-to-char` is bound to key M-z
-(alt-Z on PC, option-Z on Mac). However I find the `zap-up-to-char` command to
-be more useful, so I'm rebinding the key.
-
-#+begin_src emacs-lisp
-(bind-key "M-z" #'zap-up-to-char)
-#+end_src
-
-*** ELisp Programming
-**** Linting
+**** Elisp
+***** Linting
 
 #+begin_src emacs-lisp
 (use-package elisp-lint :defer t)
 #+end_src
 
-**** Elisp-autofmt
+***** Elisp-autofmt
 
 This nicely formats emacs lisp code files, and the ~elisp-autofmt-region~
 command works great on code embedded in .org files.
@@ -706,13 +697,13 @@ command works great on code embedded in .org files.
   (("C-c r" . elisp-autofmt-region))))
 #+end_src
 
-**** Testing
+***** Testing
 
 #+begin_src emacs-lisp
 (use-package buttercup :defer t)
 #+end_src
 
-**** Emacs Packages
+***** Emacs Packages
 
 These are some tools for use in developing Emacs packages. Unless you're doing
 that, you don't need them.
@@ -723,7 +714,7 @@ that, you don't need them.
 (use-package flycheck-eask :defer t)
 #+end_src
 
-**** Elisp Debugging
+***** Elisp Debugging
 
 Add some advice to the ~display-buffer~ function so that unexpected popups of
 messages or warning buffer will generate a backtrace for debugging.
@@ -738,6 +729,28 @@ messages or warning buffer will generate a backtrace for debugging.
        (when (or (equal buff-name "*Messages*") (equal buff-name "*Warnings*"))
          (message "display-buffer called for *Messages* from:")
          (backtrace)))))
+#+end_src
+
+**** Terraform Suport
+
+#+begin_src emacs-lisp
+(use-package terraform-mode
+  :custom (terraform-indent-level 4)
+  :config
+  (defun my/terraform-mode-init ()
+    (outline-minor-mode 1)
+    )
+  :hook (terraform-mode . my/terraform-mode-init))
+#+end_src
+
+*** Zap Up To Char
+
+In Emac's standard keybindings, the command `zap-to-char` is bound to key M-z
+(alt-Z on PC, option-Z on Mac). However I find the `zap-up-to-char` command to
+be more useful, so I'm rebinding the key.
+
+#+begin_src emacs-lisp
+(bind-key "M-z" #'zap-up-to-char)
 #+end_src
 
 *** Web Mode
@@ -942,23 +955,10 @@ And a nicer setup for exporting .org files to HTML.
  (nice-org-html-default-mode 'dark) (nice-org-html-headline-bullets nil))
 #+end_src
 
-
 *** Vulpea (Notes)
 
 This section _was_ used to set up vulpea, a notes/journaling system. I wasn't
-using and it wass causing bugs in unrelated modules.
-
-*** Terraform Suport
-
-#+begin_src emacs-lisp
-(use-package terraform-mode
-  :custom (terraform-indent-level 4)
-  :config
-  (defun my/terraform-mode-init ()
-    (outline-minor-mode 1)
-    )
-  :hook (terraform-mode . my/terraform-mode-init))
-#+end_src
+using and it was causing bugs in unrelated modules.
 
 *** CMake
 
