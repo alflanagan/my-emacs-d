@@ -403,11 +403,15 @@ Code installed on your system for this to work.
 
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
-                    :family "Fira Code"
+                    :family "Fira Code Nerd Font Mono"
                     :height 160
                     :weight 'normal
                     :slant 'normal
                     :width 'normal)
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package fira-code-mode)
 #+end_src
 
 ** Packages
@@ -622,6 +626,13 @@ Set up to use tree-sitter modes automatically, where one exists.
      which is part of GNU Emacs.
      #+END_QUOTE
 
+*~flycheck-aspell~* integrates the spelling checker ~aspell~ into flycheck. You
+need to have [[http://aspell.net][~aspell~]] installed. *~flycheck-pos-tip~* shows the flycheck error
+message in a small popup window, so you don't have to look at the message.
+*~flycheck-status-emoji~* shows the current flycheck status as a face emoji on
+the mode line (other editors call this the status line), cute but also saves
+mode line space.
+
 #+begin_src emacs-lisp
 (use-package
  flycheck
@@ -640,6 +651,11 @@ Set up to use tree-sitter modes automatically, where one exists.
  (add-to-list 'flycheck-checkers 'nroff-aspell-dynamic)
  (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
  (add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic))
+(use-package flycheck-pos-tip :after flycheck :config (flycheck-pos-tip-mode))
+(use-package
+ flycheck-status-emoji
+ :after flycheck
+ :custom (flycheck-status-emoji-mode t))
 
 #+end_src
 
@@ -952,7 +968,7 @@ And a nicer setup for exporting .org files to HTML.
  :custom
  (nice-org-html-theme-alist
   '((light . solo-jazz) (dark . tomorrow-night-eighties)))
- (nice-org-html-default-mode 'dark) (nice-org-html-headline-bullets nil))
+ (nice-org-html-default-mode 'light) (nice-org-html-headline-bullets t))
 #+end_src
 
 *** Vulpea (Notes)
