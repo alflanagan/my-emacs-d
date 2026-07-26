@@ -1,5 +1,6 @@
-# -*- fill-column: 80; -*-
+# -*- fill-column: 80; mode: org; -*-
 #+auto_export: html
+#+auto_tangle: t
 #+OPTIONS: toc:2
 
 * Emacs Configuration
@@ -402,16 +403,17 @@ Code installed on your system for this to work.
 #+end_src
 
 #+begin_src emacs-lisp
+;;; interesting -- family is not checked for validity
 (set-face-attribute 'default nil
-                    :family "Fira Code Nerd Font Mono"
-                    :height 160
+                    :family "FiraCode Nerd Font Mono"
+                    :height 170
                     :weight 'normal
                     :slant 'normal
                     :width 'normal)
 #+end_src
 
 #+begin_src emacs-lisp
-  (use-package fira-code-mode)
+(use-package fira-code-mode)
 #+end_src
 
 ** Packages
@@ -492,12 +494,14 @@ just when printed.
 Kirigami provides code folding for buffers that don't use tree-sitter
 (where ~treesit-fold~ already handles folding).
 
+#+BEGIN_COMMENT
 (use-package kirigami
   :custom
   ;; Add Kirigami to the menu bar and context menu (`context-menu-mode').
   (kirigami-show-menu-bar t)
   (kirigami-show-context-menu t)
   :hook (after-init . (lambda () (kirigami-global-mode t))))
+#+END_COMMENT
 
 *** Clean up Whitespace
 
@@ -656,7 +660,6 @@ mode line space.
  flycheck-status-emoji
  :after flycheck
  :custom (flycheck-status-emoji-mode t))
-
 #+end_src
 
 *** Programming Languages
@@ -927,7 +930,7 @@ correctly.
 **** Add option for auto-tangling org-babel files like this one
 
 #+begin_src emacs-lisp
-(use-package org-auto-tangle :defer t :hook org-moode)
+(use-package org-auto-tangle :defer t :hook org-mode)
 #+end_src
 
 **** Automatically Tangle Org Files on Save
