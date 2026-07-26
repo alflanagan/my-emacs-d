@@ -378,6 +378,12 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (select-enable-primary t)
  (selection-coding-system 'utf-8)
 
+ (markdown-command
+  "cmark-gfm -e footnotes -e table -e strikethrough -e tasklist --table-prefer-style-attributes --github-pre-lang"
+  nil
+  nil
+  "Customized with use-package emacs")
+
  ;; projects configuration
  (project-mode-line t) ;; show clickable project name in mode line
 
