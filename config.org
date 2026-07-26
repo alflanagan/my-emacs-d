@@ -16,8 +16,8 @@ This is file config.org: Main emacs configuration.
 ;;; config.el -- Non-site-specific initialization -*- lexical-binding: t; -*-
 #+end_src
 
-Legal/copyright notice for the generated file. All terms are asserted to apply to
-this file also.
+Legal/copyright notice for the generated file. All terms are asserted to apply
+to this file also.
 
 #+begin_src emacs-lisp
 
@@ -377,18 +377,17 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (select-enable-clipboard t) ;; integrate emacs with system clipboard
  (select-enable-primary t)
  (selection-coding-system 'utf-8)
-
- (markdown-command
-  "cmark-gfm -e footnotes -e table -e strikethrough -e tasklist --table-prefer-style-attributes --github-pre-lang"
-  nil
-  nil
-  "Customized with use-package emacs")
-
  ;; projects configuration
  (project-mode-line t) ;; show clickable project name in mode line
 
  ;; don't automatically double space after sentence end -- obsolete style
  (sentence-end-double-space nil)
+
+ ;; I use the [Commonmark](httsp://commonmark.org) executable ~cmark-gfm~ for
+ ;; rendering markdown files, with GitHub-flavored extensions. So I need to
+ ;; tell markdown-ts-mode.
+ (markdown-command
+  "cmark-gfm -e footnotes -e table -e strikethrough -e tasklist --table-prefer-style-attributes --github-pre-lang")
 
  :hook (prog-mode . display-line-numbers-mode)
  ;; Treat CamelCaseSubWords as separate words in every programming mode.
@@ -466,11 +465,11 @@ and smart truncation.
 
 *** Ido and amx
 
-There are (at least) three major emacs packages to enable
-auto-completion: "ivy", "company", and "ido". Ivy is full-featured and
-includes "counsel", which modifies emacs commands to use ivy. However,
-it looks not to be actively maintained, and I've come to prefer "ido".
-It's builtin to Emacs, which is convenient.
+There are (at least) three major emacs packages to enable auto-completion:
+"ivy", "company", and "ido". Ivy is full-featured and includes "counsel", which
+modifies emacs commands to use ivy. However, it looks not to be actively
+maintained, and I've come to prefer "ido". It's builtin to Emacs, which is
+convenient.
 
 The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" to add features to the Emacs
 ~execute-extended-command~ function (M-x).
@@ -482,9 +481,9 @@ The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" 
 
 *** Page-break Lines
 
-This is a neat little package that displays embedded ctrl-L characters
-as horizontal lines. This helps break up the file on the screen, not
-just when printed.
+This is a neat little package that displays embedded ctrl-L characters as
+horizontal lines. This helps break up the file on the screen, not just when
+printed.
 
 #+begin_src emacs-lisp
 (use-package page-break-lines :config (global-page-break-lines-mode))
@@ -492,8 +491,8 @@ just when printed.
 
 *** Better folding: Kirigami
 
-Kirigami provides code folding for buffers that don't use tree-sitter
-(where ~treesit-fold~ already handles folding).
+Kirigami provides code folding for buffers that don't use tree-sitter (where
+~treesit-fold~ already handles folding).
 
 #+BEGIN_COMMENT
 (use-package kirigami
@@ -1019,6 +1018,8 @@ in a GUI frame on OS X and Linux.
 
 See also function ~exec-path-from-shell-setenv~ to import other shell variables.
 
+This takes up >2 seconds on startup. I will investigate alternatives.
+
 #+begin_src emacs-lisp
 (use-package
  exec-path-from-shell
@@ -1083,26 +1084,29 @@ https://github.com/xenodium/agent-shell to find the right one for your agent.
 Integrate GitHub CoPilot AI. This doesn't use *~agent-shell~* but installs
 itself for code completion, etc.
 
+Sigh. It also takes a long time to startup, and can even freeze Emacs. Commented
+out for now; will try hooking up Codex using ACP instead.
+
 #+begin_src emacs-lisp
-(use-package
- copilot
- :hook (prog-mode . copilot-mode)
- :vc
- (:url
-  "https://github.com/copilot-emacs/copilot.el"
-  :rev
-  :newest
-  :branch "main")
- :bind
- (:map
-  copilot-completion-map
-  ("<tab>" . copilot-accept-completion)
-  ("TAB" . copilot-accept-completion)
-  ("C-<tab>" . copilot-accept-completion-by-word)
-  ("C-TAB" . copilot-accept-completion-by-word)
-  ("C-n" . copilot-next-completion)
-  ("C-p" . copilot-previous-completion))
- :custom (copilot-indent-offset-warning-disable t))
+  ;; (use-package
+  ;;  copilot
+  ;;  :hook (prog-mode . copilot-mode)
+  ;;  :vc
+  ;;  (:url
+  ;;   "https://github.com/copilot-emacs/copilot.el"
+  ;;   :rev
+  ;;   :newest
+  ;;   :branch "main")
+  ;;  :bind
+  ;;  (:map
+  ;;   copilot-completion-map
+  ;;   ("<tab>" . copilot-accept-completion)
+  ;;   ("TAB" . copilot-accept-completion)
+  ;;   ("C-<tab>" . copilot-accept-completion-by-word)
+  ;;   ("C-TAB" . copilot-accept-completion-by-word)
+  ;;   ("C-n" . copilot-next-completion)
+  ;;   ("C-p" . copilot-previous-completion))
+  ;;  :custom (copilot-indent-offset-warning-disable t))
 #+end_src
 
 ** End Of File

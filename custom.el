@@ -8,8 +8,6 @@
  '(casual-info-use-unicode-symbols t)
  '(casual-lib-use-unicode t)
  '(completion-auto-select 'second-tab)
- '(copilot-idle-delay 1)
- '(copilot-max-char-warning-disable t)
  '(create-lockfiles nil)
  '(css-indent-offset 2)
  '(cua-enable-cua-keys nil)
@@ -138,7 +136,7 @@
              ol-rmail ol-w3m))
  '(package-selected-packages
    '(agent-shell ai-code amx batppuccin buttercup claude-code claude-code-context
-                 cmake-ide cmake-mode cmake-project copilot docker
+                 cmake-ide cmake-mode cmake-project docker
                  docker-compose-mode dockerfile-mode eask-mode eldoc-eask
                  elisp-autofmt elisp-lint exec-path-from-shell flycheck-aspell
                  flycheck-eask folio-theme ido-completing-read+ kirigami
