@@ -418,13 +418,8 @@ Code installed on your system for this to work.
 
 ** Packages
 
-Eventual goal is to remove these from customization entirely, and use
-~use-package~ for all.
-
-NOTE: ~use-package~ is installed by ~init.el~.
-
-NOTE: The config variable ~use-package-always-ensure~ is set, so declarations
-without an ~:ensure~ keyword behave as those they had the value ~:ensure t~.
+~use-package~ is a nifty macro that combines package retrieval, installation,
+and configuration into one declaritive statement.
 
 *** EditorConfig
 
