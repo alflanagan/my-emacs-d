@@ -22,7 +22,7 @@
 ;;; Code:
 
 
-;;; Set up `use-package' package manager.
+;; Set up package management.
 
 ;; first we add melpa archive (use with caution!)
 (setq package-archives
@@ -30,15 +30,7 @@
         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
         ("melpa" . "https://melpa.org/packages/")))
 
-;;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-;; so I don't have to specify :ensure t on every call
-(require 'use-package-ensure)
-
+(require 'use-package) ;; now part of Emacs
 (setopt use-package-always-ensure t)
 
 ;; drop into error trace if use-package errors
@@ -50,11 +42,13 @@
    debug-on-error t))
 
 ;;; (Try to) Ensure the latest org-mode is installed
+;; TODO: set up custom keybinds for org commands (too many pkgs use "C-c" even
+;;       though that prefix is supposed to be reserved for user customization.
 (use-package
  org
  :pin "gnu"
- :bind
- (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
+;; :bind
+;; (("C-c l" . org-store-link) ("C-c a" . org-agenda) ("C-c c" . org-capture))
  :custom
  (org-adapt-indentation 'headline-data)
  (org-ctrl-k-protect-subtree t)
