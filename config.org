@@ -436,6 +436,14 @@ This sets up Emacs to get config settings from that file.
 (use-package editorconfig :config (editorconfig-mode 1))
 #+end_src
 
+*** Docker
+
+#+begin_src emacs-lisp
+(use-package docker :ensure t :bind ("C-c d" . docker))
+(use-package docker-compose-mode)
+(use-package dockerfile-mode)
+#+end_src
+
 *** Themes
 
 #+begin_src emacs-lisp
@@ -473,6 +481,20 @@ convenient.
 
 The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" to add features to the Emacs
 ~execute-extended-command~ function (M-x).
+
+Install ~ido-completing-read+~, an undeclared dependency of ~ido~.
+
+#+BEGIN_QUOTE
+This package replaces stock emacs completion with ido completion wherever it is
+possible to do so without breaking things (i.e. what you were probably hoping
+for when you set ido-everywhere to t).
+#+END_QUOTE
+
+#+begin_src emacs-lisp
+(use-package ido-completing-read+
+  :config
+    (ido-ubiquitous-mode 1))
+#+end_src
 
 #+begin_src emacs-lisp
 (use-package amx
@@ -739,27 +761,27 @@ Add some advice to the ~display-buffer~ function so that unexpected popups of
 messages or warning buffer will generate a backtrace for debugging.
 
 #+begin_src emacs-lisp
-  ;;  Assisted-By: Claude Sonnet 4.6.
-  (advice-add
-   'display-buffer
-   :before
-   (lambda (buf &rest _)
-     (let ((buff-name (buffer-name (get-buffer buf))))
-       (when (or (equal buff-name "*Messages*") (equal buff-name "*Warnings*"))
-         (message "display-buffer called for *Messages* from:")
-         (backtrace)))))
+;;  Assisted-By: Claude Sonnet 4.6.
+(advice-add
+ 'display-buffer
+ :before
+ (lambda (buf &rest _)
+   (let ((buff-name (buffer-name (get-buffer buf))))
+     (when (or (equal buff-name "*Messages*") (equal buff-name "*Warnings*"))
+       (message "display-buffer called for *Messages* from:")
+       (backtrace)))))
 #+end_src
 
 **** Terraform Suport
 
 #+begin_src emacs-lisp
-(use-package terraform-mode
-  :custom (terraform-indent-level 4)
-  :config
-  (defun my/terraform-mode-init ()
-    (outline-minor-mode 1)
-    )
-  :hook (terraform-mode . my/terraform-mode-init))
+(use-package
+ terraform-mode
+ :custom (terraform-indent-level 4)
+ :config
+ (defun my/terraform-mode-init ()
+   (outline-minor-mode 1))
+ :hook (terraform-mode . my/terraform-mode-init))
 #+end_src
 
 *** Zap Up To Char
@@ -874,6 +896,14 @@ lisp modes.
 
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters :hook prog-mode)
+#+end_src
+
+*** Mise
+
+#+begin_src emacs-lisp
+(use-package
+ mise-tasks
+ :vc (:url "https://github.com/klochowicz/mise-tasks.el" :rev :newest))
 #+end_src
 
 *** Language Server Protocol
