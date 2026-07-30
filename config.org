@@ -664,7 +664,9 @@ mode line space.
  flycheck
  :hook (after-init . global-flycheck-mode)
  :pin "nongnu"
- :config (add-to-list 'flycheck-checkers 'org-lint))
+ :config (add-to-list 'flycheck-checkers 'org-lint)
+ ;; errcheck and go build are causing errors in flycheck
+ :custom (flycheck-disabled-checkers '(go-errcheck go-build)))
 (use-package
  flycheck-aspell
  :after flycheck
