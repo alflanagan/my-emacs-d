@@ -387,7 +387,7 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  ;; rendering markdown files, with GitHub-flavored extensions. So I need to
  ;; tell markdown-ts-mode.
  (markdown-command
-  "cmark-gfm -e footnotes -e table -e strikethrough -e tasklist --table-prefer-style-attributes --github-pre-lang")
+  "cmark-gfm -e footnotes -e table -e strikethrough -e tasklist --table-prefer-style-attributes --github-pre-lang --unsafe")
 
  :hook (prog-mode . display-line-numbers-mode)
  ;; Treat CamelCaseSubWords as separate words in every programming mode.
@@ -1033,6 +1033,7 @@ Support for CMake build files and CMake-based C/C++ projects.
 auto-complete, company) by reading the project's
 ~compile_commands.json~.
 
+
 #+begin_src emacs-lisp
 (use-package cmake-ide :after cmake-mode :config (cmake-ide-setup))
 #+end_src
@@ -1043,16 +1044,15 @@ Gets path (and other variables) from shell and updates Emacs configuration.
 Without this, on MacOS, ~load-path~ gets set from the system default, *not* the
 user's environment.
 
+Because I use the [[https://github.com/d12frosted/homebrew-emacs-plus][emacs-plus-app]] homebrew recipe, the system environment is
+automatically injected. You only need this if you use something else.
+
 #+BEGIN_QUOTE
 This sets $MANPATH, $PATH and exec-path from your shell, but only when executed
 in a GUI frame on OS X and Linux.
 #+END_QUOTE
 
-See also function ~exec-path-from-shell-setenv~ to import other shell variables.
-
-This takes up >2 seconds on startup. I will investigate alternatives.
-
-#+begin_src emacs-lisp
+#+BEGIN_COMMENT
 (use-package
  exec-path-from-shell
  :config
@@ -1060,7 +1060,7 @@ This takes up >2 seconds on startup. I will investigate alternatives.
    (exec-path-from-shell-initialize)
    (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "LANG" "LC_CTYPE"))
      (add-to-list 'exec-path-from-shell-variables var))))
-#+end_src
+#+END_COMMENT
 
 *** XKCD
 
