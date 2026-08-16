@@ -46,6 +46,8 @@
 (setopt initial-frame-alist
         '((horizontal-scroll-bars)
           (vertical-scroll-bars)
+          (top . 60)
+          (left . 30)
           (width . 150)
           (height . 40)))
 
