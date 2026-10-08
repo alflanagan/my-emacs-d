@@ -2,6 +2,7 @@
 #+auto_export: html
 #+auto_tangle: t
 #+OPTIONS: toc:2
+#+PROPERTY: header-args:emacs-lisp :tangle config.el
 
 * Emacs Configuration
 
@@ -52,97 +53,6 @@ to this file also.
 
 #+end_src
 
-** Load Path
-
-In my local ~/lisp~ subdirectory, I've got some third-party projects
-which should be loaded from local files.
-
-#+begin_src emacs-lisp
-(add-to-list 'load-path (expand-file-name "my_emacs" user-emacs-directory))
-
-;; user-lisp-directory is a new feature, fallback when it's not present
-(unless (boundp 'user-lisp-directory)
-  (add-to-list
-   'load-path
-   (directory-file-name
-    (expand-file-name "my_emacs/lisp/org-contrib/lisp" user-emacs-directory))))
-
-;; I expected this to happen when I execute a function from the file, but it's
-;; not doing that?
-
-(require 'my-misc)
-#+end_src
-
-** Miscellaneous Optimizations
-
-A grab-bag of configuration options from various startup frameworks, collected
-together by [[https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/][Bozhidar Batsov]].
-
-Also see [Using use-package the Right
-Way](https://batsov.com/articles/2025/04/17/using-use-package-the-right-way/)
-for advice on setting up `use-package` to minimize startup time.
-
-*** Drop Left-to-Right Text
-
-Turn off the bidirectional algorithm. This optimizes text display and editing by
-telling emacs to assume text is left-to-right. Obviously, if you frequently work
-with right-to-left text, don't do this.
-
-#+begin_src emacs-lisp
-(setq-default
- bidi-display-reordering 'left-to-right
- bidi-paragraph-direction 'left-to-right)
-(setq bidi-inhibit-bpa t)
-#+end_src
-
-*** Smooth Input Experience
-
-Tell emacs not to do fontification (syntax highlighting) during input, which can
-make input slower. Emacs will wait for idle time to do fontification.
-
-#+begin_src emacs-lisp
-(setq redisplay-skip-fontification-on-input t)
-#+end_src
-
-*** Better Communication With External Processes
-
-From the blog entry:
-
-#+BEGIN_QUOTE
-The default *~read-process-output-max~* is 64KB, which is still quite
-conservative. Modern LSP servers like rust-analyzer or clangd routinely send
-multi-megabyte responses. Bumping this reduces the number of read calls Emacs
-has to make:
-#+END_QUOTE
-
-#+begin_src emacs-lisp
-(setq read-process-output-max (* 4 1024 1024)) ; 4MB
-#+end_src
-
-#+BEGIN_QUOTE
-If you have several windows visible, Emacs draws a cursor in each of them – even
-the ones you’re not working in. It also highlights selections in non-focused
-windows.
-#+END_QUOTE
-
-This behavior has miniscule performance impact, but some people find the phantom
-cursors annoying. I'm one of them.
-
-#+begin_src emacs-lisp
-(setq-default cursor-in-non-selected-windows nil)
-(setopt highlight-nonselected-windows nil)
-#+end_src
-
-*** Make Shell Scripts Executable
-
-Save a file with a shebang (*~#!~*), and Emacs *~chmod +x~*​es it for you. One of
-those things that should arguably be a default.
-
-**** TODO: for python mode, set exec if 'if __name__ === "main"' is present.
-
-#+begin_src emacs-lisp
-(add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
-#+end_src
 
 ** Clipboard Tweaks
 
@@ -169,21 +79,6 @@ before overwriting it:
 (setopt kill-do-not-save-duplicates t)
 #+end_src
 
-*** Save Kill Ring
-
-#+begin_src emacs-lisp
-(setopt savehist-additional-variables '(search-ring regexp-search-rhig kill-ring))
-#+end_src
-
-*** Sane Syntax in re-builder (Multiple Configs)
-
-Use reasonable syntax (instead of having to escape everything) for re-builder
-(M-x re-builder), an interactive tool for developing regular expressions.
-
-#+begin_src emacs-lisp
-(setopt reb-re-syntax 'string)
-#+end_src
-
 *** Fix find-file-at-point
 
 The *~ffap~* function is a.k.a. *~find-file-at-point~*, and I only use it for
@@ -192,28 +87,6 @@ so I turn it off.
 
 #+begin_src emacs-lisp
 (setopt ffap-machine-p-known 'reject)
-#+end_src
-
-*** Filter Completion Suggestions
-
-The default filter for M-x completion shows all commands, whether they apply to
-the current buffer or not. This setting tells it to filter out commands that
-have been delared to not apply to this buffer.
-
-- command-completion-default-include-p: filters commands declared to only apply
-  to modes that aren't enabled in the current buffer.
-
-- transient-command-completion-not-suffix-only-p: filters commands that have
-  been declared to only act as [[info:Transient][transient]] suffixes.
-
-#+begin_src emacs-lisp
-(defun my-completion-predicate (symbol buffer)
-  "Determine whether SYMBOL should be offered as a completion in BUFFER.
-This version filters out commands that don't apply to BUFFER or are transient suffixes."
-  (and (command-completion-default-include-p symbol buffer)
-       (transient-command-completion-not-suffix-only-p symbol buffer)))
-
-(setopt read-extended-command-predicate #'my-completion-predicate)
 #+end_src
 
 ** Easy Customization
@@ -227,8 +100,8 @@ package, but on-the-fly or local-only customizations will go to this file.
 (defun get-config-file (filename)
           "Returns FILENAME absolute path in the user's my_emacs directory."
           (expand-file-name filename
-                            (expand-file-name user-emacs-directory
-                                              "my_emacs/")))
+                            (expand-file-name "my_emacs/"
+                                              user-emacs-directory)))
 
 ;; custom-file is built-in global variable.
 (setq custom-file (get-config-file "custom.el"))
@@ -244,6 +117,18 @@ We need to add the *melpa* package source to ~package-archives~.
    ("melpa" . "https://melpa.org/packages/")))
 #+end_src
 
+** Load Path
+
+Emacs 31 adds ~my_emacs/lisp~ to ~load-path~ through ~user-lisp-directory~ (set
+in ~early-config.org~). Older versions need it added explicitly.
+
+#+begin_src emacs-lisp
+(when (< emacs-major-version 31)
+  (add-to-list 'load-path (expand-file-name "my_emacs/lisp" user-emacs-directory))
+  (add-to-list
+   'load-path (expand-file-name "my_emacs/lisp/org-contrib/lisp" user-emacs-directory)))
+#+end_src
+
 ** Secrets File
 
 This local file is for global variables with values which should not be checked
@@ -253,8 +138,10 @@ Mine defines a function ~define-secret-customizations~ which calls ~setopt~ to
 set customization options that should be secret.
 
 #+begin_src emacs-lisp
-(require 'my-secrets)
-(define-secret-customizations)
+(if (require 'my-secrets nil 'noerror)
+    (when (fboundp 'define-secret-customizations)
+      (define-secret-customizations))
+  (display-warning 'my-config "my-secrets.el not found on load-path" :warning))
 #+end_src
 
 ** Uniquify
@@ -328,7 +215,9 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (show-paren-mode t)
  (transient-mark-mode t) ;; visually highlight selected region
 
- (minibuffer-regexp-mode 1) ;; syntax highlighting for writing regexps
+ (when (>= emacs-major-version 30)
+   (minibuffer-regexp-mode 1) ;; syntax highlighting for writing regexps
+   (setopt project-mode-line t)) ;; show clickable project name in mode line
 
  :custom
  (ido-big-directories '("node_modules" "\\.?venv"))
@@ -337,6 +226,15 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (ido-use-filename-at-point nil)
  (ido-use-url-at-point t)
  (ido-use-virtual-buffers 'auto)
+ (ido-buffer-disable-smart-matches nil)
+ (ido-create-new-buffer 'always)
+ (ido-enable-dot-prefix t)
+ (ido-show-dot-for-dired t)
+ ;; JavaScript and CSS
+ (js-chain-indent t)
+ (js-enabled-frameworks '(javascript extjs))
+ (js-indent-level 2)
+ (css-indent-offset 2)
  ;; auto-save options
  (kill-buffer-delete-auto-save-files t)
  (delete-by-moving-to-trash t) ;; use system trash can for deleted files
@@ -351,6 +249,8 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  ;; it
 
  (warning-suppress-types '((files missing-lexbind-cookie)))
+ ;; log warnings to *Warnings*, but only pop up the buffer for errors
+ (warning-minimum-level :error)
 
  (server-log t)
  ;; use value of `truncate_lines' even in windows narrower than frame
@@ -365,7 +265,7 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (python-shell-exec-path '("./.venv/bin"))
  (python-interpreter "python3")
  (python-shell-interpreter "python3")
- (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to screen
+ (echo-keystrokes 0.1) ;; reduce lag in echo keystroke to sc28reen
  (fill-column 80)
  ;; use as much syntax highlighting as possible, by default
  (font-lock-maximum-decoration t)
@@ -377,8 +277,6 @@ We can use ~use-package~ to configure emacs itself as a 'pseudo-package'.
  (select-enable-clipboard t) ;; integrate emacs with system clipboard
  (select-enable-primary t)
  (selection-coding-system 'utf-8)
- ;; projects configuration
- (project-mode-line t) ;; show clickable project name in mode line
 
  ;; don't automatically double space after sentence end -- obsolete style
  (sentence-end-double-space nil)
@@ -400,14 +298,6 @@ Set up with my current programming font, Fira Code. You must have Fira
 Code installed on your system for this to work.
 
 #+begin_src emacs-lisp
-(use-package
- nerd-icons
- :custom
- ;; "Symbols Nerd Font Mono" is the default and is recommended
- (nerd-icons-font-family "FiraCode Nerd Font Mono"))
-#+end_src
-
-#+begin_src emacs-lisp
 ;;; interesting -- family is not checked for validity
 (set-face-attribute 'default nil
                     :family "FiraCode Nerd Font Mono"
@@ -415,10 +305,6 @@ Code installed on your system for this to work.
                     :weight 'normal
                     :slant 'normal
                     :width 'normal)
-#+end_src
-
-#+begin_src emacs-lisp
-(use-package fira-code-mode)
 #+end_src
 
 ** Packages
@@ -436,26 +322,16 @@ This sets up Emacs to get config settings from that file.
 (use-package editorconfig :config (editorconfig-mode 1))
 #+end_src
 
-*** Docker
-
-#+begin_src emacs-lisp
-(use-package docker :ensure t :bind ("C-c d" . docker))
-(use-package docker-compose-mode)
-(use-package dockerfile-mode)
-#+end_src
-
 *** Themes
 
 #+begin_src emacs-lisp
-(use-package
- batppuccin
- :vc (:url "https://github.com/bbatsov/batppuccin-emacs" :rev :newest)
- :config (load-theme 'batppuccin-latte t))
-
-(use-package
- folio-theme
- :vc (:url "https://github.com/kn66/folio-theme.el" :rev :newest)
- :config (load-theme 'folio t))
+;; :vc needs Emacs 30. `eval' keeps Emacs 29 from expanding (and rejecting) it.
+(when (>= emacs-major-version 30)
+  (eval '(use-package
+          batppuccin
+          :vc (:url "https://github.com/bbatsov/batppuccin-emacs" :rev :newest)
+          :config (load-theme 'batppuccin-latte t))
+        t))
 #+end_src
 
 *** Better Mode Line
@@ -466,9 +342,6 @@ and smart truncation.
 
 #+begin_src emacs-lisp
 (use-package smart-mode-line :config (sml/setup))
-(use-package
- smart-mode-line-powerline-theme
- :config (sml/apply-theme 'powerline))
 #+end_src
 
 *** Ido and amx
@@ -478,9 +351,6 @@ There are (at least) three major emacs packages to enable auto-completion:
 modifies emacs commands to use ivy. However, it looks not to be actively
 maintained, and I've come to prefer "ido". It's builtin to Emacs, which is
 convenient.
-
-The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" to add features to the Emacs
-~execute-extended-command~ function (M-x).
 
 Install ~ido-completing-read+~, an undeclared dependency of ~ido~.
 
@@ -496,34 +366,13 @@ for when you set ido-everywhere to t).
     (ido-ubiquitous-mode 1))
 #+end_src
 
+The [[https://github.com/DarwinAwardWinner/amx]["amx" package]] leverages "ido" to add features to the Emacs
+~execute-extended-command~ function (M-x).
+
 #+begin_src emacs-lisp
 (use-package amx
     :config (amx-mode 1))
 #+end_src
-
-*** Page-break Lines
-
-This is a neat little package that displays embedded ctrl-L characters as
-horizontal lines. This helps break up the file on the screen, not just when
-printed.
-
-#+begin_src emacs-lisp
-(use-package page-break-lines :config (global-page-break-lines-mode))
-#+end_src
-
-*** Better folding: Kirigami
-
-Kirigami provides code folding for buffers that don't use tree-sitter (where
-~treesit-fold~ already handles folding).
-
-#+BEGIN_COMMENT
-(use-package kirigami
-  :custom
-  ;; Add Kirigami to the menu bar and context menu (`context-menu-mode').
-  (kirigami-show-menu-bar t)
-  (kirigami-show-context-menu t)
-  :hook (after-init . (lambda () (kirigami-global-mode t))))
-#+END_COMMENT
 
 *** Clean up Whitespace
 
@@ -532,32 +381,6 @@ lines.
 
 #+begin_src emacs-lisp
 (use-package whitespace-cleanup-mode :config (global-whitespace-cleanup-mode 1))
-#+end_src
-
-*** Which-key
-
-Displays available key bindings in a popup after pressing a prefix key. Built-in
-as of Emacs 30.
-
-#+begin_src emacs-lisp
-(if (< emacs-major-version 30)
-    (use-package
-     which-key
-     :ensure nil ;; defer to built-in
-     :config (which-key-mode))
-  (use-package which-key :config (which-key-mode)))
-#+end_src
-
-*** Magit
-
-Magit is a package to provide a git interface inside of Emacs. It relies on
-a version of ~transient~ more recent than the built-in one, so we add an explicit
-~use-package~ call for it.
-
-#+begin_src emacs-lisp
-(use-package transient :pin "melpa" :defer t)
-
-(use-package magit :defines magit-auto-revert-mode :defer t)
 #+end_src
 
 *** Treemacs
@@ -569,6 +392,7 @@ the gory details.
 (use-package
  treemacs
  :defer nil
+
  :init
  (require 'cua-base)
  (with-eval-after-load 'winum
@@ -582,17 +406,20 @@ the gory details.
  ;; including ones not currently visible in the buffer.  When the callback
  ;; tries to annotate a path whose project node doesn't exist in the buffer,
  ;; treemacs-project->position receives nil and crashes.  Guard against that.
- (with-eval-after-load 'treemacs-git-commit-diff
+ (with-eval-after-load 'treemacs-git-commit-diff-mode
    (advice-add
     'treemacs-apply-single-annotation
     :before-while (lambda (path) (treemacs-is-path path :in-workspace))))
- (treemacs-start-on-boot)
- :custom
- (treemacs-project-follow-mode t)
- (treemacs-filewatch-mode t)
- (treemacs-is-never-other-window t)
+ (treemacs-project-follow-mode 1)
+ (treemacs-filewatch-mode 1)
  ;; follow mode makes it difficult to find file that are not on-screen
- (treemacs-follow-mode nil)
+ (treemacs-follow-mode -1)
+ ;; init.el loads this file inside `save-window-excursion', which would close a
+ ;; sidebar opened now; open it once startup is finished instead.
+ (add-hook 'emacs-startup-hook #'treemacs-start-on-boot)
+
+ :custom
+ (treemacs-is-never-other-window t)
  (treemacs-follow-after-init nil)
 
  :bind
@@ -608,17 +435,6 @@ the gory details.
  ("C-x t M-t" . treemacs-find-tag))
 #+end_src
 
-**** Treemacs-icons-dired
-
-Treemacs icons for Dired.  Code is based on all-the-icons-dired.el
-
-#+begin_src emacs-lisp
-(use-package
- treemacs-icons-dired
- :after (treemacs)
- :hook (dired-mode . treemacs-icons-dired-enable-once))
-#+end_src
-
 *** Treesit
 
 Set up to use tree-sitter modes automatically, where one exists.
@@ -629,19 +445,23 @@ Set up to use tree-sitter modes automatically, where one exists.
 #+begin_src emacs-lisp
 (use-package
  treesit-auto
- :custom (treesit-auto-install 'prompt)
+ :custom
+ (treesit-auto-install 'prompt)
+ (treesit-font-lock-level 4) ;; most detailed tree-sitter highlighting
  :config
  (treesit-auto-add-to-auto-mode-alist 'all)
  (global-treesit-auto-mode))
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package
- treesit-fold
- :defer t
- :vc
- (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest)
- :custom (global-treesit-fold-indicators-mode t))
+;; :vc needs Emacs 30. `eval' keeps Emacs 29 from expanding (and rejecting) it.
+(when (>= emacs-major-version 30)
+  (eval '(use-package
+          treesit-fold
+          :vc
+          (:url "https://github.com/emacs-tree-sitter/treesit-fold" :rev :newest)
+          :config (global-treesit-fold-indicators-mode 1))
+        t))
 #+end_src
 
 *** Flycheck
@@ -666,24 +486,17 @@ mode line space.
  :pin "nongnu"
  :config (add-to-list 'flycheck-checkers 'org-lint)
  ;; errcheck and go build are causing errors in flycheck
- :custom (flycheck-disabled-checkers '(go-errcheck go-build)))
-(use-package
- flycheck-aspell
- :after flycheck
- :config
- (add-to-list 'flycheck-checkers 'markdown-aspell-dynamic)
- (add-to-list 'flycheck-checkers 'html-aspell-dynamic)
- (add-to-list 'flycheck-checkers 'xml-aspell-dynamic)
- (add-to-list 'flycheck-checkers 'c-aspell-dynamic)
- (add-to-list 'flycheck-checkers 'mail-aspell-dynamic)
- (add-to-list 'flycheck-checkers 'nroff-aspell-dynamic)
- (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
- (add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic))
+ :custom
+ (flycheck-disabled-checkers '(go-errcheck go-build))
+ ;; *scratch* has no file, so Emacs 30+ never trusts it and Flycheck can't check
+ ;; it; skip lisp-interaction-mode instead of showing a "no checker" message.
+ (flycheck-global-modes '(not lisp-interaction-mode))
+ (flycheck-markdown-markdownlint-cli-config
+  '(".markdownlint.json" ".markdownlint.jsonc" ".markdownlint.yaml"
+    ".markdownlint"))
+ (flycheck-python-ruff-executable "/opt/homebrew/bin/ruff")
+ (flycheck-rubocop-lint-only t))
 (use-package flycheck-pos-tip :after flycheck :config (flycheck-pos-tip-mode))
-(use-package
- flycheck-status-emoji
- :after flycheck
- :custom (flycheck-status-emoji-mode t))
 #+end_src
 
 *** Programming Languages
@@ -740,39 +553,6 @@ command works great on code embedded in .org files.
   (("C-c r" . elisp-autofmt-region))))
 #+end_src
 
-***** Testing
-
-#+begin_src emacs-lisp
-(use-package buttercup :defer t)
-#+end_src
-
-***** Emacs Packages
-
-These are some tools for use in developing Emacs packages. Unless you're doing
-that, you don't need them.
-
-#+begin_src emacs-lisp
-(use-package eask-mode :defer t)
-(use-package eldoc-eask :defer t)
-(use-package flycheck-eask :defer t)
-#+end_src
-
-***** Elisp Debugging
-
-Add some advice to the ~display-buffer~ function so that unexpected popups of
-messages or warning buffer will generate a backtrace for debugging.
-
-#+begin_src emacs-lisp
-;;  Assisted-By: Claude Sonnet 4.6.
-(advice-add
- 'display-buffer
- :before
- (lambda (buf &rest _)
-   (let ((buff-name (buffer-name (get-buffer buf))))
-     (when (or (equal buff-name "*Messages*") (equal buff-name "*Warnings*"))
-       (message "display-buffer called for *Messages* from:")
-       (backtrace)))))
-#+end_src
 
 **** Terraform Suport
 
@@ -827,36 +607,11 @@ over 20 templating languages, including Jinja. There's also a mode called
 *** Shell Scripts
 
 #+begin_src emacs-lisp
-(use-package shfmt :bind (:map sh-mode-map ("C-c C-f" . shfmt)) :defer t)
-#+end_src
-
-*** Mermaid Diagrams
-
-**** TODO: clone mermaid-mode repo locally and fix outstanding problems
-
-For now I'm using the tree-sitter mode, but the treesitter parser is incomplete
-and looking for a new maintainer:
-https://github.com/monaqa/tree-sitter-mermaid/issues/13#issuecomment-3569113794.
-
-There's also a plain ~mermaid-mode~, but it overrides ob-mermaid poorly:
-see https://github.com/abrochard/mermaid-mode/issues/17.
-
-#+begin_src emacs-lisp
 (use-package
- mermaid-ts-mode
- :defer t
- :vc
- (:url
-  "https://github.com/JonathanHope/mermaid-ts-mode.git"
-  :branch "main"
-  :rev
-  :newest
-  :main-file "mermaid-ts-mode.el"))
-
-(use-package
- ob-mermaid
- :config (add-to-list 'org-babel-load-languages '(mermaid . t))
- :after org)
+ shfmt
+ :after sh-script
+ :bind
+ (:map sh-mode-map ("C-c C-f" . shfmt) :map bash-ts-mode-map ("C-c C-f" . shfmt)))
 #+end_src
 
 *** Code Formatters
@@ -867,18 +622,8 @@ Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
 (use-package
  prettier
  :defer t
- :hook (js-mode typescript-ts-mode css-mode web-mode html-mode)
- :custom (prettier-js-command "prettier"))
-#+end_src
-
-*** Terminal
-
-#+begin_src emacs-lisp
-(use-package
- vterm
- :defer t
- :commands vterm
- :custom (vterm-max-scrollback 10000))
+ :hook
+ (js-mode js-ts-mode typescript-ts-mode css-mode css-ts-mode web-mode html-mode))
 #+end_src
 
 *** Visual Tweaks
@@ -886,10 +631,13 @@ Run [[https://prettier.io/][Prettier]] on web-related buffers on save.
 Briefly highlights the new window when you switch windows.
 
 #+begin_src emacs-lisp
-(use-package
- winpulse
- :vc (:url "https://github.com/xenodium/winpulse" :rev :newest)
- :config (winpulse-mode +1))
+;; :vc needs Emacs 30. `eval' keeps Emacs 29 from expanding (and rejecting) it.
+(when (>= emacs-major-version 30)
+  (eval '(use-package
+          winpulse
+          :vc (:url "https://github.com/xenodium/winpulse" :rev :newest)
+          :config (winpulse-mode +1))
+        t))
 #+end_src
 
 This is a nifty package that colors nested delimiters according to their nesting
@@ -898,14 +646,6 @@ lisp modes.
 
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters :hook prog-mode)
-#+end_src
-
-*** Mise
-
-#+begin_src emacs-lisp
-(use-package
- mise-tasks
- :vc (:url "https://github.com/klochowicz/mise-tasks.el" :rev :newest))
 #+end_src
 
 *** Language Server Protocol
@@ -935,8 +675,26 @@ package to integrate the information into the ~treemacs~ sidebar also.
  :defer t
  :commands lsp
  ;; these are the LSP servers I have right now. Customize this for your setup!
- :hook ((sh-mode dockerfile-ts-mode sql-mode typescript-ts-mode) . 'lsp-deferred)
- :custom (lsp-enable-snippet nil) (lsp-warn-no-matched-clients nil))
+ :hook
+ ((sh-mode bash-ts-mode dockerfile-ts-mode sql-mode typescript-ts-mode) . 'lsp-deferred)
+ :custom
+ (lsp-enable-snippet nil)
+ (lsp-warn-no-matched-clients nil)
+ (lsp-bash-allowed-shells '(sh bash zsh))
+ (lsp-javascript-format-enable nil)
+ (lsp-pylsp-plugins-isort-enabled t)
+ (lsp-pylsp-plugins-preload-modules [])
+ (lsp-pylsp-plugins-ruff-enabled t)
+ (lsp-pylsp-plugins-ruff-exclude [])
+ (lsp-pylsp-plugins-ruff-extend-ignore [])
+ (lsp-pylsp-plugins-ruff-format [])
+ (lsp-pylsp-plugins-ruff-ignore [])
+ (lsp-pylsp-plugins-ruff-select [])
+ (lsp-pylsp-server-command '("uv" "run" "pylsp"))
+ (lsp-rubocop-use-bundler t)
+ (lsp-ruby-lsp-use-bundler t)
+ (lsp-typescript-format-enable nil)
+ (lsp-typescript-tsserver-trace "messages"))
 
 (use-package lsp-treemacs :after (lsp-mode treemacs))
 #+end_src
@@ -950,7 +708,7 @@ correctly.
 **** Add Markdown as an Export Format
 
 #+begin_src emacs-lisp
-(use-package ox-gfm :defer t :after org)
+(use-package ox-gfm :after org)
 #+end_src
 
 **** Support Syntax Highlighting in Export
@@ -973,43 +731,11 @@ correctly.
   :hook (org-mode . org-autoexport-mode))
 #+end_src
 
-**** Modern Theme
-
 A much more visually appealing mode for editing .org files.
 
 #+begin_src emacs-lisp
 (use-package org-modern :config (global-org-modern-mode))
 #+end_src
-
-And setup org indentation to work nicely with ~org-modern-mode~.
-
-#+begin_src emacs-lisp
-(use-package
- org-modern-indent
- :vc (:url "https://github.com/jdtsmith/org-modern-indent" :rev :newest)
- :hook org-mode
- :config
- (add-hook 'org-mode-hook #'org-modern-indent-mode 90) ; add late to hook
- (add-to-list 'org-indent-post-buffer-init-functions #'org-modern-indent-init)
- :after org-modern)
-#+end_src
-
-And a nicer setup for exporting .org files to HTML.
-
-#+begin_src emacs-lisp
-(use-package
- nice-org-html
- :hook (org-mode . nice-org-html-mode)
- :custom
- (nice-org-html-theme-alist
-  '((light . solo-jazz) (dark . tomorrow-night-eighties)))
- (nice-org-html-default-mode 'light) (nice-org-html-headline-bullets t))
-#+end_src
-
-*** Vulpea (Notes)
-
-This section _was_ used to set up vulpea, a notes/journaling system. I wasn't
-using and it was causing bugs in unrelated modules.
 
 *** CMake
 
@@ -1038,107 +764,12 @@ auto-complete, company) by reading the project's
 (use-package cmake-ide :after cmake-mode :config (cmake-ide-setup))
 #+end_src
 
-*** Exec-path-from-shell
-
-Gets path (and other variables) from shell and updates Emacs configuration.
-Without this, on MacOS, ~load-path~ gets set from the system default, *not* the
-user's environment.
-
-Because I use the [[https://github.com/d12frosted/homebrew-emacs-plus][emacs-plus-app]] homebrew recipe, the system environment is
-automatically injected. You only need this if you use something else.
-
-#+BEGIN_QUOTE
-This sets $MANPATH, $PATH and exec-path from your shell, but only when executed
-in a GUI frame on OS X and Linux.
-#+END_QUOTE
-
-#+BEGIN_COMMENT
-(use-package
- exec-path-from-shell
- :config
- (when (memq window-system '(mac ns x))
-   (exec-path-from-shell-initialize)
-   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "LANG" "LC_CTYPE"))
-     (add-to-list 'exec-path-from-shell-variables var))))
-#+END_COMMENT
-
 *** XKCD
 
 The best web comic ever, available right in the editor.
 
 #+begin_src emacs-lisp
 (use-package xkcd :defer t)
-#+end_src
-
-*** AI Integration
-
-These packages integrate AI agents generally, and Claude in particular, with
-emacs. Note: the package *~gptel~* looks promising, but in my tests I ran into
-problems.
-
-To use *~agent-shell~* with Claude requires the claude-agent-acp package from
-npm, install it with:
-
-#+begin_src shell
-  npm install -g @agentclientprotocol/claude-agent-acp
-#+end_src
-
-Similarly, for OpenAI’s Codex
-
-#+begin_src shell
-  npm install -g @agentclientprotocol/codex-acp
-#+end_src
-
-and ensure the codex-acp executable is in PATH.
-
-There are a *lot* of other ACP implementations, so for any other agent check
-https://github.com/xenodium/agent-shell to find the right one for your agent.
-
-#+begin_src emacs-lisp
-(use-package
- agent-shell
- ;; got this from docs: but agent-shell-make-environment-variables does not exist. Arrggg.
- ;; :config
- ;; (agent-shell-anthropic-claude-environment
- ;;  (agent-shell-make-environment-variables :inherit-env t)))
- )
-
-(use-package
- ai-code
- :config (ai-code-set-backend 'claude-code)
- :bind
- ;; the suggested default, "C-c a", is used by org-agenda.
- ("C-c i" . #'ai-code-menu))
-#+end_src
-
-*** GitHub CoPilot
-
-Integrate GitHub CoPilot AI. This doesn't use *~agent-shell~* but installs
-itself for code completion, etc.
-
-Sigh. It also takes a long time to startup, and can even freeze Emacs. Commented
-out for now; will try hooking up Codex using ACP instead.
-
-#+begin_src emacs-lisp
-  ;; (use-package
-  ;;  copilot
-  ;;  :hook (prog-mode . copilot-mode)
-  ;;  :vc
-  ;;  (:url
-  ;;   "https://github.com/copilot-emacs/copilot.el"
-  ;;   :rev
-  ;;   :newest
-  ;;   :branch "main")
-  ;;  :bind
-  ;;  (:map
-  ;;   copilot-completion-map
-  ;;   ("<tab>" . copilot-accept-completion)
-  ;;   ("TAB" . copilot-accept-completion)
-  ;;   ("C-<tab>" . copilot-accept-completion-by-word)
-  ;;   ("C-TAB" . copilot-accept-completion-by-word)
-  ;;   ("C-n" . copilot-next-completion)
-  ;;   ("C-p" . copilot-previous-completion))
-  ;;  :custom (copilot-indent-offset-warning-disable t))
 #+end_src
 
 ** End Of File

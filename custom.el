@@ -5,13 +5,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(amx-backend 'ido)
- '(casual-info-use-unicode-symbols t)
- '(casual-lib-use-unicode t)
  '(completion-auto-select 'second-tab)
  '(create-lockfiles nil)
- '(css-indent-offset 2)
  '(cua-enable-cua-keys nil)
- '(custom-enabled-themes '(smart-mode-line-dark wombat))
  '(custom-safe-themes
    '("b0cedf3c6d8fbbf65934e2045dddacff0a031992f2f389215adcb0ca741347c3"
      "95cda51cb6a3fdf667a7710cf85cd67726440e556b91a316ebc5197f077903bb"
@@ -35,41 +31,6 @@
      "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279"
      "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(display-fill-column-indicator t)
- '(dockerfile-use-buildkit t)
- '(flycheck-checkers
-   '(ada-gnat asciidoctor asciidoc awk-gawk bazel-build-buildifier
-              bazel-module-buildifier bazel-starlark-buildifier
-              bazel-workspace-buildifier c/c++-clang c/c++-gcc c/c++-cppcheck
-              cfengine coffee coffee-coffeelint css-csslint css-stylelint
-              cuda-nvcc cwl d-dmd dockerfile-hadolint elixir-credo emacs-lisp
-              emacs-lisp-checkdoc ember-template erlang-rebar3 erlang
-              eruby-erubis eruby-ruumba fortran-gfortran go-gofmt go-vet
-              go-build go-test go-errcheck go-unconvert go-staticcheck groovy
-              haml haml-lint handlebars haskell-stack-ghc haskell-ghc
-              haskell-hlint html-tidy javascript-eslint javascript-jshint
-              javascript-standard json-jsonlint json-python-json json-jq jsonnet
-              less less-stylelint llvm-llc lua-luacheck lua
-              markdown-markdownlint-cli markdown-mdl markdown-pymarkdown nix
-              nix-linter opam perl perl-perlcritic php php-phpmd php-phpcs
-              php-phpcs-changed processing proselint protobuf-protoc
-              protobuf-prototool pug puppet-parser puppet-lint python-flake8
-              python-ruff python-pylint python-pycompile python-pyright
-              python-mypy r-lintr racket rpm-rpmlint rst-sphinx rst ruby-rubocop
-              ruby-chef-cookstyle ruby-standard ruby-reek ruby ruby-jruby
-              rust-cargo rust rust-clippy scala scala-scalastyle scheme-chicken
-              scss-lint sass-stylelint scss-stylelint sass/scss-sass-lint sass
-              scss sh-bash sh-posix-dash sh-posix-bash sh-zsh sh-shellcheck slim
-              slim-lint sql-sqlint statix systemd-analyze tcl-nagelfar terraform
-              terraform-tflint tex-chktex tex-lacheck texinfo textlint
-              typescript-tslint verilog-verilator vhdl-ghdl xml-xmlstarlet
-              xml-xmllint yaml-yamllint yaml-actionlint yaml-jsyaml yaml-ruby))
- '(flycheck-markdown-markdownlint-cli-config
-   '(".markdownlint.json" ".markdownlint.jsonc" ".markdownlint.yaml"
-     ".markdownlint"))
- '(flycheck-python-ruff-executable "/opt/homebrew/bin/ruff")
- '(flycheck-rubocop-lint-only t)
- '(global-highlight-parentheses-mode t)
- '(global-tree-sitter-mode t)
  '(global-treesit-auto-modes
    '(yaml-mode yaml-ts-mode wgsl-mode wgsl-ts-mode wat-mode wat-ts-mode wat-mode
                wat-ts-wast-mode vue-mode vue-ts-mode vhdl-mode vhdl-ts-mode
@@ -94,61 +55,25 @@
                csharp-mode csharp-ts-mode c-mode c-ts-mode blueprint-mode
                blueprint-ts-mode bibtex-mode bibtex-ts-mode sh-mode bash-ts-mode
                awk-mode awk-ts-mode))
- '(highlight-parentheses-colors '("#7ec98f" "#e5c06d" "#a4b5e6" "#834c98" "#8ac6f2"))
- '(ido-buffer-disable-smart-matches nil)
- '(ido-create-new-buffer 'always)
- '(ido-enable-dot-prefix t)
- '(ido-show-dot-for-dired t)
- '(indent-tabs-mode nil nil nil "Customized with use-package emacs")
  '(initial-buffer-choice t)
- '(js-chain-indent t)
- '(js-enabled-frameworks '(javascript extjs))
- '(js-indent-level 2)
- '(kill-buffer-delete-auto-save-files t nil nil "Customized with use-package emacs")
- '(kill-do-not-save-duplicates t)
  '(kill-read-only-ok t)
  '(kill-ring-max 256)
  '(kill-whole-line nil)
- '(lsp-bash-allowed-shells '(sh bash zsh))
- '(lsp-javascript-format-enable nil)
- '(lsp-pylsp-plugins-isort-enabled t)
- '(lsp-pylsp-plugins-preload-modules [])
- '(lsp-pylsp-plugins-ruff-enabled t)
- '(lsp-pylsp-plugins-ruff-exclude [])
- '(lsp-pylsp-plugins-ruff-extend-ignore [])
- '(lsp-pylsp-plugins-ruff-format [])
- '(lsp-pylsp-plugins-ruff-ignore [])
- '(lsp-pylsp-plugins-ruff-select [])
- '(lsp-pylsp-server-command '("uv run pylsp"))
- '(lsp-rubocop-use-bundler t)
- '(lsp-ruby-lsp-use-bundler t)
- '(lsp-typescript-format-enable nil)
- '(lsp-typescript-tsserver-trace "messages")
- '(major-mode-remap-alist
-   '((css-mode . css-ts-mode) (js-json-mode . json-ts-mode) (go-mode . go-ts-mode)
-     (c-mode . c-ts-mode) (c++-mode . c++-ts-mode) (rust . rust-ts-mode)
-     (cmake-mode . cmake-ts-mode) (python-mode . python-ts-mode)
-     (ruby-mode . ruby-ts-mode)))
  '(markdown-ts-inline-images t)
  '(mode-require-final-newline 'visit-save)
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-gnus ol-info ol-irc ol-mhe
              ol-rmail ol-w3m))
  '(package-selected-packages
-   '(agent-shell ai-code amx batppuccin buttercup claude-code claude-code-context
-                 cmake-ide cmake-mode cmake-project docker
-                 docker-compose-mode dockerfile-mode eask-mode eldoc-eask
-                 elisp-autofmt elisp-lint exec-path-from-shell flycheck-aspell
-                 flycheck-eask folio-theme ido-completing-read+ kirigami
-                 lsp-treemacs magit mermaid-ts-mode mise-tasks nerd-icons
-                 nice-org-html ob-mermaid org-auto-tangle org-autoexport
-                 org-modern org-modern-indent ox-gfm page-break-lines prettier
-                 rainbow-delimiters shfmt smart-mode-line-powerline-theme
-                 terraform-mode treemacs-icons-dired treesit-auto treesit-fold
-                 uv-mode vterm web-mode whitespace-cleanup-mode winpulse xkcd))
+   '(amx batppuccin cmake-ide cmake-mode cmake-project elisp-autofmt elisp-lint
+         flycheck-pos-tip htmlize ido-completing-read+ lsp-treemacs
+         org-auto-tangle org-autoexport org-modern ox-gfm prettier
+         rainbow-delimiters shfmt terraform-mode treesit-auto treesit-fold
+         uv-mode web-mode whitespace-cleanup-mode winpulse xkcd))
  '(safe-local-variable-values
-   '((web-mode-indent-style . 2) (web-mode-block-padding . 2)
-     (web-mode-script-padding . 2) (web-mode-style-padding . 2)
+   '((dockerfile-image-name . "backend") (web-mode-indent-style . 2)
+     (web-mode-block-padding . 2) (web-mode-script-padding . 2)
+     (web-mode-style-padding . 2)
      (eval add-hook 'after-save-hook #'org-babel-tangle nil t)
      (org-todo-keywords quote
                         ((sequence "TODO" "IN PROGRESS" "DEFERRED" "ON HOLD"
