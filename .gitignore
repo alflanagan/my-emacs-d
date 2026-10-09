@@ -20,3 +20,5 @@ settings.local.json
 my-temp.sh
 # Apple data storage of some sort.
 .DS_Store
+dr_atomic_config.org
+massive.config.org
